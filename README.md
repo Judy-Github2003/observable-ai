@@ -30,7 +30,7 @@ V1 是“教师写操作、学生执行”。V2 开始让教师**只给逐条标
 | 公开开发 | 30 个世界：30/30 规则等价，新对象预测 200/200，平均查询 1.47 |
 | 独立闭卷 | **not_run**（等待外部审查者） |
 
-入口：`logic.discovery.DiscoveryCliKt`；说明见 [V2 实验说明](./experiments/rule-discovery-v1/README.md)，接口见 [CONTRACT](./experiments/rule-discovery-v1/CONTRACT.md)。
+入口：`logic.discovery.DiscoveryCliKt`；说明见 [V2 实验说明](./experiments/rule-discovery-v1/README.md)，接口见 [CONTRACT](./experiments/rule-discovery-v1/CONTRACT.md)，[工作报告](./experiments/rule-discovery-v1/reports/V2-WORKLOG.md)，[待解决问题](./experiments/rule-discovery-v1/OPEN-ISSUES.md)。
 
 ---
 
@@ -166,7 +166,12 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 
 [MIT](./LICENSE)。Copyright (c) 2026 Observable Learner contributors.
 
-## 致谢
+## 致谢与真实分工
 
 - 教师角色：本机 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) Agent。
-- 实现与审计分工：DeepSeek Harness 负责批量课程实现；Codex 负责早期 V0/V1、接口集成、独立抽查与报告校验。真实署名保留在源码与规则目录中。
+- 早期 V0/V1、课 1/2：Codex（上一阶段，OpenAI）。
+- 学前 24 课批量实现：本地 DeepSeek Harness 会话。
+- 首考执行、抽查复验、报告校验、开源整理、V2：**本会话 DeepSeek Harness**。
+- `codex_spotcheck.py` 由 Codex 编写；本会话执行，并修正 1 处夹具前提（对象缺 `name` 不是非法世界）。
+
+**独立闭卷尚未执行。** 同模型、不同会话不构成第三方验证；闭卷状态在报告中固定为 `not_run`，等待外部审查者。
