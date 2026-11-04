@@ -33,7 +33,7 @@
 python tools/capability_b0_benchmark.py   # not_implemented（M5）
 ```
 
-测试：`CapabilityM1Test`（参考 7 项）+ `CapabilityM1ChecklistTest`（补 10 项）；全套 **44/44**。
+测试：`CapabilityM1Test`（参考 7 项）+ `CapabilityM1ChecklistTest`（补 14 项）；全套 **48/48**。
 
 ## 边界
 

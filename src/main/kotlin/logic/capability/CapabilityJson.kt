@@ -10,12 +10,16 @@ class CapIrParseException(val code: String, message: String = code) : IllegalArg
 object CapabilityJson {
     private val parser = Json { isLenient = false }
 
-    fun decode(text: String): Expr = try {
-        node(parser.parseToJsonElement(text), 0)
-    } catch (error: CapIrParseException) {
+    fun decode(text: String): Expr {
+        if (text.toByteArray(Charsets.UTF_8).size > MAX_JSON_BYTES) throw CapIrParseException("json_too_large")
+        val counter = intArrayOf(0)
+        return try {
+            node(parser.parseToJsonElement(text), 0, counter)
+        } catch (error: CapIrParseException) {
         throw error
     } catch (error: Exception) {
-        throw CapIrParseException("invalid_json_or_ast", error.message ?: "bad JSON")
+            throw CapIrParseException("invalid_json_or_ast", error.message ?: "bad JSON")
+        }
     }
 
     fun canonical(text: String): String = CanonicalJson.expr(decode(text))
@@ -53,17 +57,20 @@ object CapabilityJson {
         if (str(o, "kind") != "Record") throw CapIrParseException("not_implemented_type")
         val fields = obj(o.getValue("fields"))
         if (fields.isEmpty()) throw CapIrParseException("empty_record_schema")
+        if (fields.size > MAX_RECORD_FIELDS) throw CapIrParseException("record_field_limit")
         return CapType.Record(fields.entries.sortedBy { it.key }.associate { (k, v) ->
             if (k.isBlank()) throw CapIrParseException("invalid_field")
             k to type(v, depth + 1)
         })
     }
 
-    private fun node(e: JsonElement, depth: Int): Expr {
+    private fun node(e: JsonElement, depth: Int, counter: IntArray): Expr {
         if (depth > 32) throw CapIrParseException("ast_depth_limit")
+        counter[0]++
+        if (counter[0] > MAX_AST_NODES) throw CapIrParseException("ast_node_limit")
         val o = obj(e)
         val op = str(o, "op")
-        fun child(name: String) = node(o[name] ?: throw CapIrParseException("missing_node"), depth + 1)
+        fun child(name: String) = node(o[name] ?: throw CapIrParseException("missing_node"), depth + 1, counter)
         return when (op) {
             "arg" -> {
                 keys(o, "op", "name", "type")
@@ -102,7 +109,7 @@ object CapabilityJson {
                 val hash = str(o, "body_hash")
                 if (!Regex("[0-9a-f]{64}").matches(hash)) throw CapIrParseException("invalid_body_hash")
                 Expr.Call(str(o, "id"), version(o), hash,
-                    args.entries.sortedBy { it.key }.associate { (k, v) -> k to node(v, depth + 1) })
+                    args.entries.sortedBy { it.key }.associate { (k, v) -> k to node(v, depth + 1, counter) })
             }
             else -> throw CapIrParseException("unknown_op")
         }

@@ -8,6 +8,7 @@ data class TypeCheckResult(val ok: Boolean, val code: String? = null)
 
 class CapabilityTypeChecker(private val resolver: CapabilityResolver) {
     fun check(def: CapabilityDefinition): TypeCheckResult = try {
+        if (countNodes(def.body) > MAX_AST_NODES) fail("ast_node_limit")
         checkDefinition(def, mutableSetOf(), 0)
         TypeCheckResult(true)
     } catch (e: CapabilityCheckException) {
@@ -75,7 +76,15 @@ class CapabilityTypeChecker(private val resolver: CapabilityResolver) {
             is Expr.Ref -> locals[e.name] ?: fail("unbound_ref")
             is Expr.Call -> {
                 val target = resolver.resolve(e.id, e.version) ?: fail("missing_dependency")
-                if (target.contentHash() != e.bodyHash) fail("dependency_hash_mismatch")
+                // 2026-11-04 审查修正：先确保被调定义可规范化，再比对 hash；不可规范化统一报结构化错误。
+                val targetHash = try {
+                    target.contentHash()
+                } catch (_: IllegalStateException) {
+                    fail("invalid_dependency_definition")
+                } catch (_: IllegalArgumentException) {
+                    fail("invalid_dependency_definition")
+                }
+                if (targetHash != e.bodyHash) fail("dependency_hash_mismatch")
                 if (target.inputs.keys != e.args.keys) fail("call_argument_mismatch")
                 for ((name, argument) in e.args) {
                     if (child(argument) != target.inputs[name]) fail("call_argument_type_mismatch")

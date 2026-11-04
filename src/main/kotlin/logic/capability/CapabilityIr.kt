@@ -5,6 +5,29 @@ package logic.capability
 import java.security.MessageDigest
 
 const val IR_SEMANTICS_VERSION = "cap-ir-v1"
+const val MAX_AST_NODES = 10_000
+const val MAX_JSON_BYTES = 1_048_576
+const val MAX_RECORD_FIELDS = 256
+
+fun countNodes(root: Expr): Int {
+    var count = 0
+    fun walk(e: Expr) {
+        count++
+        when (e) {
+            is Expr.Arg, is Expr.Const, is Expr.Ref -> Unit
+            is Expr.Field -> walk(e.record)
+            is Expr.Eq -> { walk(e.left); walk(e.right) }
+            is Expr.And -> { walk(e.left); walk(e.right) }
+            is Expr.Or -> { walk(e.left); walk(e.right) }
+            is Expr.Not -> walk(e.value)
+            is Expr.If -> { walk(e.condition); walk(e.whenTrue); walk(e.whenFalse) }
+            is Expr.Let -> { walk(e.value); walk(e.body) }
+            is Expr.Call -> e.args.values.forEach(::walk)
+        }
+    }
+    walk(root)
+    return count
+}
 
 sealed interface CapType {
     data object Bool3 : CapType

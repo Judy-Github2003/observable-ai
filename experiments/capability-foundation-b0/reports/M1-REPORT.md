@@ -3,7 +3,7 @@
 ```text
 commit:              见本次提交（M1）+ a9276f8（M0）
 old_regression:      27/27（V1 11 + V2 16）
-new_tests:           17（参考 7 + 清单补 10）
+new_tests:           21（参考 7 + 清单补 14）
 IR/types:            11 节点；Bool3/String/Int64/Record；List/Optional not_implemented
 composer:            not_implemented
 registry:            not_implemented
@@ -49,9 +49,10 @@ independent_closed_book: not_run
 
 ## 3. 测试结果
 
-- `./gradlew.bat --offline --no-daemon test`：**44/44**，0 失败。
+- `./gradlew.bat --offline --no-daemon test`：**48/48**，0 失败。
 - 旧 V1/V2：27/27 未变。
-- M1 测试：17 项（`CapabilityM1Test` 7 + `CapabilityM1ChecklistTest` 10）。
+- M1 测试：21 项（`CapabilityM1Test` 7 + `CapabilityM1ChecklistTest` 14）。
+- IDEA MCP 额外检查：`lint_files` 0 错、`build_project` 成功（非独立验证，仅辅助）。
 
 ## 4. 已知缺口
 
@@ -66,3 +67,15 @@ independent_closed_book: not_run
 - 用固定 commit 检查 11 节点语义与 T01–T17；
 - 构造循环依赖场景（可替换 resolver）；
 - 确认 M1 成绩只代表内核正确，不代表学习或压缩能力。
+
+## 6. 外部审查修订（2026-11-04）
+
+| 意见 | 处理 |
+|---|---|
+| P0 不可信 callee 可能抛未封装异常 | `Call` 先验证定义可规范化，再比对 hash；不可规范化 → `invalid_dependency_definition` |
+| P1 Record 缺字段语义 | 明确：缺字段是合法部分输入，读取返回 Unknown；类型错误/多余字段 → `input_type_mismatch` |
+| P1 静态校验资源限额 | JSON 1 MiB、AST 节点 10,000、Record 字段 256，均有测试 |
+| P1 文件级 JSON roundtrip | 三份 examples 已做解析→规范化→再解析稳定性测试 |
+| 错误优先级 | 已写入 DECISIONS |
+
+新增测试：invalid callee、Record 三种输入、超限 JSON/字段/节点、examples roundtrip。

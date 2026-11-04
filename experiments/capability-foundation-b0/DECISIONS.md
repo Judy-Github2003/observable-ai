@@ -26,3 +26,10 @@
 
 - M2 注册表、M3 Composer、M4 压缩、M5 基准、M6 交接均 **not_implemented**。
 - 独立闭卷 **not_run**。
+
+## 外部审查后的补充（2026-11-04）
+
+- **P0 修复**：`Call` 先对被调定义做可规范化检查，再比对 hash；不可规范化（如 Record 常量）返回 `invalid_dependency_definition`，不再让 `IllegalStateException` 逃逸。错误优先级：`missing_dependency` → `invalid_dependency_definition` → `dependency_hash_mismatch` → callee 类型检查。
+- **Record 输入语义**：允许缺字段（读取时 `Unknown(missing_attribute)`）；字段类型错误或出现 schema 外字段 → `input_type_mismatch`。
+- **资源上限**：JSON 1 MiB（`json_too_large`）、AST 节点 10,000（`ast_node_limit`）、Record 字段 256（`record_field_limit`）；静态检查也计节点数。
+- **例子 roundtrip**：三份 JSON 做“解析→规范化→再解析”稳定性测试；不要求与缩进文本逐字相等。

@@ -1,7 +1,9 @@
-﻿// 本文件实现：DeepSeek Harness（本会话），2026-11-04。
+// 本文件实现：DeepSeek Harness（本会话），2026-11-04。
 // 原因：补齐 B0 M1 验收清单 M1-T01–T17 中参考测试未覆盖的边界；参考骨架由 ChatGPT 提供。
 package logic.capability
 
+import java.nio.file.Files
+import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -129,6 +131,68 @@ class CapabilityM1ChecklistTest {
             def(bad), mapOf("item" to EvalResult.Known(CapValue.Rec(emptyMap()))),
         )
         assertEquals(EvalResult.Error("eq_type_mismatch"), result)
+    }
+
+    @Test
+    fun `invalid callee is rejected without throwing`() {
+        val bad = CapabilityDefinition(
+            id = "bad", version = 1, inputs = emptyMap(),
+            output = CapType.Bool3,
+            body = Expr.Const(CapValue.Rec(emptyMap())),
+        )
+        val caller = CapabilityDefinition(
+            id = "caller", version = 1, inputs = emptyMap(),
+            output = CapType.Bool3,
+            body = Expr.Call("bad", 1, "0".repeat(64), emptyMap()),
+        )
+        val result = CapabilityTypeChecker(InMemoryResolver(listOf(bad))).check(caller)
+        assertFalse(result.ok)
+        assertEquals("invalid_dependency_definition", result.code)
+    }
+
+    @Test
+    fun `record input allows missing fields but rejects wrong or extra fields`() {
+        val resolver = InMemoryResolver()
+        val interpreter = CapabilityInterpreter(resolver)
+        val partial = interpreter.execute(
+            def(red), mapOf("item" to EvalResult.Known(CapValue.Rec(emptyMap()))),
+        )
+        assertTrue(partial is EvalResult.Unknown, "缺字段必须是 Unknown，不能是 false")
+
+        val wrongType = interpreter.execute(
+            def(red), mapOf("item" to EvalResult.Known(CapValue.Rec(mapOf("color" to CapValue.I64(3))))),
+        )
+        assertEquals(EvalResult.Error("input_type_mismatch"), wrongType)
+
+        val extraField = interpreter.execute(
+            def(red), mapOf("item" to EvalResult.Known(CapValue.Rec(mapOf("other" to CapValue.Str("x"))))),
+        )
+        assertEquals(EvalResult.Error("input_type_mismatch"), extraField)
+    }
+
+    @Test
+    fun `input limits reject oversized json record and node count`() {
+        val huge = """{"op":"const","type":"String","value":"${"x".repeat(1_100_000)}"}"""
+        assertEquals("json_too_large", assertFailsWith<CapIrParseException> { CapabilityJson.decode(huge) }.code)
+
+        val fields = (0 until 257).joinToString(",") { """"f$it":"String"""" }
+        val wide = """{"op":"arg","name":"x","type":{"kind":"Record","fields":{$fields}}}"""
+        assertEquals("record_field_limit", assertFailsWith<CapIrParseException> { CapabilityJson.decode(wide) }.code)
+
+        var level: List<Expr> = List(8192) { Expr.Const(CapValue.Bool(true)) }
+        while (level.size > 1) level = level.chunked(2).map { if (it.size == 2) Expr.And(it[0], it[1]) else it[0] }
+        assertEquals("ast_node_limit", checker().check(def(level[0])).code)
+    }
+
+    @Test
+    fun `example json files roundtrip to canonical form`() {
+        val base = Path.of("experiments/capability-foundation-b0/examples")
+        for (name in listOf("single_cond.json", "double_and.json", "pinned_call.json")) {
+            val text = Files.readString(base.resolve(name), Charsets.UTF_8).trim()
+            val canonical = CapabilityJson.canonical(text)
+            // 例子文件是缩进 JSON；roundtrip 验证“解析→规范化→再解析”稳定，而不是要求文本逐字相等。
+            assertEquals(canonical, CapabilityJson.canonical(canonical), "roundtrip mismatch: $name")
+        }
     }
 }
 
