@@ -1,0 +1,1019 @@
+{
+  "audit_version": "external-blackbox-v1",
+  "independent_oracle": true,
+  "test_source": "external script, not repository generator",
+  "repo_commit": "157ec07ff040204b33425d95a88b9d4086502edd",
+  "seed": 874267,
+  "budget": 14,
+  "protocol": {
+    "start_status": "ok",
+    "unselected_observe_status": "error",
+    "unselected_observe_reason": "no_pending_query",
+    "before_reset_evidence": 2,
+    "after_reset_evidence": 2,
+    "history_reset": false
+  },
+  "by_cell": [
+    {
+      "kind": "in",
+      "query_pool_fraction": 1.0,
+      "worlds": 6,
+      "promoted": 6,
+      "wrong_promotion": 0,
+      "missed_promotion": 0,
+      "correct_predictions": 79,
+      "wrong_predictions": 0,
+      "unknown_predictions": 0,
+      "total_queries": 12
+    },
+    {
+      "kind": "in",
+      "query_pool_fraction": 0.6,
+      "worlds": 6,
+      "promoted": 2,
+      "wrong_promotion": 0,
+      "missed_promotion": 0,
+      "correct_predictions": 30,
+      "wrong_predictions": 0,
+      "unknown_predictions": 0,
+      "total_queries": 7
+    },
+    {
+      "kind": "in",
+      "query_pool_fraction": 0.3,
+      "worlds": 6,
+      "promoted": 1,
+      "wrong_promotion": 0,
+      "missed_promotion": 0,
+      "correct_predictions": 4,
+      "wrong_predictions": 0,
+      "unknown_predictions": 0,
+      "total_queries": 6
+    },
+    {
+      "kind": "out",
+      "query_pool_fraction": 1.0,
+      "worlds": 6,
+      "promoted": 6,
+      "wrong_promotion": 6,
+      "missed_promotion": 0,
+      "correct_predictions": 36,
+      "wrong_predictions": 13,
+      "unknown_predictions": 0,
+      "total_queries": 7
+    },
+    {
+      "kind": "out",
+      "query_pool_fraction": 0.6,
+      "worlds": 6,
+      "promoted": 5,
+      "wrong_promotion": 5,
+      "missed_promotion": 0,
+      "correct_predictions": 65,
+      "wrong_predictions": 16,
+      "unknown_predictions": 0,
+      "total_queries": 9
+    },
+    {
+      "kind": "out",
+      "query_pool_fraction": 0.3,
+      "worlds": 6,
+      "promoted": 5,
+      "wrong_promotion": 5,
+      "missed_promotion": 0,
+      "correct_predictions": 82,
+      "wrong_predictions": 23,
+      "unknown_predictions": 0,
+      "total_queries": 11
+    }
+  ],
+  "student_exit_code": 0,
+  "stderr_tail": "",
+  "worlds": [
+    {
+      "world_id": "world-5d29dd28061978",
+      "kind": "in",
+      "fraction": 1.0,
+      "domain_size": 9,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 9,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-5d29dd28061978-003",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-5d29dd28061978-006",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-662ad2ac42e062",
+      "kind": "in",
+      "fraction": 1.0,
+      "domain_size": 4,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 4,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-662ad2ac42e062-003",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-812d41b73691ad",
+      "kind": "in",
+      "fraction": 1.0,
+      "domain_size": 18,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 18,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-812d41b73691ad-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-c41e40dfdf22ab",
+      "kind": "in",
+      "fraction": 1.0,
+      "domain_size": 12,
+      "queries": 3,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 12,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 5,
+      "trace": [
+        {
+          "chosen": "holdout-c41e40dfdf22ab-003",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-c41e40dfdf22ab-005",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-c41e40dfdf22ab-006",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-12fdd05bfd5d8c",
+      "kind": "in",
+      "fraction": 1.0,
+      "domain_size": 18,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 18,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-12fdd05bfd5d8c-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-12fdd05bfd5d8c-009",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-0791a95d7ce2b3",
+      "kind": "in",
+      "fraction": 1.0,
+      "domain_size": 18,
+      "queries": 3,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 18,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 5,
+      "trace": [
+        {
+          "chosen": "holdout-0791a95d7ce2b3-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-0791a95d7ce2b3-005",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-0791a95d7ce2b3-009",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-8ea4448f1c9c6e",
+      "kind": "in",
+      "fraction": 0.6,
+      "domain_size": 12,
+      "queries": 1,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-8ea4448f1c9c6e-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-1f749fcf8c0972",
+      "kind": "in",
+      "fraction": 0.6,
+      "domain_size": 18,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 18,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-1f749fcf8c0972-005",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-1f749fcf8c0972-007",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-81cd31e50ff829",
+      "kind": "in",
+      "fraction": 0.6,
+      "domain_size": 6,
+      "queries": 1,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-81cd31e50ff829-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-ed450f523d8880",
+      "kind": "in",
+      "fraction": 0.6,
+      "domain_size": 6,
+      "queries": 1,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-ed450f523d8880-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-3d5f6d11d006c6",
+      "kind": "in",
+      "fraction": 0.6,
+      "domain_size": 9,
+      "queries": 0,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 2,
+      "trace": []
+    },
+    {
+      "world_id": "world-100130fbed7429",
+      "kind": "in",
+      "fraction": 0.6,
+      "domain_size": 12,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 12,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-100130fbed7429-005",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-100130fbed7429-006",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-4ed6dfe221b04b",
+      "kind": "in",
+      "fraction": 0.3,
+      "domain_size": 12,
+      "queries": 1,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-4ed6dfe221b04b-003",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-6d4c4dd19ea376",
+      "kind": "in",
+      "fraction": 0.3,
+      "domain_size": 4,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 4,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-6d4c4dd19ea376-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-c06e09574ed293",
+      "kind": "in",
+      "fraction": 0.3,
+      "domain_size": 12,
+      "queries": 2,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-c06e09574ed293-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-c06e09574ed293-004",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-c6f2e44f719232",
+      "kind": "in",
+      "fraction": 0.3,
+      "domain_size": 18,
+      "queries": 1,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-c6f2e44f719232-005",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-21fe0785c042e9",
+      "kind": "in",
+      "fraction": 0.3,
+      "domain_size": 4,
+      "queries": 0,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 2,
+      "trace": []
+    },
+    {
+      "world_id": "world-4333415d591131",
+      "kind": "in",
+      "fraction": 0.3,
+      "domain_size": 12,
+      "queries": 1,
+      "candidate_classes": 3,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-4333415d591131-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-53d765c53b186a",
+      "kind": "out",
+      "fraction": 1.0,
+      "domain_size": 6,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 5,
+      "wrong": 1,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-53d765c53b186a-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-be6e10e7730af6",
+      "kind": "out",
+      "fraction": 1.0,
+      "domain_size": 18,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 12,
+      "wrong": 6,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-be6e10e7730af6-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-be6e10e7730af6-003",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-b3b73b3b2d4bf6",
+      "kind": "out",
+      "fraction": 1.0,
+      "domain_size": 6,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 4,
+      "wrong": 2,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-b3b73b3b2d4bf6-003",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-57ede0efad0bc1",
+      "kind": "out",
+      "fraction": 1.0,
+      "domain_size": 4,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 3,
+      "wrong": 1,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-57ede0efad0bc1-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-b029c67b77e747",
+      "kind": "out",
+      "fraction": 1.0,
+      "domain_size": 9,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 7,
+      "wrong": 2,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-b029c67b77e747-003",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-b42a13fd7912a1",
+      "kind": "out",
+      "fraction": 1.0,
+      "domain_size": 6,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 5,
+      "wrong": 1,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-b42a13fd7912a1-003",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-fb95714c511ad2",
+      "kind": "out",
+      "fraction": 0.6,
+      "domain_size": 9,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 7,
+      "wrong": 2,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-fb95714c511ad2-004",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-4b65b7264f3aa4",
+      "kind": "out",
+      "fraction": 0.6,
+      "domain_size": 18,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 15,
+      "wrong": 3,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-4b65b7264f3aa4-005",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-4b65b7264f3aa4-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-967b280f6cbc0d",
+      "kind": "out",
+      "fraction": 0.6,
+      "domain_size": 6,
+      "queries": 0,
+      "candidate_classes": 2,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 2,
+      "trace": []
+    },
+    {
+      "world_id": "world-a1b8707fe32876",
+      "kind": "out",
+      "fraction": 0.6,
+      "domain_size": 18,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 15,
+      "wrong": 3,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-a1b8707fe32876-003",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-a1b8707fe32876-004",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-6f0b5c9d62597c",
+      "kind": "out",
+      "fraction": 0.6,
+      "domain_size": 27,
+      "queries": 3,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 21,
+      "wrong": 6,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 5,
+      "trace": [
+        {
+          "chosen": "holdout-6f0b5c9d62597c-004",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-6f0b5c9d62597c-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-6f0b5c9d62597c-013",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-53328826f08c1e",
+      "kind": "out",
+      "fraction": 0.6,
+      "domain_size": 9,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 7,
+      "wrong": 2,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-53328826f08c1e-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-b5d1b9769a313e",
+      "kind": "out",
+      "fraction": 0.3,
+      "domain_size": 27,
+      "queries": 3,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 21,
+      "wrong": 6,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 5,
+      "trace": [
+        {
+          "chosen": "holdout-b5d1b9769a313e-003",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-b5d1b9769a313e-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-b5d1b9769a313e-007",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-2619cb2b76c577",
+      "kind": "out",
+      "fraction": 0.3,
+      "domain_size": 6,
+      "queries": 1,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 5,
+      "wrong": 1,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-2619cb2b76c577-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-81ca1f254b81de",
+      "kind": "out",
+      "fraction": 0.3,
+      "domain_size": 27,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 21,
+      "wrong": 6,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-81ca1f254b81de-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-81ca1f254b81de-005",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-558d129af9c6ef",
+      "kind": "out",
+      "fraction": 0.3,
+      "domain_size": 27,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 21,
+      "wrong": 6,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-558d129af9c6ef-005",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-558d129af9c6ef-006",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-23fca2e47d2df3",
+      "kind": "out",
+      "fraction": 0.3,
+      "domain_size": 12,
+      "queries": 1,
+      "candidate_classes": 3,
+      "oracle_identifiable": false,
+      "promoted": false,
+      "final_status": "unknown",
+      "final_reason": "insufficient_evidence",
+      "correct": 0,
+      "wrong": 0,
+      "unknown": 0,
+      "wrong_promotion": false,
+      "missed_promotion": false,
+      "observed_count": 3,
+      "trace": [
+        {
+          "chosen": "holdout-23fca2e47d2df3-002",
+          "observe_status": "ok"
+        }
+      ]
+    },
+    {
+      "world_id": "world-953eb019afc853",
+      "kind": "out",
+      "fraction": 0.3,
+      "domain_size": 18,
+      "queries": 2,
+      "candidate_classes": 1,
+      "oracle_identifiable": true,
+      "promoted": true,
+      "final_status": "ok",
+      "final_reason": null,
+      "correct": 14,
+      "wrong": 4,
+      "unknown": 0,
+      "wrong_promotion": true,
+      "missed_promotion": false,
+      "observed_count": 4,
+      "trace": [
+        {
+          "chosen": "holdout-953eb019afc853-002",
+          "observe_status": "ok"
+        },
+        {
+          "chosen": "holdout-953eb019afc853-005",
+          "observe_status": "ok"
+        }
+      ]
+    }
+  ]
+}
