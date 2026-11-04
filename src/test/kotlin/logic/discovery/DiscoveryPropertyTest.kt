@@ -64,4 +64,13 @@ class DiscoveryPropertyTest {
         )
         assertEquals(listOf("A"), ConsistencyEngine.conflictingObjects(observations))
     }
+
+    @Test
+    fun `promoted rule json round trip keeps domain size`() {
+        val promoted = PromotedRule("id-1", Rule(listOf(Clause("字段", "值"))), listOf("e-1"), "2026-11-04", 12)
+        val restored = PromotedRule.fromJson(promoted.toJson())
+        assertEquals("id-1", restored.ruleId)
+        assertEquals(12, restored.domainSize, "domain_size 不能在反序列化时丢失")
+        assertEquals(promoted.rule.hash(), restored.rule.hash())
+    }
 }

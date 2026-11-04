@@ -41,6 +41,15 @@ internal class DiscoveryStore(stateDir: Path) {
         }
     }
 
+    /** 显式重置：把旧 state 移到同目录归档文件，保留历史，不直接删除。 */
+    fun archive(worldId: String): String? {
+        val file = stateFile(worldId)
+        if (!Files.isRegularFile(file)) return null
+        val target = file.resolveSibling("state.archive-${System.currentTimeMillis()}.json")
+        Files.move(file, target, StandardCopyOption.REPLACE_EXISTING)
+        return target.fileName.toString()
+    }
+
     fun appendEvent(event: JsonObject) {
         synchronized(lock) {
             Files.createDirectories(root)

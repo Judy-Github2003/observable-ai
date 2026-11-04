@@ -7,6 +7,10 @@ import kotlinx.serialization.json.*
 import java.nio.file.Files
 import java.nio.file.Path
 
+private const val MAX_FIELDS = 8
+private const val MAX_DOMAIN = 4096L
+private const val MAX_CANDIDATES = 4096
+
 internal class DiscoveryService(stateDir: Path) {
     private val store = DiscoveryStore(stateDir)
     private val audit = DiscoveryAudit(store)
@@ -23,6 +27,8 @@ internal class DiscoveryService(stateDir: Path) {
                 "discovery.hypotheses" -> hypotheses(worldId, trace)
                 "discovery.next_query" -> nextQuery(worldId, taskId, trace)
                 "discovery.observe" -> observe(worldId, taskId, trace, args)
+                "discovery.teach" -> teach(worldId, taskId, trace, args)
+                "discovery.reset" -> reset(worldId, taskId, trace, args)
                 "discovery.finalize" -> finalize(worldId, taskId, trace)
                 "discovery.predict" -> predict(worldId, taskId, trace, args)
                 "discovery.status" -> status(worldId, trace)
@@ -38,6 +44,10 @@ internal class DiscoveryService(stateDir: Path) {
     // ---------- discovery.start ----------
 
     private fun start(worldId: String, taskId: String?, trace: String, args: JsonObject): OpResult {
+        // 2026-11-04 审查修正：同一 world_id 不允许静默覆盖既有学习历史；重置必须显式走 discovery.reset。
+        if (store.load(worldId) != null) {
+            return errorResult(trace, "world_already_initialized") { put("world_id", worldId) }
+        }
         val schemaJson = args["feature_schema"]?.requireObject("args.feature_schema")
             ?: throw DiscoveryInputException("args.feature_schema 缺失")
         val schema = LinkedHashMap<String, List<String>>()
@@ -49,6 +59,25 @@ internal class DiscoveryService(stateDir: Path) {
             schema[field] = values
         }
         if (schema.isEmpty()) throw DiscoveryInputException("feature_schema 不能为空")
+
+        // 2026-11-04 审查修正：先给可测资源上限，避免有限域穷举和候选枚举无界膨胀。
+        var domainProduct = 1L
+        for (values in schema.values) {
+            if (domainProduct > MAX_DOMAIN) break
+            domainProduct *= values.size
+        }
+        var candidateCount = schema.values.sumOf { it.size }
+        val fields = schema.keys.toList()
+        for (i in fields.indices) for (j in i + 1 until fields.size) {
+            candidateCount += schema.getValue(fields[i]).size * schema.getValue(fields[j]).size
+        }
+        if (schema.size > MAX_FIELDS || domainProduct > MAX_DOMAIN || candidateCount > MAX_CANDIDATES) {
+            return errorResult(trace, "hypothesis_space_too_large") {
+                put("fields", schema.size)
+                put("domain_product", domainProduct)
+                put("candidate_count", candidateCount)
+            }
+        }
 
         val objects = LinkedHashMap<String, LinkedHashMap<String, String>>()
 
@@ -84,31 +113,38 @@ internal class DiscoveryService(stateDir: Path) {
             poolIds += id
         }
 
-        val state = LearningState(worldId, schema, objects, poolIds, mutableListOf(), mutableListOf(), null)
+        val state = LearningState(worldId, schema, objects, poolIds, mutableListOf(), mutableListOf(), null, null)
         val allCandidates = HypothesisGenerator.generate(schema)
+        audit.record("hypotheses_generated", worldId, taskId, trace, HypothesisGenerator.setHash(allCandidates)) {
+            put("count", allCandidates.size)
+        }
+        // 2026-11-04 审查修正：每条初始样本都按 before/after 写独立淘汰事件，不能只给最终 hash。
         for (observation in examples) {
             val before = ConsistencyEngine.surviving(allCandidates, state)
             state.observations += observation
             val after = ConsistencyEngine.surviving(allCandidates, state)
-            state.eliminations += ConsistencyEngine.eliminations(before, after, observation, objects)
-        }
-        store.save(state)
-
-        val surviving = ConsistencyEngine.surviving(allCandidates, state)
-        audit.record("hypotheses_generated", worldId, taskId, trace, HypothesisGenerator.setHash(allCandidates)) {
-            put("count", allCandidates.size)
-            put("surviving", surviving.size)
-        }
-        for (observation in examples) {
-            audit.record(
-                "observation_received", worldId, taskId, trace, HypothesisGenerator.setHash(surviving),
-                evidenceIds = listOf(observation.evidenceId),
-            ) {
+            val eliminated = ConsistencyEngine.eliminations(before, after, observation, objects)
+            state.eliminations += eliminated
+            val afterHash = HypothesisGenerator.setHash(after)
+            audit.record("observation_received", worldId, taskId, trace, afterHash,
+                evidenceIds = listOf(observation.evidenceId)) {
                 put("object_id", observation.objectId)
                 put("label", observation.label)
                 put("source", observation.source)
+                put("candidate_count", after.size)
+            }
+            for (item in eliminated) {
+                audit.record("hypothesis_eliminated", worldId, taskId, trace, afterHash,
+                    evidenceIds = listOf(item.evidenceId)) {
+                    put("rule_hash", item.ruleHash)
+                    put("rule", item.ruleText)
+                    put("predicted", item.predicted)
+                    put("observed", item.observed)
+                }
             }
         }
+        store.save(state)
+        val surviving = ConsistencyEngine.surviving(allCandidates, state)
         return okResult(trace) {
             put("state", "initialized")
             put("candidate_count", allCandidates.size)
@@ -150,7 +186,7 @@ internal class DiscoveryService(stateDir: Path) {
         }
         val all = HypothesisGenerator.generate(state.schema)
         val surviving = ConsistencyEngine.surviving(all, state)
-        if (surviving.isEmpty()) return conflictResult(trace, "contradictory_evidence")
+        if (surviving.isEmpty()) return unknownResult(trace, "hypothesis_space_exhausted")
         val choice = QueryPlanner.choose(surviving, state)
             ?: return unknownResult(trace, "no_discriminating_query") {
                 put("candidate_count", surviving.size)
@@ -167,6 +203,8 @@ internal class DiscoveryService(stateDir: Path) {
                 }
             }
         }
+        state.pending = PendingQuery(choice.objectId, nowIso())
+        store.save(state)
         return okResult(trace) {
             put("object_id", choice.objectId)
             put("score", choice.score)
@@ -182,12 +220,36 @@ internal class DiscoveryService(stateDir: Path) {
 
     // ---------- discovery.observe ----------
 
-    private fun observe(worldId: String, taskId: String?, trace: String, args: JsonObject): OpResult {
+    private fun observe(worldId: String, taskId: String?, trace: String, args: JsonObject): OpResult =
+        recordObservation(worldId, taskId, trace, args, requirePending = true, source = "teacher_oracle")
+
+    /** 教师显式讲授：不要求 pending_query，但来源单独记为 teacher_teaching，不能混作学生主动查询。 */
+    private fun teach(worldId: String, taskId: String?, trace: String, args: JsonObject): OpResult =
+        recordObservation(worldId, taskId, trace, args, requirePending = false, source = "teacher_teaching")
+
+    private fun recordObservation(
+        worldId: String,
+        taskId: String?,
+        trace: String,
+        args: JsonObject,
+        requirePending: Boolean,
+        source: String,
+    ): OpResult {
         val state = load(worldId)
         val objectId = args.requireString("object_id", "args")
         val label = args.requireBoolean("label", "args")
         val evidenceId = args.requireString("evidence_id", "args")
         if (!state.objects.containsKey(objectId)) throw DiscoveryInputException("对象不存在：$objectId")
+        // 2026-11-04 审查修正：observe 必须绑定 next_query 选中的对象，防止调用方绕过主动查询直接喂标签。
+        if (requirePending) {
+            val pending = state.pending
+            if (pending == null || pending.objectId != objectId) {
+                return errorResult(trace, "no_pending_query") {
+                    put("object_id", objectId)
+                    put("pending_object", pending?.objectId ?: "")
+                }
+            }
+        }
         if (state.observations.any { it.evidenceId == evidenceId }) {
             throw DiscoveryInputException("evidence_id 重复：$evidenceId")
         }
@@ -201,13 +263,14 @@ internal class DiscoveryService(stateDir: Path) {
 
         val all = HypothesisGenerator.generate(state.schema)
         val before = ConsistencyEngine.surviving(all, state)
-        val observation = Observation(objectId, label, evidenceId, "teacher_oracle", nowIso())
+        val observation = Observation(objectId, label, evidenceId, source, nowIso())
         state.observations += observation
         val after = ConsistencyEngine.surviving(all, state)
         val eliminated = ConsistencyEngine.eliminations(before, after, observation, state.objects)
 
         if (existing.any { it.label != label }) {
             // 同一对象出现互斥标签：保留双方，规则不得晋升。
+            if (requirePending) state.pending = null
             store.save(state)
             audit.record("observation_received", worldId, taskId, trace, HypothesisGenerator.setHash(after),
                 evidenceIds = listOf(evidenceId)) {
@@ -223,6 +286,7 @@ internal class DiscoveryService(stateDir: Path) {
         }
 
         state.eliminations += eliminated
+        if (requirePending) state.pending = null
         store.save(state)
         audit.record("observation_received", worldId, taskId, trace, HypothesisGenerator.setHash(after),
             evidenceIds = listOf(evidenceId)) {
@@ -246,6 +310,22 @@ internal class DiscoveryService(stateDir: Path) {
         }
     }
 
+    // ---------- discovery.reset ----------
+
+    private fun reset(worldId: String, taskId: String?, trace: String, args: JsonObject): OpResult {
+        if (args.optionalString("confirm") != "reset") {
+            throw DiscoveryInputException("重置需要 args.confirm=reset")
+        }
+        val archived = store.archive(worldId)
+        audit.record("world_reset", worldId, taskId, trace, "") {
+            put("archived", archived ?: "")
+        }
+        return okResult(trace) {
+            put("status", "reset")
+            put("archived", archived ?: "")
+        }
+    }
+
     // ---------- discovery.finalize ----------
 
     private fun finalize(worldId: String, taskId: String?, trace: String): OpResult {
@@ -266,7 +346,7 @@ internal class DiscoveryService(stateDir: Path) {
         }
         val all = HypothesisGenerator.generate(state.schema)
         val surviving = ConsistencyEngine.surviving(all, state)
-        if (surviving.isEmpty()) return conflictResult(trace, "contradictory_evidence")
+        if (surviving.isEmpty()) return unknownResult(trace, "hypothesis_space_exhausted")
 
         val hasPositive = state.observations.any { it.label }
         val hasNegative = state.observations.any { !it.label }

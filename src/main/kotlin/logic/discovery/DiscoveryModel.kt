@@ -195,7 +195,21 @@ internal data class PromotedRule(
             Rule.fromJson(obj["rule"]?.requireObject("promoted.rule") ?: throw DiscoveryInputException("promoted.rule 缺失")),
             obj["evidence_ids"]?.requireStringList("promoted.evidence_ids") ?: emptyList(),
             obj.optionalString("promoted_at") ?: "",
-            0,
+            (obj["domain_size"] as? JsonPrimitive)?.intOrNull ?: 0,
+        )
+    }
+}
+
+internal data class PendingQuery(val objectId: String, val issuedAt: String) {
+    fun toJson(): JsonObject = buildJsonObject {
+        put("object_id", objectId)
+        put("issued_at", issuedAt)
+    }
+
+    companion object {
+        fun fromJson(obj: JsonObject): PendingQuery = PendingQuery(
+            obj.requireString("object_id", "pending"),
+            obj.optionalString("issued_at") ?: "",
         )
     }
 }
@@ -208,6 +222,7 @@ internal data class LearningState(
     val observations: MutableList<Observation>,
     val eliminations: MutableList<Elimination>,
     var promoted: PromotedRule?,
+    var pending: PendingQuery?,
 ) {
     val fieldOrder: List<String> get() = schema.keys.toList()
 
@@ -228,6 +243,7 @@ internal data class LearningState(
         putJsonArray("eliminations") { eliminations.forEach { add(it.toJson()) } }
         // 注意：JsonObjectBuilder.put 返回“旧值”，不能用 ?: 串联；否则刚写进去的规则会被 null 覆盖。
         if (promoted != null) put("promoted", promoted!!.toJson()) else put("promoted", JsonNull)
+        if (pending != null) put("pending_query", pending!!.toJson()) else put("pending_query", JsonNull)
         put("algorithm_version", ALGORITHM_VERSION)
         put("schema_version", SCHEMA_VERSION)
     }
@@ -250,6 +266,7 @@ internal data class LearningState(
             val eliminations = (obj["eliminations"] as? JsonArray ?: JsonArray(emptyList()))
                 .map { Elimination.fromJson(it.requireObject("state.eliminations[]")) }.toMutableList()
             val promoted = (obj["promoted"] as? JsonObject)?.let { PromotedRule.fromJson(it) }
+            val pending = (obj["pending_query"] as? JsonObject)?.let { PendingQuery.fromJson(it) }
             return LearningState(
                 worldId = obj.requireString("world_id", "state"),
                 schema = schema,
@@ -258,6 +275,7 @@ internal data class LearningState(
                 observations = observations,
                 eliminations = eliminations,
                 promoted = promoted,
+                pending = pending,
             )
         }
     }

@@ -29,9 +29,13 @@ internal object QueryPlanner {
                 val outcome = RuleInterpreter.evaluate(candidate, features).wire()
                 groups.getOrPut(outcome) { mutableListOf() } += candidate.hash()
             }
-            val score = groups.size
-            if (score <= 1) continue
-            if (best == null || score > best.score || (score == best.score && objectId < best.objectId)) {
+            // 2026-11-04 审查修正：按“最坏情况剩余候选数”选查询，而不是只要分成两组就得 2 分。
+            val score = groups.values.maxOf { it.size }
+            if (groups.size <= 1) continue
+            if (best == null || score < best.score ||
+                (score == best.score && groups.size > best.groups.size) ||
+                (score == best.score && groups.size == best.groups.size && objectId < best.objectId)
+            ) {
                 best = QueryChoice(
                     objectId = objectId,
                     features = features,
