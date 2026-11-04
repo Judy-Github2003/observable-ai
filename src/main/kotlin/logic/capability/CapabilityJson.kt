@@ -25,6 +25,8 @@ object CapabilityJson {
     fun canonical(text: String): String = CanonicalJson.expr(decode(text))
     fun canonical(expr: Expr): String = CanonicalJson.expr(expr)
 
+    fun decodeType(text: String): CapType = type(parser.parseToJsonElement(text), 0)
+
     private fun obj(el: JsonElement): JsonObject = el as? JsonObject
         ?: throw CapIrParseException("expected_object")
     private fun keys(o: JsonObject, vararg expected: String) {

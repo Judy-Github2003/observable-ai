@@ -33,3 +33,15 @@
 - **Record 输入语义**：允许缺字段（读取时 `Unknown(missing_attribute)`）；字段类型错误或出现 schema 外字段 → `input_type_mismatch`。
 - **资源上限**：JSON 1 MiB（`json_too_large`）、AST 节点 10,000（`ast_node_limit`）、Record 字段 256（`record_field_limit`）；静态检查也计节点数。
 - **例子 roundtrip**：三份 JSON 做“解析→规范化→再解析”稳定性测试；不要求与缩进文本逐字相等。
+
+## M2a 注册表（2026-11-04）
+
+- 四表：`capabilities / bodies / dependencies / events`；`PRAGMA user_version=1`，未知高版本拒绝。
+- `capabilities.body_hash = CanonicalJson.astHash(body)`；`capabilities.content_hash = CapabilityDefinition.contentHash()`。**两者不同**，不得互换。
+- `Expr.Call.body_hash` 沿用 M1 命名，实际指向被调能力的 `contentHash()`；`dependencies.to_content_hash` 同一口径。
+- 只允许 `candidate`；不实现 `verified/active`。
+- 同一 `(id,version)` 同内容返回 `already_exists` 且不新增事件；不同内容 `immutable_version_conflict`。
+- 依赖必须已存在且 hash 匹配；不支持前向引用/相互递归，因此插入顺序天然无环。
+- 读取时从 `canonical_ir_json` 重新解析并复算两种 hash、重比对依赖表，不信任库内 hash。
+- 错误码：`registry_open_failed / unsupported_schema_version / schema_init_failed / invalid_signature / record_field_limit / ast_depth_limit / ast_node_limit / missing_dependency / dependency_hash_mismatch / immutable_version_conflict / transaction_failed / body_hash_mismatch / content_hash_mismatch / dependency_table_mismatch / invalid_stored_definition / not_found`。
+- 事务：bodies/capabilities/dependencies/events 同一事务；失败整笔回滚（用触发器强制失败验证）。

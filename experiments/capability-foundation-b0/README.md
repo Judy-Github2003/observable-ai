@@ -9,7 +9,9 @@
 |---|---|
 | M0 冻结基线 | 完成（`baseline.json`） |
 | **M1 Typed IR + 类型检查 + 解释器** | **implemented** |
-| M2 注册表 | `not_implemented` |
+| **M2a 注册表（candidate）** | **implemented** |
+| M2b 激活门禁 | `not_implemented` |
+| M2c 依赖失效 | `not_implemented` |
 | M3 Composer | `not_implemented` |
 | M4 压缩 L1/L2 | `not_implemented` |
 | M5 A/B/C/D 实验 | `not_implemented` |
@@ -33,7 +35,7 @@
 python tools/capability_b0_benchmark.py   # not_implemented（M5）
 ```
 
-测试：`CapabilityM1Test`（参考 7 项）+ `CapabilityM1ChecklistTest`（补 14 项）；全套 **48/48**。
+测试：`CapabilityM1Test`（参考 7 项）+ `CapabilityM1ChecklistTest`（补 14 项）+ `CapabilityRegistryTest`（9 项）；全套 **57/57**。
 
 ## 边界
 
