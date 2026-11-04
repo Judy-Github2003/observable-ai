@@ -90,3 +90,19 @@
 - 前置拒绝不落库：`unknown_suite`、`body_hash_mismatch`、`dependency_table_mismatch`、`missing_dependency`、`suite_empty`、`unsupported_output_type`。
 - `source` 由宿主登记决定；本轮报告统一写 `verification_source=implementer_run`，库内记录仍如实保留套件登记来源。
 - `pass` 仅表示该套件通过；`suite_hash` 只做一致性绑定，不证明测试集独立。
+
+## M2b-2a 激活门禁（2026-11-04）
+
+- `CapabilityActivationService.activate(id,version,runId)`：`inspect` → run 绑定 `(id,version,contentHash)` → `verdict=pass` → 套件已登记且 `suite_hash`/`source` 一致 → 传递依赖全部已激活 → 追加 `activations` + `events(kind='activated')`。
+- 不修改 `capabilities.status`；激活是追加记录推导的逻辑状态。报告不得写成数据库 status 字段变化。
+- 幂等规则：同 `(id,version)` 已有同 `content_hash` 激活记录 → `already_active`，不追加事件；哈希不同 → `activation_conflict`。
+- 依赖检查抽成 `ActivationGate`，与 M2b-2b 正式执行入口共用；深度上限 32，`visited` 去重。
+- 错误码：`verification_not_found / verification_mismatch / verification_failed / suite_not_registered / suite_hash_mismatch / untrusted_source / source_mismatch / dependency_not_activated / dependency_hash_mismatch / dependency_depth_limit / activation_conflict / transaction_failed`。
+- 库内 `source` 文本被篡改 → `source_mismatch`；未登记套件即使 run 行伪造为 pass 也拒绝。
+
+## M2b-2b 正式执行入口（2026-11-04）
+
+- `CapabilityExecutionService.executeActive(id,version,args,budget)`：每次执行重新 `inspect`、核对激活哈希、验证 run 的 verdict/绑定、递归核对依赖激活，再调用 M1 解释器。
+- `ok=true` 只表示门禁通过且确实执行；`resultKind` 区分 `known/unknown/error`，`Unknown` 不是 `false`，`Error` 不是成功预测。
+- `CapabilityRegistry.resolve` 与 `CapabilityInterpreter` 保留为内部开发/验证接口；正式应用必须走 `executeActive`。同进程内不是安全边界。
+- 执行结果本轮不单独持久化（schema 固定 6 表）；不新增执行日志表，也不拿验证记录冒充执行证据。

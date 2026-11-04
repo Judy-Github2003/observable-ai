@@ -3,6 +3,7 @@
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-1a 增加 v1→v2 事务迁移（只加 verification_runs/activations 两张空表），
 //       不改旧四表、不改 capabilities.status 的 candidate 约束，也不在本步写入验证或激活记录。
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-1c 增加 appendVerificationRun：验证记录与 verified 事件同事务追加。
+// 修改：DeepSeek Harness，2026-11-04，B0 M2b-2a 增加验证/激活读取与 appendActivation；激活不修改 capabilities.status。
 package logic.capability
 
 import kotlinx.serialization.json.*
@@ -370,6 +371,98 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
                 connection.rollback()
             } catch (_: Exception) {
                 // 回滚失败也要返回 transaction_failed；连接随后由调用方 close。
+            }
+            return RegistryResult(false, "transaction_failed", null)
+        } finally {
+            connection.autoCommit = true
+        }
+        return RegistryResult(true)
+    }
+
+    /** M2b-2a：按 run_id 读取验证记录，供激活门禁核对 (id,version,content_hash,verdict,suite) 是否一致。 */
+    internal fun readVerificationRun(runId: String): VerificationRunSnapshot? =
+        connection.prepareStatement(
+            "SELECT capability_id,version,content_hash,suite_id,suite_version,suite_hash,case_count,passed_count,failed_count,verdict,source,created_at FROM verification_runs WHERE run_id=?",
+        ).use { statement ->
+            statement.setString(1, runId)
+            statement.executeQuery().use { rows ->
+                if (!rows.next()) return null
+                VerificationRunSnapshot(
+                    runId = runId,
+                    capabilityId = rows.getString(1),
+                    capabilityVersion = rows.getInt(2),
+                    contentHash = rows.getString(3),
+                    suiteId = rows.getString(4),
+                    suiteVersion = rows.getInt(5),
+                    suiteHash = rows.getString(6),
+                    caseCount = rows.getInt(7),
+                    passedCount = rows.getInt(8),
+                    failedCount = rows.getInt(9),
+                    verdict = rows.getString(10),
+                    source = rows.getString(11),
+                    createdAt = rows.getString(12),
+                )
+            }
+        }
+
+    /** M2b-2a：读取某能力版本已有的激活记录；重复激活的幂等判断以此为准。 */
+    internal fun readActivation(capabilityId: String, capabilityVersion: Int): ActivationSnapshot? =
+        connection.prepareStatement(
+            "SELECT activation_id,content_hash,verification_run_id FROM activations WHERE capability_id=? AND version=? ORDER BY created_at,activation_id LIMIT 1",
+        ).use { statement ->
+            statement.setString(1, capabilityId)
+            statement.setInt(2, capabilityVersion)
+            statement.executeQuery().use { rows ->
+                if (!rows.next()) null else ActivationSnapshot(rows.getString(1), rows.getString(2), rows.getString(3))
+            }
+        }
+
+    /** M2b-2a：读取依赖表，用于逐层检查“每个传递依赖都已激活且哈希一致”。 */
+    internal fun recordedDependencies(capabilityId: String, capabilityVersion: Int): List<DependencyPin> {
+        val result = ArrayList<DependencyPin>()
+        connection.prepareStatement(
+            "SELECT to_id,to_version,to_content_hash FROM dependencies WHERE from_id=? AND from_version=? ORDER BY to_id,to_version",
+        ).use { statement ->
+            statement.setString(1, capabilityId)
+            statement.setInt(2, capabilityVersion)
+            statement.executeQuery().use { rows ->
+                while (rows.next()) result += DependencyPin(rows.getString(1), rows.getInt(2), rows.getString(3))
+            }
+        }
+        return result
+    }
+
+    /** M2b-2a：激活记录与 activated 事件同事务追加；只追加，不触碰 capabilities.status。 */
+    internal fun appendActivation(row: ActivationRow, payloadJson: String): RegistryResult {
+        connection.autoCommit = false
+        try {
+            connection.prepareStatement(
+                "INSERT INTO activations(activation_id,capability_id,version,content_hash,verification_run_id,created_at) VALUES(?,?,?,?,?,?)",
+            ).use { statement ->
+                statement.setString(1, row.activationId)
+                statement.setString(2, row.capabilityId)
+                statement.setInt(3, row.capabilityVersion)
+                statement.setString(4, row.contentHash)
+                statement.setString(5, row.verificationRunId)
+                statement.setString(6, Instant.now().toString())
+                statement.executeUpdate()
+            }
+            connection.prepareStatement(
+                "INSERT INTO events(kind,capability_id,version,payload_json,created_at) VALUES(?,?,?,?,?)",
+            ).use { statement ->
+                statement.setString(1, "activated")
+                statement.setString(2, row.capabilityId)
+                statement.setInt(3, row.capabilityVersion)
+                statement.setString(4, payloadJson)
+                statement.setString(5, Instant.now().toString())
+                statement.executeUpdate()
+            }
+            connection.commit()
+        } catch (_: Exception) {
+            try {
+                connection.rollback()
+            } catch (_: Exception) {
+                // 同 appendVerificationRun：回滚失败仍返回 transaction_failed，不假装成功。
             }
             return RegistryResult(false, "transaction_failed", null)
         } finally {
