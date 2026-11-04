@@ -181,4 +181,94 @@ class CapabilityRegistryTest {
         val badVersion = assertFailsWith<RegistryException> { SqliteCapabilityRegistry(path) }
         assertEquals("unsupported_schema_version", badVersion.code)
     }
+
+    private fun exec(path: Path, sql: String) {
+        DriverManager.getConnection("jdbc:sqlite:${path.toAbsolutePath()}").use { connection ->
+            connection.createStatement().use { it.executeUpdate(sql) }
+        }
+    }
+
+    @Test
+    fun `X01 corrupted signature json is a controlled failure`() {
+        val path = db()
+        SqliteCapabilityRegistry(path).use { it.propose(def(red)) }
+        exec(path, "UPDATE capabilities SET inputs_json='not json'")
+        SqliteCapabilityRegistry(path).use { registry ->
+            val inspected = registry.inspect("core.is_red", 1)
+            assertFalse(inspected.ok)
+            assertEquals("invalid_stored_definition", inspected.code)
+            assertEquals(null, registry.resolve("core.is_red", 1))
+        }
+
+        val path2 = db()
+        SqliteCapabilityRegistry(path2).use { it.propose(def(red)) }
+        exec(path2, """UPDATE capabilities SET output_json='"List"'""")
+        SqliteCapabilityRegistry(path2).use { registry ->
+            assertEquals("invalid_stored_definition", registry.inspect("core.is_red", 1).code)
+        }
+    }
+
+    @Test
+    fun `X02 repeated propose checks existing integrity`() {
+        val path = db()
+        val base = def(red)
+        SqliteCapabilityRegistry(path).use { registry ->
+            registry.propose(base)
+            exec(path, """UPDATE bodies SET canonical_ir_json='{"op":"const","type":"Bool3","value":"false"}'""")
+            val corrupted = registry.propose(base)
+            assertFalse(corrupted.ok, "损坏记录不能返回 already_exists")
+        }
+        assertEquals(1, count(path, "events"))
+    }
+
+    @Test
+    fun `X02b idempotent propose keeps one event and one row`() {
+        val path = db()
+        val base = def(red)
+        SqliteCapabilityRegistry(path).use { registry ->
+            assertTrue(registry.propose(base).ok)
+            val again = registry.propose(base)
+            assertEquals("already_exists", again.code)
+        }
+        assertEquals(1, count(path, "capabilities"))
+        assertEquals(1, count(path, "bodies"))
+        assertEquals(1, count(path, "events"))
+    }
+
+    @Test
+    fun `X03 persisted semantics version is enforced`() {
+        val path = db()
+        SqliteCapabilityRegistry(path).use { it.propose(def(red)) }
+        exec(path, "UPDATE capabilities SET semantics_version='cap-ir-v999'")
+        SqliteCapabilityRegistry(path).use { registry ->
+            assertEquals("unsupported_ir_semantics_version", registry.inspect("core.is_red", 1).code)
+            assertEquals(null, registry.resolve("core.is_red", 1))
+        }
+    }
+
+    @Test
+    fun `X04 oversized constants and provenance are rejected`() {
+        val path = db()
+        SqliteCapabilityRegistry(path).use { registry ->
+            val huge = Expr.Const(CapValue.Str("x".repeat(70_000)))
+            assertEquals("definition_too_large", registry.propose(def(huge)).code)
+            assertEquals("invalid_provenance", registry.propose(def(red), "not json").code)
+            val bigProvenance = "{\"x\":\"" + "a".repeat(70_000) + "\"}"
+            assertEquals("invalid_provenance", registry.propose(def(red), bigProvenance).code)
+        }
+        assertEquals(0, count(path, "capabilities"))
+    }
+
+    @Test
+    fun `X04c corrupted existing body blocks new capability reusing it`() {
+        val path = db()
+        SqliteCapabilityRegistry(path).use { registry ->
+            assertTrue(registry.propose(def(red, "core.is_red")).ok)
+            exec(path, """UPDATE bodies SET canonical_ir_json='{"op":"const","type":"Bool3","value":"false"}'""")
+            val reused = registry.propose(def(red, "core.is_red_copy"))
+            assertFalse(reused.ok)
+            assertEquals("body_corruption", reused.code)
+        }
+        assertEquals(1, count(path, "capabilities"))
+    }
 }

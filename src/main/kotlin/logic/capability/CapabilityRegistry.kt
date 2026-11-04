@@ -9,6 +9,10 @@ import java.sql.DriverManager
 import java.sql.SQLException
 import java.time.Instant
 
+private const val MAX_ID_BYTES = 256
+private const val MAX_CONSTANT_BYTES = 65_536
+private const val MAX_PROVENANCE_BYTES = 65_536
+
 internal class RegistryException(val code: String, message: String = code) : RuntimeException(message)
 
 internal data class RegistryResult(
@@ -119,16 +123,25 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
 
     override fun propose(def: CapabilityDefinition, provenanceJson: String): RegistryResult {
         structuralError(def)?.let { return RegistryResult(false, it) }
+        validateProvenance(provenanceJson)?.let { return RegistryResult(false, it) }
         val bodyHash = try { CanonicalJson.astHash(def.body) } catch (_: Exception) { return RegistryResult(false, "invalid_definition") }
         val contentHash = try { def.contentHash() } catch (_: Exception) { return RegistryResult(false, "invalid_definition") }
+        val canonicalBody = try { CanonicalJson.expr(def.body) } catch (_: Exception) { return RegistryResult(false, "invalid_definition") }
+        if (canonicalBody.toByteArray(Charsets.UTF_8).size > MAX_JSON_BYTES) return RegistryResult(false, "definition_too_large")
 
         val existing = existingRow(def.id, def.version)
         if (existing != null) {
-            return if (existing == contentHash) {
+            // 2026-11-04 审查修正：幂等路径先做完整性检查，损坏记录不能被 already_exists 掩盖。
+            val inspected = inspect(def.id, def.version)
+            if (!inspected.ok) return RegistryResult(false, inspected.code ?: "invalid_stored_definition")
+            return if (inspected.contentHash == contentHash) {
                 RegistryResult(true, "already_exists", def, contentHash, bodyHash)
             } else {
                 RegistryResult(false, "immutable_version_conflict")
             }
+        }
+        readBodyRaw(bodyHash)?.let { stored ->
+            if (stored != canonicalBody) return RegistryResult(false, "body_corruption")
         }
 
         val dependencies = try { extractDependencies(def.body) } catch (error: RegistryException) {
@@ -197,7 +210,12 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
     }
 
     override fun inspect(id: String, version: Int): RegistryResult {
-        val row = readRow(id, version) ?: return RegistryResult(false, "not_found")
+        val row = try {
+            readRow(id, version) ?: return RegistryResult(false, "not_found")
+        } catch (_: Exception) {
+            return RegistryResult(false, "invalid_stored_definition")
+        }
+        if (row.semanticsVersion != IR_SEMANTICS_VERSION) return RegistryResult(false, "unsupported_ir_semantics_version")
         return try {
             val bodyText = readBody(row.bodyHash) ?: return RegistryResult(false, "missing_body")
             val body = CapabilityJson.decode(bodyText)
@@ -230,7 +248,8 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
 
     private fun structuralError(def: CapabilityDefinition): String? {
         if (def.id.isBlank() || def.version <= 0) return "invalid_signature"
-        if (def.inputs.keys.any { it.isBlank() }) return "invalid_signature"
+        if (def.id.toByteArray(Charsets.UTF_8).size > MAX_ID_BYTES) return "invalid_signature"
+        if (def.inputs.keys.any { it.isBlank() || it.toByteArray(Charsets.UTF_8).size > MAX_ID_BYTES }) return "invalid_signature"
         typeError(def.output, 0)?.let { return it }
         for ((_, type) in def.inputs) typeError(type, 0)?.let { return it }
         // 迭代遍历，避免递归在极深 AST 上栈溢出。
@@ -244,7 +263,12 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
             if (depth > 32) return "ast_depth_limit"
             when (expr) {
                 is Expr.Arg -> typeError(expr.type, depth)?.let { return it }
-                is Expr.Const -> Unit
+                is Expr.Const -> {
+                    val value = expr.value
+                    if (value is CapValue.Str && value.value.toByteArray(Charsets.UTF_8).size > MAX_CONSTANT_BYTES) {
+                        return "definition_too_large"
+                    }
+                }
                 is Expr.Field -> stack.addLast(expr.record to depth + 1)
                 is Expr.Eq -> { stack.addLast(expr.left to depth + 1); stack.addLast(expr.right to depth + 1) }
                 is Expr.And -> { stack.addLast(expr.left to depth + 1); stack.addLast(expr.right to depth + 1) }
@@ -271,7 +295,7 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
         return null
     }
 
-    private data class Row(val contentHash: String, val bodyHash: String, val inputs: Map<String, CapType>, val output: CapType)
+    private data class Row(val contentHash: String, val bodyHash: String, val inputs: Map<String, CapType>, val output: CapType, val semanticsVersion: String)
 
     private fun existingRow(id: String, version: Int): String? =
         connection.prepareStatement("SELECT content_hash FROM capabilities WHERE capability_id=? AND version=?").use { statement ->
@@ -280,11 +304,11 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
         }
 
     private fun readRow(id: String, version: Int): Row? =
-        connection.prepareStatement("SELECT content_hash,body_hash,inputs_json,output_json FROM capabilities WHERE capability_id=? AND version=?").use { statement ->
+        connection.prepareStatement("SELECT content_hash,body_hash,inputs_json,output_json,semantics_version FROM capabilities WHERE capability_id=? AND version=?").use { statement ->
             statement.setString(1, id); statement.setInt(2, version)
             statement.executeQuery().use { rows ->
                 if (!rows.next()) return null
-                Row(rows.getString(1), rows.getString(2), decodeTypes(rows.getString(3)), CapabilityJson.decodeType(rows.getString(4)))
+                Row(rows.getString(1), rows.getString(2), decodeTypes(rows.getString(3)), CapabilityJson.decodeType(rows.getString(4)), rows.getString(5))
             }
         }
 
@@ -329,6 +353,21 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
         }
         return result
     }
+
+    private fun validateProvenance(text: String): String? {
+        if (text.toByteArray(Charsets.UTF_8).size > MAX_PROVENANCE_BYTES) return "invalid_provenance"
+        return try {
+            if (Json.parseToJsonElement(text) !is JsonObject) "invalid_provenance" else null
+        } catch (_: Exception) {
+            "invalid_provenance"
+        }
+    }
+
+    private fun readBodyRaw(bodyHash: String): String? =
+        connection.prepareStatement("SELECT canonical_ir_json FROM bodies WHERE body_hash=?").use { statement ->
+            statement.setString(1, bodyHash)
+            statement.executeQuery().use { rows -> if (rows.next()) rows.getString(1) else null }
+        }
 
     private fun insertBody(bodyHash: String, body: Expr) {
         val canonical = CanonicalJson.expr(body)

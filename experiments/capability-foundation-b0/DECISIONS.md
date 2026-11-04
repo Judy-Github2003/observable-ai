@@ -45,3 +45,12 @@
 - 读取时从 `canonical_ir_json` 重新解析并复算两种 hash、重比对依赖表，不信任库内 hash。
 - 错误码：`registry_open_failed / unsupported_schema_version / schema_init_failed / invalid_signature / record_field_limit / ast_depth_limit / ast_node_limit / missing_dependency / dependency_hash_mismatch / immutable_version_conflict / transaction_failed / body_hash_mismatch / content_hash_mismatch / dependency_table_mismatch / invalid_stored_definition / not_found`。
 - 事务：bodies/capabilities/dependencies/events 同一事务；失败整笔回滚（用触发器强制失败验证）。
+
+## M2a-FIX（2026-11-04 复审后）
+
+- `inspect` 的 `readRow` 纳入受控边界：签名 JSON 损坏 → `invalid_stored_definition`；不存在 → `not_found`；`resolve` 返回 null。
+- 幂等提交先 `inspect` 校验现有记录；损坏记录不得返回 `already_exists`；不同内容仍 `immutable_version_conflict`。
+- `capabilities.semantics_version` 参与读取校验；不一致 → `unsupported_ir_semantics_version`。
+- 资源限额扩展到直接构造的定义：ID/参数名 256 字节、常量字符串 64 KiB、canonical AST 1 MiB、provenance 64 KiB 且必须是 JSON 对象；超限 → `definition_too_large` / `invalid_provenance`。
+- 复用已有 `body_hash` 前比对正文；不一致 → `body_corruption`，不覆盖。
+- 已知简化：SQL/IO 异常与数据损坏目前都归 `invalid_stored_definition`，未再细分。
