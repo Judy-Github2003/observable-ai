@@ -60,3 +60,12 @@
 - `typeError` 与 `CapabilityJson.decodeType` 对齐：拒绝空 Record、空白字段名，递归检查嵌套 Record。
 - `propose` 写事务前对每个输入/输出类型做 `CanonicalJson.type → decodeType` 往返；不可逆返回 `invalid_type`。
 - 修复前存在 “propose 成功、inspect 失败” 的不变量破坏；X05 回归覆盖。
+
+## M2b-1a schema v2（2026-11-04）
+
+- 版本策略：`0 → 2`（空库一次建全）、`1 → 2`（单事务补表）、`2` 原样打开、其他值 `unsupported_schema_version`。不再存在“新建库停在 v1”的中间态。
+- 迁移只增加 `verification_runs`、`activations` 两张空表；不 ALTER 旧四表，不动 `capabilities.status CHECK(status='candidate')`。
+- 错误码：初始化失败 `schema_init_failed`；已有 v1 库迁移失败 `schema_migration_failed`。
+- `PRAGMA user_version` 的写入与 DDL 同事务：M04 实测第二个 `CREATE` 失败后版本号回到 1、已建表被回滚、迁移前已存在的冲突表保留。
+- 迁移不读也不写旧表数据，旧行 `content_hash/body_hash` 不重算；迁移后用 `inspect` 复算校验通过。
+- 本步不写任何验证/激活行，`verification_runs` 与 `activations` 为空。

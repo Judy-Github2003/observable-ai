@@ -1,5 +1,7 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-04。
 // 原因：B0 M2a 最小能力注册表；只允许 candidate，不做激活/验证/压缩。
+// 修改：DeepSeek Harness，2026-11-04，B0 M2b-1a 增加 v1→v2 事务迁移（只加 verification_runs/activations 两张空表），
+//       不改旧四表、不改 capabilities.status 的 candidate 约束，也不在本步写入验证或激活记录。
 package logic.capability
 
 import kotlinx.serialization.json.*
@@ -46,78 +48,154 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
     }
 
     private fun initializeSchema() {
-        val version = connection.createStatement().use { statement ->
+        val version = readUserVersion()
+        when (version) {
+            // 空库：一次性建好 v1 旧四表与 v2 新表，直接落在 user_version=2，避免“先 1 再迁 2”留下中间态。
+            0 -> inSchemaTransaction("schema_init_failed") {
+                createV1Tables()
+                createV2Tables()
+                writeUserVersion(2)
+            }
+            // v1 旧库：只补两张新表并推进版本号；失败必须整体回滚，不能留下“表建了一半”的库。
+            1 -> inSchemaTransaction("schema_migration_failed") {
+                createV2Tables()
+                writeUserVersion(2)
+            }
+            // 已是 v2：正常打开，不重复执行迁移（重复 CREATE 会因表名冲突失败）。
+            2 -> Unit
+            else -> throw RegistryException("unsupported_schema_version", "user_version=$version")
+        }
+    }
+
+    private fun readUserVersion(): Int =
+        connection.createStatement().use { statement ->
             statement.executeQuery("PRAGMA user_version").use { rows -> if (rows.next()) rows.getInt(1) else 0 }
         }
-        when (version) {
-            0 -> {
-                connection.autoCommit = false
-                try {
-                    connection.createStatement().use { statement ->
-                        statement.executeUpdate(
-                            """
-                            CREATE TABLE capabilities (
-                                capability_id TEXT NOT NULL,
-                                version INTEGER NOT NULL CHECK(version > 0),
-                                content_hash TEXT NOT NULL,
-                                semantics_version TEXT NOT NULL,
-                                inputs_json TEXT NOT NULL,
-                                output_json TEXT NOT NULL,
-                                body_hash TEXT NOT NULL,
-                                provenance_json TEXT NOT NULL,
-                                status TEXT NOT NULL CHECK(status = 'candidate'),
-                                created_at TEXT NOT NULL,
-                                PRIMARY KEY (capability_id, version)
-                            )
-                            """.trimIndent(),
-                        )
-                        statement.executeUpdate(
-                            """
-                            CREATE TABLE bodies (
-                                body_hash TEXT PRIMARY KEY,
-                                canonical_ir_json TEXT NOT NULL,
-                                byte_size INTEGER NOT NULL CHECK(byte_size >= 0)
-                            )
-                            """.trimIndent(),
-                        )
-                        statement.executeUpdate(
-                            """
-                            CREATE TABLE dependencies (
-                                from_id TEXT NOT NULL,
-                                from_version INTEGER NOT NULL,
-                                to_id TEXT NOT NULL,
-                                to_version INTEGER NOT NULL,
-                                to_content_hash TEXT NOT NULL,
-                                PRIMARY KEY(from_id, from_version, to_id, to_version),
-                                FOREIGN KEY (from_id, from_version) REFERENCES capabilities(capability_id, version),
-                                FOREIGN KEY (to_id, to_version) REFERENCES capabilities(capability_id, version)
-                            )
-                            """.trimIndent(),
-                        )
-                        statement.executeUpdate(
-                            """
-                            CREATE TABLE events (
-                                event_seq INTEGER PRIMARY KEY AUTOINCREMENT,
-                                kind TEXT NOT NULL,
-                                capability_id TEXT NOT NULL,
-                                version INTEGER NOT NULL,
-                                payload_json TEXT NOT NULL,
-                                created_at TEXT NOT NULL
-                            )
-                            """.trimIndent(),
-                        )
-                    }
-                    connection.createStatement().use { it.execute("PRAGMA user_version = 1") }
-                    connection.commit()
-                } catch (error: Exception) {
-                    connection.rollback()
-                    throw RegistryException("schema_init_failed", error.message ?: "schema init failed")
-                } finally {
-                    connection.autoCommit = true
-                }
+
+    // PRAGMA user_version 的写入也走 SQLite pager，因此和 DDL 处于同一事务，回滚时版本号一并退回。
+    private fun writeUserVersion(version: Int) {
+        connection.createStatement().use { it.execute("PRAGMA user_version = $version") }
+    }
+
+    /**
+     * 建表/迁移的统一事务壳：成功才 commit；任一句失败都 rollback 并把原因归为给定错误码。
+     * 迁移过程不改动 capabilities/bodies/dependencies/events 的任何行。
+     */
+    private inline fun inSchemaTransaction(errorCode: String, block: () -> Unit) {
+        connection.autoCommit = false
+        try {
+            block()
+            connection.commit()
+        } catch (error: Exception) {
+            try {
+                connection.rollback()
+            } catch (_: Exception) {
+                // 回滚本身失败时保留原始错误码；连接随后会被关闭，不能假装迁移成功。
             }
-            1 -> Unit
-            else -> throw RegistryException("unsupported_schema_version", "user_version=$version")
+            throw RegistryException(errorCode, error.message ?: errorCode)
+        } finally {
+            connection.autoCommit = true
+        }
+    }
+
+    private fun createV1Tables() {
+        connection.createStatement().use { statement ->
+            statement.executeUpdate(
+                """
+                CREATE TABLE capabilities (
+                    capability_id TEXT NOT NULL,
+                    version INTEGER NOT NULL CHECK(version > 0),
+                    content_hash TEXT NOT NULL,
+                    semantics_version TEXT NOT NULL,
+                    inputs_json TEXT NOT NULL,
+                    output_json TEXT NOT NULL,
+                    body_hash TEXT NOT NULL,
+                    provenance_json TEXT NOT NULL,
+                    status TEXT NOT NULL CHECK(status = 'candidate'),
+                    created_at TEXT NOT NULL,
+                    PRIMARY KEY (capability_id, version)
+                )
+                """.trimIndent(),
+            )
+            statement.executeUpdate(
+                """
+                CREATE TABLE bodies (
+                    body_hash TEXT PRIMARY KEY,
+                    canonical_ir_json TEXT NOT NULL,
+                    byte_size INTEGER NOT NULL CHECK(byte_size >= 0)
+                )
+                """.trimIndent(),
+            )
+            statement.executeUpdate(
+                """
+                CREATE TABLE dependencies (
+                    from_id TEXT NOT NULL,
+                    from_version INTEGER NOT NULL,
+                    to_id TEXT NOT NULL,
+                    to_version INTEGER NOT NULL,
+                    to_content_hash TEXT NOT NULL,
+                    PRIMARY KEY(from_id, from_version, to_id, to_version),
+                    FOREIGN KEY (from_id, from_version) REFERENCES capabilities(capability_id, version),
+                    FOREIGN KEY (to_id, to_version) REFERENCES capabilities(capability_id, version)
+                )
+                """.trimIndent(),
+            )
+            statement.executeUpdate(
+                """
+                CREATE TABLE events (
+                    event_seq INTEGER PRIMARY KEY AUTOINCREMENT,
+                    kind TEXT NOT NULL,
+                    capability_id TEXT NOT NULL,
+                    version INTEGER NOT NULL,
+                    payload_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                """.trimIndent(),
+            )
+        }
+    }
+
+    /**
+     * v2 新增两表，字段/约束按 B0 任务书固定契约：
+     * verification_runs 保存“某能力某版本跑过哪套可信用例、结果如何”；activations 保存据此产生的激活记录。
+     * 两表只追加，本步不写任何行；旧四表与 status CHECK 保持不变。
+     */
+    private fun createV2Tables() {
+        connection.createStatement().use { statement ->
+            statement.executeUpdate(
+                """
+                CREATE TABLE verification_runs (
+                    run_id TEXT PRIMARY KEY,
+                    capability_id TEXT NOT NULL,
+                    version INTEGER NOT NULL CHECK(version > 0),
+                    content_hash TEXT NOT NULL,
+                    suite_id TEXT NOT NULL,
+                    suite_version INTEGER NOT NULL CHECK(suite_version > 0),
+                    suite_hash TEXT NOT NULL,
+                    case_count INTEGER NOT NULL CHECK(case_count >= 0),
+                    passed_count INTEGER NOT NULL CHECK(passed_count >= 0),
+                    failed_count INTEGER NOT NULL CHECK(failed_count >= 0),
+                    verdict TEXT NOT NULL CHECK(verdict IN ('pass','fail')),
+                    source TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    FOREIGN KEY(capability_id,version) REFERENCES capabilities(capability_id,version)
+                )
+                """.trimIndent(),
+            )
+            statement.executeUpdate(
+                """
+                CREATE TABLE activations (
+                    activation_id TEXT PRIMARY KEY,
+                    capability_id TEXT NOT NULL,
+                    version INTEGER NOT NULL CHECK(version > 0),
+                    content_hash TEXT NOT NULL,
+                    verification_run_id TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    FOREIGN KEY(capability_id,version) REFERENCES capabilities(capability_id,version),
+                    FOREIGN KEY(verification_run_id) REFERENCES verification_runs(run_id)
+                )
+                """.trimIndent(),
+            )
         }
     }
 
