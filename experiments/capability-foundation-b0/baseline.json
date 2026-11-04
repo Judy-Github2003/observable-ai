@@ -1,0 +1,13 @@
+{
+  "frozen_at": "2026-11-04T13:36:34.114353+00:00",
+  "git_head": "37e2dd7adba0b0d621711fe792b749f96d440cff",
+  "tests": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "java": "openjdk 21.0.13",
+  "kotlin": "2.2.21",
+  "b0_scope": "M0-M1 implemented in this session; M2-M6 not_implemented unless reported"
+}
