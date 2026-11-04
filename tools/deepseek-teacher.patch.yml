@@ -1,0 +1,49 @@
+# 原始配置与本次中文说明：Codex，2026-11-04。
+# 原因：通过临时启动配置复用 DSH 0.2.1-rc.5 的现有登录，避免把凭据写进项目。
+# 只对本次教师进程生效，不修改客户端或用户全局设置。
+- id: credentials
+  disabled: false
+- id: authorization
+  disabled: false
+- id: deepseek-account
+  disabled: false
+- id: agent-default-model
+  config:
+    provider: deepseek-account
+    model: deepseek-flash
+- id: permission
+  config:
+    presets:
+      teacher-read-only:
+        sandbox: read-only
+        approval: never
+    defaultPreset: teacher-read-only
+- id: sandbox-policy
+  config:
+    mode: read-only
+- id: approval
+  config:
+    policy: never
+# 仅保留答题需要的能力；关闭 shell、web 和委派，避免普通问答启动额外操作。
+- id: tool-bash
+  disabled: true
+- id: tool-pwsh
+  disabled: true
+- id: tool-jobs
+  disabled: true
+- id: tool-web
+  disabled: true
+- id: tool-skill
+  disabled: true
+- id: tool-subagent
+  disabled: true
+- id: tool-subagent-fork
+  disabled: true
+- id: tool-subagent-control
+  disabled: true
+- id: tool-subagent-list-agents
+  disabled: true
+- id: tool-workflow
+  disabled: true
+- id: tool-goal
+  disabled: true

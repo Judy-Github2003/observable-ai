@@ -1,0 +1,11 @@
+{
+  "lesson_id": "preschool-002",
+  "source": "researcher_given_training_world",
+  "objects": [
+    { "id": "A", "name": "苹果", "attributes": { "颜色": "红色" } },
+    { "id": "B", "name": "杯子", "attributes": { "颜色": "蓝色" } },
+    { "id": "C", "name": "球", "attributes": { "颜色": "红色" } },
+    { "id": "D", "name": "苹果", "attributes": { "颜色": "绿色" } },
+    { "id": "E", "name": "书" }
+  ]
+}

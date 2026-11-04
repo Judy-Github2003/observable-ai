@@ -1,0 +1,20 @@
+# 作者：Codex，2026-11-04；原因：按研究者要求把后续课程交给本机 DeepSeek Harness 直接开发。
+# 与 deepseek-teacher.patch.yml 顺序叠加，仅对开发会话生效；普通学生答题仍使用原只读配置。
+- id: permission
+  config:
+    presets:
+      project-developer:
+        sandbox: workspace-write
+        approval: never
+    defaultPreset: project-developer
+- id: sandbox-policy
+  config:
+    mode: workspace-write
+- id: approval
+  config:
+    policy: never
+# 开发者可在当前项目运行构建与验收；沿用基础层关闭的 web、子代理和工作流。
+- id: tool-pwsh
+  disabled: false
+- id: tool-jobs
+  disabled: false

@@ -1,0 +1,10 @@
+{
+  "lesson_id": "preschool-001",
+  "source": "researcher_given_training_world",
+  "objects": [
+    { "id": "A", "name": "苹果" },
+    { "id": "B", "name": "杯子" },
+    { "id": "C", "name": "球" },
+    { "id": "D", "name": "苹果" }
+  ]
+}

@@ -1,0 +1,26 @@
+# 构建与本地工具链（体积大，不入库）
+.gradle/
+.tools/
+build/
+out/
+.idea/
+*.iml
+
+# 实验输出、记忆库、报告与日志（每次实验单独生成，不覆盖历史）
+runs/
+*.log
+
+# Python 生成的缓存
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 本地环境与凭据
+.env
+.env.*
+!.env.example
+credentials/
+
+# 操作系统杂项
+.DS_Store
+Thumbs.db
