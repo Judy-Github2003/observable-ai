@@ -1,0 +1,2030 @@
+{
+  "seed": 20261104,
+  "worlds_attempted": 30,
+  "worlds_run": 30,
+  "worlds_skipped": 0,
+  "promoted": 30,
+  "exact_rule_equivalence": 30,
+  "promotion_rate": 1.0,
+  "exact_rate": 1.0,
+  "predict_correct": 200,
+  "predict_total": 200,
+  "predict_accuracy": 1.0,
+  "avg_queries": 1.47,
+  "max_queries": 3,
+  "id_memory_baseline_accuracy": 0.0,
+  "majority_false_baseline_accuracy": 0.745,
+  "teacher_direct_upper_bound": 1.0,
+  "fixed_cases": {
+    "E2": {
+      "finalize_status": "unknown",
+      "reason": "insufficient_evidence"
+    },
+    "E3": {
+      "observe_status": "conflict",
+      "finalize_status": "conflict",
+      "reason": "conflicting_evidence"
+    }
+  },
+  "scenarios": [
+    {
+      "world": "world-000-f14264",
+      "schema": {
+        "形状": [
+          "三角形",
+          "圆形",
+          "方形"
+        ],
+        "大小": [
+          "大",
+          "小"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          },
+          {
+            "field": "形状",
+            "eq": "方形"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "方形"
+          },
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 0,
+        "false": 4,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 4,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q0_0",
+          "label": false,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q0_3",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-001-4e82e0",
+      "schema": {
+        "颜色": [
+          "蓝色",
+          "红色",
+          "黄色"
+        ],
+        "形状": [
+          "三角形",
+          "方形",
+          "圆形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "圆形"
+          },
+          {
+            "field": "颜色",
+            "eq": "红色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          },
+          {
+            "field": "形状",
+            "eq": "圆形"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 0,
+        "false": 7,
+        "unknown": 0
+      },
+      "predict_correct": 7,
+      "predict_total": 7,
+      "pool_negatives": 7,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q1_1",
+          "label": false,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q1_2",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-002-71f5ae",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "颜色": [
+          "黄色",
+          "蓝色",
+          "绿色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 2,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 2,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q2_0",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-003-54ba0e",
+      "schema": {
+        "大小": [
+          "大",
+          "小"
+        ],
+        "形状": [
+          "圆形",
+          "三角形",
+          "方形"
+        ],
+        "颜色": [
+          "红色",
+          "黄色",
+          "绿色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "圆形"
+          },
+          {
+            "field": "颜色",
+            "eq": "黄色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "圆形"
+          },
+          {
+            "field": "颜色",
+            "eq": "黄色"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 1,
+        "false": 15,
+        "unknown": 0
+      },
+      "predict_correct": 16,
+      "predict_total": 16,
+      "pool_negatives": 15,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q3_11",
+          "label": false,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q3_2",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-004-6853cd",
+      "schema": {
+        "形状": [
+          "圆形",
+          "三角形",
+          "方形"
+        ],
+        "颜色": [
+          "绿色",
+          "红色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "方形"
+          },
+          {
+            "field": "颜色",
+            "eq": "绿色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "方形"
+          },
+          {
+            "field": "颜色",
+            "eq": "绿色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 0,
+        "false": 4,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 4,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q4_3",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-005-1f35b8",
+      "schema": {
+        "大小": [
+          "大",
+          "小"
+        ],
+        "形状": [
+          "圆形",
+          "方形",
+          "三角形"
+        ],
+        "颜色": [
+          "黄色",
+          "蓝色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 8,
+        "unknown": 0
+      },
+      "predict_correct": 10,
+      "predict_total": 10,
+      "pool_negatives": 8,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q5_1",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q5_5",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-006-663eae",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "形状": [
+          "方形",
+          "三角形"
+        ],
+        "颜色": [
+          "蓝色",
+          "黄色",
+          "绿色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 3,
+        "false": 7,
+        "unknown": 0
+      },
+      "predict_correct": 10,
+      "predict_total": 10,
+      "pool_negatives": 7,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q6_1",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q6_4",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-007-ada7d9",
+      "schema": {
+        "颜色": [
+          "蓝色",
+          "绿色",
+          "红色"
+        ],
+        "形状": [
+          "圆形",
+          "方形"
+        ],
+        "大小": [
+          "小",
+          "大"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 3,
+        "false": 7,
+        "unknown": 0
+      },
+      "predict_correct": 10,
+      "predict_total": 10,
+      "pool_negatives": 7,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q7_0",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q7_1",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-008-4f8ab9",
+      "schema": {
+        "形状": [
+          "方形",
+          "圆形"
+        ],
+        "颜色": [
+          "黄色",
+          "蓝色",
+          "红色"
+        ],
+        "大小": [
+          "大",
+          "小"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 5,
+        "false": 5,
+        "unknown": 0
+      },
+      "predict_correct": 10,
+      "predict_total": 10,
+      "pool_negatives": 5,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q8_0",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q8_4",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-009-0dfecf",
+      "schema": {
+        "大小": [
+          "大",
+          "小"
+        ],
+        "颜色": [
+          "蓝色",
+          "黄色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          },
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 0,
+        "false": 2,
+        "unknown": 0
+      },
+      "predict_correct": 2,
+      "predict_total": 2,
+      "pool_negatives": 2,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q9_1",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-010-ae4ed1",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "颜色": [
+          "红色",
+          "黄色",
+          "绿色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 2,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 2,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q10_2",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-011-025c48",
+      "schema": {
+        "颜色": [
+          "蓝色",
+          "黄色",
+          "绿色"
+        ],
+        "大小": [
+          "小",
+          "大"
+        ],
+        "形状": [
+          "圆形",
+          "方形",
+          "三角形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          },
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 14,
+        "unknown": 0
+      },
+      "predict_correct": 16,
+      "predict_total": 16,
+      "pool_negatives": 14,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q11_13",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 2
+        }
+      ]
+    },
+    {
+      "world": "world-012-30b9ce",
+      "schema": {
+        "颜色": [
+          "蓝色",
+          "红色"
+        ],
+        "大小": [
+          "小",
+          "大"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 1,
+        "false": 1,
+        "unknown": 0
+      },
+      "predict_correct": 2,
+      "predict_total": 2,
+      "pool_negatives": 1,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q12_1",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-013-2df2d0",
+      "schema": {
+        "颜色": [
+          "黄色",
+          "红色",
+          "蓝色"
+        ],
+        "大小": [
+          "大",
+          "小"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 1,
+        "false": 3,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 3,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q13_3",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-014-5235e7",
+      "schema": {
+        "形状": [
+          "方形",
+          "三角形"
+        ],
+        "大小": [
+          "小",
+          "大"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "方形"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "方形"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 1,
+        "false": 1,
+        "unknown": 0
+      },
+      "predict_correct": 2,
+      "predict_total": 2,
+      "pool_negatives": 1,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q14_0",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-015-a3b803",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "形状": [
+          "三角形",
+          "方形",
+          "圆形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 2,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 2,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q15_2",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-016-e33dcf",
+      "schema": {
+        "形状": [
+          "圆形",
+          "方形"
+        ],
+        "颜色": [
+          "黄色",
+          "红色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "黄色"
+          },
+          {
+            "field": "形状",
+            "eq": "圆形"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "圆形"
+          },
+          {
+            "field": "颜色",
+            "eq": "黄色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 0,
+        "false": 2,
+        "unknown": 0
+      },
+      "predict_correct": 2,
+      "predict_total": 2,
+      "pool_negatives": 2,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q16_0",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-017-20a3d2",
+      "schema": {
+        "颜色": [
+          "绿色",
+          "黄色",
+          "红色"
+        ],
+        "形状": [
+          "圆形",
+          "三角形",
+          "方形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "黄色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "黄色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 5,
+        "unknown": 0
+      },
+      "predict_correct": 7,
+      "predict_total": 7,
+      "pool_negatives": 5,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q17_2",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-018-39f9b9",
+      "schema": {
+        "形状": [
+          "三角形",
+          "圆形"
+        ],
+        "大小": [
+          "小",
+          "大"
+        ],
+        "颜色": [
+          "黄色",
+          "蓝色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 1,
+        "false": 5,
+        "unknown": 0
+      },
+      "predict_correct": 6,
+      "predict_total": 6,
+      "pool_negatives": 5,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q18_1",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 2
+        }
+      ]
+    },
+    {
+      "world": "world-019-d8cf8f",
+      "schema": {
+        "大小": [
+          "大",
+          "小"
+        ],
+        "颜色": [
+          "红色",
+          "黄色"
+        ],
+        "形状": [
+          "圆形",
+          "方形",
+          "三角形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          },
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          },
+          {
+            "field": "颜色",
+            "eq": "红色"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 8,
+        "unknown": 0
+      },
+      "predict_correct": 10,
+      "predict_total": 10,
+      "pool_negatives": 8,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q19_0",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q19_4",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-020-df189e",
+      "schema": {
+        "颜色": [
+          "黄色",
+          "蓝色",
+          "红色"
+        ],
+        "大小": [
+          "大",
+          "小"
+        ],
+        "形状": [
+          "圆形",
+          "方形",
+          "三角形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          },
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          },
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "queries": 3,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 14,
+        "unknown": 0
+      },
+      "predict_correct": 16,
+      "predict_total": 16,
+      "pool_negatives": 14,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 5
+        },
+        {
+          "op": "observe",
+          "object_id": "q20_10",
+          "label": false,
+          "candidate_count": 4,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q20_11",
+          "label": false,
+          "candidate_count": 2,
+          "eliminated": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q20_14",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-021-c152ca",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "颜色": [
+          "红色",
+          "绿色",
+          "黄色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 2,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 2,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q21_0",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-022-ae5268",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "颜色": [
+          "绿色",
+          "蓝色"
+        ],
+        "形状": [
+          "方形",
+          "圆形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "圆形"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "圆形"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 3,
+        "false": 3,
+        "unknown": 0
+      },
+      "predict_correct": 6,
+      "predict_total": 6,
+      "pool_negatives": 3,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q22_1",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q22_3",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-023-4a8be9",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "形状": [
+          "三角形",
+          "圆形"
+        ],
+        "颜色": [
+          "黄色",
+          "红色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "三角形"
+          },
+          {
+            "field": "颜色",
+            "eq": "红色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "三角形"
+          },
+          {
+            "field": "颜色",
+            "eq": "红色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 1,
+        "false": 5,
+        "unknown": 0
+      },
+      "predict_correct": 6,
+      "predict_total": 6,
+      "pool_negatives": 5,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q23_1",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 2
+        }
+      ]
+    },
+    {
+      "world": "world-024-34133f",
+      "schema": {
+        "形状": [
+          "方形",
+          "圆形",
+          "三角形"
+        ],
+        "大小": [
+          "大",
+          "小"
+        ],
+        "颜色": [
+          "黄色",
+          "蓝色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 5,
+        "false": 5,
+        "unknown": 0
+      },
+      "predict_correct": 10,
+      "predict_total": 10,
+      "pool_negatives": 5,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q24_1",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q24_4",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-025-d854f6",
+      "schema": {
+        "颜色": [
+          "红色",
+          "蓝色",
+          "黄色"
+        ],
+        "大小": [
+          "小",
+          "大"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          },
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "红色"
+          },
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 0,
+        "false": 4,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 4,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q25_0",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-026-8ea83a",
+      "schema": {
+        "形状": [
+          "圆形",
+          "三角形"
+        ],
+        "颜色": [
+          "红色",
+          "绿色",
+          "蓝色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "三角形"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "形状",
+            "eq": "三角形"
+          },
+          {
+            "field": "颜色",
+            "eq": "蓝色"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 0,
+        "false": 4,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 4,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q26_1",
+          "label": false,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q26_2",
+          "label": false,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-027-2b378f",
+      "schema": {
+        "颜色": [
+          "红色",
+          "绿色",
+          "黄色"
+        ],
+        "大小": [
+          "小",
+          "大"
+        ],
+        "形状": [
+          "三角形",
+          "圆形"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "大"
+          }
+        ]
+      },
+      "queries": 2,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 5,
+        "false": 5,
+        "unknown": 0
+      },
+      "predict_correct": 10,
+      "predict_total": 10,
+      "pool_negatives": 5,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 3
+        },
+        {
+          "op": "observe",
+          "object_id": "q27_1",
+          "label": true,
+          "candidate_count": 2,
+          "eliminated": 1
+        },
+        {
+          "op": "observe",
+          "object_id": "q27_4",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-028-c9190c",
+      "schema": {
+        "大小": [
+          "小",
+          "大"
+        ],
+        "颜色": [
+          "蓝色",
+          "绿色"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "绿色"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "颜色",
+            "eq": "绿色"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 1,
+        "false": 1,
+        "unknown": 0
+      },
+      "predict_correct": 2,
+      "predict_total": 2,
+      "pool_negatives": 1,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q28_1",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    },
+    {
+      "world": "world-029-a47e0c",
+      "schema": {
+        "形状": [
+          "三角形",
+          "方形",
+          "圆形"
+        ],
+        "大小": [
+          "大",
+          "小"
+        ]
+      },
+      "hidden_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "promoted": true,
+      "exact_equivalence": true,
+      "promoted_rule": {
+        "op": "and",
+        "clauses": [
+          {
+            "field": "大小",
+            "eq": "小"
+          }
+        ]
+      },
+      "queries": 1,
+      "finalize_status": "ok",
+      "finalize_reason": "no_discriminating_query",
+      "predictions": {
+        "true": 2,
+        "false": 2,
+        "unknown": 0
+      },
+      "predict_correct": 4,
+      "predict_total": 4,
+      "pool_negatives": 2,
+      "trace": [
+        {
+          "op": "start",
+          "surviving": 2
+        },
+        {
+          "op": "observe",
+          "object_id": "q29_1",
+          "label": true,
+          "candidate_count": 1,
+          "eliminated": 1
+        }
+      ]
+    }
+  ]
+}

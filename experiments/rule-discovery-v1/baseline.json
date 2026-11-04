@@ -1,0 +1,25 @@
+{
+  "frozen_at": "2026-11-04T12:33:00.543305+00:00",
+  "git_head": "75f8e449fcc11fd248ede0edd2a811c7d8d60bb6",
+  "git_status": [
+    "?? experiments/rule-discovery-v1/"
+  ],
+  "java": "openjdk 21.0.13 LTS",
+  "kotlin": "2.2.21",
+  "existing_tests": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "spec_sha256": "3b36f315bf7d9cb1b1eb5750b8fd43a14e86bfb997dbb97ea8943077806d9ee6",
+  "source_sha256": {
+    "src/main/kotlin/logic/BatchStudent.kt": "843f939e847b6d28ab167d88534d15a034f17c9e805711cd6bf9c66f247232f2",
+    "src/main/kotlin/logic/AuditTrail.kt": "f01c56b22eb2db45ed60d081b97ac8c05e7f990d9c9001a6e7443e703e33c0e2",
+    "src/main/kotlin/logic/Main.kt": "08cfca252e29c09f673e269eb62bce3371769d3283f4e3174dab3f0ba2aff28d",
+    "build.gradle.kts": "dc8056d8981a8295e2779ffdc6e1c96c33bf8a107a33d9404237f798477c284f",
+    "experiments/curriculum/batch-v1/rules.json": "f55a0b1c9ed46fb45877dd29d080a10d9557839a0bc9dc1b336cf2105223481f",
+    "experiments/curriculum/batch-v1/curriculum.json": "d5cb3b1b03b99c405d14ee357d3215982d42876b8cc8d1bceebb0c52aa713313",
+    "tools/curriculum_batch.py": "444db96f1c7736a34e37d7348cca82e9a45d0bdd630eef510ad926a1d573db7e"
+  }
+}

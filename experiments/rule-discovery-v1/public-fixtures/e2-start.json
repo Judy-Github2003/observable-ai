@@ -1,0 +1,36 @@
+{
+  "op": "discovery.start",
+  "args": {
+    "feature_schema": {
+      "颜色": [
+        "红色",
+        "蓝色"
+      ],
+      "形状": [
+        "圆形",
+        "方形"
+      ]
+    },
+    "known_examples": [
+      {
+        "id": "A",
+        "features": {
+          "颜色": "红色",
+          "形状": "圆形"
+        },
+        "label": true,
+        "evidence_id": "e-A"
+      },
+      {
+        "id": "B",
+        "features": {
+          "颜色": "蓝色",
+          "形状": "方形"
+        },
+        "label": false,
+        "evidence_id": "e-B"
+      }
+    ],
+    "query_pool": []
+  }
+}

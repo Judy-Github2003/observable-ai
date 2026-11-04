@@ -1,0 +1,39 @@
+{
+  "start": {
+    "feature_schema": {
+      "颜色": [
+        "红色",
+        "蓝色"
+      ],
+      "形状": [
+        "圆形",
+        "方形"
+      ]
+    },
+    "known_examples": [
+      {
+        "id": "A",
+        "features": {
+          "颜色": "红色",
+          "形状": "圆形"
+        },
+        "label": true,
+        "evidence_id": "e-A"
+      }
+    ],
+    "query_pool": [
+      {
+        "id": "D",
+        "features": {
+          "颜色": "蓝色",
+          "形状": "圆形"
+        }
+      }
+    ]
+  },
+  "observe": {
+    "object_id": "A",
+    "label": false,
+    "evidence_id": "e-A2"
+  }
+}
