@@ -2,6 +2,7 @@
 // 原因：B0 M2a 最小能力注册表；只允许 candidate，不做激活/验证/压缩。
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-1a 增加 v1→v2 事务迁移（只加 verification_runs/activations 两张空表），
 //       不改旧四表、不改 capabilities.status 的 candidate 约束，也不在本步写入验证或激活记录。
+// 修改：DeepSeek Harness，2026-11-04，B0 M2b-1c 增加 appendVerificationRun：验证记录与 verified 事件同事务追加。
 package logic.capability
 
 import kotlinx.serialization.json.*
@@ -326,6 +327,56 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
     }
 
     override fun resolve(id: String, version: Int): CapabilityDefinition? = inspect(id, version).definition
+
+    /**
+     * M2b-1c：把一次验证运行与对应事件放在同一事务里追加。
+     * 只做追加，不更新旧行；任何一句失败都整笔回滚，不能出现“有 run 没有事件”的半写状态。
+     * 调用方必须先 `inspect` 成功并拿到与库内一致的 contentHash，本方法不再重复执行能力。
+     */
+    internal fun appendVerificationRun(run: VerificationRunRow, payloadJson: String): RegistryResult {
+        connection.autoCommit = false
+        try {
+            connection.prepareStatement(
+                "INSERT INTO verification_runs(run_id,capability_id,version,content_hash,suite_id,suite_version,suite_hash,case_count,passed_count,failed_count,verdict,source,created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            ).use { statement ->
+                statement.setString(1, run.runId)
+                statement.setString(2, run.capabilityId)
+                statement.setInt(3, run.capabilityVersion)
+                statement.setString(4, run.contentHash)
+                statement.setString(5, run.suiteId)
+                statement.setInt(6, run.suiteVersion)
+                statement.setString(7, run.suiteHash)
+                statement.setInt(8, run.caseCount)
+                statement.setInt(9, run.passedCount)
+                statement.setInt(10, run.failedCount)
+                statement.setString(11, run.verdict)
+                statement.setString(12, run.source)
+                statement.setString(13, Instant.now().toString())
+                statement.executeUpdate()
+            }
+            connection.prepareStatement(
+                "INSERT INTO events(kind,capability_id,version,payload_json,created_at) VALUES(?,?,?,?,?)",
+            ).use { statement ->
+                statement.setString(1, "verified")
+                statement.setString(2, run.capabilityId)
+                statement.setInt(3, run.capabilityVersion)
+                statement.setString(4, payloadJson)
+                statement.setString(5, Instant.now().toString())
+                statement.executeUpdate()
+            }
+            connection.commit()
+        } catch (error: Exception) {
+            try {
+                connection.rollback()
+            } catch (_: Exception) {
+                // 回滚失败也要返回 transaction_failed；连接随后由调用方 close。
+            }
+            return RegistryResult(false, "transaction_failed", null)
+        } finally {
+            connection.autoCommit = true
+        }
+        return RegistryResult(true)
+    }
 
     override fun close() {
         connection.close()

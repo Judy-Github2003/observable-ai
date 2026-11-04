@@ -80,3 +80,13 @@
 - 判定：实际 `Error` 一律失败；预期 `Error` 非法；`Unknown` 不当 `false`；预期/实际同为 `Unknown` 算匹配但不计覆盖。
 - 覆盖度：按规范化输入去重的确定用例 ≥ 4 且至少 1 真 1 假，否则 `suite_inadequate`；空套件 `suite_empty`；重复 `case_id` `duplicate_case_id`。
 - 代码无 `passed`/`verdict` 入参，verdict 只由引擎计算；本步不写库、不激活。
+
+## M2b-1c 验证入库（2026-11-04）
+
+- `CapabilityVerificationService.verify(id, version, suiteId, suiteVersion)`：先 DB `inspect`，再执行内存引擎，最后追加 run + event。
+- `verification_runs` 与 `events(kind='verified')` 同事务；事件写入失败用触发器实测，整笔回滚为 `transaction_failed`。
+- 只追加：每次 `run_id=UUID`，不更新旧行；失败运行与 `suite_inadequate` 也保留（`verdict=fail`）。
+- 逐例证据进事件 JSON（≤1 MiB）：`case_id/status/counted_as_definite/expected/actual`；超限返回 `verification_trace_too_large`，不截断失败案例、不写库。
+- 前置拒绝不落库：`unknown_suite`、`body_hash_mismatch`、`dependency_table_mismatch`、`missing_dependency`、`suite_empty`、`unsupported_output_type`。
+- `source` 由宿主登记决定；本轮报告统一写 `verification_source=implementer_run`，库内记录仍如实保留套件登记来源。
+- `pass` 仅表示该套件通过；`suite_hash` 只做一致性绑定，不证明测试集独立。
