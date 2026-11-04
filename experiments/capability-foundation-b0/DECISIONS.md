@@ -69,3 +69,14 @@
 - `PRAGMA user_version` 的写入与 DDL 同事务：M04 实测第二个 `CREATE` 失败后版本号回到 1、已建表被回滚、迁移前已存在的冲突表保留。
 - 迁移不读也不写旧表数据，旧行 `content_hash/body_hash` 不重算；迁移后用 `inspect` 复算校验通过。
 - 本步不写任何验证/激活行，`verification_runs` 与 `activations` 为空。
+
+## M2b-1b 可信验证套件（2026-11-04）
+
+- 套件契约：`suite_id`、`suite_version`、`suite_hash`、只读 `cases`；用例含 `case_id`、类型化输入、预期 `EvalResult`。
+- `suite_hash` 域分隔 `verification-suite-v1`；Map/Record 字段排序，用例顺序保留；不使用 `toString()`。
+- `source` 由宿主 `TrustedSuiteRegistry.register` 盖章，只允许 `host_fixture` / `implementer_run`；能力定义与 provenance 无法传入。
+- 同一 `(suite_id, suite_version)` 只允许一个哈希；同内容重复登记幂等，内容不同 `suite_version_conflict`。
+- 引擎先 `CapabilityInspector` 检查（类型检查含依赖 pin、复算 contentHash），再逐例执行；只有 Bool3 输出可验证。
+- 判定：实际 `Error` 一律失败；预期 `Error` 非法；`Unknown` 不当 `false`；预期/实际同为 `Unknown` 算匹配但不计覆盖。
+- 覆盖度：按规范化输入去重的确定用例 ≥ 4 且至少 1 真 1 假，否则 `suite_inadequate`；空套件 `suite_empty`；重复 `case_id` `duplicate_case_id`。
+- 代码无 `passed`/`verdict` 入参，verdict 只由引擎计算；本步不写库、不激活。
