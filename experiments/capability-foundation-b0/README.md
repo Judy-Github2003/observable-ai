@@ -1,34 +1,42 @@
-# 学习基底 B0：当前状态
+# 学习基底 B0：M1 状态
 
-> 实现：DeepSeek Harness（本会话），2026-11-04。
-> 任务书：[SPEC.md](./SPEC.md)（收到后复制入库）。
-> **当前只完成 M0；M1–M6 尚未开始。** 这不是“部分完成”，是“冻结基线后暂停，等待外部设计答复”。
+> 实现：云端 ChatGPT 提供 M1 参考骨架；DeepSeek Harness（本会话）集成、补测、修复。
+> 参考：`SPEC.md`、`DECISIONS.md`、`reports/M1-REPORT.md`
 
-## 状态表
+## 状态
 
-| 里程碑 | 状态 | 说明 |
-|---|---|---|
-| M0 冻结基线 | **完成** | `baseline.json`：HEAD `37e2dd7`、27/27 测试、JDK 21 / Kotlin 2.2.21 |
-| M1 Typed IR + 解释器 + 类型检查 | **not_started** | 已删除半成品文件，保证仓库可构建 |
-| M2 注册表 / 证据 / 依赖 | **not_started** | — |
-| M3 Composer | **not_started** | — |
-| M4 库学习 L1/L2 | **not_started** | — |
-| M5 A/B/C/D 前哨实验 | **not_started** | — |
-| M6 冻结与交接 | **not_started** | — |
-| 独立闭卷 | **not_run** | 无外部执行 |
+| 里程碑 | 状态 |
+|---|---|
+| M0 冻结基线 | 完成（`baseline.json`） |
+| **M1 Typed IR + 类型检查 + 解释器** | **implemented** |
+| M2 注册表 | `not_implemented` |
+| M3 Composer | `not_implemented` |
+| M4 压缩 L1/L2 | `not_implemented` |
+| M5 A/B/C/D 实验 | `not_implemented` |
+| M6 冻结交接 | `not_implemented` |
+| 独立闭卷 | `not_run` |
 
-## 为什么暂停
+## 实现范围
 
-B0 的 M1 就要求同时定死：IR JSON 形状、类型系统、三值/错误语义、canonical 归一化边界、资源预算、call 的版本与循环语义。这些一旦写错，M2–M4 都要返工。我不想在没有外部确认的情况下先写 1000 行再解释“为什么这样设计”。
+- 11 类节点：`arg/const/field/eq/and/or/not/if/let/ref/call`；二元 `and/or/eq`。
+- 类型：`Bool3 / String / Int64 / Record`；`List/Optional` 明确 `not_implemented`。
+- 强 Kleene 三值、左到右短路、`if` 条件 unknown 不执行分支。
+- canonical JSON：Record 字段与 call 实参 key 排序；`and/or/eq` 操作数顺序保留。
+- `content_hash = SHA-256(semantics + signature + canonical AST)`；call 锁定 `(id, version, body_hash)`。
+- 静态检查：类型、未绑定 ref、重复绑定、依赖 hash、循环、AST 深度、调用深度。
+- 解释器：步数/调用深度预算；错误与 unknown 分离。
 
-求助文档：`runs/handoff/B0-求助文档_2026-11-04.md`（未入库，供上传）。
+## 运行
 
-## 已做 / 未做
+```powershell
+./gradlew.bat --no-daemon test installDist
+python tools/capability_b0_benchmark.py   # not_implemented（M5）
+```
 
-- 已做：读取 SPEC、核对 HEAD 与测试、建立本目录与 `baseline.json`。
-- 未做：任何 `src/main/kotlin/logic/capability/` 源码、测试、CLI、注册表、组合器、压缩器、实验数据。
-- 仓库仍可构建；V1/V2 未改动。
+测试：`CapabilityM1Test`（参考 7 项）+ `CapabilityM1ChecklistTest`（补 10 项）；全套 **44/44**。
 
-## 收到答复后
+## 边界
 
-按答复先做 M1（IR + 类型检查 + 解释器 + 测试），跑通并提交；再依次 M2→M3→M4。每个里程碑单独提交，缺项写 `not_implemented`。
+- 不接 SQLite、不调用教师、不修改 V1/V2。
+- 不执行教师给的 Kotlin 字符串；IR 必须先类型检查。
+- M1 通过只说明内核正确，不是学习能力、不是压缩收益、不是独立验证。

@@ -1,0 +1,5 @@
+Kotlin core smoke PASS
+single_cond={"op":"eq","left":{"op":"field","record":{"op":"arg","name":"item","type":{"kind":"Record","fields":{"color":"String","shape":"String"}}},"name":"color"},"right":{"op":"const","type":"String","value":"red"}}
+double_and={"op":"and","left":{"op":"eq","left":{"op":"field","record":{"op":"arg","name":"item","type":{"kind":"Record","fields":{"color":"String","shape":"String"}}},"name":"color"},"right":{"op":"const","type":"String","value":"red"}},"right":{"op":"eq","left":{"op":"field","record":{"op":"arg","name":"item","type":{"kind":"Record","fields":{"color":"String","shape":"String"}}},"name":"shape"},"right":{"op":"const","type":"String","value":"circle"}}}
+pinned_call={"op":"call","id":"core.is_red","version":1,"body_hash":"0ef891d9345e8330ec1682e8b3b3e704bd47ad01a75e9e387e3ae43c70b3a20e","args":{"item":{"op":"arg","name":"item","type":{"kind":"Record","fields":{"color":"String","shape":"String"}}}}}
+helper_body_hash=0ef891d9345e8330ec1682e8b3b3e704bd47ad01a75e9e387e3ae43c70b3a20e

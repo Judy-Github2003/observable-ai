@@ -1,0 +1,49 @@
+{
+  "op": "and",
+  "left": {
+    "op": "eq",
+    "left": {
+      "op": "field",
+      "record": {
+        "op": "arg",
+        "name": "item",
+        "type": {
+          "kind": "Record",
+          "fields": {
+            "color": "String",
+            "shape": "String"
+          }
+        }
+      },
+      "name": "color"
+    },
+    "right": {
+      "op": "const",
+      "type": "String",
+      "value": "red"
+    }
+  },
+  "right": {
+    "op": "eq",
+    "left": {
+      "op": "field",
+      "record": {
+        "op": "arg",
+        "name": "item",
+        "type": {
+          "kind": "Record",
+          "fields": {
+            "color": "String",
+            "shape": "String"
+          }
+        }
+      },
+      "name": "shape"
+    },
+    "right": {
+      "op": "const",
+      "type": "String",
+      "value": "circle"
+    }
+  }
+}
