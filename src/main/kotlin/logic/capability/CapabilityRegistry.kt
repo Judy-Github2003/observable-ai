@@ -123,6 +123,15 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
 
     override fun propose(def: CapabilityDefinition, provenanceJson: String): RegistryResult {
         structuralError(def)?.let { return RegistryResult(false, it) }
+        // 2026-11-04 审查修正：签名必须可经 CanonicalJson → decodeType 往返，避免 propose 成功但 inspect 失败。
+        for (type in def.inputs.values + def.output) {
+            val roundtrip = try {
+                CapabilityJson.decodeType(CanonicalJson.type(type))
+            } catch (_: Exception) {
+                return RegistryResult(false, "invalid_type")
+            }
+            if (roundtrip != type) return RegistryResult(false, "invalid_type")
+        }
         validateProvenance(provenanceJson)?.let { return RegistryResult(false, it) }
         val bodyHash = try { CanonicalJson.astHash(def.body) } catch (_: Exception) { return RegistryResult(false, "invalid_definition") }
         val contentHash = try { def.contentHash() } catch (_: Exception) { return RegistryResult(false, "invalid_definition") }
@@ -290,6 +299,9 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
     private fun typeError(type: CapType, depth: Int): String? {
         if (depth > 32) return "ast_depth_limit"
         val record = type as? CapType.Record ?: return null
+        // 2026-11-04 审查修正：与 CapabilityJson.decodeType 对齐，拒绝空 Record 与空白字段名。
+        if (record.fields.isEmpty()) return "invalid_type"
+        if (record.fields.keys.any { it.isBlank() }) return "invalid_type"
         if (record.fields.size > MAX_RECORD_FIELDS) return "record_field_limit"
         for (field in record.fields.values) typeError(field, depth + 1)?.let { return it }
         return null

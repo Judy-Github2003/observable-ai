@@ -54,3 +54,9 @@
 - 资源限额扩展到直接构造的定义：ID/参数名 256 字节、常量字符串 64 KiB、canonical AST 1 MiB、provenance 64 KiB 且必须是 JSON 对象；超限 → `definition_too_large` / `invalid_provenance`。
 - 复用已有 `body_hash` 前比对正文；不一致 → `body_corruption`，不覆盖。
 - 已知简化：SQL/IO 异常与数据损坏目前都归 `invalid_stored_definition`，未再细分。
+
+## M2a-FIX2（2026-11-04）
+
+- `typeError` 与 `CapabilityJson.decodeType` 对齐：拒绝空 Record、空白字段名，递归检查嵌套 Record。
+- `propose` 写事务前对每个输入/输出类型做 `CanonicalJson.type → decodeType` 往返；不可逆返回 `invalid_type`。
+- 修复前存在 “propose 成功、inspect 失败” 的不变量破坏；X05 回归覆盖。

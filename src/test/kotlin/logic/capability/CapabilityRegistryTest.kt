@@ -271,4 +271,38 @@ class CapabilityRegistryTest {
         }
         assertEquals(1, count(path, "capabilities"))
     }
+
+    @Test
+    fun `X05 successful propose must roundtrip even with record type edge cases`() {
+        val path = db()
+        val invalidTypes = listOf(
+            CapType.Record(emptyMap()),
+            CapType.Record(mapOf("" to CapType.Str)),
+            CapType.Record(mapOf(" " to CapType.Str)),
+            CapType.Record(mapOf("ok" to CapType.Record(emptyMap()))),
+        )
+        SqliteCapabilityRegistry(path).use { registry ->
+            invalidTypes.forEachIndexed { index, badType ->
+                val definition = CapabilityDefinition(
+                    "x05.invalid.$index", 1, mapOf("item" to badType), CapType.Bool3,
+                    Expr.Const(CapValue.Bool(true)),
+                )
+                assertFalse(registry.propose(definition).ok, "不得写入不能反序列化的类型: $index")
+            }
+        }
+        assertEquals(0, count(path, "capabilities"))
+    }
+
+    @Test
+    fun `X05b nested record signature roundtrips`() {
+        val path = db()
+        val nested = CapType.Record(mapOf("inner" to CapType.Record(mapOf("x" to CapType.Str))))
+        val definition = CapabilityDefinition("x05.valid", 1, mapOf("item" to nested), CapType.Bool3, Expr.Const(CapValue.Bool(true)))
+        SqliteCapabilityRegistry(path).use { registry -> assertTrue(registry.propose(definition).ok) }
+        SqliteCapabilityRegistry(path).use { registry ->
+            val inspected = registry.inspect("x05.valid", 1)
+            assertTrue(inspected.ok)
+            assertEquals(nested, inspected.definition!!.inputs["item"])
+        }
+    }
 }
