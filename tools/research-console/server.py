@@ -406,7 +406,7 @@ class Handler(BaseHTTPRequestHandler):
                 ws = workstate_check(state)
                 self.send_json({"ok": not errors, "data_errors": errors, "workstate": ws,
                                 "git": git, "state_git_head_at_import": state.get("git_head_at_import"),
-                                "git_head_matches_import": git["head"] == state.get("git_head_at_import"),
+                                "git_head_note": "import baseline; live HEAD may be newer after console/document commits",
                                 "current_task_id": state.get("current_task_id"),
                                 "authorized_action": state.get("authorized_action"),
                                 "writes_enabled": bool(TOKEN), "task_count": len(state["tasks"]),
