@@ -173,3 +173,13 @@
 - 候选包含 helper 定义、来源 `(taskId, path)`、依赖 pin、替换 `Call`（锁定 helper `contentHash`）。
 - 本步只提出候选，不重写、不入库、不激活；语义等价但 AST 不同的子树不合并。
 - 重写、等价验证、净收益与事务发布在 M4-1c。
+
+## M4-1c 安全重写与净收益（2026-11-05）
+
+- 原位替换：只把候选子树换成锁定 helper `contentHash` 的 `Call`；不移动到短路/分支之外；只替换最外层出现。
+- 重写版本用 `version+1`，原版本保留；重写定义必须通过 `CapabilityTypeChecker`。
+- 等价比较签名：`Known` 比较值，`Unknown` 比较原因，`Error` 比较错误码；`DomainKind.EXHAUSTIVE` 表示声明有限域可穷举，`BOUNDED` 报告 `bounded_verified`。
+- 净收益：`before = Σ原任务正文成本`；`after = Σ重写任务 + helper 正文 + helper 签名 + λ`；只有等价通过且 `after < before` 才 `accepted`，否则 `rejected_candidate`（`behavior_mismatch` / `no_net_benefit`）。
+- 发布顺序：原程序 v1 → helper 提议/验证/激活 → 重写版本 v2 提议/验证/激活；激活门禁要求依赖已激活，因此不会出现“下游 active、helper 未 active”的半发布状态。
+- 本轮未新增跨能力批量事务；部分失败时下游保持未激活，helper 可撤销。
+- 旧版本、失败候选与拒绝原因保留；不用压缩结果冒充学习新事实。
