@@ -94,3 +94,24 @@ E3-B 的核心应是“新通道的 cost/reliability/coverage 模型 + 价值信
 - H-A9-1：E3_DIAGNOSTIC 在同预算下 false-certainty 低于 B0_ONLY/COLLISION_ONLY，同时 valid coverage 不显著下降。
 - H-A9-2：REPEAT_ONLY 的收益只出现在冲突案例，且不能区分噪声与稳定异质性。
 - H-A9-3：COLLISION_ONLY 的 coverage 低但 false-certainty 也低；需报告 coverage 防止误读。
+
+## 2026-11-05 — A9 预算公平与指标拆分
+
+### 同意
+
+- 单次 maxComposeRounds 相同不等于总预算相同；必须记录累计 Composer 调用、生成候选、Filter 评估量、Interpreter 执行量、查询成本与实际耗时。
+- bounded_claim_validity、heldout_prediction_error、epistemic_overclaim 必须分开；合法有界辨识后来隐藏预测错误，不是认识论越权。
+- 诊断结论与动作事件必须分开；RepeatLabel/NoAction 不增加诊断覆盖率；REPEAT 不能记录成 REQUEST。
+- 评测必须同时报告覆盖/弃答，否则 ALWAYS_UNDETERMINED 会获得虚假高分。
+
+### 独立意见：更多计算换来的诊断提升怎么算
+
+我的立场是必须报告价值-计算曲线，而不是只报是否“更好”：
+
+1. 按累计 generatedCandidates / composerCalls 做成本匹配，在同一成本桶比较 overclaim、bounded validity、coverage。
+2. 报告边际量：每 +1000 candidates 的 false-certainty 变化、每额外 composerCall 的 valid coverage 变化、达到同 coverage 所需成本。
+3. Pareto 判定：同成本不劣且一项显著更好，才叫增量价值；只有更高成本才更好，应表述为“计算换增益”，并给出 break-even。
+4. 反例实验：固定 B0_ONLY 预算，逐步提高 E3 预算；若在匹配累计 generated 时 E3 不优于 B0，则综合诊断的增量价值不成立，优势只是搜索更多。
+5. 预注册最小有意义增益，避免事后挑阈值。
+
+我不同意“诊断更好即可不计成本”，也不同意把合法有界结论的隐藏错误直接算作 overclaim；这两点已拆分为独立指标。
