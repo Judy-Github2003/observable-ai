@@ -171,6 +171,28 @@ class E3WorldGeneratorTest {
     }
 
     @Test
+    fun `search limited has no shallow literal combination consistent`() {
+        val world = E3WorldGenerator(41L).generate(WorldFamily.SEARCH_LIMITED, 0)
+        val fields = world.public.schema.fields.keys.toList()
+        val literals = fields.flatMap { field ->
+            listOf("0", "1").map { value -> { p: Map<String, String> -> p.getValue(field) == value } }
+        }
+        val negated = literals.map { lit -> { p: Map<String, String> -> !lit(p) } }
+        val atoms = literals + negated
+        val binaries = atoms.flatMap { a -> atoms.flatMap { b -> listOf< (Map<String, String>) -> Boolean >(
+            { p -> a(p) && b(p) },
+            { p -> a(p) || b(p) },
+        ) } }
+        val candidates = atoms + binaries
+        assertTrue(candidates.none { candidate ->
+            world.public.observations.all { obs ->
+                val visible = obs.visible.mapValues { (_, v) -> (v as ObservedValue.Known).value }
+                candidate(visible) == obs.label
+            }
+        })
+    }
+
+    @Test
     fun `search limited truth is deeper and no simple field rule fits`() {
         val world = E3WorldGenerator(37L).generate(WorldFamily.SEARCH_LIMITED, 0)
         assertTrue(world.truth.ruleDepth > 3)
