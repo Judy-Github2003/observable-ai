@@ -1,0 +1,34 @@
+[
+    {
+        "case": "bounded_valid_hidden_error",
+        "boundedClaimValidity": true,
+        "heldoutPredictionError": 0.5,
+        "epistemicOverclaim": false,
+        "diagnosticCoverage": true,
+        "collisionCoverage": false
+    },
+    {
+        "case": "bounded_invalid_hidden_error",
+        "boundedClaimValidity": false,
+        "heldoutPredictionError": 1.0,
+        "epistemicOverclaim": false,
+        "diagnosticCoverage": true,
+        "collisionCoverage": false
+    },
+    {
+        "case": "global_overclaim",
+        "boundedClaimValidity": true,
+        "heldoutPredictionError": 0.0,
+        "epistemicOverclaim": true,
+        "diagnosticCoverage": true,
+        "collisionCoverage": false
+    },
+    {
+        "case": "always_undetermined",
+        "boundedClaimValidity": null,
+        "heldoutPredictionError": null,
+        "epistemicOverclaim": false,
+        "diagnosticCoverage": false,
+        "collisionCoverage": false
+    }
+]

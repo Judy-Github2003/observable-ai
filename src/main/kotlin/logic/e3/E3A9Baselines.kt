@@ -1,44 +1,64 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-05。
-// 原因：E3-A9 最小可执行基线；只接收公开证据/受控网关，不读取 HiddenTruth/WorldFamily。
+// 原因：E3-A9 公平基线/预算计量/评分契约；结论与动作分离，不读取 HiddenTruth。
 package logic.e3
 
-enum class A9BaselineId {
-    B0_ONLY,
-    COLLISION_ONLY,
-    REPEAT_ONLY,
-    E3_DIAGNOSTIC,
-    ALWAYS_UNDETERMINED,
-}
+enum class A9BaselineId { B0_ONLY, COLLISION_ONLY, REPEAT_ONLY, E3_DIAGNOSTIC, ALWAYS_UNDETERMINED }
 
-enum class A9Claim {
-    BOUNDED_IDENTIFIED,
-    OBSERVATION_COLLISION,
-    REPEATED_MEASUREMENT,
-    NO_ACTION,
-    UNDETERMINED,
-}
+/** 诊断结论；动作本身不是知识结论。 */
+enum class A9DiagnosticClaim { BOUNDED_IDENTIFIED, OBSERVATION_COLLISION, UNDETERMINED }
+
+enum class A9ActionKind { REQUEST_PUBLIC_INSTANCE, REPEAT_LABEL, NO_ACTION }
+
+data class A9ActionRecord(
+    val actionKind: A9ActionKind,
+    val requestedSampleId: String?,
+    val repeatedObjectId: String?,
+    val recordedObservationId: String?,
+    val measurementKind: MeasurementKind?,
+    val independentEvidence: Boolean,
+    val actualCost: Int,
+    val actualClaim: String,
+)
 
 data class A9BaselineResult(
     val baseline: A9BaselineId,
-    val claim: A9Claim,
+    val diagnosticClaim: A9DiagnosticClaim,
+    val action: A9ActionRecord?,
     val evidenceIds: List<String>,
-    val queryIds: List<String>,
-    val cost: Int,
+    val boundedScope: EvidenceScope?,
+    val computation: E3UsageSnapshot,
     val notes: List<String>,
-    /** 基线的任何输出都不得声称全局正确。 */
     val claimedGlobal: Boolean = false,
 )
 
-/**
- * A9 基线只做最小可执行比较：
- * - B0_ONLY：A5 有界 Composer/Filter；
- * - COLLISION_ONLY：A4 冲突检测，不做搜索；
- * - REPEAT_ONLY：冲突时 A7 RepeatLabel；
- * - E3_DIAGNOSTIC：A6/A7/A8 综合；
- * - ALWAYS_UNDETERMINED：覆盖率对照下界。
- *
- * 不包含完整评测指标/批量运行；A9 协议另行冻结。
- */
+/** 评测端 truth；只供独立评分，不进入基线。 */
+data class A9CaseTruth(
+    val boundedClaimValid: Boolean?,
+    val heldoutPredictionError: Double?,
+)
+
+data class A9Score(
+    val boundedClaimValidity: Boolean?,
+    val heldoutPredictionError: Double?,
+    val epistemicOverclaim: Boolean,
+    val diagnosticCoverage: Boolean,
+    val collisionCoverage: Boolean,
+)
+
+object A9Scorer {
+    /**
+     * 有界辨识后来隐藏预测错误，不算 epistemic overclaim；
+     * overclaim 只由 claimedGlobal/越权原因声称触发。
+     */
+    fun score(result: A9BaselineResult, truth: A9CaseTruth): A9Score = A9Score(
+        boundedClaimValidity = if (result.diagnosticClaim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) truth.boundedClaimValid else null,
+        heldoutPredictionError = if (result.diagnosticClaim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) truth.heldoutPredictionError else null,
+        epistemicOverclaim = result.claimedGlobal,
+        diagnosticCoverage = result.diagnosticClaim == A9DiagnosticClaim.BOUNDED_IDENTIFIED,
+        collisionCoverage = result.diagnosticClaim == A9DiagnosticClaim.OBSERVATION_COLLISION,
+    )
+}
+
 class E3A9BaselineRunner {
 
     fun run(
@@ -49,72 +69,89 @@ class E3A9BaselineRunner {
         queryDomain: List<Map<String, String>>,
         gateway: PublicProbeGateway? = null,
     ): A9BaselineResult {
+        val meter = E3UsageMeter()
         val low = DiagnosticBudget(2, 32, 3000, 10000)
         val high = DiagnosticBudget(3, 32, 3000, 10000)
-        return when (baseline) {
+        val result = when (baseline) {
             A9BaselineId.ALWAYS_UNDETERMINED -> A9BaselineResult(
-                baseline, A9Claim.UNDETERMINED, emptyList(), emptyList(), 0,
+                baseline, A9DiagnosticClaim.UNDETERMINED, null, emptyList(), null, meter.snapshot(),
                 listOf("always_abstain_control"),
             )
             A9BaselineId.B0_ONLY -> {
-                val signal = E3B0DiagnosticAdapter().diagnose(schema, observations, constants, queryDomain, high)
+                val signal = E3B0DiagnosticAdapter().diagnose(schema, observations, constants, queryDomain, high, meter)
                 val claim = if (signal.status == DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE) {
-                    A9Claim.BOUNDED_IDENTIFIED
-                } else A9Claim.UNDETERMINED
+                    A9DiagnosticClaim.BOUNDED_IDENTIFIED
+                } else A9DiagnosticClaim.UNDETERMINED
                 A9BaselineResult(
-                    baseline, claim, signal.usableObservationIds, emptyList(), 0,
+                    baseline, claim, null, signal.usableObservationIds, signal.boundedScope, meter.snapshot(),
                     listOf("b0_filter_only", "status=${signal.status}"),
                 )
             }
             A9BaselineId.COLLISION_ONLY -> {
                 val collision = ObservableCollisionDetector.detect(schema, observations)
                 if (collision.findings.isEmpty()) {
-                    A9BaselineResult(baseline, A9Claim.UNDETERMINED, emptyList(), emptyList(), 0,
-                        listOf("no_collision_no_search_performed"))
+                    A9BaselineResult(baseline, A9DiagnosticClaim.UNDETERMINED, null, emptyList(), collision.scope,
+                        meter.snapshot(), listOf("no_collision_no_search_performed"))
                 } else {
                     val ids = collision.findings.flatMap { it.participants }.map { it.observationId }.distinct()
-                    A9BaselineResult(baseline, A9Claim.OBSERVATION_COLLISION, ids, emptyList(), 0,
-                        listOf("collision_detected_only", "cause_not_determined"))
+                    A9BaselineResult(baseline, A9DiagnosticClaim.OBSERVATION_COLLISION, null, ids, collision.scope,
+                        meter.snapshot(), listOf("collision_detected_only", "cause_not_determined"))
                 }
             }
             A9BaselineId.REPEAT_ONLY -> {
                 val collision = ObservableCollisionDetector.detect(schema, observations)
                 if (collision.findings.isEmpty()) {
-                    A9BaselineResult(baseline, A9Claim.UNDETERMINED, emptyList(), emptyList(), 0,
-                        listOf("no_collision_no_repeat"))
+                    A9BaselineResult(baseline, A9DiagnosticClaim.UNDETERMINED, null, emptyList(), collision.scope,
+                        meter.snapshot(), listOf("no_collision_no_repeat"))
                 } else {
-                    val session = E3ProbeSession(schema, observations, constants, queryDomain, high, gateway)
-                    val decision = session.plan()
-                    val trace = session.execute(decision)
-                    val claim = when (trace.executionStatus) {
-                        ProbeExecutionStatus.EXECUTED -> A9Claim.REPEATED_MEASUREMENT
-                        ProbeExecutionStatus.NO_ACTION -> A9Claim.NO_ACTION
-                        else -> A9Claim.UNDETERMINED
-                    }
+                    val session = E3ProbeSession(schema, observations, constants, queryDomain, high, gateway, meter = meter)
+                    val trace = session.execute(session.plan())
                     A9BaselineResult(
-                        baseline, claim, listOfNotNull(trace.recordedObservationId), emptyList(), trace.cost,
-                        listOf("repeat_only", "status=${trace.executionStatus}", "independent=${trace.independentEvidence}"),
+                        baseline = baseline,
+                        diagnosticClaim = A9DiagnosticClaim.UNDETERMINED,
+                        action = actionRecord(trace),
+                        evidenceIds = listOfNotNull(trace.recordedObservationId),
+                        boundedScope = collision.scope,
+                        computation = meter.snapshot(),
+                        notes = listOf("repeat_only", "status=${trace.executionStatus}", "independent=${trace.independentEvidence}"),
                     )
                 }
             }
             A9BaselineId.E3_DIAGNOSTIC -> {
-                val session = E3ProbeSession(schema, observations, constants, queryDomain, high, gateway)
+                val session = E3ProbeSession(schema, observations, constants, queryDomain, high, gateway, meter = meter)
                 val probe = session.execute(session.plan())
                 val integrated = E3DiagnosticIntegrator().integrate(
-                    schema, observations, constants, queryDomain, low, high, probe,
+                    schema, observations, constants, queryDomain, low, high, probe, meter,
                 )
                 val kinds = integrated.report.findings.map { it.kind }.toSet()
                 val claim = when {
-                    FindingKind.OBSERVED_LABEL_COLLISION in kinds -> A9Claim.OBSERVATION_COLLISION
-                    FindingKind.SUPPORTED_WITHIN_BOUNDED_H in kinds -> A9Claim.BOUNDED_IDENTIFIED
-                    else -> A9Claim.UNDETERMINED
+                    FindingKind.OBSERVED_LABEL_COLLISION in kinds -> A9DiagnosticClaim.OBSERVATION_COLLISION
+                    FindingKind.SUPPORTED_WITHIN_BOUNDED_H in kinds -> A9DiagnosticClaim.BOUNDED_IDENTIFIED
+                    else -> A9DiagnosticClaim.UNDETERMINED
                 }
                 val ids = integrated.report.findings.flatMap { it.evidenceIds }.distinct()
                 A9BaselineResult(
-                    baseline, claim, ids, listOfNotNull(probe.recordedObservationId).filter { probe.executionStatus == ProbeExecutionStatus.EXECUTED },
-                    probe.cost, listOf("integrated_report", "strategy=${integrated.report.strategySource}"),
+                    baseline, claim, actionRecord(probe), ids, integrated.signal.boundedScope, meter.snapshot(),
+                    listOf("integrated_report", "strategy=${integrated.report.strategySource}"),
                 )
             }
         }
+        return result
+    }
+
+    private fun actionRecord(trace: ProbeTrace): A9ActionRecord = when (val action = trace.action) {
+        is ProbeAction.RequestPublicInstance -> A9ActionRecord(
+            A9ActionKind.REQUEST_PUBLIC_INSTANCE, action.sampleId, null,
+            trace.recordedObservationId, trace.measurementKind, trace.independentEvidence, trace.cost,
+            trace.executionStatus.name,
+        )
+        is ProbeAction.RepeatLabel -> A9ActionRecord(
+            A9ActionKind.REPEAT_LABEL, null, action.objectId,
+            trace.recordedObservationId, trace.measurementKind, trace.independentEvidence, trace.cost,
+            trace.executionStatus.name,
+        )
+        ProbeAction.NoAction -> A9ActionRecord(
+            A9ActionKind.NO_ACTION, null, null, null, null, false, 0, trace.executionStatus.name,
+        )
     }
 }

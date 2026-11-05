@@ -82,6 +82,7 @@ class E3ProbeSession(
     private val budget: DiagnosticBudget,
     private val gateway: PublicProbeGateway?,
     private val maxActions: Int = 1,
+    private val meter: E3UsageMeter? = null,
 ) {
     private val adapter = E3B0DiagnosticAdapter()
     private val currentObservations = observations.toMutableList()
@@ -89,7 +90,7 @@ class E3ProbeSession(
     private val issuedDecisions = HashMap<String, ProbeDecision>()
     private var actionsTaken = 0
 
-    fun diagnosis(): DiagnosticSignal = adapter.diagnose(schema, currentObservations, constants, queryDomain, budget)
+    fun diagnosis(): DiagnosticSignal = adapter.diagnose(schema, currentObservations, constants, queryDomain, budget, meter)
 
     fun plan(): ProbeDecision {
         if (actionsTaken >= maxActions) return issue(noAction("action_budget_exhausted"))
@@ -174,6 +175,7 @@ class E3ProbeSession(
                     return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_RESPONSE, error, response, MeasurementKind.PUBLIC_INSTANCE)
                 }
                 usedQueryIds += action.sampleId
+                meter?.recordQuery(1)
                 actionsTaken++
                 val round = (currentObservations.maxOfOrNull { it.round } ?: 0) + 1
                 val recordId = "probe-${action.sampleId}-$round"

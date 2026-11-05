@@ -35,14 +35,15 @@ class E3DiagnosticIntegrator {
         low: DiagnosticBudget,
         high: DiagnosticBudget,
         probe: ProbeTrace? = null,
+        meter: E3UsageMeter? = null,
     ): IntegratedDiagnosis {
         val diagnoser = E3SearchBudgetDiagnoser()
-        val beforeBudget = diagnoser.diagnose(schema, observations, constants, queryDomain, low, high)
+        val beforeBudget = diagnoser.diagnose(schema, observations, constants, queryDomain, low, high, meter)
         val evidenceValidation = validateProbeEvidence(schema, observations, probe)
         val acceptedObservation = evidenceValidation.first
         val rejectionReason = evidenceValidation.second
         val afterObservations = if (acceptedObservation != null) observations + acceptedObservation else observations
-        val afterBudget = diagnoser.diagnose(schema, afterObservations, constants, queryDomain, low, high)
+        val afterBudget = diagnoser.diagnose(schema, afterObservations, constants, queryDomain, low, high, meter)
         val budget = afterBudget
         val signal = budget.runs.last().signal
         val findings = ArrayList<DiagnosticFinding>()

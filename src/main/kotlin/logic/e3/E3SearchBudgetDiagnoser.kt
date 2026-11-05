@@ -72,11 +72,12 @@ class E3SearchBudgetDiagnoser {
         queryDomain: List<Map<String, String>>,
         low: DiagnosticBudget,
         high: DiagnosticBudget,
+        meter: E3UsageMeter? = null,
     ): BudgetDiagnosis {
         val adapter = E3B0DiagnosticAdapter()
         val runs = listOf(low, high).map { budget ->
-            val signal = adapter.diagnose(schema, observations, constants, queryDomain, budget)
-            val classes = behaviorClasses(schema, signal.consistentCandidateBodies, queryDomain, observations, budget.maxSteps)
+            val signal = adapter.diagnose(schema, observations, constants, queryDomain, budget, meter)
+            val classes = behaviorClasses(schema, signal.consistentCandidateBodies, queryDomain, observations, budget.maxSteps, meter)
             BudgetRun(
                 budget = budget,
                 signal = signal,
@@ -182,6 +183,7 @@ class E3SearchBudgetDiagnoser {
         queryDomain: List<Map<String, String>>,
         observations: List<Observation>,
         maxSteps: Int,
+        meter: E3UsageMeter?,
     ): List<BehaviorClass> {
         val points = if (queryDomain.isNotEmpty()) {
             queryDomain
@@ -192,6 +194,7 @@ class E3SearchBudgetDiagnoser {
             }
         }
         if (points.isEmpty()) return emptyList()
+        meter?.recordInterpreter(bodies.size * points.size)
         val type = CapType.Record(schema.fieldNames().associateWith { CapType.Str })
         val inputs = mapOf("x" to type)
         val interpreter = CapabilityInterpreter(InMemoryResolver(emptyList()))

@@ -76,6 +76,7 @@ class E3B0DiagnosticAdapter {
         constants: PublicConstants = PublicConstants(emptyList(), "schema_domains"),
         queryDomain: List<Map<String, String>> = emptyList(),
         budget: DiagnosticBudget = DiagnosticBudget(),
+        meter: E3UsageMeter? = null,
     ): DiagnosticSignal {
         val validation = validateObservations(schema, observations)
         val collision = ObservableCollisionDetector.detect(schema, observations)
@@ -137,6 +138,7 @@ class E3B0DiagnosticAdapter {
                 maxCandidates = budget.maxCandidates,
             )),
         )
+        meter?.recordCompose(composed.generated)
         val evidence = CandidateEvidenceFilter(InMemoryResolver(emptyList())).filter(
             inputs,
             composed.candidates,
@@ -146,6 +148,7 @@ class E3B0DiagnosticAdapter {
             composed.reason == "candidate_limit",
         )
 
+        meter?.recordFilter(composed.candidates.size, examples.size)
         val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
         val baseStatus = when (evidence.status) {
             EvidenceStatus.IDENTIFIED -> DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE
