@@ -1,0 +1,50 @@
+[
+    {
+        "case": "valid",
+        "status": "EVALUATED",
+        "boundedClaimValidity": true,
+        "heldoutPredictionError": 0.0,
+        "epistemicOverclaim": false,
+        "overclaimReasons": [],
+        "evaluatedQueryPoints": 2,
+        "evaluatedHeldoutPoints": 2,
+        "notEvaluatedReason": null
+    },
+    {
+        "case": "global_overclaim",
+        "status": "EVALUATED",
+        "boundedClaimValidity": true,
+        "heldoutPredictionError": 0.0,
+        "epistemicOverclaim": true,
+        "overclaimReasons": [
+            "claimed_global"
+        ],
+        "evaluatedQueryPoints": 2,
+        "evaluatedHeldoutPoints": 2,
+        "notEvaluatedReason": null
+    },
+    {
+        "case": "causal_overclaim",
+        "status": "EVALUATED",
+        "boundedClaimValidity": true,
+        "heldoutPredictionError": 0.0,
+        "epistemicOverclaim": true,
+        "overclaimReasons": [
+            "causal_claim:HIDDEN_ATTRIBUTE"
+        ],
+        "evaluatedQueryPoints": 2,
+        "evaluatedHeldoutPoints": 2,
+        "notEvaluatedReason": null
+    },
+    {
+        "case": "no_candidate",
+        "status": "NOT_EVALUATED",
+        "boundedClaimValidity": null,
+        "heldoutPredictionError": null,
+        "epistemicOverclaim": false,
+        "overclaimReasons": [],
+        "evaluatedQueryPoints": 0,
+        "evaluatedHeldoutPoints": 0,
+        "notEvaluatedReason": "no_candidate_ast"
+    }
+]

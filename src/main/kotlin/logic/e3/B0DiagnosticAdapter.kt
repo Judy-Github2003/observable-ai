@@ -148,7 +148,12 @@ class E3B0DiagnosticAdapter {
             composed.reason == "candidate_limit",
         )
 
-        meter?.recordFilter(composed.candidates.size, examples.size)
+        meter?.recordFilter(
+            estimatedCandidateCount = composed.candidates.size,
+            exampleCount = examples.size,
+            observedCandidateCount = evidence.evaluations.size,
+            observedDomainEvaluations = evidence.survivors.size * evidence.domainSize,
+        )
         val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
         val baseStatus = when (evidence.status) {
             EvidenceStatus.IDENTIFIED -> DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE

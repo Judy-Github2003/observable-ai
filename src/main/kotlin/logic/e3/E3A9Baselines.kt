@@ -2,6 +2,8 @@
 // 原因：E3-A9 公平基线/预算计量/评分契约；结论与动作分离，不读取 HiddenTruth。
 package logic.e3
 
+import logic.capability.Expr
+
 enum class A9BaselineId { B0_ONLY, COLLISION_ONLY, REPEAT_ONLY, E3_DIAGNOSTIC, ALWAYS_UNDETERMINED }
 
 /** 诊断结论；动作本身不是知识结论。 */
@@ -29,6 +31,8 @@ data class A9BaselineResult(
     val computation: E3UsageSnapshot,
     val notes: List<String>,
     val claimedGlobal: Boolean = false,
+    val candidateBodies: List<Expr> = emptyList(),
+    val candidateCanonicals: List<String> = emptyList(),
 )
 
 /** 评测端 truth；只供独立评分，不进入基线。 */
@@ -85,6 +89,8 @@ class E3A9BaselineRunner {
                 A9BaselineResult(
                     baseline, claim, null, signal.usableObservationIds, signal.boundedScope, meter.snapshot(),
                     listOf("b0_filter_only", "status=${signal.status}"),
+                    candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateBodies else emptyList(),
+                    candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateHashes else emptyList(),
                 )
             }
             A9BaselineId.COLLISION_ONLY -> {
@@ -133,6 +139,8 @@ class E3A9BaselineRunner {
                 A9BaselineResult(
                     baseline, claim, actionRecord(probe), ids, integrated.signal.boundedScope, meter.snapshot(),
                     listOf("integrated_report", "strategy=${integrated.report.strategySource}"),
+                    candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateBodies else emptyList(),
+                    candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateHashes else emptyList(),
                 )
             }
         }
@@ -143,15 +151,15 @@ class E3A9BaselineRunner {
         is ProbeAction.RequestPublicInstance -> A9ActionRecord(
             A9ActionKind.REQUEST_PUBLIC_INSTANCE, action.sampleId, null,
             trace.recordedObservationId, trace.measurementKind, trace.independentEvidence, trace.cost,
-            trace.executionStatus.name,
+            trace.diagnosisAfter.status.name,
         )
         is ProbeAction.RepeatLabel -> A9ActionRecord(
             A9ActionKind.REPEAT_LABEL, null, action.objectId,
             trace.recordedObservationId, trace.measurementKind, trace.independentEvidence, trace.cost,
-            trace.executionStatus.name,
+            trace.diagnosisAfter.status.name,
         )
         ProbeAction.NoAction -> A9ActionRecord(
-            A9ActionKind.NO_ACTION, null, null, null, null, false, 0, trace.executionStatus.name,
+            A9ActionKind.NO_ACTION, null, null, null, null, false, 0, trace.diagnosisAfter.status.name,
         )
     }
 }

@@ -67,10 +67,15 @@ class E3A9BaselineTest {
                     put("actualCost", result.action?.actualCost ?: 0)
                     put("composerCalls", result.computation.composerCalls)
                     put("generatedCandidates", result.computation.generatedCandidates)
-                    put("filterCandidateEvaluations", result.computation.filterCandidateEvaluations)
+                    put("estimatedFilterEvaluations", result.computation.estimatedFilterEvaluations)
+                    put("observedFilterExampleEvaluations", result.computation.observedFilterExampleEvaluations)
+                    put("observedFilterQueryDomainEvaluations", result.computation.observedFilterQueryDomainEvaluations)
                     put("interpreterExecutions", result.computation.interpreterExecutions)
-                    put("publicQueries", result.computation.publicQueries)
-                    put("queryCost", result.computation.queryCost)
+                    put("publicInstanceRequests", result.computation.publicInstanceRequests)
+                    put("repeatRequests", result.computation.repeatRequests)
+                    put("totalProbeCost", result.computation.totalProbeCost)
+                    put("successfulProbeCount", result.computation.successfulProbeCount)
+                    put("independentEvidenceCount", result.computation.independentEvidenceCount)
                     put("elapsedNanos", result.computation.elapsedNanos)
                     put("evidenceCount", result.evidenceIds.size)
                     put("claimedGlobal", result.claimedGlobal)
@@ -99,19 +104,44 @@ class E3A9BaselineTest {
         val e3 = runner().run(A9BaselineId.E3_DIAGNOSTIC, args[0] as VisibleSchema, args[1] as List<Observation>, args[2] as PublicConstants, args[3] as List<Map<String, String>>, args[4] as PublicProbeGateway)
         assertTrue(e3.computation.composerCalls > b0.computation.composerCalls)
         assertTrue(e3.computation.generatedCandidates > b0.computation.generatedCandidates)
-        assertTrue(e3.computation.filterCandidateEvaluations > b0.computation.filterCandidateEvaluations)
+        assertTrue(e3.computation.observedFilterExampleEvaluations > b0.computation.observedFilterExampleEvaluations)
     }
 
     @Test
     fun `bounded claim remains valid even when heldout prediction is wrong`() {
         val result = A9BaselineResult(
             A9BaselineId.B0_ONLY, A9DiagnosticClaim.BOUNDED_IDENTIFIED, null, emptyList(), null,
-            E3UsageSnapshot(1, 10, 10, 10, 0, 0, 1), emptyList(),
+            E3UsageSnapshot(1, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 1), emptyList(),
         )
         val score = A9Scorer.score(result, A9CaseTruth(boundedClaimValid = true, heldoutPredictionError = 0.5))
         assertEquals(true, score.boundedClaimValidity)
         assertEquals(0.5, score.heldoutPredictionError)
         assertFalse(score.epistemicOverclaim)
+    }
+
+    @Test
+    fun `probe requests and costs match action records`() {
+        val latent = E3WorldGenerator(103L).generate(WorldFamily.LATENT_ALIASING, 0)
+        val repeat = runner().run(
+            A9BaselineId.REPEAT_ONLY, latent.public.schema, latent.public.observations,
+            PublicConstants(latent.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            latent.public.queryPool.map { it.visible }, gateway(latent),
+        )
+        assertEquals(1, repeat.computation.repeatRequests)
+        assertEquals(0, repeat.computation.publicInstanceRequests)
+        assertEquals(1, repeat.computation.totalProbeCost)
+        assertEquals(0, repeat.computation.independentEvidenceCount)
+        assertEquals(repeat.action!!.actualCost, repeat.computation.totalProbeCost)
+
+        val ambiguous = E3WorldGenerator(109L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)
+        val request = runner().run(
+            A9BaselineId.E3_DIAGNOSTIC, ambiguous.public.schema, ambiguous.public.observations,
+            PublicConstants(ambiguous.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            ambiguous.public.queryPool.map { it.visible }, gateway(ambiguous),
+        )
+        assertTrue(request.computation.publicInstanceRequests >= 1)
+        assertEquals(request.action!!.actualCost, request.computation.totalProbeCost)
+        assertEquals(1, request.computation.successfulProbeCount)
     }
 
     @Test

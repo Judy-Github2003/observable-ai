@@ -169,13 +169,14 @@ class E3ProbeSession(
                     return rejected(before, decision, ProbeExecutionStatus.DUPLICATE_QUERY, "duplicate_query_not_new_evidence")
                 }
                 issuedDecisions.remove(decision.decisionId)
+                meter?.recordPublicInstanceRequest()
                 val response = gateway.requestPublicInstance(action.sampleId)
                 val error = validatePublicResponse(action.sampleId, response)
                 if (error != null) {
                     return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_RESPONSE, error, response, MeasurementKind.PUBLIC_INSTANCE)
                 }
                 usedQueryIds += action.sampleId
-                meter?.recordQuery(1)
+                meter?.recordProbeSuccess(1, independent = true)
                 actionsTaken++
                 val round = (currentObservations.maxOfOrNull { it.round } ?: 0) + 1
                 val recordId = "probe-${action.sampleId}-$round"
@@ -202,12 +203,14 @@ class E3ProbeSession(
                 val original = currentObservations.filter { it.objectId == action.objectId }
                 if (original.isEmpty()) return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_ACTION, "repeat_object_not_in_evidence")
                 issuedDecisions.remove(decision.decisionId)
+                meter?.recordRepeatRequest()
                 val response = gateway?.repeatLabel(action.objectId, action.sourceId)
                     ?: return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_RESPONSE, "repeat_not_supported_or_rejected")
                 val error = validateRepeatResponse(action, original, response)
                 if (error != null) {
                     return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_RESPONSE, error, response, response.measurementKind)
                 }
+                meter?.recordProbeSuccess(1, independent = false)
                 actionsTaken++
                 val round = (currentObservations.maxOfOrNull { it.round } ?: 0) + 1
                 val recordId = "repeat-${action.objectId}-$round"

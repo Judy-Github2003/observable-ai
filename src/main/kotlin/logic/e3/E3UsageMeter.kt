@@ -1,14 +1,19 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-05。
-// 原因：E3-A9 公平预算计量；不修改 B0，只在适配器/诊断器边界累计实际调用。
+// 原因：E3-A9 公平预算计量；区分估计/实际 Filter 工作、查询请求与成功探测。
 package logic.e3
 
 data class E3UsageSnapshot(
     val composerCalls: Int,
     val generatedCandidates: Int,
-    val filterCandidateEvaluations: Int,
+    val estimatedFilterEvaluations: Int,
+    val observedFilterExampleEvaluations: Int,
+    val observedFilterQueryDomainEvaluations: Int,
     val interpreterExecutions: Int,
-    val publicQueries: Int,
-    val queryCost: Int,
+    val publicInstanceRequests: Int,
+    val repeatRequests: Int,
+    val totalProbeCost: Int,
+    val successfulProbeCount: Int,
+    val independentEvidenceCount: Int,
     val elapsedNanos: Long,
 )
 
@@ -16,37 +21,68 @@ data class E3UsageSnapshot(
 class E3UsageMeter {
     private var composerCalls = 0
     private var generatedCandidates = 0
-    private var filterCandidateEvaluations = 0
+    private var estimatedFilterEvaluations = 0
+    private var observedFilterExampleEvaluations = 0
+    private var observedFilterQueryDomainEvaluations = 0
     private var interpreterExecutions = 0
-    private var publicQueries = 0
-    private var queryCost = 0
-    private var startedAt = System.nanoTime()
+    private var publicInstanceRequests = 0
+    private var repeatRequests = 0
+    private var totalProbeCost = 0
+    private var successfulProbeCount = 0
+    private var independentEvidenceCount = 0
+    private val startedAt = System.nanoTime()
 
     fun recordCompose(generated: Int) {
         composerCalls++
         generatedCandidates += generated
     }
 
-    fun recordFilter(candidateCount: Int, exampleCount: Int) {
-        filterCandidateEvaluations += candidateCount * exampleCount
+    /**
+     * estimated：按“全部候选 × 样本数”的上界；
+     * observed：Filter 实际返回的 evaluations 数 × 样本数（早期拒绝时 evaluations 为空）。
+     */
+    fun recordFilter(
+        estimatedCandidateCount: Int,
+        exampleCount: Int,
+        observedCandidateCount: Int,
+        observedDomainEvaluations: Int,
+    ) {
+        estimatedFilterEvaluations += estimatedCandidateCount * exampleCount
+        observedFilterExampleEvaluations += observedCandidateCount * exampleCount
+        observedFilterQueryDomainEvaluations += observedDomainEvaluations
     }
 
     fun recordInterpreter(executions: Int) {
         interpreterExecutions += executions
     }
 
-    fun recordQuery(cost: Int = 1) {
-        publicQueries++
-        queryCost += cost
+    fun recordPublicInstanceRequest() {
+        publicInstanceRequests++
+    }
+
+    fun recordRepeatRequest() {
+        repeatRequests++
+    }
+
+    /** 只对成功写入新观察的记录计费；失败/重复请求 cost=0。 */
+    fun recordProbeSuccess(cost: Int, independent: Boolean) {
+        totalProbeCost += cost
+        successfulProbeCount++
+        if (independent) independentEvidenceCount++
     }
 
     fun snapshot(): E3UsageSnapshot = E3UsageSnapshot(
         composerCalls = composerCalls,
         generatedCandidates = generatedCandidates,
-        filterCandidateEvaluations = filterCandidateEvaluations,
+        estimatedFilterEvaluations = estimatedFilterEvaluations,
+        observedFilterExampleEvaluations = observedFilterExampleEvaluations,
+        observedFilterQueryDomainEvaluations = observedFilterQueryDomainEvaluations,
         interpreterExecutions = interpreterExecutions,
-        publicQueries = publicQueries,
-        queryCost = queryCost,
+        publicInstanceRequests = publicInstanceRequests,
+        repeatRequests = repeatRequests,
+        totalProbeCost = totalProbeCost,
+        successfulProbeCount = successfulProbeCount,
+        independentEvidenceCount = independentEvidenceCount,
         elapsedNanos = System.nanoTime() - startedAt,
     )
 }
