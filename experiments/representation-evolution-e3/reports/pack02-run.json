@@ -21,33 +21,33 @@
         "failure": null
     },
     "r": {
-        "generated": 1525,
-        "reason": "depth_limit",
-        "searchExhausted": false,
-        "status": "IDENTIFIED",
-        "active": true,
-        "heldout": 4,
-        "uses": "pack02.p,pack02.q",
-        "failure": null
-    },
-    "full": {
-        "generated": 2385,
+        "generated": 1084,
         "reason": "depth_limit",
         "searchExhausted": false,
         "status": "AMBIGUOUS",
         "active": false,
-        "heldout": 2,
-        "uses": "pack02.r",
-        "failure": "ambiguous_selection"
+        "heldout": 0,
+        "uses": "",
+        "failure": "filter_not_identified"
+    },
+    "full": {
+        "generated": 0,
+        "reason": null,
+        "searchExhausted": false,
+        "status": "INACTIVE",
+        "active": false,
+        "heldout": 0,
+        "uses": "",
+        "failure": "inactive_or_hash_mismatch"
     },
     "noComposite": {
         "generated": 1525,
         "reason": "depth_limit",
         "searchExhausted": false,
-        "status": "REFUSED",
+        "status": "AMBIGUOUS",
         "active": false,
-        "heldout": 0,
+        "heldout": 2,
         "uses": "",
-        "failure": "filter_refused"
+        "failure": "ambiguous_selection"
     }
 }

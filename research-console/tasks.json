@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-05T15:13:02.060261+00:00",
+  "updated_at": "2026-11-05T15:17:30.469772+00:00",
   "source": "Research Console initial import; planning data is not evidence",
   "current_task_id": "C4",
   "authorized_action": "none",
@@ -1160,7 +1160,7 @@
       "research_question": "旧概念能否组合成新的可执行概念？",
       "hypothesis": "通过受控实验可以判断：由旧概念构造复合概念所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "由旧概念构造复合概念",
-      "status": "REVIEW",
+      "status": "PAUSED",
       "priority": "medium",
       "dependencies": [
         "PACK-02: B0 Composer/Filter/Interpreter and active capability registry"
@@ -1189,8 +1189,8 @@
       ],
       "attribution": "research_owner/ChatGPT 提出；尚未实施，未授权",
       "known_limitations": [
-        "复合 R 在受限假设空间内辨识；未声明穷尽",
-        "未完成已激活知识版本替换闭环",
+        "原训练/留出配置下 R 未能 IDENTIFIED；未强行激活",
+        "扩展样本只作诊断，不作为正式结果",
         "independent_closed_book=not_run"
       ],
       "patch_used": 1,
@@ -1218,6 +1218,11 @@
         {
           "at": "2026-11-05",
           "decision": "PACK-02 ordinary patch 1/1 used; status remains REVIEW",
+          "actor": "research_owner"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "PACK-02 ordinary patch 1/1; PAUSED due real ambiguity",
           "actor": "research_owner"
         }
       ],
@@ -1382,7 +1387,7 @@
       "research_question": "概念能否在第二任务产生真实复用收益？",
       "hypothesis": "通过受控实验可以判断：跨不同任务的概念复用所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "跨不同任务的概念复用",
-      "status": "REVIEW",
+      "status": "PAUSED",
       "priority": "high",
       "dependencies": [
         "PACK-02: B0 Composer/Filter/Interpreter and active capability registry"
@@ -1411,8 +1416,8 @@
       ],
       "attribution": "research_owner/ChatGPT 提出；尚未实施，未授权",
       "known_limitations": [
-        "全知识组仍 AMBIGUOUS；未形成唯一复合规则",
-        "无 R 组未产生可评估预测，不记作 0%",
+        "原训练/留出配置下 R 未能 IDENTIFIED；未强行激活",
+        "扩展样本只作诊断，不作为正式结果",
         "independent_closed_book=not_run"
       ],
       "patch_used": 1,
@@ -1440,6 +1445,11 @@
         {
           "at": "2026-11-05",
           "decision": "PACK-02 ordinary patch 1/1 used; status remains REVIEW",
+          "actor": "research_owner"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "PACK-02 ordinary patch 1/1; PAUSED due real ambiguity",
           "actor": "research_owner"
         }
       ],
@@ -3957,6 +3967,11 @@
         {
           "at": "2026-11-05",
           "decision": "PACK-02 ordinary patch 1/1 used; status remains REVIEW",
+          "actor": "research_owner"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "PACK-02 patch; H01 remains REVIEW",
           "actor": "research_owner"
         }
       ],
@@ -9793,7 +9808,7 @@
   "active_pack": {
     "id": "PACK-02",
     "title": "知识组合、多步演绎与跨任务复用",
-    "status": "REVIEW",
+    "status": "PAUSED",
     "tasks": [
       "C4",
       "RES-H01",

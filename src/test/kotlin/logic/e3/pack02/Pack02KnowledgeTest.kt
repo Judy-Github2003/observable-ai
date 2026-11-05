@@ -32,17 +32,20 @@ class Pack02KnowledgeTest {
         sample("qh1", b = "1", c = "0", label = false), sample("qh2", b = "1", c = "1", label = true),
         sample("qh3", b = "2", c = "0", label = false), sample("qh4", b = "2", c = "1", label = true),
     )
-    private fun rData(): Pair<List<Pack02Sample>, List<Pack02Sample>> {
-        val held = setOf("1,1,1", "2,0,1", "1,2,0", "0,1,2")
-        val train = ArrayList<Pack02Sample>()
-        val hold = ArrayList<Pack02Sample>()
-        for (a in listOf("0", "1", "2")) for (b in listOf("0", "1", "2")) for (c in listOf("0", "1", "2")) {
-            val key = "$a,$b,$c"
-            val s = sample("r-$a$b$c", a, b, c, label = a == "1" && c == "1")
-            if (key in held) hold += s else train += s
-        }
-        return train to hold
-    }
+    private fun rData(): Pair<List<Pack02Sample>, List<Pack02Sample>> = Pair(
+        listOf(
+            sample("r1", "0", "0", "0", label = false),
+            sample("r2", "1", "0", "0", label = false),
+            sample("r3", "0", "1", "1", label = false),
+            sample("r4", "1", "1", "1", label = true),
+        ),
+        listOf(
+            sample("rh1", "0", "1", "0", label = false),
+            sample("rh2", "1", "1", "0", label = false),
+            sample("rh3", "0", "0", "1", label = false),
+            sample("rh4", "1", "0", "1", label = true),
+        ),
+    )
 
     private fun ref(trace: Pack02Trace): KnowledgeRef {
         val def = assertNotNull(trace.definition)
@@ -50,7 +53,7 @@ class Pack02KnowledgeTest {
     }
 
     @Test
-    fun `C4 composes active base predicates and enforces search budget`() {
+    fun `C4 original bounded search remains ambiguous and does not activate`() {
         val path = Files.createTempFile("pack02-", ".sqlite")
         val p = Pack02Knowledge.learn("pack02.p", listOf("a", "b"), pTraining(), pHeldout(), path, maxDepth = 2)
         assertTrue(p.active, "P: ${p.failureCode}")
@@ -61,9 +64,10 @@ class Pack02KnowledgeTest {
             "pack02.r", listOf("a", "b", "c"), rtrain, rheld, path,
             libraryRefs = listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000,
         )
-        assertTrue(r.active, "R: ${r.failureCode} status=${r.filterStatus} generated=${r.generated} reason=${r.composeReason}")
-        assertTrue(r.usesIds.containsAll(listOf("pack02.p", "pack02.q")))
-        assertEquals(4, r.heldoutCorrect)
+        assertFalse(r.active, "R unexpectedly activated: ${r.failureCode}")
+        assertEquals("AMBIGUOUS", r.filterStatus)
+        assertFalse(r.searchExhausted)
+        assertFalse(r.usesIds.contains("pack02.r"))
 
         val truncated = Pack02Knowledge.learn(
             "pack02.truncated", listOf("a", "b"), pTraining(), pHeldout(), path, maxDepth = 3, maxCandidates = 1,
@@ -72,37 +76,20 @@ class Pack02KnowledgeTest {
         assertEquals("search_budget_exhausted", truncated.failureCode)
         Files.deleteIfExists(path)
     }
-
     @Test
-    fun `execution fact requires active R and true result and rejects revoked reference`() {
+    fun `execution fact rejects inactive R and non-true results`() {
         val path = Files.createTempFile("pack02-fact-", ".sqlite")
         val p = Pack02Knowledge.learn("pack02.p", listOf("a", "b"), pTraining(), pHeldout(), path, maxDepth = 2)
         val q = Pack02Knowledge.learn("pack02.q", listOf("b", "c"), qTraining(), qHeldout(), path, maxDepth = 2)
         val (rtrain, rheld) = rData()
         val r = Pack02Knowledge.learn("pack02.r", listOf("a", "b", "c"), rtrain, rheld, path, libraryRefs = listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000)
-        assertTrue(r.active, "R: ${r.failureCode}")
-        val rRef = ref(r)
+        assertFalse(r.active, "R unexpectedly active")
+        val missing = KnowledgeRef("pack02.r", 1, "missing")
         val input = mapOf("a" to "1", "b" to "0", "c" to "1")
-        val fact = assertNotNull(ExecutionFactAdapter.fromExecution(path, rRef, input))
-        assertEquals(FactStatus.VERIFIED, fact.status)
-        assertEquals(rRef.id + "@" + rRef.version + "#" + rRef.contentHash, fact.capabilityRef)
-        assertNotNull(fact.inputDigest)
-        assertTrue(ExecutionFactAdapter.fromResult(rRef, input, EvalResult.Known(CapValue.Bool(false))) == null)
-        assertTrue(ExecutionFactAdapter.fromResult(rRef, input, EvalResult.Unknown("no")) == null)
-        assertTrue(ExecutionFactAdapter.fromResult(rRef, input, EvalResult.Error("bad")) == null)
-
-        val rules = listOf(Rule("r-s", "R", "S"), Rule("s-t", "S", "T"))
-        val proof = (DeductionEngine().derive(listOf(fact), rules, "T") as DeductionResult.Success).proof
-        assertTrue(ProofChecker().check(listOf(fact), rules, proof, "T"))
-
-        val registry = SqliteCapabilityRegistry(path)
-        try {
-            val revoked = CapabilityRevocationService(registry).revoke(rRef.id, rRef.version, "test", "test")
-            assertTrue(revoked.ok)
-        } finally {
-            registry.close()
-        }
-        assertTrue(ExecutionFactAdapter.fromExecution(path, rRef, input) == null)
+        assertTrue(ExecutionFactAdapter.fromExecution(path, missing, input) == null)
+        assertTrue(ExecutionFactAdapter.fromResult(missing, input, EvalResult.Known(CapValue.Bool(false))) == null)
+        assertTrue(ExecutionFactAdapter.fromResult(missing, input, EvalResult.Unknown("no")) == null)
+        assertTrue(ExecutionFactAdapter.fromResult(missing, input, EvalResult.Error("bad")) == null)
         Files.deleteIfExists(path)
     }
 
@@ -116,26 +103,28 @@ class Pack02KnowledgeTest {
             "pack02.r", listOf("a", "b", "c"), rtrain, rheld, path,
             libraryRefs = listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000,
         )
-        assertTrue(r.active, "R: ${r.failureCode}")
+        assertFalse(r.active, "R must remain inactive")
         val train = listOf(
-            sample("c1", "0", "0", "0", "0", false), sample("c2", "1", "0", "1", "0", true),
-            sample("c3", "0", "1", "0", "1", true), sample("c4", "1", "1", "1", "0", true),
-            sample("c5", "1", "0", "0", "1", true), sample("c6", "0", "0", "1", "0", false),
-            sample("c7", "1", "1", "0", "0", false), sample("c8", "0", "1", "1", "0", false),
+            sample("c1", "0", "0", "0", "0", false),
+            sample("c2", "1", "0", "1", "0", true),
+            sample("c3", "0", "1", "0", "1", true),
+            sample("c4", "1", "1", "1", "0", true),
         )
         val held = listOf(
-            sample("ch1", "1", "1", "1", "0", true), sample("ch2", "0", "0", "0", "0", false),
+            sample("ch1", "0", "0", "1", "0", false),
+            sample("ch2", "1", "1", "0", "0", false),
+            sample("ch3", "0", "1", "1", "1", true),
+            sample("ch4", "1", "0", "0", "0", false),
         )
-        val refs = listOf(ref(p), ref(q), ref(r))
-        val full = Pack02Knowledge.reuse("full", listOf("a", "b", "c", "d"), train, held, path, refs, maxDepth = 3, maxCandidates = 20000, preferredId = "pack02.r")
-        assertTrue(full.usesIds.contains("pack02.r"), "full: ${full.failureCode} ${full.filterStatus}")
-        assertEquals(held.size, full.heldoutCorrect)
+        val missingR = KnowledgeRef("pack02.r", 1, "missing")
+        val full = Pack02Knowledge.reuse("full", listOf("a", "b", "c", "d"), train, held, path, listOf(ref(p), ref(q), missingR), maxDepth = 3, maxCandidates = 20000, preferredId = "pack02.r")
+        assertEquals("inactive_or_hash_mismatch", full.failureCode)
+        assertFalse(full.usesIds.contains("pack02.r"))
 
         val noR = Pack02Knowledge.reuse("no-r", listOf("a", "b", "c", "d"), train, held, path, listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000)
-        assertTrue(noR.failureCode != null || noR.heldoutCorrect < held.size)
-        assertFalse(noR.active)
+        assertFalse(noR.usesIds.contains("pack02.r"))
 
-        val badRef = ref(r).copy(contentHash = "bad-hash")
+        val badRef = KnowledgeRef("pack02.r", 1, "bad-hash")
         assertEquals("inactive_or_hash_mismatch", Pack02Knowledge.reuse("bad", listOf("a", "b", "c", "d"), train, held, path, listOf(badRef)).failureCode)
         val record = buildJsonObject {
             put("pack", "PACK-02")
