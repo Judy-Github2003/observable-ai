@@ -24,6 +24,9 @@ object A9TrustedReplay {
                 val sampleId = event.requestedSampleId ?: return original to "request_missing_sample_id"
                 if (sampleId !in context.allowedQueryIds) return original to "request_sample_not_allowed"
                 if (added == null) return original to "request_missing_observation"
+                val expectedVisible = context.allowedQueryVisibles[sampleId]
+                val addedVisible = added.visible.mapValues { (_, v) -> (v as? ObservedValue.Known)?.value ?: return original to "request_visible_unknown" }
+                if (expectedVisible != null && addedVisible != expectedVisible) return original to "request_visible_mismatch"
                 if (rebuilt.any { it.observationId == added.observationId }) return original to "duplicate_observation_id"
             }
             A9ActionKind.REPEAT_LABEL -> {

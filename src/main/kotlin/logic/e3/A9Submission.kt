@@ -1,4 +1,4 @@
-﻿// 本文件实现：DeepSeek Harness（本会话），2026-11-05。
+// 本文件实现：DeepSeek Harness（本会话），2026-11-05。
 // 原因：E3-A9 学生输出/冻结搜索记录契约；评测端可重算，不把自报字段当事实。
 package logic.e3
 
@@ -61,6 +61,7 @@ data class A9ExecutionContext(
     val evidenceIds: List<String>,
     val budget: DiagnosticBudget,
     val allowedQueryIds: Set<String>,
+    val allowedQueryVisibles: Map<String, Map<String, String>> = emptyMap(),
     val stageOrder: List<String>,
     val hiddenScoringStage: String = "hidden_scoring",
 )

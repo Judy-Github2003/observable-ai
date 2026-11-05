@@ -97,6 +97,27 @@ class E3A9BaselineTest {
     }
 
     @Test
+    fun `B0 active query preserves already identified solvable result without query`() {
+        val world = E3WorldGenerator(101L).generate(WorldFamily.SOLVABLE, 0)
+        val b0 = runner().run(
+            A9BaselineId.B0_ONLY, world.public.schema, world.public.observations,
+            PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            world.public.queryPool.map { it.visible }, gateway(world),
+        )
+        val active = runner().run(
+            A9BaselineId.B0_ACTIVE_QUERY, world.public.schema, world.public.observations,
+            PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            world.public.queryPool.map { it.visible }, gateway(world),
+        )
+        assertEquals(A9DiagnosticClaim.BOUNDED_IDENTIFIED, b0.diagnosticClaim)
+        assertEquals(A9DiagnosticClaim.BOUNDED_IDENTIFIED, active.diagnosticClaim)
+        assertNull(active.action)
+        assertEquals(0, active.computation.totalProbeCost)
+        assertEquals(b0.candidateBodies, active.candidateBodies)
+        assertEquals(b0.candidateCanonicals, active.candidateCanonicals)
+    }
+
+    @Test
     fun `B0 active query uses one authorized public query without E3 diagnosis`() {
         val world = E3WorldGenerator(109L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)
         val result = runner().run(

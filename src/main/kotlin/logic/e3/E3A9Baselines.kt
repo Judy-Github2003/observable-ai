@@ -109,6 +109,17 @@ class E3A9BaselineRunner {
             }
             A9BaselineId.B0_ACTIVE_QUERY -> {
                 val firstSignal = E3B0DiagnosticAdapter().diagnose(schema, observations, constants, queryDomain, high, meter)
+                // 已有合法有界辨识时保留结论；无须探测，成本为零。
+                if (firstSignal.status == DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE) {
+                    return A9BaselineResult(
+                        baseline, A9DiagnosticClaim.BOUNDED_IDENTIFIED, null, firstSignal.usableObservationIds,
+                        firstSignal.boundedScope, meter.snapshot(), listOf("b0_active_already_identified_no_query"),
+                        candidateBodies = firstSignal.consistentCandidateBodies.take(1),
+                        candidateCanonicals = firstSignal.consistentCandidateHashes.take(1),
+                        queryDomain = queryDomain,
+                        searchRecord = record(firstSignal, high, constants, queryDomain, "b0_active_before_probe", observations),
+                    )
+                }
                 val suggestedId = if (firstSignal.status == DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE && gateway != null) {
                     firstSignal.suggestedQueryValues.mapNotNull { value ->
                         gateway.allowedQueryIds.firstOrNull { id -> gateway.visibleOf(id) == value }

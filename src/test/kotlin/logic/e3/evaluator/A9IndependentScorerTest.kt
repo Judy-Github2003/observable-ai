@@ -32,7 +32,7 @@ class A9IndependentScorerTest {
         val world = world()
         val scorer = A9IndependentScorer(world.truth)
         val result = scorer.evaluate(world.public.schema, world.public.observations, boundedSubmission(world))
-        assertEquals(A9EvaluationStatus.EVALUATED, result.status)
+        assertEquals(A9EvaluationStatus.EVALUATED, result.status, result.notEvaluatedReason ?: "")
         assertEquals(true, result.boundedIdentificationValidity)
         assertEquals(0.0, result.heldoutPredictionError)
         assertFalse(result.epistemicOverclaim)
@@ -113,15 +113,32 @@ class A9IndependentScorerTest {
             actualCost = trace.cost,
         )
         val context = A9ExecutionContext(
-            "run-e2e", allIds, high, gateway(world).allowedQueryIds,
-            listOf("search", "probe", "freeze", "hidden_scoring"),
+            runId = "run-e2e", evidenceIds = allIds, budget = high,
+            allowedQueryIds = gateway(world).allowedQueryIds,
+            allowedQueryVisibles = world.public.queryPool.associate { it.sampleId to it.visible },
+            stageOrder = listOf("search", "probe", "freeze", "hidden_scoring"),
         )
         val result = A9IndependentScorer(world.truth).evaluate(
             world.public.schema, world.public.observations, submission, event, context,
         )
-        assertEquals(A9EvaluationStatus.EVALUATED, result.status)
+        assertEquals(A9EvaluationStatus.EVALUATED, result.status, result.notEvaluatedReason ?: "")
         assertEquals(allIds, record.publicEvidenceIds)
         assertTrue(result.boundedIdentificationValidity!!)
+    }
+
+    @Test
+    fun `candidate evaluation cannot use default steps beyond frozen budget`() {
+        val world = world()
+        val b0 = E3A9BaselineRunner().run(
+            A9BaselineId.B0_ONLY, world.public.schema, world.public.observations,
+            PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            world.public.queryPool.map { it.visible },
+        )
+        val body = b0.candidateBodies.first()
+        val point = world.public.observations.first().visible.mapValues { (_, v) -> (v as ObservedValue.Known).value }
+        val scorer = A9IndependentScorer(world.truth)
+        assertNull(scorer.evaluateCandidate(body, world.public.schema, point, maxSteps = 1))
+        assertTrue(scorer.evaluateCandidate(body, world.public.schema, point, maxSteps = 10000) != null)
     }
 
     @Test
@@ -130,8 +147,8 @@ class A9IndependentScorerTest {
         val submission = boundedSubmission(world)
         val record = submission.searchRecord!!
         val context = A9ExecutionContext(
-            record.runId, submission.evidenceIds, record.budget, emptySet(),
-            listOf("search", "freeze", "hidden_scoring"),
+            runId = record.runId, evidenceIds = submission.evidenceIds, budget = record.budget,
+            allowedQueryIds = emptySet(), stageOrder = listOf("search", "freeze", "hidden_scoring"),
         )
         val tamperedBudget = submission.copy(searchRecord = record.copy(budget = DiagnosticBudget(1, 1, 1, 1)))
         assertEquals("search_record_budget_mismatch", A9IndependentScorer(world.truth)
@@ -144,6 +161,42 @@ class A9IndependentScorerTest {
         val lateFreeze = submission.copy(searchRecord = record.copy(frozenAtStage = "hidden_scoring"))
         assertEquals("candidate_not_frozen_before_hidden_scoring", A9IndependentScorer(world.truth)
             .evaluate(world.public.schema, world.public.observations, lateFreeze, null, context).notEvaluatedReason)
+
+        val phaseContext = A9ExecutionContext(
+            runId = record.runId, evidenceIds = submission.evidenceIds, budget = record.budget,
+            allowedQueryIds = emptySet(), stageOrder = listOf("search", "freeze", "hidden_scoring"),
+        )
+        val phaseInverted = submission.copy(searchRecord = record.copy(frozenAtStage = "freeze"))
+        val eventAtFreeze = A9TrustedActionEvent(record.runId, "freeze", A9ActionKind.NO_ACTION)
+        assertEquals("probe_event_not_before_candidate_freeze", A9IndependentScorer(world.truth)
+            .evaluate(world.public.schema, world.public.observations, phaseInverted, eventAtFreeze, phaseContext).notEvaluatedReason)
+
+        val queryPoint = world.public.queryPool.first()
+        val badSampleEvent = A9TrustedActionEvent(
+            record.runId, "probe", A9ActionKind.REQUEST_PUBLIC_INSTANCE,
+            requestedSampleId = "not-allowed", recordedObservation = world.public.observations.first(),
+            measurementKind = MeasurementKind.PUBLIC_INSTANCE, independentEvidence = true, actualCost = 1,
+        )
+        val probeContext = A9ExecutionContext(
+            runId = record.runId, evidenceIds = submission.evidenceIds + "fake", budget = record.budget,
+            allowedQueryIds = setOf(queryPoint.sampleId),
+            allowedQueryVisibles = mapOf(queryPoint.sampleId to queryPoint.visible),
+            stageOrder = listOf("search", "probe", "freeze", "hidden_scoring"),
+        )
+        assertTrue(A9IndependentScorer(world.truth)
+            .evaluate(world.public.schema, world.public.observations, submission, badSampleEvent, probeContext)
+            .notEvaluatedReason!!.contains("trusted_event_invalid"))
+
+        val wrongVisible = world.public.observations.first().copy(visible = world.public.observations.first().visible + ("zzz" to ObservedValue.Known("bad")))
+        val badVisibleEvent = A9TrustedActionEvent(
+            record.runId, "probe", A9ActionKind.REQUEST_PUBLIC_INSTANCE,
+            requestedSampleId = queryPoint.sampleId, recordedObservation = wrongVisible,
+            measurementKind = MeasurementKind.PUBLIC_INSTANCE, independentEvidence = true, actualCost = 1,
+        )
+        val validProbeContext = probeContext.copy(evidenceIds = submission.evidenceIds + wrongVisible.observationId)
+        assertTrue(A9IndependentScorer(world.truth)
+            .evaluate(world.public.schema, world.public.observations, submission, badVisibleEvent, validProbeContext)
+            .notEvaluatedReason!!.contains("trusted_event_invalid"))
     }
 
     @Test
@@ -177,7 +230,7 @@ class A9IndependentScorerTest {
         val result = A9IndependentScorer(conflicted).evaluate(
             world.public.schema, world.public.observations, boundedSubmission(world),
         )
-        assertEquals(A9EvaluationStatus.EVALUATED, result.status)
+        assertEquals(A9EvaluationStatus.EVALUATED, result.status, result.notEvaluatedReason ?: "")
         assertTrue(result.truthConflictDetected)
         assertNull(result.queryTruthAgreement)
     }

@@ -72,6 +72,13 @@ class A9IndependentScorer(private val truth: HiddenTruth) {
         if (record.queryDomain != submission.queryDomain) return notEvaluated("search_record_query_domain_mismatch")
         if (record.boundedScope != submission.boundedScope) return notEvaluated("search_record_scope_mismatch")
         if (record.publicEvidenceIds != trustedEvidence.map { it.observationId }) return notEvaluated("search_record_evidence_mismatch")
+        if (event != null && context != null) {
+            val eventIndex = context.stageOrder.indexOf(event.stage)
+            val freezeIndex = context.stageOrder.indexOf(record.frozenAtStage)
+            if (eventIndex < 0 || freezeIndex < 0 || eventIndex >= freezeIndex) {
+                return notEvaluated("probe_event_not_before_candidate_freeze")
+            }
+        }
         if (context != null) {
             if (record.runId != context.runId) return notEvaluated("search_record_run_id_mismatch")
             if (record.budget != context.budget) return notEvaluated("search_record_budget_mismatch")
@@ -109,16 +116,8 @@ class A9IndependentScorer(private val truth: HiddenTruth) {
         val inputs = mapOf("x" to type)
         val interpreter = CapabilityInterpreter(InMemoryResolver(emptyList()))
 
-        fun predict(body: Expr, point: Map<String, String>): Boolean? {
-            val definition = CapabilityDefinition("a9.evaluated_candidate", 1, inputs, CapType.Bool3, body)
-            val args = mapOf("x" to EvalResult.Known(CapValue.Rec(
-                schema.fieldNames().associateWith { CapValue.Str(point.getValue(it)) },
-            )))
-            return when (val result = interpreter.execute(definition, args)) {
-                is EvalResult.Known -> (result.value as CapValue.Bool).value
-                else -> null
-            }
-        }
+        fun predict(body: Expr, point: Map<String, String>): Boolean? =
+            evaluateCandidate(body, schema, point, record.budget.maxSteps)
 
         fun signature(body: Expr): String = submission.queryDomain.joinToString("|") { point ->
             when (predict(body, point)) {
@@ -164,6 +163,25 @@ class A9IndependentScorer(private val truth: HiddenTruth) {
             evaluatedQueryPoints = submission.queryDomain.size,
             evaluatedHeldoutPoints = truth.heldOut.size,
             evaluationMaxSteps = record.budget.maxSteps,
-        )
+            )
+    }
+
+    internal fun evaluateCandidate(
+        body: Expr,
+        schema: VisibleSchema,
+        point: Map<String, String>,
+        maxSteps: Int,
+    ): Boolean? {
+        val type = CapType.Record(schema.fieldNames().associateWith { CapType.Str })
+        val inputs = mapOf("x" to type)
+        val definition = CapabilityDefinition("a9.evaluated_candidate", 1, inputs, CapType.Bool3, body)
+        val args = mapOf("x" to EvalResult.Known(CapValue.Rec(
+            schema.fieldNames().associateWith { CapValue.Str(point.getValue(it)) },
+        )))
+        return when (val result = CapabilityInterpreter(InMemoryResolver(emptyList()))
+            .execute(definition, args, EvalBudget(maxSteps = maxSteps))) {
+            is EvalResult.Known -> (result.value as CapValue.Bool).value
+            else -> null
+        }
     }
 }
