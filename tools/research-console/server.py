@@ -116,7 +116,7 @@ def git_info():
             return result.stdout.strip()
         except Exception:
             return ""
-    return {"head": run("git", "rev-parse", "HEAD"), "status": run("git", "status", "--short")}
+    return {"head": run("git", "rev-parse", "HEAD"), "status": run("git", "status", "--short", "--untracked-files=no")}
 
 
 def workstate_check(state):
