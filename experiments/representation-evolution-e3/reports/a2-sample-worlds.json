@@ -1,0 +1,521 @@
+{
+    "seed": 42,
+    "note": "evaluator-side sample; contains hidden truth and must not be given to the student",
+    "solvable": {
+        "public": {
+            "worldId": "world-42-0-0516",
+            "schema": {
+                "fields": {
+                    "material": [
+                        "ceramic",
+                        "copper",
+                        "iron"
+                    ],
+                    "seal": [
+                        "open",
+                        "partial",
+                        "sealed"
+                    ]
+                }
+            },
+            "observations": [
+                {
+                    "observationId": "world-42-0-0516-P1",
+                    "objectId": "obj-0",
+                    "visible": {
+                        "material": {
+                            "status": "known",
+                            "value": "copper"
+                        },
+                        "seal": {
+                            "status": "known",
+                            "value": "sealed"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "public-source",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-0516-P2",
+                    "objectId": "obj-1",
+                    "visible": {
+                        "material": {
+                            "status": "known",
+                            "value": "ceramic"
+                        },
+                        "seal": {
+                            "status": "known",
+                            "value": "sealed"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "public-source",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-0516-P3",
+                    "objectId": "obj-2",
+                    "visible": {
+                        "material": {
+                            "status": "known",
+                            "value": "iron"
+                        },
+                        "seal": {
+                            "status": "known",
+                            "value": "sealed"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "public-source",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-0516-P4",
+                    "objectId": "obj-3",
+                    "visible": {
+                        "material": {
+                            "status": "known",
+                            "value": "ceramic"
+                        },
+                        "seal": {
+                            "status": "known",
+                            "value": "open"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "public-source",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-0516-P5",
+                    "objectId": "obj-4",
+                    "visible": {
+                        "material": {
+                            "status": "known",
+                            "value": "ceramic"
+                        },
+                        "seal": {
+                            "status": "known",
+                            "value": "partial"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "public-source",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                }
+            ],
+            "queryPool": [
+                {
+                    "sampleId": "world-42-0-0516-Q1",
+                    "visible": {
+                        "material": "copper",
+                        "seal": "open"
+                    }
+                },
+                {
+                    "sampleId": "world-42-0-0516-Q2",
+                    "visible": {
+                        "material": "iron",
+                        "seal": "partial"
+                    }
+                }
+            ]
+        },
+        "truth": {
+            "family": "SOLVABLE",
+            "ruleDescription": "material == copper AND seal == sealed",
+            "hiddenFeature": null,
+            "labels": {
+                "world-42-0-0516-D1": false,
+                "world-42-0-0516-D2": false,
+                "world-42-0-0516-D3": false,
+                "world-42-0-0516-D4": true,
+                "world-42-0-0516-D5": false,
+                "world-42-0-0516-D6": false,
+                "world-42-0-0516-D7": false,
+                "world-42-0-0516-D8": false,
+                "world-42-0-0516-D9": false,
+                "world-42-0-0516-H1": false,
+                "world-42-0-0516-H2": false,
+                "world-42-0-0516-P1": true,
+                "world-42-0-0516-P2": false,
+                "world-42-0-0516-P3": false,
+                "world-42-0-0516-P4": false,
+                "world-42-0-0516-P5": false,
+                "world-42-0-0516-Q1": false,
+                "world-42-0-0516-Q2": false
+            },
+            "fullDomain": [
+                {
+                    "sampleId": "world-42-0-0516-D1",
+                    "visible": {
+                        "material": "iron",
+                        "seal": "sealed"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0516-D2",
+                    "visible": {
+                        "material": "iron",
+                        "seal": "open"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0516-D3",
+                    "visible": {
+                        "material": "iron",
+                        "seal": "partial"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0516-D4",
+                    "visible": {
+                        "material": "copper",
+                        "seal": "sealed"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-0516-D5",
+                    "visible": {
+                        "material": "copper",
+                        "seal": "open"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0516-D6",
+                    "visible": {
+                        "material": "copper",
+                        "seal": "partial"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0516-D7",
+                    "visible": {
+                        "material": "ceramic",
+                        "seal": "sealed"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0516-D8",
+                    "visible": {
+                        "material": "ceramic",
+                        "seal": "open"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0516-D9",
+                    "visible": {
+                        "material": "ceramic",
+                        "seal": "partial"
+                    },
+                    "hidden": {},
+                    "label": false
+                }
+            ]
+        }
+    },
+    "latent_aliasing": {
+        "public": {
+            "worldId": "world-42-0-0517",
+            "schema": {
+                "fields": {
+                    "kind": [
+                        "k0",
+                        "k1",
+                        "k2"
+                    ],
+                    "shape": [
+                        "s0",
+                        "s1"
+                    ]
+                }
+            },
+            "observations": [
+                {
+                    "observationId": "world-42-0-0517-P1",
+                    "objectId": "obj-0a",
+                    "visible": {
+                        "kind": {
+                            "status": "known",
+                            "value": "k2"
+                        },
+                        "shape": {
+                            "status": "known",
+                            "value": "s0"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": null
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-0517-P2",
+                    "objectId": "obj-0b",
+                    "visible": {
+                        "kind": {
+                            "status": "known",
+                            "value": "k2"
+                        },
+                        "shape": {
+                            "status": "known",
+                            "value": "s0"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-b",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": null
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-0517-P5",
+                    "objectId": "obj-o0",
+                    "visible": {
+                        "kind": {
+                            "status": "known",
+                            "value": "k0"
+                        },
+                        "shape": {
+                            "status": "known",
+                            "value": "s0"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": null
+                    },
+                    "round": 1,
+                    "batchId": null
+                }
+            ],
+            "queryPool": [
+                {
+                    "sampleId": "world-42-0-0517-Q1",
+                    "visible": {
+                        "kind": "k2",
+                        "shape": "s1"
+                    }
+                }
+            ]
+        },
+        "truth": {
+            "family": "LATENT_ALIASING",
+            "ruleDescription": "kind == k1 XOR latent",
+            "hiddenFeature": "latent",
+            "labels": {
+                "world-42-0-0517-D1": false,
+                "world-42-0-0517-D10": true,
+                "world-42-0-0517-D11": false,
+                "world-42-0-0517-D12": true,
+                "world-42-0-0517-D2": true,
+                "world-42-0-0517-D3": false,
+                "world-42-0-0517-D4": true,
+                "world-42-0-0517-D5": true,
+                "world-42-0-0517-D6": false,
+                "world-42-0-0517-D7": true,
+                "world-42-0-0517-D8": false,
+                "world-42-0-0517-D9": false,
+                "world-42-0-0517-H1": false,
+                "world-42-0-0517-H2": false,
+                "world-42-0-0517-P1": false,
+                "world-42-0-0517-P2": true,
+                "world-42-0-0517-P5": false,
+                "world-42-0-0517-Q1": false
+            },
+            "fullDomain": [
+                {
+                    "sampleId": "world-42-0-0517-D1",
+                    "visible": {
+                        "kind": "k0",
+                        "shape": "s0"
+                    },
+                    "hidden": {
+                        "latent": "0"
+                    },
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0517-D2",
+                    "visible": {
+                        "kind": "k0",
+                        "shape": "s0"
+                    },
+                    "hidden": {
+                        "latent": "1"
+                    },
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-0517-D3",
+                    "visible": {
+                        "kind": "k0",
+                        "shape": "s1"
+                    },
+                    "hidden": {
+                        "latent": "0"
+                    },
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0517-D4",
+                    "visible": {
+                        "kind": "k0",
+                        "shape": "s1"
+                    },
+                    "hidden": {
+                        "latent": "1"
+                    },
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-0517-D5",
+                    "visible": {
+                        "kind": "k1",
+                        "shape": "s0"
+                    },
+                    "hidden": {
+                        "latent": "0"
+                    },
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-0517-D6",
+                    "visible": {
+                        "kind": "k1",
+                        "shape": "s0"
+                    },
+                    "hidden": {
+                        "latent": "1"
+                    },
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0517-D7",
+                    "visible": {
+                        "kind": "k1",
+                        "shape": "s1"
+                    },
+                    "hidden": {
+                        "latent": "0"
+                    },
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-0517-D8",
+                    "visible": {
+                        "kind": "k1",
+                        "shape": "s1"
+                    },
+                    "hidden": {
+                        "latent": "1"
+                    },
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0517-D9",
+                    "visible": {
+                        "kind": "k2",
+                        "shape": "s0"
+                    },
+                    "hidden": {
+                        "latent": "0"
+                    },
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0517-D10",
+                    "visible": {
+                        "kind": "k2",
+                        "shape": "s0"
+                    },
+                    "hidden": {
+                        "latent": "1"
+                    },
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-0517-D11",
+                    "visible": {
+                        "kind": "k2",
+                        "shape": "s1"
+                    },
+                    "hidden": {
+                        "latent": "0"
+                    },
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-0517-D12",
+                    "visible": {
+                        "kind": "k2",
+                        "shape": "s1"
+                    },
+                    "hidden": {
+                        "latent": "1"
+                    },
+                    "label": true
+                }
+            ]
+        }
+    }
+}
