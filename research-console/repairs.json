@@ -81,14 +81,18 @@
         "experiments/representation-evolution-e3/reports/pack02r-active-baseline.json",
         "experiments/representation-evolution-e3/reports/pack02r-active-c8.json"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-05T16:34:30.423995+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-05T16:36:35.870876+00:00",
       "audit_event_ids": [
-        "ev-1793896470423-6a21a7"
+        "ev-1793896470423-6a21a7",
+        "ev-1793896595870-1b09a4"
       ],
-      "content_hash": "9fa1ae0aae30775f2c9d699724cd9d7a2fe2fa1182b7e7a5ee2624cced8fac86"
+      "content_hash": "9fa1ae0aae30775f2c9d699724cd9d7a2fe2fa1182b7e7a5ee2624cced8fac86",
+      "consumed_commit": "bedc1486834377d2ef83a65a57971cb8886d7788",
+      "consumed_test": "Kotlin 320/320; PACK-02 13/13; repair gate 7/7; old gate 5/5",
+      "consumed_report": "PACK-02R-ACTIVE-01-REPORT.md"
     }
   ],
-  "updated_at": "2026-11-05T16:34:30.438068+00:00"
+  "updated_at": "2026-11-05T16:36:35.876539+00:00"
 }
