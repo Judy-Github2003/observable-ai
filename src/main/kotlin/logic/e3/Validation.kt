@@ -175,6 +175,7 @@ object ContractJson {
                         finding.participants.forEach { p ->
                             addJsonObject {
                                 put("observationId", p.observationId)
+                                put("objectId", p.objectId)
                                 put("sourceId", p.sourceId)
                                 put("round", p.round)
                                 put("label", p.label)

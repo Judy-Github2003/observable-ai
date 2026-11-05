@@ -1,0 +1,129 @@
+{
+    "note": "A5 real adapter outputs; public inputs only",
+    "cases": [
+        {
+            "case": "solvable",
+            "status": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "usableObservationIds": [
+                "w-81b2c0f05267c9d3-P1",
+                "w-81b2c0f05267c9d3-P2",
+                "w-81b2c0f05267c9d3-P3",
+                "w-81b2c0f05267c9d3-P4",
+                "w-81b2c0f05267c9d3-P5"
+            ],
+            "excludedUnknownValueIds": [],
+            "collisionFindings": 0,
+            "collisionParticipants": [],
+            "search": {
+                "maxDepth": 3,
+                "generated": 1255,
+                "exhausted": true,
+                "reason": "depth_limit",
+                "candidateCount": 1246
+            },
+            "filter": {
+                "status": "IDENTIFIED",
+                "reason": null,
+                "survivorCount": 1,
+                "queryCount": 0,
+                "domainSize": 2
+            },
+            "notes": [
+                "depth_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
+                "identified_scope_is_bounded_to_current_hypothesis_and_query_domain"
+            ]
+        },
+        {
+            "case": "latent",
+            "status": "OBSERVATION_COLLISION",
+            "usableObservationIds": [],
+            "excludedUnknownValueIds": [],
+            "collisionFindings": 1,
+            "collisionParticipants": [
+                {
+                    "observationId": "w-4f8797bfa31aeddb-P1",
+                    "objectId": "obj-0a",
+                    "sourceId": "source-a",
+                    "round": 1,
+                    "label": false
+                },
+                {
+                    "observationId": "w-4f8797bfa31aeddb-P2",
+                    "objectId": "obj-0b",
+                    "sourceId": "source-b",
+                    "round": 1,
+                    "label": true
+                }
+            ],
+            "search": null,
+            "filter": null,
+            "notes": [
+                "observable_collision_present; composer_search_skipped_to_avoid_pretending_to_resolve_it"
+            ]
+        },
+        {
+            "case": "search_limited",
+            "status": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+            "usableObservationIds": [
+                "w-19e7003dc2c196bd-P1",
+                "w-19e7003dc2c196bd-P2",
+                "w-19e7003dc2c196bd-P3",
+                "w-19e7003dc2c196bd-P4",
+                "w-19e7003dc2c196bd-P5"
+            ],
+            "excludedUnknownValueIds": [],
+            "collisionFindings": 0,
+            "collisionParticipants": [],
+            "search": {
+                "maxDepth": 3,
+                "generated": 181,
+                "exhausted": true,
+                "reason": "depth_limit",
+                "candidateCount": 175
+            },
+            "filter": {
+                "status": "AMBIGUOUS",
+                "reason": null,
+                "survivorCount": 6,
+                "queryCount": 1,
+                "domainSize": 1
+            },
+            "notes": [
+                "depth_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
+                "identified_scope_is_bounded_to_current_hypothesis_and_query_domain"
+            ]
+        },
+        {
+            "case": "ambiguous",
+            "status": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+            "usableObservationIds": [
+                "w-1f74e58dd751cfc6-P1",
+                "w-1f74e58dd751cfc6-P2",
+                "w-1f74e58dd751cfc6-P3",
+                "w-1f74e58dd751cfc6-P4",
+                "w-1f74e58dd751cfc6-P5"
+            ],
+            "excludedUnknownValueIds": [],
+            "collisionFindings": 0,
+            "collisionParticipants": [],
+            "search": {
+                "maxDepth": 3,
+                "generated": 181,
+                "exhausted": true,
+                "reason": "depth_limit",
+                "candidateCount": 175
+            },
+            "filter": {
+                "status": "AMBIGUOUS",
+                "reason": null,
+                "survivorCount": 20,
+                "queryCount": 1,
+                "domainSize": 1
+            },
+            "notes": [
+                "depth_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
+                "identified_scope_is_bounded_to_current_hypothesis_and_query_domain"
+            ]
+        }
+    ]
+}

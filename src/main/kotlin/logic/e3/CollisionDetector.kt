@@ -5,6 +5,7 @@ package logic.e3
 /** 碰撞参与者：保留 observationId、来源、轮次和已观察标签，便于审计。 */
 data class CollisionParticipant(
     val observationId: String,
+    val objectId: String,
     val sourceId: String,
     val round: Int,
     val label: Boolean,
@@ -66,7 +67,7 @@ object ObservableCollisionDetector {
                 CollisionFinding(
                     featureKey = key,
                     participants = group
-                        .map { CollisionParticipant(it.observationId, it.provenance.sourceId, it.round, it.label!!) }
+                        .map { CollisionParticipant(it.observationId, it.objectId, it.provenance.sourceId, it.round, it.label!!) }
                         .sortedBy { it.observationId },
                     scope = scope,
                 )

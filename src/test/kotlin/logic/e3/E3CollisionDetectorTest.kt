@@ -13,6 +13,7 @@ class E3CollisionDetectorTest {
 
     private fun obs(
         id: String,
+        objectId: String = "obj-$id",
         source: String = "source-a",
         round: Int = 1,
         a: ObservedValue = ObservedValue.Known("1"),
@@ -20,7 +21,7 @@ class E3CollisionDetectorTest {
         label: Boolean? = true,
     ) = Observation(
         observationId = id,
-        objectId = "obj-$id",
+        objectId = objectId,
         visible = mapOf("a" to a, "b" to b),
         label = label,
         provenance = EvidenceProvenance(source, SourceKind.EXTERNAL_PROVIDED, false, reliableDeterministicLabels = null),
@@ -37,8 +38,24 @@ class E3CollisionDetectorTest {
         val finding = report.findings.single()
         assertEquals(listOf("o1", "o2"), finding.participants.map { it.observationId })
         assertEquals(setOf("source-a", "source-b"), finding.participants.map { it.sourceId }.toSet())
+        assertEquals(2, finding.participants.map { it.objectId }.toSet().size)
         assertEquals(setOf(true, false), finding.participants.map { it.label }.toSet())
         assertTrue(report.excludedUnknownValueIds.isEmpty())
+    }
+
+    @Test
+    fun `same object repeated measurement is distinguishable from different object collision`() {
+        val sameObject = ObservableCollisionDetector.detect(
+            schema,
+            listOf(obs("o1", objectId = "obj-fixed", label = true), obs("o2", objectId = "obj-fixed", source = "source-b", label = false)),
+        )
+        assertEquals(setOf("obj-fixed"), sameObject.findings.single().participants.map { it.objectId }.toSet())
+
+        val differentObject = ObservableCollisionDetector.detect(
+            schema,
+            listOf(obs("o1", objectId = "obj-1", label = true), obs("o2", objectId = "obj-2", source = "source-b", label = false)),
+        )
+        assertEquals(setOf("obj-1", "obj-2"), differentObject.findings.single().participants.map { it.objectId }.toSet())
     }
 
     @Test
