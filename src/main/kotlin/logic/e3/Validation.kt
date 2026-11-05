@@ -43,7 +43,8 @@ fun validateObservations(schema: VisibleSchema, observations: List<Observation>)
     val schemaErrors = errors.isNotEmpty()
 
     val ids = HashSet<String>()
-    val objectRounds = HashSet<Pair<String, Int>>()
+    // 同一 objectId+round 允许多个独立来源；同一来源在同一轮重复写只能算重复记录。
+    val sourceRounds = HashSet<Triple<String, Int, String>>()
     val valid = ArrayList<Observation>()
 
     for (observation in observations) {
@@ -61,8 +62,12 @@ fun validateObservations(schema: VisibleSchema, observations: List<Observation>)
         }
         if (observation.round < 1) {
             errors += ContractError("invalid_round", "round must be >= 1", observation.observationId)
-        } else if (!objectRounds.add(observation.objectId to observation.round)) {
-            errors += ContractError("duplicate_object_round", "duplicate objectId+round", observation.observationId)
+        } else if (!sourceRounds.add(Triple(observation.objectId, observation.round, observation.provenance.sourceId))) {
+            errors += ContractError(
+                "duplicate_source_round",
+                "duplicate source record for objectId+round+sourceId",
+                observation.observationId,
+            )
         }
         if (!schemaErrors) {
             for (field in schema.fieldNames()) {

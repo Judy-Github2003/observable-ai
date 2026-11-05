@@ -72,15 +72,29 @@ class E3ContractTest {
     }
 
     @Test
-    fun `duplicate observation id and duplicate object round are rejected`() {
+    fun `duplicate observation id and duplicate source round are rejected`() {
         val duplicateId = validateObservations(schema, listOf(observation(id = "same"), observation(id = "same")))
         assertTrue(duplicateId.errors.any { it.code == "duplicate_observation_id" })
 
-        val duplicateRound = validateObservations(
+        // 同一来源在同一 object+round 重复写：拒绝，避免冒充新证据。
+        val duplicateSource = validateObservations(
             schema,
-            listOf(observation(id = "a", objectId = "obj", round = 1), observation(id = "b", objectId = "obj", round = 1)),
+            listOf(
+                observation(id = "a", objectId = "obj", round = 1, source = "source-1"),
+                observation(id = "b", objectId = "obj", round = 1, source = "source-1"),
+            ),
         )
-        assertTrue(duplicateRound.errors.any { it.code == "duplicate_object_round" })
+        assertTrue(duplicateSource.errors.any { it.code == "duplicate_source_round" })
+
+        // 不同来源独立测量同一对象、同一轮：允许，作为独立证据保留。
+        val independent = validateObservations(
+            schema,
+            listOf(
+                observation(id = "a", objectId = "obj", round = 1, source = "source-1"),
+                observation(id = "b", objectId = "obj", round = 1, source = "source-2"),
+            ),
+        )
+        assertTrue(independent.ok)
     }
 
     @Test
@@ -96,8 +110,25 @@ class E3ContractTest {
         assertEquals(featureKey(first).canonical, featureKey(second).canonical)
 
         val unknown = observation(visible = mapOf("material" to ObservedValue.Unknown, "seal" to ObservedValue.Known("open")))
-        assertTrue(featureKey(unknown).canonical.contains("material=?"))
+        assertTrue(featureKey(unknown).canonical.contains("material=U"))
         assertTrue(featureKey(unknown).canonical != featureKey(first).canonical)
+    }
+
+    @Test
+    fun `known special characters never collide with unknown or each other`() {
+        val values = listOf("?", "\\", "|", "=", "U", "K:?", "", "a=b|c\\d")
+        val keys = values.map { value ->
+            featureKey(observation(visible = mapOf(
+                "material" to ObservedValue.Known(value),
+                "seal" to ObservedValue.Known("open"),
+            ))).canonical
+        }
+        assertEquals(values.size, keys.toSet().size, "known values must encode distinctly: $keys")
+        val unknownKey = featureKey(observation(visible = mapOf(
+            "material" to ObservedValue.Unknown,
+            "seal" to ObservedValue.Known("open"),
+        ))).canonical
+        assertFalse(unknownKey in keys)
     }
 
     @Test

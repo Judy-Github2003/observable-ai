@@ -46,7 +46,10 @@ data class Observation(
  */
 data class FeatureKey(val fields: List<Pair<String, String?>>) {
     val canonical: String
-        get() = fields.joinToString("|") { (name, value) -> escape(name) + "=" + (value?.let(::escape) ?: "?") }
+        get() = fields.joinToString("|") { (name, value) ->
+            // 明确区分“已知值”和“未知”：Known("?") 与 Unknown 绝不能再编码成同一个键。
+            escape(name) + "=" + if (value == null) "U" else "K:" + escape(value)
+        }
 
     private fun escape(text: String): String = buildString {
         for (ch in text) {
