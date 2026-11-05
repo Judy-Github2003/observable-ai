@@ -1,0 +1,31 @@
+{
+  "event_id": "ev-1793894799868-704b85",
+  "at": "2026-11-05T16:06:39.868113+00:00",
+  "kind": "repair_registered",
+  "actor": "execution",
+  "note": "PACK-02R-AUTH-01 registered; awaiting final research-owner action",
+  "before": null,
+  "after": {
+    "repair_id": "PACK-02R-AUTH-01",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "Trusted evidence authentication chain only: ExecutionFactAdapter, Fact/ProofChecker, H01 fact migration.",
+    "approval_reference": "PACK-02R-AUTH-01 is conditionally approved; final execution authorization must be recorded separately.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "PACK-02R-AUTH-01",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/ExecutionFactAdapter.kt",
+      "src/main/kotlin/logic/e3/pack02/Deduction.kt",
+      "src/test/kotlin/logic/e3/pack02"
+    ],
+    "authorization_status": "PENDING_APPROVAL",
+    "created_at": "2026-11-05T16:06:39.868113+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "ad8234709b491d32e17356edb3f5d47562868157bf3634b6392602c3da35e5e9"
+  }
+}

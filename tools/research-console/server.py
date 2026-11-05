@@ -169,6 +169,121 @@ def find_task(state, task_id):
     return next((t for t in state["tasks"] if t["id"] == task_id), None)
 
 
+REPAIRS = DATA / "repairs.json"
+REPAIR_FIELDS = [
+    "repair_id", "parent_pack_id", "parent_task_ids", "approved_scope",
+    "approval_reference", "authorized_by", "allowed_task_id",
+    "allowed_files_or_modules", "authorization_status", "created_at",
+    "consumed_at", "audit_event_ids", "content_hash",
+]
+REPAIR_STATUSES = {"PENDING_APPROVAL", "ACTIVE", "CONSUMED", "REVOKED"}
+
+
+def load_repairs():
+    data = load_json(REPAIRS, {"repairs": []})
+    if not isinstance(data, dict) or "repairs" not in data:
+        raise RuntimeError("repairs.json missing or malformed")
+    return data
+
+
+def save_repairs(data):
+    data["updated_at"] = now()
+    atomic_write(REPAIRS, json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+
+
+def repair_digest(record):
+    """Hash only immutable grant fields; status/consumption are audited separately."""
+    import hashlib
+    fields = [
+        "repair_id", "parent_pack_id", "parent_task_ids", "approved_scope",
+        "approval_reference", "authorized_by", "allowed_task_id",
+        "allowed_files_or_modules", "created_at",
+    ]
+    canonical = json.dumps({k: record.get(k) for k in fields}, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def validate_repairs(data):
+    errors = []
+    ids = []
+    for record in data.get("repairs", []):
+        for field in REPAIR_FIELDS:
+            if field not in record:
+                errors.append(f"{record.get('repair_id', '?')}: missing {field}")
+        ids.append(record.get("repair_id"))
+        if record.get("authorization_status") not in REPAIR_STATUSES:
+            errors.append(f"{record.get('repair_id', '?')}: invalid repair status")
+        if not record.get("approved_scope") or not record.get("approval_reference"):
+            errors.append(f"{record.get('repair_id', '?')}: missing approval basis")
+        if not isinstance(record.get("parent_task_ids"), list) or not isinstance(record.get("allowed_files_or_modules"), list):
+            errors.append(f"{record.get('repair_id', '?')}: parent/scope must be lists")
+        if record.get("content_hash") != repair_digest(record):
+            errors.append(f"{record.get('repair_id', '?')}: content_hash mismatch")
+        for event_id in record.get("audit_event_ids", []):
+            if not (HISTORY / f"{event_id}.json").exists():
+                errors.append(f"{record.get('repair_id', '?')}: audit event missing {event_id}")
+    if len(ids) != len(set(ids)):
+        errors.append("duplicate repair ids")
+    return errors
+
+
+def repair_gate(state, repairs, task_id, for_finish=False):
+    """Only an ACTIVE, hash-matching, audited repair grant can authorize its named task."""
+    if not task_id:
+        return False, "repair task required"
+    record = next((r for r in repairs.get("repairs", []) if r.get("allowed_task_id") == task_id), None)
+    if record is None:
+        return False, "unknown or unauthorized repair task"
+    if record.get("authorization_status") != "ACTIVE":
+        return False, "repair authorization status " + str(record.get("authorization_status"))
+    if record.get("consumed_at") is not None:
+        return False, "repair authorization already consumed"
+    if not record.get("approved_scope") or not record.get("approval_reference") or record.get("authorized_by") != "research_owner":
+        return False, "repair approval basis incomplete"
+    if record.get("content_hash") != repair_digest(record):
+        return False, "repair content_hash mismatch"
+    parent = record.get("parent_pack_id")
+    if parent:
+        pack = state.get("active_pack") or {}
+        archived = {p.get("id") for p in state.get("archived_packs", [])}
+        if parent != pack.get("id") and parent not in archived:
+            return False, "repair parent pack not found"
+    for tid in record.get("parent_task_ids", []):
+        if not find_task(state, tid):
+            return False, "repair parent task missing " + str(tid)
+    if not record.get("allowed_files_or_modules"):
+        return False, "repair allowed files/modules empty"
+    events = record.get("audit_event_ids") or []
+    if not events:
+        return False, "repair audit event missing"
+    for event_id in events:
+        if not (HISTORY / f"{event_id}.json").exists():
+            return False, "repair audit event missing " + str(event_id)
+    if for_finish and record.get("authorization_status") != "ACTIVE":
+        return False, "repair cannot finish"
+    return True, None
+
+
+def consume_repair(task_id, commit, test, report):
+    with WRITE_LOCK:
+        state, _, _ = load_state()
+        repairs = load_repairs()
+        ok, reason = repair_gate(state, repairs, task_id, for_finish=True)
+        if not ok:
+            raise RuntimeError(reason)
+        record = next(r for r in repairs["repairs"] if r.get("allowed_task_id") == task_id)
+        before = json.loads(json.dumps(record))
+        record["authorization_status"] = "CONSUMED"
+        record["consumed_at"] = now()
+        record["consumed_commit"] = commit
+        record["consumed_test"] = test
+        record["consumed_report"] = report
+        event_id = append_event("repair_consumed", "execution", f"{task_id} consumed", before, record)
+        record.setdefault("audit_event_ids", []).append(event_id)
+        save_repairs(repairs)
+        return event_id
+
+
 def append_event(kind, actor, note, before, after) -> str:
     HISTORY.mkdir(parents=True, exist_ok=True)
     event_id = f"ev-{int(time.time() * 1000)}-{secrets.token_hex(3)}"

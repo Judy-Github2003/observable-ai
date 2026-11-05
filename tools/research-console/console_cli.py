@@ -63,17 +63,32 @@ def preflight(task_id: str | None = None, action: str | None = None):
     errors = server.validate_state(state, directions)
     if errors:
         fail("data invalid: " + "; ".join(errors))
+    repairs = server.load_repairs()
+    repair_errors = server.validate_repairs(repairs)
+    if repair_errors:
+        fail("repair data invalid: " + "; ".join(repair_errors))
     print(json.dumps({
         "git_head": server.git_info()["head"],
         "current_task_id": state.get("current_task_id"),
         "authorized_action": state.get("authorized_action"),
         "active_pack": state.get("active_pack"),
         "patch_used": None,
+        "repair_authorizations": [r.get("repair_id") for r in repairs.get("repairs", []) if r.get("allowed_task_id") == task_id],
         "workstate": server.workstate_check(state),
     }, ensure_ascii=False, indent=2))
     ws = server.workstate_check(state)
     if not ws["ok"]:
         fail("WORKSTATE out of sync: " + "; ".join(ws.get("problems", [])))
+    # A repair grant is a separate authorization namespace. It never authorizes
+    # ordinary pack tasks and never changes authorized_action or patch counters.
+    if task_id and any(r.get("allowed_task_id") == task_id for r in repairs.get("repairs", [])):
+        if action and action not in {task_id, "REPAIR"}:
+            fail("repair action does not match allowed task")
+        ok, reason = server.repair_gate(state, repairs, task_id, for_finish=False)
+        if not ok:
+            fail(reason)
+        print("AUTHORIZED_REPAIR: " + task_id)
+        return
     ok, reason = gate(state, task_id, action, for_finish=False)
     if not ok:
         fail(reason)
@@ -188,6 +203,14 @@ def finish(task_id: str, commit: str, test: str, report: str):
         print(json.dumps({"event_id": event_id, "task": task["id"], "status": task["status"]}, ensure_ascii=False))
 
 
+def finish_repair(task_id: str, commit: str, test: str, report: str):
+    try:
+        event_id = server.consume_repair(task_id, commit, test, report)
+    except RuntimeError as exc:
+        fail(str(exc))
+    print(json.dumps({"event_id": event_id, "repair_task": task_id, "status": "CONSUMED"}, ensure_ascii=False))
+
+
 def main():
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="command", required=True)
@@ -202,6 +225,11 @@ def main():
     f.add_argument("--commit", required=True)
     f.add_argument("--test", required=True)
     f.add_argument("--report", required=True)
+    fr = sub.add_parser("finish-repair")
+    fr.add_argument("--task", required=True)
+    fr.add_argument("--commit", required=True)
+    fr.add_argument("--test", required=True)
+    fr.add_argument("--report", required=True)
     args = parser.parse_args()
     if args.command == "preflight":
         preflight(args.task, args.action)
@@ -213,6 +241,8 @@ def main():
         sync_workstate(args.write)
     elif args.command == "finish":
         finish(args.task, args.commit, args.test, args.report)
+    elif args.command == "finish-repair":
+        finish_repair(args.task, args.commit, args.test, args.report)
 
 
 if __name__ == "__main__":
