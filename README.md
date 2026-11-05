@@ -17,6 +17,7 @@
 | 学前 24 课 | 23 条通用操作规则，8 批课程 | **训练 864/864，考试 960/960，24/24 课达标，教师调用 0** |
 | 独立抽查 | 冻结版本 + 新世界 + 隔离夹具 | **64/64** |
 | B0 类型化能力基底 | IR、能力库、验证/激活/撤销、组合、L1/L2 压缩、A/B/C 基准 | **M0–M6 完成；173/173 测试；独立闭卷 not_run** |
+| E3 开放表征与学习诊断 | A0/A1 公共数据契约与隔离目录；A2 未开始 | **进行中；全套 182/182 测试** |
 
 **这不是“毕业”。** 两套各 120 题的综合卷尚未生成；小学 72 单元未开始。形状、颜色、情绪等只是**文本标签查询**，不代表真实看图、听声或情绪体验。
 
@@ -50,7 +51,22 @@ B0 把“能力”本身变成可版本化、可验证、可撤销、可组合�
 - 全套测试 **173/173**（实现者自测，不是外部独立验证）；独立闭卷 **`not_run`**。
 - 入口与记录：[B0 README](./experiments/capability-foundation-b0/README.md)、[M5 报告](./experiments/capability-foundation-b0/reports/M5-REPORT.md)、[冻结数据](./experiments/capability-foundation-b0/reports/B0-FREEZE.json)、[实施报告](./experiments/capability-foundation-b0/reports/B0-IMPLEMENTATION-REPORT.md)、[工作状态](./experiments/capability-foundation-b0/WORKSTATE.md)。
 - 长期方向与边界：[RESEARCH-NORTH-STAR](./docs/RESEARCH-NORTH-STAR.md)。
-- B0 已完成并冻结（`0ca4561`）；下一步按研究者授权启动 **E3-A（表示不足检测）**，不自动进入 E3-B/C 或大规模课程训练。
+- B0 已完成并冻结（`0ca4561`）；E3-A 已按授权启动，当前只完成 A0/A1 数据契约，不进入 E3-B/C。
+
+### E3：开放表征与学习诊断（2026-11-05）
+
+E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**可观察特征碰撞、搜索截断、假设歧义、标签不稳定/噪声、证据不足**，并给出可追溯证据与探测建议；允许 `UNDETERMINED`。它不要求解释真实世界为何冲突，也不把“有限域唯一”当成全局证明。
+
+| 子任务 | 内容 | 状态 |
+|---|---|---|
+| A0 | 基线冻结、隔离目录、只读 B0 边界 | 完成 |
+| A1 | `VisibleSchema` / `Observation` / `DiagnosticReport` / `ProbeRequest` 数据契约与校验 | 完成 |
+| A2 | SOLVABLE + LATENT_ALIASING 独立世界生成器 | 未开始 |
+
+- 契约实现：`src/main/kotlin/logic/e3/`；契约测试 9 项；全套 **182/182**（B0 173 + E3 9）。
+- 未实现诊断算法、世界生成器、oracle 或评分器；E3-B/C 未授权。
+- `independent_closed_book=not_run`；E3 结果为 `implementer_run`。
+- 记录：[E3 SPEC](./experiments/representation-evolution-e3/SPEC.md)、[DECISIONS](./experiments/representation-evolution-e3/DECISIONS.md)、[WORKSTATE](./experiments/representation-evolution-e3/WORKSTATE.md)、[A0/A1 报告](./experiments/representation-evolution-e3/reports/E3-A0-A1-REPORT.md)。
 
 ---
 
@@ -189,6 +205,7 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - **考试不是毕业**：单课 40 题达标只说明本课过线；综合卷与跨领域迁移尚未完成。
 - **B0 已冻结**：M0–M6 完成；L3 参数化抽象与 D 组 `not_implemented`；独立闭卷 `not_run`。
 - **B0 成绩口径**：173/173 为实现者自测；独立闭卷 `not_run`，不能写成外部验证或“已学会自主学习”。
+- **E3 当前边界**：仅完成 A0/A1 契约；没有诊断算法、世界生成器或 oracle；不能把“契约存在”当成表示诊断能力。全套 182/182 是 B0+E3 的 `implementer_run`。
 - **成本指标**：`L_total` 是冻结的静态长度代理，不代表运行更快；压缩通过不等于获得新知识。
 - **可复现性**：报告里的成绩来自真实进程执行；`runs/` 不随仓库分发，需按上面的命令自行生成。
 
