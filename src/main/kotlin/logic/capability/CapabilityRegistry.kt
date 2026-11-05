@@ -329,7 +329,30 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
         return RegistryResult(true, null, def, contentHash, bodyHash)
     }
 
+    /**
+     * 完整检查：先校验本行（inspectSelf），再逐层校验依赖。
+     * 拆成两步是为了在失败时区分“根自身损坏”和“传递依赖损坏”，后者才能报 dependency_invalid + 路径。
+     */
     override fun inspect(id: String, version: Int): RegistryResult {
+        val self = inspectSelf(id, version)
+        if (!self.ok) return self
+        return try {
+            val definition = self.definition ?: return RegistryResult(false, "invalid_stored_definition")
+            for ((key, pinned) in extractDependencies(definition.body)) {
+                val dependency = inspect(key.first, key.second)
+                if (!dependency.ok) return RegistryResult(false, dependency.code)
+                if (dependency.definition?.contentHash() != pinned) return RegistryResult(false, "dependency_hash_mismatch")
+            }
+            self
+        } catch (_: RegistryException) {
+            RegistryResult(false, "invalid_stored_definition")
+        } catch (_: Exception) {
+            RegistryResult(false, "invalid_stored_definition")
+        }
+    }
+
+    /** M2c-1b：只校验本行（签名/正文/两种哈希/依赖表与正文一致），不递归检查依赖。 */
+    internal fun inspectSelf(id: String, version: Int): RegistryResult {
         val row = try {
             readRow(id, version) ?: return RegistryResult(false, "not_found")
         } catch (_: Exception) {
@@ -345,11 +368,6 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
             val recorded = readDependencies(id, version)
             val extracted = extractDependencies(body)
             if (recorded != extracted) return RegistryResult(false, "dependency_table_mismatch")
-            for ((key, pinned) in extracted) {
-                val dependency = inspect(key.first, key.second)
-                if (!dependency.ok) return RegistryResult(false, dependency.code)
-                if (dependency.definition?.contentHash() != pinned) return RegistryResult(false, "dependency_hash_mismatch")
-            }
             RegistryResult(true, null, definition, row.contentHash, row.bodyHash)
         } catch (_: RegistryException) {
             RegistryResult(false, "invalid_stored_definition")

@@ -333,7 +333,8 @@ class CapabilityExecutionServiceTest {
             exec(path, "UPDATE bodies SET canonical_ir_json='{\"op\":\"const\",\"type\":\"Bool3\",\"value\":\"false\"}' WHERE body_hash='${CanonicalJson.astHash(red)}'")
             val blocked = service.executeActive("chain.a", 1, args("red"))
             assertFalse(blocked.ok)
-            assertEquals("body_hash_mismatch", blocked.code)
+            assertEquals("dependency_invalid", blocked.code)
+            assertEquals("chain.b@1 -> chain.c@1", blocked.detail)
         }
         assertEquals(3, count(path, "activations"))
     }

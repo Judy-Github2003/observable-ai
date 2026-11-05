@@ -46,6 +46,8 @@ internal data class ActivationResult(
     val code: String?,
     val activationId: String?,
     val alreadyActive: Boolean = false,
+    /** 失败时给出依赖链等可读说明；成功时为 null。 */
+    val detail: String? = null,
 )
 
 /**
@@ -57,13 +59,18 @@ internal class CapabilityActivationService(
     private val suites: TrustedSuiteRegistry,
 ) {
     fun activate(capabilityId: String, capabilityVersion: Int, verificationRunId: String): ActivationResult {
-        // 1) 当前定义必须仍可检查：body/依赖表/哈希任一被改过都不能激活。
+        // 1) 先检查本行；本行完好而整链失败时，区分传递依赖损坏并给出路径。
+        val self = registry.inspectSelf(capabilityId, capabilityVersion)
+        if (!self.ok) return ActivationResult(false, self.code ?: "inspection_failed", null)
         val inspected = registry.inspect(capabilityId, capabilityVersion)
-        val definition = inspected.definition
-        val contentHash = inspected.contentHash
-        if (!inspected.ok || definition == null || contentHash == null) {
-            return ActivationResult(false, inspected.code ?: "inspection_failed", null)
+        if (!inspected.ok) {
+            ActivationGate(registry).locateDependencyFailure(capabilityId, capabilityVersion)?.let {
+                return ActivationResult(false, it.code, null, detail = it.detail)
+            }
+            return ActivationResult(false, inspected.code ?: "dependency_invalid", null)
         }
+        val definition = inspected.definition ?: return ActivationResult(false, "invalid_stored_definition", null)
+        val contentHash = inspected.contentHash ?: return ActivationResult(false, "invalid_stored_definition", null)
         // 1b) 已撤销版本永久不可再激活；修正必须发布新版本，而不是恢复旧版本。
         if (registry.readRevocation(capabilityId, capabilityVersion) != null) {
             return ActivationResult(false, "revoked", null)
@@ -85,9 +92,9 @@ internal class CapabilityActivationService(
             ?: return ActivationResult(false, "untrusted_source", null)
         if (registered.source != source) return ActivationResult(false, "source_mismatch", null)
 
-        // 4) 传递依赖必须全部已激活且版本/哈希一致；任一层缺失都拒绝，不做“部分可用”。
-        ActivationGate(registry).dependencyError(capabilityId, capabilityVersion)?.let {
-            return ActivationResult(false, it, null)
+        // 4) 传递依赖必须全部已激活、未撤销、验证仍有效；任一层失效都拒绝并给出依赖路径。
+        ActivationGate(registry).check(capabilityId, capabilityVersion)?.let {
+            return ActivationResult(false, it.code, null, detail = it.detail)
         }
 
         // 5) 幂等：同一 (id, version) 已有激活记录且内容哈希一致，直接返回已有记录，不再追加事件。

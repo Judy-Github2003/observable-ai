@@ -116,3 +116,12 @@
 - 撤销记录 + `events(kind='revoked')` 同事务；触发器注入失败实测回滚。
 - 撤销优先于激活与执行：`CapabilityActivationService` 与 `CapabilityExecutionService` 对已撤销版本返回 `revoked`；`inspect` 仍可读，历史验证/激活/正文记录全部保留。
 - 本轮不提供旧版本“取消撤销/恢复”；修正必须发布新版本、重新验证和激活。传递依赖失效与恢复在 M2c-1b。
+
+## M2c-1b 传递失效与恢复（2026-11-05）
+
+- `ActivationGate.check` 递归核对：依赖撤销 → 激活记录 → 哈希 → 引用验证仍为 pass 且绑定一致 → 继续向下 → 最后检查该依赖自身 `inspect`。
+- 先递归、后自检，使失败路径落在最深层坏点；`GateFailure(code, path)` 的 `detail` 形如 `chain.b@1 -> chain.c@1`。
+- `Registry.inspect` 拆为 `inspectSelf`（本行）与完整版；整链失败但本行完好时，用 `locateDependencyFailure` 判定 `dependency_invalid` 并给路径。
+- 错误码：根撤销 `revoked`；依赖撤销 `dependency_revoked`；依赖未激活 `dependency_not_activated`；依赖哈希错配 `dependency_hash_mismatch`；依赖验证/正文损坏 `dependency_invalid`；根自身损坏保留 inspect 原始码。
+- 不缓存依赖健康；每次执行重新读库核对，重启一致。
+- 恢复只通过新版本 + 新调用方：旧 A/B 钉住旧 C，C 被撤销后不会因 C2 出现而自动恢复。

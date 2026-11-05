@@ -16,6 +16,8 @@ internal data class ActiveExecutionResult(
     val result: EvalResult?,
     val capabilityId: String,
     val capabilityVersion: Int,
+    /** 失败时给出依赖链等可读说明；成功时为 null。 */
+    val detail: String? = null,
 ) {
     val resultKind: String
         get() = when (result) {
@@ -44,13 +46,19 @@ internal class CapabilityExecutionService(private val registry: SqliteCapability
             return rejected(capabilityId, capabilityVersion, "revoked")
         }
 
-        // 1) 当前定义必须可检查：body/签名/依赖表/语义版本任一损坏都拒绝执行。
+        // 1) 先检查本行：body/签名/依赖表/语义版本任一损坏都拒绝执行，且保留具体错误码。
+        val self = registry.inspectSelf(capabilityId, capabilityVersion)
+        if (!self.ok) return rejected(capabilityId, capabilityVersion, self.code ?: "inspection_failed")
         val inspected = registry.inspect(capabilityId, capabilityVersion)
-        val definition = inspected.definition
-        val contentHash = inspected.contentHash
-        if (!inspected.ok || definition == null || contentHash == null) {
-            return rejected(capabilityId, capabilityVersion, inspected.code ?: "inspection_failed")
+        if (!inspected.ok) {
+            // 本行完好但整链检查失败：依赖链上的损坏归为 dependency_invalid 并带路径。
+            ActivationGate(registry).locateDependencyFailure(capabilityId, capabilityVersion)?.let {
+                return rejected(capabilityId, capabilityVersion, it.code, it.detail)
+            }
+            return rejected(capabilityId, capabilityVersion, inspected.code ?: "dependency_invalid")
         }
+        val definition = inspected.definition ?: return rejected(capabilityId, capabilityVersion, "invalid_stored_definition")
+        val contentHash = inspected.contentHash ?: return rejected(capabilityId, capabilityVersion, "invalid_stored_definition")
 
         // 2) 必须有激活记录，且激活时绑定的内容哈希与当前定义一致。
         val activation = registry.readActivation(capabilityId, capabilityVersion)
@@ -67,9 +75,9 @@ internal class CapabilityExecutionService(private val registry: SqliteCapability
             return rejected(capabilityId, capabilityVersion, "verification_mismatch")
         }
 
-        // 4) 每次执行都重新核对传递依赖，不能因为曾经激活过就默认依赖仍然健康。
-        ActivationGate(registry).dependencyError(capabilityId, capabilityVersion)?.let {
-            return rejected(capabilityId, capabilityVersion, it)
+        // 4) 每次执行都重新核对传递依赖（含撤销与验证健康），不能因为曾经激活过就默认依赖仍然健康。
+        ActivationGate(registry).check(capabilityId, capabilityVersion)?.let {
+            return rejected(capabilityId, capabilityVersion, it.code, it.detail)
         }
 
         // 5) 门禁通过后交给 M1 解释器；预算与资源限制沿用 M1 语义。
@@ -77,6 +85,10 @@ internal class CapabilityExecutionService(private val registry: SqliteCapability
         return ActiveExecutionResult(true, null, result, capabilityId, capabilityVersion)
     }
 
-    private fun rejected(capabilityId: String, capabilityVersion: Int, code: String) =
-        ActiveExecutionResult(false, code, null, capabilityId, capabilityVersion)
+    private fun rejected(
+        capabilityId: String,
+        capabilityVersion: Int,
+        code: String,
+        detail: String? = null,
+    ) = ActiveExecutionResult(false, code, null, capabilityId, capabilityVersion, detail)
 }
