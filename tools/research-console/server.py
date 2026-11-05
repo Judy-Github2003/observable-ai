@@ -183,44 +183,82 @@ def esc(value) -> str:
     return html.escape(str(value), quote=True)
 
 
+STATUS_ZH = {
+    "PROPOSED": "提议", "EXPLORATORY": "探索中", "READY": "可启动",
+    "IN_PROGRESS": "进行中", "REVIEW": "待审查", "PATCH_ONCE": "补丁阶段",
+    "ACCEPTED": "已验收", "ACCEPTED_LIMITED": "受限验收", "PAUSED": "已暂停",
+}
+PRIORITY_ZH = {"high": "高", "medium": "中", "low": "低"}
+FIELD_ZH = {
+    "research_question": "研究问题", "hypothesis": "待验证假设", "goal": "目标能力",
+    "status": "状态", "priority": "优先级", "dependencies": "依赖条件",
+    "readiness_conditions": "启动条件", "known_implementation": "已有代码/接口",
+    "proposed_approaches": "可能的技术路线", "minimal_experiment": "最小实验",
+    "success_criteria": "成功标准", "failure_conditions": "失败条件",
+    "attribution": "来源归因", "known_limitations": "已知限制",
+    "patch_used": "补丁额度", "commit_sha": "代码提交", "evidence_links": "证据链接",
+    "decision_history": "决策历史", "next_possible_actions": "下一步候选",
+    "authorized_action": "当前授权动作", "direction": "研究方向",
+    "title": "标题",
+}
+EVENT_ZH = {"idea_proposed": "新想法", "task_edited": "规划修改", "status_changed": "状态变化",
+            "authorization": "授权", "implementation_finished": "实施完成"}
+
+
+def zh(value, mapping):
+    return mapping.get(str(value), str(value))
+
+
+def event_note(note):
+    text = str(note or "")
+    if text.startswith("edited "):
+        return text[len("edited "):]
+    if text.startswith("status ->"):
+        return text[len("status ->"):]
+    return text
+
+
 def badge(status: str) -> str:
     cls = re.sub(r"[^A-Za-z0-9_-]", "", status or "UNKNOWN")
-    return f'<span class="badge {cls}">{esc(status)}</span>'
+    return f'<span class="badge {cls}" title="{esc(status)}">{esc(zh(status, STATUS_ZH))}</span>'
 
 
 def page(title: str, body: str, state=None) -> bytes:
     current = state.get("current_task_id", "none") if state else "none"
-    nav = """<nav>
-      <a href="/">Dashboard</a>
-      <a href="/map">Research Map</a>
-      <a href="/ideas">Idea Inbox</a>
-      <a href="/activity">Activity</a>
-      <a href="/api/health">Health API</a>
+    nav = """<nav class="tabs">
+      <a href="/">首页</a>
+      <a href="/map">研究地图</a>
+      <a href="/ideas">想法收件箱</a>
+      <a href="/activity">活动记录</a>
+      <a href="/api/health">健康检查</a>
     </nav>"""
     return f"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)} · Observable AI Research Console</title>
+<title>{esc(title)} · Observable AI 研究控制台</title>
 <style>
-:root{{--bg:#0f141b;--panel:#171f2a;--line:#2b3a4a;--text:#dce7f2;--muted:#8ea1b5;--accent:#68d391;--warn:#f6c177;--bad:#f28b82}}
-*{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 ui-sans-serif,system-ui,Segoe UI,Microsoft YaHei,sans-serif}}
-header{{background:#111923;border-bottom:1px solid var(--line);padding:14px 22px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}}
-header strong{{font-size:18px}} nav a{{color:var(--muted);margin-right:14px;text-decoration:none}} nav a:hover{{color:var(--accent)}}
-main{{max-width:1250px;margin:0 auto;padding:22px}} h1{{font-size:25px;margin:0 0 8px}} h2{{font-size:18px;margin-top:26px;border-top:1px solid var(--line);padding-top:16px}}
-.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}} .card{{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px}}
-.card h3{{margin:0 0 8px;font-size:16px}} .muted{{color:var(--muted)}} .small{{font-size:12px}} .mono{{font-family:ui-monospace,Consolas,monospace}}
-.badge{{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-size:12px;white-space:nowrap}}
-.ACCEPTED,.ACCEPTED_LIMITED{{border-color:#3f8f68;color:#8ee6b0}} .PROPOSED,.EXPLORATORY{{border-color:#63758a;color:#b8c9da}} .READY{{border-color:#9a7b34;color:#f6c177}}
-.IN_PROGRESS,.PATCH_ONCE,.REVIEW{{border-color:#4c78a8;color:#9fc7f0}} .PAUSED{{border-color:#a14b4b;color:#f2a7a7}}
-table{{width:100%;border-collapse:collapse}} th,td{{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}} th{{color:var(--muted);font-weight:500}}
-a{{color:#9fc7f0}} input,textarea,select,button{{background:#0d141d;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:8px;font:inherit}} button{{cursor:pointer;background:#1f3a30;border-color:#3f8f68}} button:hover{{background:#295044}}
-textarea{{width:100%;min-height:80px}} label{{display:block;color:var(--muted);font-size:13px;margin-top:8px}} pre{{background:#0b1118;border:1px solid var(--line);padding:12px;overflow:auto;border-radius:8px;white-space:pre-wrap}}
-.error{{border-color:#a14b4b;color:#f2a7a7}} .ok{{color:#8ee6b0}} .warn{{color:var(--warn)}} ul{{margin:6px 0 0 20px;padding:0}} code{{background:#0b1118;padding:1px 4px;border-radius:4px}}
+:root{{--bg:#f4f6fa;--panel:#ffffff;--line:#e2e8f0;--text:#1e293b;--muted:#64748b;--accent:#2563eb;--accent-soft:#eff6ff;--ok:#047857;--warn:#b45309;--bad:#b91c1c}}
+*{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif}}
+header{{background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);padding:16px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:5;backdrop-filter:blur(8px)}}
+.brand strong{{display:block;font-size:19px;letter-spacing:.2px}} .brand span{{color:var(--muted);font-size:12px}}
+nav.tabs{{display:flex;gap:4px;flex-wrap:wrap}} nav.tabs a{{color:var(--muted);padding:7px 11px;border-radius:8px;text-decoration:none;font-size:14px}}
+nav.tabs a:hover{{background:var(--accent-soft);color:var(--accent)}}
+main{{max-width:1180px;margin:0 auto;padding:28px 22px 50px}} h1{{font-size:28px;letter-spacing:-.3px;margin:0 0 6px}} h2{{font-size:19px;margin:32px 0 12px;padding-top:8px}}
+h3{{font-size:16px}} .muted{{color:var(--muted)}} .small{{font-size:12px}} .mono{{font-family:ui-monospace,Consolas,monospace}}
+.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}} .card{{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:17px;box-shadow:0 1px 2px rgba(15,23,42,.04)}}
+.card h3{{margin:0 0 7px}} .hero{{background:linear-gradient(135deg,#ffffff,#eef4ff);border:1px solid #dbe6f7}} .hero h3{{font-size:21px}}
+.badge{{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:12px;white-space:nowrap;background:#f8fafc}}
+.ACCEPTED,.ACCEPTED_LIMITED{{border-color:#a7f3d0;background:#ecfdf5;color:#047857}} .PROPOSED,.EXPLORATORY{{border-color:#dbe3ed;background:#f8fafc;color:#475569}} .READY{{border-color:#fde68a;background:#fffbeb;color:#92400e}}
+.IN_PROGRESS,.PATCH_ONCE,.REVIEW{{border-color:#bfdbfe;background:#eff6ff;color:#1d4ed8}} .PAUSED{{border-color:#fecaca;background:#fef2f2;color:#b91c1c}}
+table{{width:100%;border-collapse:collapse}} th,td{{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}} th{{color:var(--muted);font-weight:600;font-size:13px}} tr:last-child td{{border-bottom:0}}
+a{{color:var(--accent);text-decoration:none}} a:hover{{text-decoration:underline}} input,textarea,select,button{{background:#fff;color:var(--text);border:1px solid #cbd5e1;border-radius:8px;padding:9px 10px;font:inherit}} input:focus,textarea:focus,select:focus{{outline:2px solid #bfdbfe;border-color:var(--accent)}} button{{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}} button:hover{{background:#1d4ed8}}
+textarea{{width:100%;min-height:86px}} label{{display:block;color:var(--muted);font-size:13px;margin-top:10px}} pre{{background:#0f172a;color:#e2e8f0;border:1px solid #1e293b;padding:14px;overflow:auto;border-radius:9px;white-space:pre-wrap;font-size:13px}}
+.error{{border-color:#fecaca;background:#fef2f2;color:#991b1b}} .ok{{color:var(--ok)}} .warn{{color:var(--warn)}} ul{{margin:6px 0 0 20px;padding:0}} code{{background:#f1f5f9;padding:1px 5px;border-radius:4px;font-size:13px}} details{{margin:10px 0}} summary{{cursor:pointer;padding:8px 0}} .kicker{{text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:var(--muted);font-weight:700}}
+footer{{max-width:1180px;margin:0 auto;padding:0 22px 28px;color:var(--muted);font-size:12px}}
 </style></head><body>
-<header><div><strong>Observable AI · Research Console</strong><div class="muted small">current task: {esc(current)} · data: Git-tracked JSON</div></div>{nav}</header>
+<header><div class="brand"><strong>Observable AI</strong><span>研究控制台 · 当前：{esc(current)}</span></div>{nav}</header>
 <main>{body}</main>
-<footer class="muted small" style="max-width:1250px;margin:20px auto;padding:0 22px">Read-only public view. Writes require local token + role; independent closed-book is not claimed.</footer>
+<footer>公开只读视图。写入需要本地 token 与角色。独立闭卷未完成，仍为 not_run；实施者测试不等于独立验收。</footer>
 </body></html>""".encode("utf-8")
-
 
 def dashboard(state, directions, events):
     tasks = state["tasks"]
@@ -231,29 +269,29 @@ def dashboard(state, directions, events):
     recent = []
     for event in events[:6]:
         after = event.get("after") or {}
-        recent.append(f'<li><a href="/activity/{esc(event["event_id"])}">{esc(event["event_id"])}</a> · {esc(event["kind"])} · {esc(event.get("note", ""))}</li>')
+        recent.append(f'<li><a href="/activity/{esc(event["event_id"])}">{esc(event["event_id"])}</a> · {esc(zh(event["kind"], EVENT_ZH))} · {esc(event_note(event.get("note", "")))}</li>')
     cards = [
-        ("Current task", esc(current["title"]) if current else "none", f'<a href="/task/{esc(current["id"])}">{esc(current["id"])}</a>' if current else "no task"),
-        ("Authorized action", esc(state.get("authorized_action", "none")), "No task may start without explicit authorization."),
-        ("Independent closed book", esc(state.get("independent_closed_book", "not_run")), "Implementer test is not independent acceptance."),
-        ("Tasks", f'{len(tasks)} across {len(directions.get("directions", []))} directions', "Status is authoritative in tasks.json."),
-        ("Test record", esc(state.get("last_test_result", "TBD")), "implementer_run, not independent."),
-        ("Working tree", esc((git_info()["status"] or "clean")[:500]), f'HEAD {esc(git_info()["head"][:12])}'),
+        ("当前任务", esc(current["title"]) if current else "无", f'<a href="/task/{esc(current["id"])}">{esc(current["id"])}</a>' if current else "无"),
+        ("当前授权动作", esc("无" if state.get("authorized_action", "none") == "none" else state.get("authorized_action")), "没有明确授权时，任何任务都不得启动。"),
+        ("独立闭卷", "未运行" if state.get("independent_closed_book", "not_run") == "not_run" else esc(state.get("independent_closed_book")), "实施者测试不等于独立验收。"),
+        ("任务", f'{len(tasks)} 个 · {len(directions.get("directions", []))} 个方向', "任务状态以 tasks.json 为唯一权威。"),
+        ("测试记录", esc(state.get("last_test_result", "待定")), "实施者运行，不是独立闭卷。"),
+        ("Git 工作区", esc("干净" if not git_info()["status"] else "有未提交修改")[:500], f'HEAD {esc(git_info()["head"][:12])}'),
     ]
-    body = "<h1>Research Dashboard</h1><p class='muted'>这不是完成率仪表盘；状态、证据、授权和未知分开显示。</p><div class='grid'>"
+    body = "<h1>研究总览</h1><p class='muted'>这不是完成率仪表盘；状态、证据、授权和未知分开显示。</p><div class='grid'>"
     for title, value, note in cards:
         body += f"<div class='card'><div class='muted small'>{title}</div><h3>{value}</h3><div class='muted small'>{note}</div></div>"
-    body += "</div><h2>Current / recent</h2><div class='grid'>"
-    body += f"<div class='card'><h3>{esc(current['title']) if current else 'none'}</h3><p>{esc(current['research_question']) if current else ''}</p><p>{badge(current['status']) if current else ''} patch {esc(current['patch_used']) if current else ''}/1</p><p class='small'>{esc(current['known_limitations']) if current else ''}</p></div>"
-    body += "<div class='card'><h3>最近事件</h3><ul>" + ("".join(recent) or "<li>暂无结构化事件；初始导入不冒充历史事件。</li>") + "</ul></div>"
-    body += "</div><h2>可立即查看的候选</h2><div class='grid'>"
+    body += "</div><h2>当前与最近</h2><div class='grid'>"
+    body += f"<div class='card'><h3>{esc(current['title']) if current else '无'}</h3><p>{esc(current['research_question']) if current else ''}</p><p>{badge(current['status']) if current else ''} 补丁 {esc(current['patch_used']) if current else ''}/1</p><div class='small'>{render_value(current.get('known_limitations')) if current else ''}</div></div>"
+    body += "<div class='card'><h3>最近活动</h3><ul>" + ("".join(recent) or "<li>暂无结构化事件；初始导入不冒充历史事件。</li>") + "</ul></div>"
+    body += "</div><h2>值得关注的任务</h2><div class='grid'>"
     for task in [t for t in tasks if t["status"] in ("READY", "EXPLORATORY") and t["priority"] == "high"][:6]:
         body += f"<div class='card'><a href='/task/{esc(task['id'])}'><strong>{esc(task['id'])} · {esc(task['title'])}</strong></a><p class='small'>{esc(task['research_question'])}</p><div>{badge(task['status'])}</div></div>"
-    body += "</div><h2>状态摘要</h2><div class='card'><table><tr><th>Status</th><th>Count</th></tr>"
+    body += "</div><h2>状态分布</h2><div class='card'><table><tr><th>状态</th><th>数量</th></tr>"
     for status in sorted(counts):
         body += f"<tr><td>{badge(status)}</td><td>{counts[status]}</td></tr>"
-    body += "</table><p class='small muted'>没有“研究完成百分比”。Accepted 不等于 independent closed-book。</p></div>"
-    return page("Dashboard", body, state)
+    body += "</table><p class='small muted'>没有“研究完成百分比”。“受限验收”不等于独立闭卷。</p></div>"
+    return page("研究总览", body, state)
 
 
 def map_page(state, directions, query):
@@ -271,15 +309,15 @@ def map_page(state, directions, query):
             tasks = [t for t in tasks if q in (t["id"] + " " + t["title"] + " " + t["research_question"]).lower()]
         if not tasks and (status or q):
             continue
-        row = f"<details open><summary><strong>{esc(d['code'])} · {esc(d['name'])}</strong> <span class='muted small'>{len(tasks)} tasks</span></summary><p class='muted'>{esc(d['question'])}</p><table>"
+        row = f"<details open><summary><strong>{esc(d['code'])} · {esc(d['name'])}</strong> <span class='muted small'>{len(tasks)} 个任务</span></summary><p class='muted'>{esc(d['question'])}</p><table><tr><th>编号</th><th>任务</th><th>状态</th><th>依赖</th></tr>"
         for t in sorted(tasks, key=lambda x: x["id"]):
             row += f"<tr><td><a href='/task/{esc(t['id'])}'>{esc(t['id'])}</a></td><td>{esc(t['title'])}</td><td>{badge(t['status'])}</td><td class='small'>{esc(', '.join(t['dependencies'])) or '—'}</td></tr>"
         row += "</table></details>"
         rows.append(row)
-    form = """<form method="get" action="/map" class="card"><label>Search <input name="q" value="%s"></label><label>Direction <select name="direction"><option value="">all</option>%s</select></label><label>Status <select name="status"><option value="">all</option>%s</select></label><button>Filter</button></form>""" % (
+    form = """<form method="get" action="/map" class="card"><label>搜索 <input name="q" value="%s" placeholder="任务 ID、标题或研究问题"></label><label>研究方向 <select name="direction"><option value="">全部</option>%s</select></label><label>状态 <select name="status"><option value="">全部</option>%s</select></label><button>应用筛选</button></form>""" % (
         esc(q), "".join(f"<option value='{esc(d['code'])}' {'selected' if direction == d['code'] else ''}>{esc(d['code'])} {esc(d['name'])}</option>" for d in directions["directions"]),
-        "".join(f"<option value='{esc(s)}' {'selected' if status == s else ''}>{esc(s)}</option>" for s in sorted(STATUSES)))
-    return page("Research Map", "<h1>Research Map</h1><p class='muted'>方向不是串行阶段；筛选只改变视图。</p>" + form + "".join(rows), state)
+        "".join(f"<option value='{esc(s)}' {'selected' if status == s else ''}>{esc(zh(s, STATUS_ZH))}</option>" for s in sorted(STATUSES)))
+    return page("研究地图", "<h1>研究地图</h1><p class='muted'>方向不是串行阶段；筛选只改变视图，不代表完成顺序。</p>" + form + "".join(rows), state)
 
 
 def render_value(value):
@@ -287,7 +325,7 @@ def render_value(value):
         return "<ul>" + "".join(f"<li>{esc(v)}</li>" for v in value) + "</ul>" if value else "<span class='muted'>—</span>"
     if isinstance(value, dict):
         return f"<pre>{esc(json.dumps(value, ensure_ascii=False, indent=2))}</pre>"
-    return esc(value) if value not in (None, "") else "<span class='muted'>TBD</span>"
+    return esc(value) if value not in (None, "") else "<span class='muted'>待定</span>"
 
 
 def task_page(state, task, events):
@@ -296,43 +334,43 @@ def task_page(state, task, events):
               "minimal_experiment", "success_criteria", "failure_conditions", "attribution",
               "known_limitations", "patch_used", "commit_sha", "evidence_links",
               "decision_history", "next_possible_actions", "authorized_action"]
-    body = f"<p><a href='/map'>← Research Map</a></p><h1>{esc(task['id'])} · {esc(task['title'])}</h1><p>{badge(task['status'])} <span class='muted'>direction {esc(task['direction'])} · priority {esc(task['priority'])} · patch {esc(task['patch_used'])}/1</span></p>"
+    body = f"<p><a href='/map'>← 返回研究地图</a></p><h1>{esc(task['id'])} · {esc(task['title'])}</h1><p>{badge(task['status'])} <span class='muted'>方向 {esc(task['direction'])} · 优先级 {esc(zh(task['priority'], PRIORITY_ZH))} · 补丁 {esc(task['patch_used'])}/1</span></p>"
     body += "<div class='grid'>"
     for field in fields:
-        body += f"<div class='card'><div class='muted small'>{esc(field)}</div>{render_value(task.get(field))}</div>"
+        body += f"<div class='card'><div class='kicker'>{esc(zh(field, FIELD_ZH))}</div>{render_value(task.get(field))}</div>"
     body += "</div>"
     if task.get("evidence_links"):
         body += "<h2>证据链接</h2><div class='card'><ul>" + "".join(f"<li><code>{esc(x)}</code></li>" for x in task["evidence_links"]) + "</ul></div>"
     related = [e for e in events if (e.get("after") or {}).get("id") == task["id"] or (e.get("before") or {}).get("id") == task["id"]]
-    body += "<h2>编辑规划（需要 token + planning 角色）</h2><form method='post' action='/task/" + esc(task["id"]) + "/edit' class='card'>"
+    body += "<h2>编辑规划（需要本地 token + 规划角色）</h2><form method='post' action='/task/" + esc(task["id"]) + "/edit' class='card'>"
     for field in ["title", "research_question", "hypothesis", "goal", "minimal_experiment", "known_limitations"]:
         val = task.get(field, "")
         if isinstance(val, list):
             val = "\n".join(val)
-        body += f"<label>{esc(field)}<textarea name='{esc(field)}'>{esc(val)}</textarea></label>"
-    body += "<label>token <input type='password' name='token'></label><label>role <input name='role' value='planning'></label><button>保存并记录历史</button></form>"
-    body += "<h2>状态 / 授权（不同角色）</h2><div class='grid'><form method='post' action='/task/" + esc(task["id"]) + "/status' class='card'><label>新状态 <select name='status'>" + "".join(f"<option>{esc(s)}</option>" for s in sorted(STATUSES)) + "</select></label><label>token <input type='password' name='token'></label><label>role <input name='role' value='planning'></label><button>提交状态变化</button></form>"
-    body += "<form method='post' action='/api/authorization' class='card'><label>授权 action <input name='action' value='' placeholder='例如 C1-followup'></label><label>token <input type='password' name='token'></label><label>role <input name='role' value='authorization'></label><button>记录授权</button></form></div>"
+        body += f"<label>{esc(zh(field, FIELD_ZH))}<textarea name='{esc(field)}'>{esc(val)}</textarea></label>"
+    body += "<label>本地 token <input type='password' name='token'></label><label>角色 <input name='role' value='planning'></label><button>保存并记录历史</button></form>"
+    body += "<h2>状态 / 授权（不同角色）</h2><div class='grid'><form method='post' action='/task/" + esc(task["id"]) + "/status' class='card'><label>新状态 <select name='status'>" + "".join(f"<option value='{esc(s)}'>{esc(zh(s, STATUS_ZH))}</option>" for s in sorted(STATUSES)) + "</select></label><label>本地 token <input type='password' name='token'></label><label>角色 <input name='role' value='planning'></label><button>提交状态变化</button></form>"
+    body += "<form method='post' action='/api/authorization' class='card'><label>授权动作 <input name='action' value='' placeholder='例如 C1-followup'></label><label>本地 token <input type='password' name='token'></label><label>角色 <input name='role' value='authorization'></label><button>记录授权</button></form></div>"
     if related:
-        body += "<h2>本地历史</h2><div class='card'><ul>" + "".join(f"<li><a href='/activity/{esc(e['event_id'])}'>{esc(e['event_id'])}</a> {esc(e.get('kind',''))} {esc(e.get('note',''))}</li>" for e in related[-20:]) + "</ul></div>"
+        body += "<h2>本地历史</h2><div class='card'><ul>" + "".join(f"<li><a href='/activity/{esc(e['event_id'])}'>{esc(e['event_id'])}</a> · {esc(zh(e.get('kind',''), EVENT_ZH))} · {esc(e.get('note',''))}</li>" for e in related[-20:]) + "</ul></div>"
     return page(task["id"], body, state)
 
 
 def ideas_page(state, ideas):
-    body = "<h1>Idea Inbox</h1><p class='muted'>新想法先保存为 PROPOSED；批准前不创建正式任务，也不启动研究。</p>"
-    body += "<form method='post' action='/ideas' class='card'><label>标题 <input name='title' required></label><label>原始想法 <textarea name='body' required></textarea></label><label>提出者 <input name='author' value='research_owner'></label><label>token <input type='password' name='token'></label><label>role <input name='role' value='planning'></label><button>加入 Idea Inbox</button></form>"
-    body += "<h2>Ideas</h2>"
+    body = "<h1>想法收件箱</h1><p class='muted'>新想法先保存为“提议”；批准前不创建正式任务，也不启动研究。</p>"
+    body += "<form method='post' action='/ideas' class='card'><label>标题 <input name='title' required></label><label>原始想法 <textarea name='body' required></textarea></label><label>提出者 <input name='author' value='research_owner'></label><label>本地 token <input type='password' name='token'></label><label>角色 <input name='role' value='planning'></label><button>加入想法收件箱</button></form>"
+    body += "<h2>全部想法</h2>"
     for idea in reversed(ideas.get("ideas", [])):
-        body += f"<div class='card'><strong>{esc(idea['title'])}</strong> {badge(idea.get('status','PROPOSED'))}<p>{esc(idea.get('body',''))}</p><p class='small muted'>{esc(idea.get('author',''))} · {esc(idea.get('created_at',''))} · id {esc(idea['id'])}</p></div>"
-    return page("Idea Inbox", body, state)
+        body += f"<div class='card'><strong>{esc(idea['title'])}</strong> {badge(idea.get('status','PROPOSED'))}<p>{esc(idea.get('body',''))}</p><p class='small muted'>{esc(idea.get('author',''))} · {esc(idea.get('created_at',''))} · 编号 {esc(idea['id'])}</p></div>"
+    return page("想法收件箱", body, state)
 
 
 def activity_page(state, events):
-    body = "<h1>Activity Log</h1><p class='muted'>追加式事件；每个事件有 before/after 历史文件。初始导入不伪造历史事件。</p><table><tr><th>Time</th><th>Event</th><th>Kind</th><th>Note</th></tr>"
+    body = "<h1>活动记录</h1><p class='muted'>追加式事件；每个事件保存修改前后的版本。初始导入不伪造历史事件。</p><table><tr><th>时间</th><th>事件</th><th>类型</th><th>说明</th></tr>"
     for e in events:
-        body += f"<tr><td class='small'>{esc(e.get('at',''))}</td><td><a href='/activity/{esc(e['event_id'])}'>{esc(e['event_id'])}</a></td><td>{esc(e.get('kind',''))}</td><td>{esc(e.get('note',''))}</td></tr>"
+        body += f"<tr><td class='small'>{esc(e.get('at',''))}</td><td><a href='/activity/{esc(e['event_id'])}'>{esc(e['event_id'])}</a></td><td>{esc(zh(e.get('kind',''), EVENT_ZH))}</td><td>{esc(e.get('note',''))}</td></tr>"
     body += "</table>"
-    return page("Activity", body, state)
+    return page("活动记录", body, state)
 
 
 def history_page(event_id):
@@ -343,7 +381,7 @@ def history_page(event_id):
     before = json.dumps(event.get("before"), ensure_ascii=False, indent=2, sort_keys=True).splitlines()
     after = json.dumps(event.get("after"), ensure_ascii=False, indent=2, sort_keys=True).splitlines()
     diff = "\n".join(difflib.unified_diff(before, after, fromfile="before", tofile="after", lineterm=""))
-    body = f"<p><a href='/activity'>← Activity</a></p><h1>{esc(event_id)}</h1><div class='card'><div class='muted'>{esc(event.get('at',''))} · {esc(event.get('kind',''))} · {esc(event.get('actor',''))}</div><p>{esc(event.get('note',''))}</p><pre>{esc(diff or 'no field diff')}</pre></div>"
+    body = f"<p><a href='/activity'>← 返回活动记录</a></p><h1>修改历史 · {esc(event_id)}</h1><div class='card'><div class='muted'>{esc(event.get('at',''))} · {esc(zh(event.get('kind',''), EVENT_ZH))} · {esc(event.get('actor',''))}</div><p>{esc(event.get('note',''))}</p><pre>{esc(diff or '没有字段差异')}</pre></div>"
     return page(event_id, body)
 
 
@@ -371,7 +409,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def error_page(self, message, status=400):
         state, _, _ = load_state()
-        self.send_html(page("Error", f"<h1>Error</h1><div class='card error'>{esc(message)}</div><p><a href='/'>back</a></p>", state), status)
+        self.send_html(page("出错了", f"<h1>出错了</h1><div class='card error'>{esc(message)}</div><p><a href='/'>返回首页</a></p>", state), status)
 
     def auth(self, payload):
         if not TOKEN:
@@ -520,7 +558,7 @@ class Handler(BaseHTTPRequestHandler):
                             value = [line.strip() for line in value.splitlines() if line.strip()]
                         task[field] = value
                     task.setdefault("decision_history", []).append({"at": now(), "decision": "planning edited via Research Console", "actor": role})
-                    event_id = append_event("task_edited", role, f"edited {task_id}", before, task)
+                    event_id = append_event("task_edited", role, f"规划修改：{task_id}", before, task)
                     save_state(state)
                     self.send_response(303); self.send_header("Location", f"/task/{task_id}"); self.end_headers()
                     return
