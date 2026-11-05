@@ -12,7 +12,7 @@
 | **M2a 注册表（candidate）** | **implemented（含 M2a-FIX）** |
 | M2b 可信验证与激活 | **implemented**（1a/1b/1c/2a/2b） |
 | M2c 撤销与依赖失效 | **implemented**（1a/1b） |
-| M3 Composer | `partially implemented`（1a 有界候选枚举；1b/1c `not_implemented`） |
+| M3 Composer | `partially implemented`（1a 候选枚举、1b 证据筛选；1c `not_implemented`） |
 | M4 压缩 L1/L2 | `not_implemented` |
 | M5 A/B/C/D 实验 | `not_implemented` |
 | M6 冻结交接 | `not_implemented` |
@@ -35,7 +35,7 @@
 python tools/capability_b0_benchmark.py   # not_implemented（M5）
 ```
 
-测试：全套 **139/139**（V1/V2 27 + M1 21 + M2a 17 + M2b 50 + M2c 15 + M3-1a 9）。
+测试：全套 **147/147**（V1/V2 27 + M1 21 + M2a 17 + M2b 50 + M2c 15 + M3-1a 9 + M3-1b 8）。
 
 ## 边界
 

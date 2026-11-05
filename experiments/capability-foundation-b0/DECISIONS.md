@@ -135,3 +135,13 @@
 - 结果：候选按 `(节点数, canonical)` 稳定排序；`reason` 为 `candidate_limit` / `depth_limit`；`nodeLimitSkipped` 记录被节点上限丢弃的数量。
 - `Registry.activeCapabilities()`：只返回已激活、验证 pass、未撤销、依赖链健康的快照；组合器不直接查库。
 - 来源只记 `composer_bounded_search`；M3-1c 注册时再按实际流程判定 `student_composed`，不得提前声称学生自主发现。
+
+## M3-1b 公开样本筛选（2026-11-05）
+
+- `CandidateEvidenceFilter.filter(inputs, candidates, examples, queryValues, budget, searchExhausted)`：逐候选执行全部公开样本。
+- `Known` 精确比较；`Unknown` 不算命中；`Error` 直接淘汰；`Unknown` 不当 `false`。
+- 前置拒绝：空样本 `no_public_examples`、同输入不同标签 `conflicting_evidence`、schema 外字段 `unknown_attribute`、参数/类型不符 `invalid_example`、搜索被截断 `search_budget_exhausted`。
+- 幸存候选在公开查询域（每参数取值笛卡尔积，≤256 点）上比较输出签名：同一签名归为一个等价类；只有一个等价类才 `IDENTIFIED`，代表取节点最少、canonical 最小者。
+- 多个等价类 → `AMBIGUOUS`，返回最多 3 个能区分它们的输入；没有查询域且幸存者多于一个 → `insufficient_query_domain`。
+- 没有一致候选 → `REFUSED / no_consistent_candidate`；候选为空 → `hypothesis_space_exhausted`。
+- 等价只在公开域上成立，报告写 `bounded_equivalence`，不冒充全局语义等价。
