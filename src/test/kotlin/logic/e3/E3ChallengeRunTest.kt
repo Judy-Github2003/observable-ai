@@ -138,6 +138,51 @@ class E3ChallengeRunTest {
     }
 
     @Test
+    fun `invalid field values are not authorized`() {
+        val w = world()
+        val state = pending(w)
+        val schema = VisibleSchema(mapOf("a" to listOf("0", "1")))
+        val bad = logic.e3.evaluator.PublicSample("bad-value", mapOf("a" to "other"))
+        val dummy = object : ChallengeLabelSource {
+            override fun label(sampleId: String): TrustedChallengeLabel? = null
+        }
+        val run = E3ChallengeRun.open(state, schema, emptyList(), listOf(bad), dummy)
+        assertTrue(run.authorizedInputs().isEmpty())
+        assertEquals(null, run.chooseFirst())
+    }
+
+    @Test
+    fun `shared ledger blocks cross-session repeat but not same-visible new sample`() {
+        val w = world()
+        val state = pending(w)
+        val point = correctPoint(w, state)
+        val twin = logic.e3.evaluator.PublicSample("twin-${point.sampleId}", point.visible)
+        val labels = object : ChallengeLabelSource {
+            override fun label(sampleId: String): TrustedChallengeLabel {
+                val visible = if (sampleId == twin.sampleId) twin.visible else point.visible
+                return TrustedChallengeLabel(sampleId, visible, true, "test-oracle")
+            }
+        }
+        val ledger = ChallengeQueryLedger()
+        val first = E3ChallengeRun.open(state, w.public.schema, w.public.observations, listOf(point, twin), labels, ledger)
+        first.choose("challenge-auth-${point.sampleId}")
+        first.freezePrediction()
+        first.reveal()
+        assertTrue(ledger.isLabeled(point.sampleId))
+
+        val second = E3ChallengeRun.open(state, w.public.schema, w.public.observations, listOf(point), labels, ledger)
+        assertTrue(second.authorizedInputs().isEmpty())
+        assertEquals(null, second.chooseFirst())
+
+        val third = E3ChallengeRun.open(state, w.public.schema, w.public.observations, listOf(twin), labels, ledger)
+        assertEquals(twin.sampleId, third.chooseFirst()!!.sampleId)
+
+        val preLabeled = ChallengeQueryLedger(setOf(point.sampleId))
+        val blocked = E3ChallengeRun.open(state, w.public.schema, w.public.observations, listOf(point), labels, preLabeled)
+        assertTrue(blocked.authorizedInputs().isEmpty())
+    }
+
+    @Test
     fun `export A1 challenge run records`() {
         val correctWorld = world()
         val correctState = pending(correctWorld)

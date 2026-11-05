@@ -56,6 +56,19 @@ data class ChallengeOutcomeRecord(
 
 class ChallengeRejected(val code: String) : IllegalStateException(code)
 
+/** 评测实验内共享的已揭示 sampleId 记录；按 sampleId 而不是 visible 去重。 */
+class ChallengeQueryLedger(initialLabeledSampleIds: Set<String> = emptySet()) {
+    private val labeled = initialLabeledSampleIds.toMutableSet()
+
+    fun isLabeled(sampleId: String): Boolean = sampleId in labeled
+
+    fun recordLabeled(sampleId: String) {
+        labeled += sampleId
+    }
+
+    val labeledSampleIds: Set<String> get() = labeled.toSet()
+}
+
 /**
  * 单次挑战状态机：
  * OPEN -> CHOSEN -> FROZEN -> REVEALED -> RECORDED。
@@ -67,6 +80,7 @@ class E3ChallengeRun private constructor(
     private val observations: List<Observation>,
     private val queryPool: List<PublicSample>,
     private val labels: ChallengeLabelSource,
+    private val ledger: ChallengeQueryLedger,
 ) {
     private var selected: ChallengeInput? = null
     private var prediction: ChallengePrediction? = null
@@ -81,7 +95,16 @@ class E3ChallengeRun private constructor(
             observations: List<Observation>,
             queryPool: List<PublicSample>,
             labels: ChallengeLabelSource,
-        ): E3ChallengeRun = E3ChallengeRun(pending, schema, observations, queryPool, labels)
+            ledger: ChallengeQueryLedger,
+        ): E3ChallengeRun = E3ChallengeRun(pending, schema, observations, queryPool, labels, ledger)
+
+        fun open(
+            pending: ChallengePendingState,
+            schema: VisibleSchema,
+            observations: List<Observation>,
+            queryPool: List<PublicSample>,
+            labels: ChallengeLabelSource,
+        ): E3ChallengeRun = E3ChallengeRun(pending, schema, observations, queryPool, labels, ChallengeQueryLedger())
     }
 
     /** 简单确定性策略：按公开池顺序选择第一个未用、字段合法的输入。 */
@@ -128,7 +151,9 @@ class E3ChallengeRun private constructor(
         if (frozen.candidateCanonical != pending.candidate.canonical) {
             throw ChallengeRejected("prediction_candidate_mismatch")
         }
-        if (usedSampleIds.contains(input.sampleId)) throw ChallengeRejected("duplicate_query")
+        if (usedSampleIds.contains(input.sampleId) || ledger.isLabeled(input.sampleId)) {
+            throw ChallengeRejected("duplicate_query")
+        }
         val label = labels.label(input.sampleId)
             ?: throw ChallengeRejected("label_unavailable")
         if (label.sampleId != input.sampleId) throw ChallengeRejected("label_sample_mismatch")
@@ -148,6 +173,7 @@ class E3ChallengeRun private constructor(
             throw ChallengeRejected("duplicate_observation_id")
         }
         usedSampleIds += input.sampleId
+        ledger.recordLabeled(input.sampleId)
         val record = ChallengeOutcomeRecord(
             input = input,
             prediction = frozen,
@@ -168,10 +194,12 @@ class E3ChallengeRun private constructor(
 
     fun authorizedInputs(): List<ChallengeInput> = queryPool
         .asSequence()
-        .filter { it.sampleId !in usedSampleIds }
+        .filter { it.sampleId !in usedSampleIds && !ledger.isLabeled(it.sampleId) }
         .filter { sample ->
-            sample.visible.keys == schema.fieldNames().toSet() &&
-                sample.visible.values.all { it.isNotBlank() }
+            sample.visible.keys == schema.fields.keys &&
+                sample.visible.all { (field, value) ->
+                    value.isNotBlank() && value in schema.fields.getValue(field)
+                }
         }
         .distinctBy { it.sampleId }
         .map { sample ->
