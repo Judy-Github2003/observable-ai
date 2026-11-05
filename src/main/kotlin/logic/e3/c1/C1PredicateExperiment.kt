@@ -8,6 +8,8 @@ import kotlinx.serialization.json.put
 import java.nio.file.Files
 import java.nio.file.Path
 
+data class C1PredicateRef(val id: String, val version: Int, val contentHash: String)
+
 data class C1PredicateSample(
     val sampleId: String,
     val a: String,
@@ -95,13 +97,25 @@ object C1Experiment {
             compose.reason == "candidate_limit",
         )
         val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
-        val selected = (if (evidence.status == EvidenceStatus.IDENTIFIED) evidence.survivors else consistent).firstOrNull()
+        if (evidence.status == EvidenceStatus.REFUSED) {
+            return C1PredicateResult(
+                compose.generated, compose.reason, evidence.status.name, consistent.size, false,
+                null, null, 0, heldout.size, false, false, null, null, null, "filter_refused",
+            )
+        }
+        if (evidence.status == EvidenceStatus.AMBIGUOUS) {
+            val candidate = consistent.firstOrNull()
+            return C1PredicateResult(
+                compose.generated, compose.reason, evidence.status.name, consistent.size, true,
+                candidate?.body, candidate?.canonical, 0, heldout.size, false, false, null, null, null,
+                "ambiguous_not_registered",
+            )
+        }
+        val selected = evidence.survivors.firstOrNull()
         if (selected == null) {
             return C1PredicateResult(
-                compose.generated, compose.reason, evidence.status.name, consistent.size,
-                evidence.status == EvidenceStatus.AMBIGUOUS, null, null, 0, heldout.size,
-                false, false, null, null, null,
-                "no_consistent_predicate",
+                compose.generated, compose.reason, evidence.status.name, consistent.size, false,
+                null, null, 0, heldout.size, false, false, null, null, null, "no_consistent_predicate",
             )
         }
         val heldoutCorrect = heldout.count { sample ->
@@ -168,13 +182,55 @@ object C1Experiment {
         }
     }
 
+    /**
+     * 正式复用入口：P_REUSE 只从 SQLite 的 activeCapabilities() 快照读取 P；
+     * NO_PREDICATE 强制空 library。外部 CapabilityDefinition 不能进入正式入口。
+     */
     fun reuseSecondTask(
         group: String,
         training: List<C1ReuseSample>,
         heldout: List<C1ReuseSample>,
-        predicate: CapabilityDefinition?,
+        dbPath: Path?,
+        predicateRef: C1PredicateRef?,
         maxDepth: Int = 4,
         maxCandidates: Int = 4000,
+    ): C1ReuseResult {
+        if (group == "NO_PREDICATE") {
+            if (predicateRef != null) return reuseRejected(group, heldout, "control_must_not_bind_predicate")
+            return reuseWithLibrary(group, training, heldout, null, maxDepth, maxCandidates)
+        }
+        if (group != "P_REUSE") return reuseRejected(group, heldout, "unknown_group")
+        if (dbPath == null) return reuseRejected(group, heldout, "missing_predicate_registry")
+        if (predicateRef == null) return reuseRejected(group, heldout, "missing_predicate_ref")
+        val active = try {
+            val registry = SqliteCapabilityRegistry(dbPath)
+            try {
+                registry.activeCapabilities()
+            } finally {
+                registry.close()
+            }
+        } catch (_: Exception) {
+            return reuseRejected(group, heldout, "active_snapshot_unavailable")
+        }
+        val predicate = active.firstOrNull {
+            it.id == predicateRef.id && it.version == predicateRef.version &&
+                it.contentHash() == predicateRef.contentHash
+        } ?: return reuseRejected(group, heldout, "predicate_not_active_or_hash_mismatch")
+        return reuseWithLibrary(group, training, heldout, predicate, maxDepth, maxCandidates)
+    }
+
+    private fun reuseRejected(group: String, heldout: List<C1ReuseSample>, code: String) =
+        C1ReuseResult(
+            group, 0, null, "NOT_EVALUATED", 0, null, false, 0, heldout.size, "none", code,
+        )
+
+    private fun reuseWithLibrary(
+        group: String,
+        training: List<C1ReuseSample>,
+        heldout: List<C1ReuseSample>,
+        predicate: CapabilityDefinition?,
+        maxDepth: Int,
+        maxCandidates: Int,
     ): C1ReuseResult {
         val constants = reuseConstants(training)
         val compose = CapabilityComposer().compose(
@@ -207,6 +263,12 @@ object C1Experiment {
             compose.reason == "candidate_limit",
         )
         val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
+        if (evidence.status == EvidenceStatus.REFUSED) {
+            return C1ReuseResult(
+                group, compose.generated, compose.reason, evidence.status.name, consistent.size,
+                null, false, 0, heldout.size, "none", "filter_refused",
+            )
+        }
         val selected = if (predicate != null) {
             consistent.firstOrNull { bodyUsesPredicate(it.body, predicate) } ?: evidence.survivors.firstOrNull()
         } else {
@@ -216,16 +278,17 @@ object C1Experiment {
         val correct = if (selected == null) 0 else heldout.count { sample ->
             executeReuse(selected.body, sample.a, sample.b, sample.c, predicate) == sample.label
         }
+        val basis = if (predicate != null && consistent.any { bodyUsesPredicate(it.body, predicate) }) {
+            "first_consistent_candidate_using_predicate"
+        } else {
+            "first_survivor_or_consistent"
+        }
         return C1ReuseResult(
             group, compose.generated, compose.reason, evidence.status.name, consistent.size,
-            selected?.body, used, correct, heldout.size,
-            if (predicate != null && consistent.any { bodyUsesPredicate(it.body, predicate) }) {
-                "first_consistent_candidate_using_predicate"
-            } else {
-                "first_survivor_or_consistent"
-            },
+            selected?.body, used, correct, heldout.size, basis,
             when {
                 selected == null -> "no_consistent_candidate"
+                evidence.status == EvidenceStatus.AMBIGUOUS -> "ambiguous_selection"
                 !used && predicate != null -> "predicate_not_called"
                 correct != heldout.size -> "heldout_mismatch"
                 else -> null

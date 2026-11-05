@@ -9,6 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class C1PredicateExperimentTest {
@@ -53,13 +54,14 @@ class C1PredicateExperimentTest {
         assertFalse(first.ambiguous, "filter should identify behavior; status=${first.filterStatus}")
 
         val (rtrain, rheld) = reuseSamples()
-        val reuse = C1Experiment.reuseSecondTask("P_REUSE", rtrain, rheld, predicate, maxDepth = 3, maxCandidates = 20000)
+        val ref = C1PredicateRef(predicate.id, predicate.version, predicate.contentHash())
+        val reuse = C1Experiment.reuseSecondTask("P_REUSE", rtrain, rheld, path, ref, maxDepth = 3, maxCandidates = 20000)
         assertTrue(reuse.usesPredicate, "selected body must call P; status=${reuse.filterStatus} reason=${reuse.composeReason} generated=${reuse.composeGenerated} consistent=${reuse.consistentCount}")
         assertEquals("first_consistent_candidate_using_predicate", reuse.selectionBasis)
         assertEquals(rheld.size, reuse.heldoutCorrect)
         assertEquals(null, reuse.failureCode)
 
-        val noReuse = C1Experiment.reuseSecondTask("NO_PREDICATE", rtrain, rheld, null, maxDepth = 3, maxCandidates = 20000)
+        val noReuse = C1Experiment.reuseSecondTask("NO_PREDICATE", rtrain, rheld, null, null, maxDepth = 3, maxCandidates = 20000)
         assertFalse(noReuse.usesPredicate)
         assertTrue(
             noReuse.failureCode != null || noReuse.heldoutCorrect < rheld.size,
@@ -75,9 +77,74 @@ class C1PredicateExperimentTest {
         val invalidHeld = held.mapIndexed { index, sample ->
             if (index == 0) sample.copy(label = !sample.label) else sample
         }
-        val result = C1Experiment.learnPredicate(train, invalidHeld, db(), maxDepth = 3, maxCandidates = 20000)
+        val path = db()
+        val result = C1Experiment.learnPredicate(train, invalidHeld, path, maxDepth = 3, maxCandidates = 20000)
         assertFalse(result.activated)
         assertNotNull(result.failureCode)
+        val inactive = assertNotNull(result.predicate)
+        val rejected = C1Experiment.reuseSecondTask(
+            "P_REUSE", reuseSamples().first, reuseSamples().second, path,
+            C1PredicateRef(inactive.id, inactive.version, inactive.contentHash()),
+            maxDepth = 3, maxCandidates = 20000,
+        )
+        assertEquals("predicate_not_active_or_hash_mismatch", rejected.failureCode)
+        assertEquals("NOT_EVALUATED", rejected.filterStatus)
+    }
+
+    @Test
+    fun `never activated or wrong version-hash cannot enter formal reuse`() {
+        val (train, held) = predicateSamples()
+        val path = db()
+        val first = C1Experiment.learnPredicate(train, held, path, maxDepth = 3, maxCandidates = 20000)
+        val predicate = assertNotNull(first.predicate)
+        val ref = C1PredicateRef(predicate.id, predicate.version, predicate.contentHash())
+        val (rtrain, rheld) = reuseSamples()
+
+        val empty = db()
+        assertEquals(
+            "predicate_not_active_or_hash_mismatch",
+            C1Experiment.reuseSecondTask("P_REUSE", rtrain, rheld, empty, ref, maxDepth = 3, maxCandidates = 20000).failureCode,
+        )
+        assertEquals(
+            "predicate_not_active_or_hash_mismatch",
+            C1Experiment.reuseSecondTask("P_REUSE", rtrain, rheld, path, ref.copy(version = ref.version + 1), maxDepth = 3, maxCandidates = 20000).failureCode,
+        )
+        assertEquals(
+            "predicate_not_active_or_hash_mismatch",
+            C1Experiment.reuseSecondTask("P_REUSE", rtrain, rheld, path, ref.copy(contentHash = "bad-hash"), maxDepth = 3, maxCandidates = 20000).failureCode,
+        )
+    }
+
+    @Test
+    fun `filter refused is not cached or reused as success`() {
+        val conflict = listOf(
+            C1PredicateSample("a", "0", "0", true),
+            C1PredicateSample("b", "0", "0", false),
+        )
+        val learn = C1Experiment.learnPredicate(
+            conflict, listOf(C1PredicateSample("c", "1", "1", true)), db(), maxDepth = 3, maxCandidates = 20000,
+        )
+        assertEquals("filter_refused", learn.failureCode)
+        assertNull(learn.selectedBody)
+        assertFalse(learn.registered)
+
+        val (train, held) = predicateSamples()
+        val path = db()
+        val first = C1Experiment.learnPredicate(train, held, path, maxDepth = 3, maxCandidates = 20000)
+        val predicate = assertNotNull(first.predicate)
+        val ambiguousReuse = C1Experiment.reuseSecondTask(
+            "P_REUSE",
+            listOf(
+                C1ReuseSample("r1", "0", "0", "0", true),
+                C1ReuseSample("r2", "0", "0", "0", false),
+            ),
+            listOf(C1ReuseSample("r3", "1", "1", "1", true)),
+            path,
+            C1PredicateRef(predicate.id, predicate.version, predicate.contentHash()),
+            maxDepth = 3, maxCandidates = 20000,
+        )
+        assertEquals("filter_refused", ambiguousReuse.failureCode)
+        assertNull(ambiguousReuse.selectedBody)
     }
 
     @Test
