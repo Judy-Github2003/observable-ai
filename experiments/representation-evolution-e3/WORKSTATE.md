@@ -2,16 +2,16 @@
 
 ```text
 E3 stage: E3-A
-current_subtask: M1.1a 验收补丁完成；M1.1b 未授权
-last_completed: M1.1a challenge entry gate
-last_code_commit: 7a5bf6285ac510e80358bd9f3fa777b612a056f2
+current_subtask: A1 最小主动挑战闭环完成；A2/B1/C1 未授权
+last_completed: A1 challenge run (select/predict/reveal/compare/record)
+last_code_commit: 2a86d02f1bd16f1cc71edabcb1a4b1803d75d0b8
 base_b0_sha: 0ca4561309aeb914df6e3f2c3877a50b080bf731
 working_tree: clean
 last_test_command: JAVA_HOME=C:\Users\j1437\.jdks\jbr-21.0.11; .\gradlew.bat --offline --no-daemon test
-last_test_result: 284 passed / 284 total, 0 failed（B0 173 + E3 111）
+last_test_result: 290 passed / 290 total, 0 failed（B0 173 + E3 117）
 verification_source: implementer_run
 independent_closed_book: not_run
-next_action: M1.1b 合法挑战输入未授权
+next_action: 等待 A1 审查；A2/B1/C1 未授权
 known_blockers: none
 ```
 
@@ -22,6 +22,7 @@ known_blockers: none
 - P3 已按反馈修订：新通道成功是 `NEW_FEATURE_UTILITY_VERIFIED`，不是表示不足的必要条件；表示不足仍只允许受限报告。
 - B0 `0ca4561` 只读；E3-B/C 未授权。
 - 详见 `reports/E3-A8-FIX-A9-REPORT.md`。
+
 
 
 
