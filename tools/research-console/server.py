@@ -457,6 +457,7 @@ class Handler(BaseHTTPRequestHandler):
                                 "git_head_note": "import baseline; live HEAD may be newer after console/document commits",
                                 "current_task_id": state.get("current_task_id"),
                                 "authorized_action": state.get("authorized_action"),
+                                "active_pack": state.get("active_pack"),
                                 "writes_enabled": bool(TOKEN), "task_count": len(state["tasks"]),
                                 "direction_count": len(directions["directions"])})
                 return
