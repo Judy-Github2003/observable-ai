@@ -1,4 +1,4 @@
-# Observable Learner / 可观测学习者
+﻿# Observable Learner / 可观测学习者
 
 > 一个把“能力到底属于谁”当作第一问题的教学实验：一个 Kotlin 程序从外部教师那里逐步获得**可审计、可归因、可复验**的能力。
 
@@ -17,7 +17,7 @@
 | 学前 24 课 | 23 条通用操作规则，8 批课程 | **训练 864/864，考试 960/960，24/24 课达标，教师调用 0** |
 | 独立抽查 | 冻结版本 + 新世界 + 隔离夹具 | **64/64** |
 | B0 类型化能力基底 | IR、能力库、验证/激活/撤销、组合、L1/L2 压缩、A/B/C 基准 | **M0–M6 完成；173/173 测试；独立闭卷 not_run** |
-| E3 开放表征与学习诊断 | A0–A8 契约、世界族、碰撞、B0 适配、预算诊断、探测、诊断整合 | **进行中；全套 249/249 测试** |
+| E3 开放表征与学习诊断 | A0–A8 契约、世界族、碰撞、B0 适配、预算诊断、探测、诊断整合 | **进行中；全套 251/251 测试** |
 
 **这不是“毕业”。** 两套各 120 题的综合卷尚未生成；小学 72 单元未开始。形状、颜色、情绪等只是**文本标签查询**，不代表真实看图、听声或情绪体验。
 
@@ -50,7 +50,7 @@ B0 把“能力”本身变成可版本化、可验证、可撤销、可组合�
 
 - 全套测试 **173/173**（实现者自测，不是外部独立验证）；独立闭卷 **`not_run`**。
 - 入口与记录：[B0 README](./experiments/capability-foundation-b0/README.md)、[M5 报告](./experiments/capability-foundation-b0/reports/M5-REPORT.md)、[冻结数据](./experiments/capability-foundation-b0/reports/B0-FREEZE.json)、[实施报告](./experiments/capability-foundation-b0/reports/B0-IMPLEMENTATION-REPORT.md)、[工作状态](./experiments/capability-foundation-b0/WORKSTATE.md)。
-- 长期方向与边界：[RESEARCH-NORTH-STAR](./docs/RESEARCH-NORTH-STAR.md)。
+- 长期方向与边界：[RESEARCH-NORTH-STAR](./docs/RESEARCH-NORTH-STAR.md)；[研究讨论](./docs/RESEARCH-DISCUSSIONS.md)；[研究提案](./docs/RESEARCH-PROPOSALS.md)。
 - B0 已完成并冻结（`0ca4561`）；E3-A 已完成 A0–A8（契约 + 世界族 + 碰撞 + 适配器 + 预算诊断 + 探测 + 整合），不自动进入 A9 或 E3-B/C。
 
 ### E3：开放表征与学习诊断（2026-11-05）
@@ -69,7 +69,7 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 | A7 | 重复观测与公开探测动作 | 完成；已补执行门禁/响应校验 |
 | A8 | 多 finding 诊断整合 | 完成 |
 
-- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`；全套 **249/249**（B0 173 + E3 76）。
+- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`；全套 **251/251**（B0 173 + E3 78）。
 - 已实现最小生成器与独立 oracle；未实现 A9 对照基线、原因归因或评分器；E3-B/C 未授权。
 - `independent_closed_book=not_run`；E3 结果为 `implementer_run`。
 - 记录：[E3 SPEC](./experiments/representation-evolution-e3/SPEC.md)、[DECISIONS](./experiments/representation-evolution-e3/DECISIONS.md)、[WORKSTATE](./experiments/representation-evolution-e3/WORKSTATE.md)、[A0/A1 报告](./experiments/representation-evolution-e3/reports/E3-A0-A1-REPORT.md)、[A2 报告](./experiments/representation-evolution-e3/reports/E3-A2-REPORT.md)。
@@ -211,7 +211,7 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - **考试不是毕业**：单课 40 题达标只说明本课过线；综合卷与跨领域迁移尚未完成。
 - **B0 已冻结**：M0–M6 完成；L3 参数化抽象与 D 组 `not_implemented`；独立闭卷 `not_run`。
 - **B0 成绩口径**：173/173 为实现者自测；独立闭卷 `not_run`，不能写成外部验证或“已学会自主学习”。
-- **E3 当前边界**：完成 A0–A8（契约 + 世界族 + 碰撞 + 适配器 + 预算诊断 + 探测 + 整合）；没有 A9 对照基线/原因归因或评分器；不能把“生成器存在”当成诊断能力。全套 249/249 是 B0+E3 的 `implementer_run`。
+- **E3 当前边界**：完成 A0–A8（契约 + 世界族 + 碰撞 + 适配器 + 预算诊断 + 探测 + 整合）；没有 A9 对照基线/原因归因或评分器；不能把“生成器存在”当成诊断能力。全套 251/251 是 B0+E3 的 `implementer_run`。
 - **成本指标**：`L_total` 是冻结的静态长度代理，不代表运行更快；压缩通过不等于获得新知识。
 - **可复现性**：报告里的成绩来自真实进程执行；`runs/` 不随仓库分发，需按上面的命令自行生成。
 
@@ -236,3 +236,5 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - B0 M0–M4：**本会话 DeepSeek Harness** 实现；M1 参考骨架由云端 ChatGPT 提供；外部独立审查尚未进行。
 
 **独立闭卷尚未执行。** 同模型、不同会话不构成第三方验证；闭卷状态在报告中固定为 `not_run`，等待外部审查者。
+
+

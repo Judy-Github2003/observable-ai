@@ -1,14 +1,14 @@
-# E3 工作状态（交接便笺）
+﻿# E3 工作状态（交接便笺）
 
 ```text
 E3 stage: E3-A
 current_subtask: A9
 last_completed: A7 fixes + A8
-last_code_commit: 24c29af1df966a85893ba675a6786a17daafdd97
+last_code_commit: d64a4297ae273deabde97d09c1831928326dc7dd
 base_b0_sha: 0ca4561309aeb914df6e3f2c3877a50b080bf731
 working_tree: clean
 last_test_command: JAVA_HOME=C:\Users\j1437\.jdks\jbr-21.0.11; .\gradlew.bat --offline --no-daemon test
-last_test_result: 249 passed / 249 total, 0 failed（B0 173 + E3 76）
+last_test_result: 251 passed / 251 total, 0 failed（B0 173 + E3 78）
 verification_source: implementer_run
 independent_closed_book: not_run
 next_action: A9 对照基线与公平预算
@@ -23,3 +23,4 @@ known_blockers: none
 - E3-B/C 未授权；A9 完成后不得自动进入 A10。
 - `independent_closed_book=not_run`；所有自测为 `implementer_run`。
 - 详见 `reports/E3-A7-A8-REPORT.md`。
+

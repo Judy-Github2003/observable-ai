@@ -5,7 +5,7 @@
 范围: A7 执行门禁/响应校验/重复语义/认识论边界 + A8 诊断整合
 状态: complete
 B0 冻结 SHA: 0ca4561309aeb914df6e3f2c3877a50b080bf731
-测试: 249/249（B0 173 + E3 76），失败 0
+测试: 251/251（B0 173 + E3 78），失败 0
 独立闭卷: not_run
 ```
 
@@ -86,8 +86,8 @@ $env:JAVA_HOME='C:\Users\j1437\.jdks\jbr-21.0.11'
 .\gradlew.bat --offline --no-daemon test
 ```
 
-- **249/249 通过，0 失败**
-- B0 173/173；E3 76/76
+- **251/251 通过，0 失败**
+- B0 173/173；E3 78/78
 - 覆盖：执行门禁伪造/过期/超预算、无效网关响应、重复测量语义、NoAction 边界、A8 多 finding/证据追溯/UNDETERMINED/无 family。
 
 ## 5. 边界与下一步
@@ -99,4 +99,13 @@ $env:JAVA_HOME='C:\Users\j1437\.jdks\jbr-21.0.11'
 ## 6. 提交
 
 - 代码/测试：24c29af1df966a85893ba675a6786a17daafdd97
+
+## 7. A8 复核修正（2026-11-05）
+
+- ProbeTrace.addedObservation 保存探测新增观察；E3DiagnosticIntegrator 先对原始 observations 跑 beforeBudget，再合并新增证据跑 afterBudget；报告使用 after 状态，同时暴露 ProbeStateChange(beforeStatus, afterStatus, addedEvidenceIds, changed)。
+- A8 输出新增 before/after verdict、status、addedEvidenceIds；探测前/后不再混为一个状态。
+- A6 增加 CandidateEvidenceState：NOT_RUN / RUN_WITH_ZERO_SURVIVORS / SEARCH_TRUNCATED / RUN_WITH_SURVIVORS。
+- facts.noConsistentCandidate 仅在 all runs 为 RUN_WITH_ZERO_SURVIVORS 时为 true；观察冲突（未搜索）不再被误判。
+- 反例测试：LATENT 冲突为 NOT_RUN 且 noConsistent=false；SEARCH_LIMITED 低预算为 SEARCH_TRUNCATED；A8 探测后 addedEvidenceIds/状态变化被记录。
+
 
