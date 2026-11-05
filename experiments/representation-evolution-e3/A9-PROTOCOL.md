@@ -1,4 +1,4 @@
-﻿# E3-A9 公平对照协议（v2，冻结前草案）
+# E3-A9 公平对照协议（v2，冻结前草案）
 
 > 状态：协议草案 + 最小可执行基线；**未批量运行 A10**。
 > 原则：先冻结指标、预算、世界、信息权限，再运行；隐藏真值只用于评测，不进入任何基线诊断。
@@ -36,7 +36,9 @@
 - `generatedCandidates`：所有调用的 `generated` 总和；
 - `estimatedFilterEvaluations`：候选×样本上界（估计）；
 - `observedFilterExampleEvaluations`：EvidenceResult.evaluations 实际数量×样本数；
-- `observedFilterQueryDomainEvaluations`：survivors×domainSize 实际查询域执行量；
+- `observedFilterQueryDomainEvaluations`：Filter 压缩前的**全部一致候选** × domainSize；
+- `representativeFilterQueryDomainEvaluations`：survivors × domainSize（旧低估口径，保留对照）；
+- `preCompressionConsistentCandidates`：压缩前一致候选数；
 - `interpreterExecutions`：行为等价类/额外解释执行的次数；
 - `publicInstanceRequests` / `repeatRequests` / `totalProbeCost` / `successfulProbeCount` / `independentEvidenceCount`；
 - `elapsedNanos`：实际墙钟。
@@ -53,11 +55,13 @@
 
 ### 4.1 bounded_claim_validity
 
-当诊断为 `BOUNDED_IDENTIFIED` 时，检查该结论在**声明的假设空间 + 查询域**内是否成立（由评测端按冻结规则判定）。只对 bounded claim 定义；UNDETERMINED/COLLISION 为 null。
+当诊断为 `BOUNDED_IDENTIFIED` 时，**不得**用候选与 Oracle 一致来定义成功。评测端必须重算冻结搜索记录（H/公开证据/预算/查询域），检查所有符合公开证据的候选在声明 queryDomain 上是否只有**一个行为等价类**。只对 bounded claim 定义；UNDETERMINED/COLLISION 为 null。Oracle 一致性是独立的 `queryTruthAgreement`，不是 bounded validity 的定义。
 
 ### 4.2 heldout_prediction_error
 
 该 bounded 候选在冻结隐藏样本上的预测错误率。**这是独立指标**：有界结论后来隐藏预测错误，不等于认识论越权。
+
+`LATENT_ALIASING` 中同一 visible 可能对应多个 hidden 真值；评测端按 visible 分组保留所有真值点，不得用 `associateBy` 静默覆盖。若 queryDomain 的某个 visible 有多个标签，`queryTruthAgreement=null` 且 `truthConflictDetected=true`，不得补成单一标签。
 
 ### 4.3 epistemic_overclaim_rate
 
@@ -109,9 +113,11 @@ actualClaim（动作执行状态）
 
 评测端 `logic.e3.evaluator.A9IndependentScorer`：
 
-- 学生提交冻结候选 AST/canonical/结论/boundedScope/queryDomain/evidenceIds。
-- 评测端读取 `HiddenTruth.heldOut` 与 `fullDomain`，执行候选，计算隐藏错误率。
-- 有界有效性：候选在声明 queryDomain 上是否与 truth 一致，且候选唯一。
+- 学生提交冻结候选 AST/canonical/结论/boundedScope/queryDomain/evidenceIds + 冻结搜索记录。
+- 评测端读取 `HiddenTruth.heldOut` 与 `fullDomain`，重算搜索记录并执行候选，计算隐藏错误率。
+- 有界有效性：重算 H/公开证据/queryDomain，所有一致候选是否只有**一个行为等价类**；不是“候选与 truth 一致”。
+- `queryTruthAgreement`：单独检查候选在 queryDomain 上与 truth 的一致性；LATENT 同 visible 多标签时置 null 并记 truthConflictDetected。
+- 冻结记录：budget/constants/queryDomain/composed hashes/consistent candidates/reason/generated/stage；评测端重算核对。
 - 越权：`claimedGlobal` 或结构化 `A9CausalClaim`（GLOBAL_RULE/HIDDEN_ATTRIBUTE/NOISE/WORLD_CAUSE）；不只看单一布尔。
 - 无候选/无 evidenceIds/无 queryDomain/无 heldOut/哈希不匹配 → `NOT_EVALUATED`，不得补 0。
 - 评测端代码/隐藏真值不进入学生接口。
@@ -149,5 +155,7 @@ actualClaim（动作执行状态）
 代码：`src/main/kotlin/logic/e3/E3A9Baselines.kt`、`E3UsageMeter.kt`
 真实 smoke：`reports/a9-baseline-smoke.json`
 测试：`E3A9BaselineTest`（15 行 smoke + 预算/指标/动作反例）。
+
+
 
 

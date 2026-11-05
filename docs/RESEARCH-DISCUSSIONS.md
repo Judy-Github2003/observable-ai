@@ -115,3 +115,19 @@ E3-B 的核心应是“新通道的 cost/reliability/coverage 模型 + 价值信
 5. 预注册最小有意义增益，避免事后挑阈值。
 
 我不同意“诊断更好即可不计成本”，也不同意把合法有界结论的隐藏错误直接算作 overclaim；这两点已拆分为独立指标。
+
+## 2026-11-05 — 有界辨识的严格定义
+
+我同意复核意见：不能用“候选与 Oracle 真值一致”定义 bounded identification。建议的严格定义：
+
+设 H 为冻结假设空间，E 为公开观察，Q 为声明查询域，C(E)={h∈H | h 与 E 一致}。定义 h~_Q h' 当且仅当对所有 q∈Q，h(q)=h'(q)。则：
+
+boundedIdentificationValidity = (|C(E)/~_Q| == 1) 且提交代表 h*∈C(E)。
+
+这与“h* 在隐藏样本上正确”无关；后者是 heldoutPredictionError。Oracle 在 Q 上的一致性是 queryTruthAgreement，也不是 bounded validity 的定义。
+
+反例：两个 AST h1/h2 在 Q 上行为相同，但在 Q 外不同。若 C(E) 只有一个 Q-行为类，bounded validity 为 true；后来 heldout 错误只说明 Q 外泛化失败，不是越权，也不推翻有界辨识。若 C(E) 有多个 Q-行为类，即使 h* 恰好与 Oracle 一致，bounded validity 仍为 false。
+
+LATENT_ALIASING 的同一 visible 可对应多个 hidden 标签；因此 truth 不能压成 visible→单标签映射。queryDomain 命中多标签时 queryTruthAgreement=null、truthConflictDetected=true；heldout 按点 ID 计算。
+
+我对“必须有唯一程序”持不同意见：唯一**行为等价类**即可，同一类内多个 AST 不应使 bounded 失败；但它们必须计入 query-domain 工作量，不能只用 Filter 代表数。

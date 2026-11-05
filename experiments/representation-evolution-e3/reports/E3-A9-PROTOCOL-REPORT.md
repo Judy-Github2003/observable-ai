@@ -3,9 +3,9 @@
 ```text
 阶段: E3-A（A9 协议与最小评分；A10 未运行）
 状态: complete for this handoff
-代码/测试提交: 254b21c1fbdb8806fdb698caa4b08e82b797771a
+代码/测试提交: 3a7dc7a69a3f010d2466c2786124e015abe978b9
 B0 冻结 SHA: 0ca4561309aeb914df6e3f2c3877a50b080bf731
-测试: 266/266（B0 173 + E3 93），失败 0
+测试: 269/269（B0 173 + E3 96），失败 0
 独立闭卷: not_run
 ```
 
@@ -124,3 +124,21 @@ E3_DIAGNOSTIC 不再用 recordedObservationId 冒充 requestedSampleId；REPEAT 
 - 已具备：累计预算、指标拆分、结论/动作分离、独立评分入口、15 行 smoke。
 - 尚未具备：第六基线 `B0_ACTIVE_QUERY`（B0+Filter 区分查询）未实现；未做多 seed 批量；未做盲评；正式 A10 仍需协议冻结与独立进程隔离。
 - 结论：**尚不具备直接启动正式 A10 的条件**；需先补 B0_ACTIVE_QUERY 与冻结流程。
+## 9. 评分语义修正（2026-11-05）
+
+- `boundedIdentificationValidity` 改为：重算冻结 H/公开证据/预算/queryDomain，所有一致候选在 queryDomain 上只有一个行为等价类；不再用“候选与 Oracle 一致”定义。
+- 拆分 `queryTruthAgreement`、`heldoutPredictionError`、`epistemicOverclaim`。
+- `LATENT_ALIASING` 真值按 visible 分组保留；同一 visible 多标签时 `queryTruthAgreement=null`、`truthConflictDetected=true`，不静默覆盖。
+- `A9FrozenSearchRecord` 记录 budget/constants/queryDomain/composed hashes/consistent candidates/reason/generated/stage；评测端重算并核对，不接受未验证自报。
+- `observedFilterQueryDomainEvaluations` 使用 Filter 压缩前全部一致候选 × domainSize，而非 survivors 代表数。
+- 反例测试：候选与 Oracle 一致但仍有多个行为类 → bounded false；LATENT 真值冲突保留；多个 AST 同一类时工作量不低估。
+## 10. 有界辨识与真值冲突最终修正
+
+- `boundedIdentificationValidity` 现按严格定义：
+  C(E)={h∈H | h 与公开证据一致}；h~_Q h' 当且仅当 Q 上行为相同；
+  valid = |C(E)/~_Q|==1 且提交代表属于 C(E)。与 Oracle 一致性无关。
+- `queryTruthAgreement` 独立；LATENT_ALIASING 同 visible 多标签时置 null、truthConflictDetected=true。
+- `A9FrozenSearchRecord` 提供 budget/constants/queryDomain/composed hashes/consistent candidates/reason/generated/stage；评测端重算核对。
+- 查询域工作量：observed 使用压缩前全部一致候选×domainSize；另记录 representative（survivors）工作量，暴露低估。
+- 反例测试：候选与 Oracle 一致但多行为类 → bounded false；LATENT 冲突保留；多 AST 同行为类工作量按全部一致候选计。
+- 当前仍不具备 A10 正式条件：`B0_ACTIVE_QUERY` 第六基线未实现、未多 seed/盲评/独立进程。
