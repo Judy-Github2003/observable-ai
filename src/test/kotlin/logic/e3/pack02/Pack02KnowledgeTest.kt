@@ -84,12 +84,22 @@ class Pack02KnowledgeTest {
         val (rtrain, rheld) = rData()
         val r = Pack02Knowledge.learn("pack02.r", listOf("a", "b", "c"), rtrain, rheld, path, libraryRefs = listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000)
         assertFalse(r.active, "R unexpectedly active")
+        val pRef = ref(p)
+        val activeEvidence = assertNotNull(ExecutionFactAdapter.fromExecution(path, pRef, mapOf("a" to "1", "b" to "0")))
+        assertTrue(activeEvidence.isValid())
+        assertEquals("pack02.p", activeEvidence.fact.proposition)
         val missing = KnowledgeRef("pack02.r", 1, "missing")
-        val input = mapOf("a" to "1", "b" to "0", "c" to "1")
-        assertTrue(ExecutionFactAdapter.fromExecution(path, missing, input) == null)
-        assertTrue(ExecutionFactAdapter.fromResult(missing, input, EvalResult.Known(CapValue.Bool(false))) == null)
-        assertTrue(ExecutionFactAdapter.fromResult(missing, input, EvalResult.Unknown("no")) == null)
-        assertTrue(ExecutionFactAdapter.fromResult(missing, input, EvalResult.Error("bad")) == null)
+        assertTrue(ExecutionFactAdapter.fromExecution(path, missing, mapOf("a" to "1", "b" to "0")) == null)
+        assertTrue(ExecutionFactAdapter.fromExecution(path, pRef, mapOf("a" to "0", "b" to "0")) == null)
+        assertTrue(ExecutionFactAdapter.fromExecution(path, pRef.copy(contentHash = "bad"), mapOf("a" to "1", "b" to "0")) == null)
+        assertTrue(ActiveEvidenceVerifier(path).verify(activeEvidence))
+        val registry = SqliteCapabilityRegistry(path)
+        try {
+            assertTrue(CapabilityRevocationService(registry).revoke(pRef.id, pRef.version, "auth-test", "auth-test").ok)
+        } finally {
+            registry.close()
+        }
+        assertFalse(ActiveEvidenceVerifier(path).verify(activeEvidence), "revoked capability must invalidate old evidence")
         Files.deleteIfExists(path)
     }
 
