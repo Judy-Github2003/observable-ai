@@ -31,18 +31,30 @@ def preflight(task_id: str | None = None, action: str | None = None):
     if errors:
         fail("data invalid: " + "; ".join(errors))
     authorized = state.get("authorized_action", "none")
+    active_pack = state.get("active_pack")
     print(json.dumps({
         "git_head": server.git_info()["head"],
         "current_task_id": state.get("current_task_id"),
         "authorized_action": authorized,
+        "active_pack": active_pack,
         "patch_used": None,
         "workstate": server.workstate_check(state),
     }, ensure_ascii=False, indent=2))
+    ws = server.workstate_check(state)
+    if not ws["ok"]:
+        fail("WORKSTATE out of sync: " + "; ".join(ws.get("problems", [])))
     if authorized == "none":
         fail("no authorized_action in tasks.json")
     task = server.find_task(state, task_id or state.get("current_task_id", ""))
     if not task:
         fail("unknown task")
+    if active_pack:
+        if task["id"] not in active_pack.get("tasks", []):
+            fail("task is not in active pack " + str(active_pack.get("id")))
+        if task.get("authorized_action") != active_pack.get("id"):
+            fail("task has no pack authorization")
+        if authorized != active_pack.get("id"):
+            fail("global authorization is not active pack " + str(active_pack.get("id")))
     if action and authorized != action:
         fail(f"authorized_action is {authorized}, not {action}")
     if task.get("patch_used", 0) >= 1 and task.get("status") not in {"ACCEPTED", "ACCEPTED_LIMITED", "PAUSED"}:
@@ -80,7 +92,16 @@ def render_workstate(state) -> str:
         "next_authorized_action: none; wait for research-owner authorization",
         "unauthorized: A-R1/A2/A11/A12, B1-B8, C2-C10, D1-D10, X1-X8, F1-F12, RES-*",
         "```",
-        "",
+    ]
+    pack = state.get("active_pack")
+    if pack:
+        lines += ["", f"## 研究包 {pack.get('id')} · {pack.get('status', 'TBD')}", ""]
+        for tid in pack.get("tasks", []):
+            task = tasks.get(tid)
+            if task:
+                lines.append(f"- {tid} · {task['title']} · {task['status']} · patch {task.get('patch_used', 0)}/1")
+        lines += ["", "> 包内任务独立状态；包整体 REVIEW 不代表已验收。"]
+    lines += [
         "> 本文件是 Research Console 状态的交接视图；权威状态为 `research-console/tasks.json`。",
         "",
         f"Generated: {datetime.now(timezone.utc).isoformat()}",
@@ -121,6 +142,13 @@ def finish(task_id: str, commit: str, test: str, report: str):
         })
         state["last_code_commit"] = commit
         state["last_test_result"] = test
+        pack = state.get("active_pack")
+        if pack:
+            pack["status"] = "REVIEW" if all(
+                (server.find_task(state, tid) or {}).get("status") == "REVIEW" for tid in pack.get("tasks", [])
+            ) else "IN_PROGRESS"
+            if pack["status"] == "REVIEW":
+                state["authorized_action"] = "none"
         event_id = server.append_event("implementation_finished", "execution", f"{task_id} -> REVIEW", before, task)
         server.save_state(state)
         sync_workstate(write=True)

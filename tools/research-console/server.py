@@ -277,6 +277,7 @@ def dashboard(state, directions, events):
     for event in events[:6]:
         after = event.get("after") or {}
         recent.append(f'<li><a href="/activity/{esc(event["event_id"])}">{esc(event["event_id"])}</a> · {esc(zh(event["kind"], EVENT_ZH))} · {esc(event_note(event.get("note", "")))}</li>')
+    pack = state.get("active_pack")
     cards = [
         ("当前任务", esc(current["title"]) if current else "无", f'<a href="/task/{esc(current["id"])}">{esc(current["id"])}</a>' if current else "无"),
         ("当前授权动作", esc("无" if state.get("authorized_action", "none") == "none" else state.get("authorized_action")), "没有明确授权时，任何任务都不得启动。"),
@@ -285,6 +286,8 @@ def dashboard(state, directions, events):
         ("测试记录", esc(zh_test_result(state.get("last_test_result", "待定"))), "实施者运行，不是独立闭卷。"),
         ("Git 工作区", esc("干净" if not git_info()["status"] else "有未提交修改")[:500], f'HEAD {esc(git_info()["head"][:12])}'),
     ]
+    if pack:
+        cards.insert(1, ("研究包", esc(pack.get("id", "")) + " · " + esc(pack.get("status", "")), " · ".join(esc(x) for x in pack.get("tasks", []))))
     body = "<h1>研究总览</h1><p class='muted'>这不是完成率仪表盘；状态、证据、授权和未知分开显示。</p><div class='grid'>"
     for title, value, note in cards:
         body += f"<div class='card'><div class='muted small'>{title}</div><h3>{value}</h3><div class='muted small'>{note}</div></div>"

@@ -2,8 +2,8 @@
   "schema_version": 1,
   "updated_at": "2026-11-05T12:46:13.968135+00:00",
   "source": "Research Console initial import; planning data is not evidence",
-  "current_task_id": "C1",
-  "authorized_action": "none",
+  "current_task_id": "D2",
+  "authorized_action": "PACK-01",
   "independent_closed_book": "not_run",
   "last_test_result": "297 passed / 297 total, 0 failed（B0 173 + E3 124）",
   "last_code_commit": "41d778a974af70eb20ed8b9afeab71faa9fb0b12",
@@ -18,16 +18,19 @@
       "research_question": "发现反例后，系统能否撤销旧规则、重新搜索并保留修正历史？",
       "hypothesis": "通过受控实验可以判断：反例驱动的知识修正与重新学习所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "反例驱动的知识修正与重新学习",
-      "status": "EXPLORATORY",
+      "status": "IN_PROGRESS",
       "priority": "high",
       "dependencies": [
-        "现有 A1 + B0 能力库/撤销"
+        "现有 A1 + B0 能力库/撤销",
+        "existing B0 Composer/Filter/Interpreter; A1 query order"
       ],
       "readiness_conditions": [
         "需要研究负责人明确授权",
         "需要可复核的独立测试条件"
       ],
-      "known_implementation": [],
+      "known_implementation": [
+        "src/main/kotlin/logic/e3/pack01/Pack01Session.kt"
+      ],
       "proposed_approaches": [
         "TBD：候选技术路线待研究；不得把规划当成已实现。"
       ],
@@ -54,12 +57,18 @@
           "at": "2026-11-05T12:43:28.553185+00:00",
           "decision": "imported into Research Console as planning data",
           "actor": "DeepSeek Harness"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "authorized in PACK-01; independent task status retained",
+          "actor": "research_owner"
         }
       ],
       "next_possible_actions": [
         "等待研究负责人授权后，选择一个最小可验证实验"
       ],
-      "authorized_action": "none"
+      "authorized_action": "PACK-01",
+      "pack_id": "PACK-01"
     },
     {
       "id": "A-R2",
@@ -1524,14 +1533,18 @@
       "research_question": "系统能否同时保留多个候选而非只选一个？",
       "hypothesis": "通过受控实验可以判断：并行保留多个猜想所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "并行保留多个猜想",
-      "status": "EXPLORATORY",
+      "status": "IN_PROGRESS",
       "priority": "medium",
-      "dependencies": [],
+      "dependencies": [
+        "existing B0 Composer/Filter/Interpreter; A1 query order"
+      ],
       "readiness_conditions": [
         "需要研究负责人明确授权",
         "需要可复核的独立测试条件"
       ],
-      "known_implementation": [],
+      "known_implementation": [
+        "src/main/kotlin/logic/e3/pack01/Pack01Session.kt"
+      ],
       "proposed_approaches": [
         "TBD：候选技术路线待研究；不得把规划当成已实现。"
       ],
@@ -1558,12 +1571,18 @@
           "at": "2026-11-05T12:43:28.553185+00:00",
           "decision": "imported into Research Console as planning data",
           "actor": "DeepSeek Harness"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "authorized in PACK-01; independent task status retained",
+          "actor": "research_owner"
         }
       ],
       "next_possible_actions": [
         "等待研究负责人授权后，选择一个最小可验证实验"
       ],
-      "authorized_action": "none"
+      "authorized_action": "PACK-01",
+      "pack_id": "PACK-01"
     },
     {
       "id": "D3",
@@ -5603,14 +5622,18 @@
       "research_question": "区分性实验设计：系统能否提出假设、设计实验并从结果中学习？",
       "hypothesis": "通过受控实验可以判断：区分性实验设计所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "区分性实验设计",
-      "status": "EXPLORATORY",
+      "status": "IN_PROGRESS",
       "priority": "medium",
-      "dependencies": [],
+      "dependencies": [
+        "existing B0 Composer/Filter/Interpreter; A1 query order"
+      ],
       "readiness_conditions": [
         "需要研究负责人明确授权",
         "需要可复核的独立测试条件"
       ],
-      "known_implementation": [],
+      "known_implementation": [
+        "src/main/kotlin/logic/e3/pack01/Pack01Session.kt"
+      ],
       "proposed_approaches": [
         "TBD：候选技术路线待研究；不得把规划当成已实现。"
       ],
@@ -5637,12 +5660,18 @@
           "at": "2026-11-05T12:43:28.553185+00:00",
           "decision": "imported into Research Console as planning data",
           "actor": "DeepSeek Harness"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "authorized in PACK-01; independent task status retained",
+          "actor": "research_owner"
         }
       ],
       "next_possible_actions": [
         "等待研究负责人授权后，选择一个最小可验证实验"
       ],
-      "authorized_action": "none"
+      "authorized_action": "PACK-01",
+      "pack_id": "PACK-01"
     },
     {
       "id": "RES-N03",
@@ -9625,5 +9654,19 @@
       ],
       "authorized_action": "none"
     }
-  ]
+  ],
+  "active_pack": {
+    "id": "PACK-01",
+    "title": "多猜想、主动实验与反例修正",
+    "status": "IN_PROGRESS",
+    "tasks": [
+      "D2",
+      "RES-N02",
+      "A-R1"
+    ],
+    "authorized_by": "research_owner",
+    "started_at": "2026-11-05",
+    "authorized_action": "PACK-01",
+    "boundary": "只允许包内三项任务通过执行门禁；不自动启动其他任务"
+  }
 }

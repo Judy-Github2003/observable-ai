@@ -1,0 +1,272 @@
+{
+    "pack": "PACK-01",
+    "initialStatus": "AMBIGUOUS",
+    "initialCandidates": 36,
+    "composed": 73,
+    "querySampleId": "q10",
+    "queryVisible": {
+        "a": "1",
+        "b": "0"
+    },
+    "queryDistinctPredictions": 2,
+    "frozenSequence": 1,
+    "label": true,
+    "afterStatus": "AMBIGUOUS",
+    "afterCandidates": 13,
+    "eliminated": 23,
+    "state": "AMBIGUOUS",
+    "heldoutPredictions": [
+        {
+            "candidateId": 1,
+            "prediction": true
+        },
+        {
+            "candidateId": 2,
+            "prediction": false
+        },
+        {
+            "candidateId": 3,
+            "prediction": true
+        },
+        {
+            "candidateId": 4,
+            "prediction": true
+        },
+        {
+            "candidateId": 5,
+            "prediction": false
+        },
+        {
+            "candidateId": 6,
+            "prediction": true
+        },
+        {
+            "candidateId": 7,
+            "prediction": false
+        },
+        {
+            "candidateId": 8,
+            "prediction": false
+        },
+        {
+            "candidateId": 9,
+            "prediction": true
+        },
+        {
+            "candidateId": 10,
+            "prediction": false
+        },
+        {
+            "candidateId": 11,
+            "prediction": true
+        },
+        {
+            "candidateId": 12,
+            "prediction": true
+        },
+        {
+            "candidateId": 13,
+            "prediction": true
+        }
+    ],
+    "beforeCandidates": [
+        {
+            "id": 1,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}"
+        },
+        {
+            "id": 2,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}"
+        },
+        {
+            "id": 3,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}"
+        },
+        {
+            "id": 4,
+            "canonical": "{\"op\":\"not\",\"value\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}}}"
+        },
+        {
+            "id": 5,
+            "canonical": "{\"op\":\"not\",\"value\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}}}"
+        },
+        {
+            "id": 6,
+            "canonical": "{\"op\":\"not\",\"value\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}}}"
+        },
+        {
+            "id": 7,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 8,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 9,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 10,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 11,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 12,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 13,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 14,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}}}"
+        },
+        {
+            "id": 15,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 16,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 17,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 18,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 19,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 20,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 21,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 22,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 23,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 24,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 25,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 26,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 27,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 28,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}}}"
+        },
+        {
+            "id": 29,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 30,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 31,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 32,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 33,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 34,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 35,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 36,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        }
+    ],
+    "afterCandidatesDetail": [
+        {
+            "id": 1,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}"
+        },
+        {
+            "id": 2,
+            "canonical": "{\"op\":\"not\",\"value\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}}}"
+        },
+        {
+            "id": 3,
+            "canonical": "{\"op\":\"not\",\"value\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}}}"
+        },
+        {
+            "id": 4,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 5,
+            "canonical": "{\"op\":\"and\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}}}"
+        },
+        {
+            "id": 6,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 7,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 8,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 9,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 10,
+            "canonical": "{\"op\":\"eq\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"}}}"
+        },
+        {
+            "id": 11,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 12,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"b\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        },
+        {
+            "id": 13,
+            "canonical": "{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"0\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}}}"
+        }
+    ]
+}
