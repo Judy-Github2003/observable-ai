@@ -47,17 +47,21 @@
         "src/main/kotlin/logic/e3/pack02/Deduction.kt",
         "src/test/kotlin/logic/e3/pack02"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-05T16:06:39.868113+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-05T16:13:34.781699+00:00",
       "audit_event_ids": [
         "ev-1793894799868-704b85",
-        "ev-1793895007511-111e5e"
+        "ev-1793895007511-111e5e",
+        "ev-1793895214781-f109b2"
       ],
       "content_hash": "ad8234709b491d32e17356edb3f5d47562868157bf3634b6392602c3da35e5e9",
       "activated_at": "2026-11-05T16:10:07.510400+00:00",
-      "activation_reference": "Research-owner authorization, 2026-11-06: activate PACK-02R-AUTH-01; scope remains trusted evidence authentication only."
+      "activation_reference": "Research-owner authorization, 2026-11-06: activate PACK-02R-AUTH-01; scope remains trusted evidence authentication only.",
+      "consumed_commit": "f427cdb8399fee99d9c367cac0b48070e49edac7",
+      "consumed_test": "Kotlin 316/316; PACK-02 9/9; repair gate 7/7; old gate 5/5",
+      "consumed_report": "PACK-02R-AUTH-01-REPORT.md"
     }
   ],
-  "updated_at": "2026-11-05T16:10:07.516931+00:00"
+  "updated_at": "2026-11-05T16:13:34.788699+00:00"
 }
