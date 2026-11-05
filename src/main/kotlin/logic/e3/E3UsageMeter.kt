@@ -8,6 +8,8 @@ data class E3UsageSnapshot(
     val estimatedFilterEvaluations: Int,
     val observedFilterExampleEvaluations: Int,
     val observedFilterQueryDomainEvaluations: Int,
+    val representativeFilterQueryDomainEvaluations: Int,
+    val preCompressionConsistentCandidates: Int,
     val interpreterExecutions: Int,
     val publicInstanceRequests: Int,
     val repeatRequests: Int,
@@ -24,6 +26,8 @@ class E3UsageMeter {
     private var estimatedFilterEvaluations = 0
     private var observedFilterExampleEvaluations = 0
     private var observedFilterQueryDomainEvaluations = 0
+    private var representativeFilterQueryDomainEvaluations = 0
+    private var preCompressionConsistentCandidates = 0
     private var interpreterExecutions = 0
     private var publicInstanceRequests = 0
     private var repeatRequests = 0
@@ -46,10 +50,14 @@ class E3UsageMeter {
         exampleCount: Int,
         observedCandidateCount: Int,
         observedDomainEvaluations: Int,
+        representativeDomainEvaluations: Int,
+        consistentCandidateCount: Int,
     ) {
         estimatedFilterEvaluations += estimatedCandidateCount * exampleCount
         observedFilterExampleEvaluations += observedCandidateCount * exampleCount
         observedFilterQueryDomainEvaluations += observedDomainEvaluations
+        representativeFilterQueryDomainEvaluations += representativeDomainEvaluations
+        preCompressionConsistentCandidates += consistentCandidateCount
     }
 
     fun recordInterpreter(executions: Int) {
@@ -77,6 +85,8 @@ class E3UsageMeter {
         estimatedFilterEvaluations = estimatedFilterEvaluations,
         observedFilterExampleEvaluations = observedFilterExampleEvaluations,
         observedFilterQueryDomainEvaluations = observedFilterQueryDomainEvaluations,
+        representativeFilterQueryDomainEvaluations = representativeFilterQueryDomainEvaluations,
+        preCompressionConsistentCandidates = preCompressionConsistentCandidates,
         interpreterExecutions = interpreterExecutions,
         publicInstanceRequests = publicInstanceRequests,
         repeatRequests = repeatRequests,

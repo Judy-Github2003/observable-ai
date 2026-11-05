@@ -148,11 +148,14 @@ class E3B0DiagnosticAdapter {
             composed.reason == "candidate_limit",
         )
 
+        val consistentForWork = evidence.evaluations.count { it.consistent }
         meter?.recordFilter(
             estimatedCandidateCount = composed.candidates.size,
             exampleCount = examples.size,
             observedCandidateCount = evidence.evaluations.size,
-            observedDomainEvaluations = evidence.survivors.size * evidence.domainSize,
+            observedDomainEvaluations = consistentForWork * evidence.domainSize,
+            representativeDomainEvaluations = evidence.survivors.size * evidence.domainSize,
+            consistentCandidateCount = consistentForWork,
         )
         val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
         val baseStatus = when (evidence.status) {

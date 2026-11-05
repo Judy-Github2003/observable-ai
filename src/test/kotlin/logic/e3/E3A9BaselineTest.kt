@@ -70,6 +70,8 @@ class E3A9BaselineTest {
                     put("estimatedFilterEvaluations", result.computation.estimatedFilterEvaluations)
                     put("observedFilterExampleEvaluations", result.computation.observedFilterExampleEvaluations)
                     put("observedFilterQueryDomainEvaluations", result.computation.observedFilterQueryDomainEvaluations)
+                    put("representativeFilterQueryDomainEvaluations", result.computation.representativeFilterQueryDomainEvaluations)
+                    put("preCompressionConsistentCandidates", result.computation.preCompressionConsistentCandidates)
                     put("interpreterExecutions", result.computation.interpreterExecutions)
                     put("publicInstanceRequests", result.computation.publicInstanceRequests)
                     put("repeatRequests", result.computation.repeatRequests)
@@ -108,10 +110,35 @@ class E3A9BaselineTest {
     }
 
     @Test
+    fun `query domain work counts all consistent ASTs not just representatives`() {
+        val worlds = listOf(WorldFamily.SOLVABLE, WorldFamily.LATENT_ALIASING, WorldFamily.AMBIGUOUS_EVIDENCE, WorldFamily.SEARCH_LIMITED)
+        var found = false
+        for (family in worlds) {
+            for (seed in 1L..5L) {
+                val world = E3WorldGenerator(seed).generate(family, 0)
+                val meter = E3UsageMeter()
+                val signal = E3B0DiagnosticAdapter().diagnose(
+                    world.public.schema, world.public.observations,
+                    PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+                    world.public.queryPool.map { it.visible }, DiagnosticBudget(3, 32, 3000, 10000), meter,
+                )
+                val f = signal.filter ?: continue
+                if (f.consistentCount > f.survivorCount && f.survivorCount > 0 && f.domainSize > 0) {
+                    found = true
+                    assertEquals(f.consistentCount * f.domainSize, meter.snapshot().observedFilterQueryDomainEvaluations)
+                    break
+                }
+            }
+            if (found) break
+        }
+        assertTrue(found, "no world with multiple consistent ASTs in one behavior class found")
+    }
+
+    @Test
     fun `bounded claim remains valid even when heldout prediction is wrong`() {
         val result = A9BaselineResult(
             A9BaselineId.B0_ONLY, A9DiagnosticClaim.BOUNDED_IDENTIFIED, null, emptyList(), null,
-            E3UsageSnapshot(1, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 1), emptyList(),
+            E3UsageSnapshot(1, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), emptyList(),
         )
         val score = A9Scorer.score(result, A9CaseTruth(boundedClaimValid = true, heldoutPredictionError = 0.5))
         assertEquals(true, score.boundedClaimValidity)

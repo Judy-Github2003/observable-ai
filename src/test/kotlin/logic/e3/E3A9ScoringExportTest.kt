@@ -13,7 +13,7 @@ class E3A9ScoringExportTest {
 
     private fun result(claim: A9DiagnosticClaim, global: Boolean = false) = A9BaselineResult(
         A9BaselineId.B0_ONLY, claim, null, listOf("e1"), null,
-        E3UsageSnapshot(1, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 1), emptyList(), claimedGlobal = global,
+        E3UsageSnapshot(1, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), emptyList(), claimedGlobal = global,
     )
 
     @Test
