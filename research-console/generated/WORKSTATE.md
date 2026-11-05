@@ -4,7 +4,7 @@
 E3 stage: E3-A
 current_task: 并行保留多个猜想
 research_direction: D
-authorization: none
+authorization: PACK-01
 last_verified_code_commit: b6994d407477f3496d34e33bb9300579a3e6f61d
 base_b0_sha: 0ca4561309aeb914df6e3f2c3877a50b080bf731
 working_tree: see Research Console health
@@ -20,13 +20,13 @@ next_authorized_action: none; wait for research-owner authorization
 unauthorized: A-R1/A2/A11/A12, B1-B8, C2-C10, D1-D10, X1-X8, F1-F12, RES-*
 ```
 
-## 研究包 PACK-01 · REVIEW
+## 研究包 PACK-01 · PATCH_ONCE
 
-- D2 · 并行保留多个猜想 · REVIEW · patch 0/1
-- RES-N02 · 区分性实验设计 · REVIEW · patch 0/1
-- A-R1 · 反例驱动的知识修正与重新学习 · REVIEW · patch 0/1
+- D2 · 并行保留多个猜想 · PATCH_ONCE · patch 0/1
+- RES-N02 · 区分性实验设计 · PATCH_ONCE · patch 0/1
+- A-R1 · 反例驱动的知识修正与重新学习 · PATCH_ONCE · patch 0/1
 
 > 包内任务独立状态；包整体 REVIEW 不代表已验收。
 > 本文件是 Research Console 状态的交接视图；权威状态为 `research-console/tasks.json`。
 
-Generated: 2026-11-05T13:40:15.256559+00:00
+Generated: 2026-11-05T13:50:42.322464+00:00

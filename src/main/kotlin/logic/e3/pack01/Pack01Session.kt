@@ -4,7 +4,13 @@ package logic.e3.pack01
 
 import logic.capability.*
 
-data class PackObservation(val id: String, val a: String, val b: String, val label: Boolean)
+data class PackObservation(
+    val id: String,
+    val a: String,
+    val b: String,
+    val label: Boolean,
+    val sourceId: String = "unknown",
+)
 data class PackInput(val sampleId: String, val a: String, val b: String)
 data class PackLabel(val sampleId: String, val a: String, val b: String, val label: Boolean, val sourceId: String)
 data class PackCandidate(
@@ -24,6 +30,8 @@ data class PackSnapshot(
 )
 data class PackFrozenPrediction(
     val sampleId: String,
+    val input: PackInput,
+    val candidateCanonicals: List<String>,
     val predictions: Map<Int, Boolean?>,
     val sequence: Long,
 )
@@ -59,23 +67,33 @@ class Pack01Session(
     private val maxDepth: Int = 3,
     private val maxCandidates: Int = 2000,
 ) {
-    private var before: PackSnapshot? = null
+    private var initialSnapshot: PackSnapshot? = null
+    private var currentSnapshot: PackSnapshot? = null
+    private val historySnapshots = ArrayList<PackSnapshot>()
     private var frozen: PackFrozenPrediction? = null
     private var selectedQuery: PackQuery? = null
+    private val revealedSampleIds = HashSet<String>()
     private var sequence = 0L
 
     fun initial(): PackSnapshot {
-        before?.let { return it }
+        initialSnapshot?.let { return it }
         val snapshot = build("initial", initialObservations)
-        before = snapshot
+        initialSnapshot = snapshot
+        currentSnapshot = snapshot
+        historySnapshots += snapshot
         return snapshot
     }
 
+    fun current(): PackSnapshot = currentSnapshot ?: initial()
+
+    fun history(): List<PackSnapshot> = historySnapshots.toList()
+
     fun chooseDistinguishing(): PackQuery? {
-        val snapshot = initial()
+        val snapshot = current()
         if (frozen != null) return null
         val existing = snapshot.observations.map { it.a to it.b }.toSet()
         for (input in queryPool) {
+            if (input.sampleId in revealedSampleIds) continue
             if ((input.a to input.b) in existing) continue
             val predictions = snapshot.candidates.associate { candidate ->
                 candidate.id to predict(candidate.body, input.a, input.b)
@@ -91,19 +109,29 @@ class Pack01Session(
     }
 
     fun freeze(query: PackQuery): PackFrozenPrediction {
-        if (selectedQuery?.input?.sampleId != query.input.sampleId) {
-            throw IllegalStateException("query_not_selected")
+        val selected = selectedQuery ?: throw IllegalStateException("query_not_selected")
+        if (selected.input.sampleId != query.input.sampleId ||
+            selected.input.a != query.input.a || selected.input.b != query.input.b) {
+            throw IllegalStateException("query_input_mismatch")
         }
         if (frozen != null) throw IllegalStateException("prediction_already_frozen")
+        val snapshot = current()
+        val actual = snapshot.candidates.associate { candidate ->
+            candidate.id to predict(candidate.body, query.input.a, query.input.b)
+        }
+        if (actual != query.predictions) throw IllegalStateException("query_predictions_mismatch")
         sequence += 1
-        val value = PackFrozenPrediction(query.input.sampleId, query.predictions, sequence)
+        val value = PackFrozenPrediction(
+            query.input.sampleId, query.input, snapshot.candidates.map { it.canonical }, actual, sequence,
+        )
         frozen = value
         return value
     }
 
     fun reveal(): PackResult {
-        val snapshot = before ?: initial()
+        val snapshot = current()
         val query = selectedQuery ?: throw IllegalStateException("query_not_selected")
+        if (query.input.sampleId in revealedSampleIds) throw IllegalStateException("challenge_already_revealed")
         val prediction = frozen ?: throw IllegalStateException("prediction_not_frozen")
         val label = labels.label(query.input.sampleId)
             ?: throw IllegalStateException("label_unavailable")
@@ -112,7 +140,7 @@ class Pack01Session(
         }
         sequence += 1
         val observation = PackObservation(
-            "pack-obs-${label.sampleId}", label.a, label.b, label.label,
+            "pack-obs-${label.sampleId}", label.a, label.b, label.label, label.sourceId,
         )
         val after = build("after-${label.sampleId}", snapshot.observations + observation)
         val eliminated = snapshot.candidates.filter { old -> after.candidates.none { it.canonical == old.canonical } }
@@ -121,6 +149,11 @@ class Pack01Session(
             after.status == "IDENTIFIED" -> "IDENTIFIED"
             else -> "AMBIGUOUS"
         }
+        currentSnapshot = after
+        historySnapshots += after
+        revealedSampleIds += query.input.sampleId
+        frozen = null
+        selectedQuery = null
         return PackResult(
             snapshot, query, prediction, label, after, eliminated, state,
             if (after.candidates.isEmpty()) "no_candidate_after_new_evidence" else null,
@@ -129,7 +162,10 @@ class Pack01Session(
 
     /** A-R1 边界：外部新证据直接进入时，仍重跑 Composer/Filter 并保留前后快照。 */
     fun applyObservation(observation: PackObservation): PackResult {
-        val snapshot = before ?: initial()
+        val snapshot = current()
+        if (snapshot.observations.any { it.id == observation.id }) {
+            throw IllegalStateException("duplicate_observation")
+        }
         val after = build("after-${observation.id}", snapshot.observations + observation)
         val eliminated = snapshot.candidates.filter { old -> after.candidates.none { it.canonical == old.canonical } }
         val state = when {
@@ -137,14 +173,13 @@ class Pack01Session(
             after.status == "IDENTIFIED" -> "IDENTIFIED"
             else -> "AMBIGUOUS"
         }
+        currentSnapshot = after
+        historySnapshots += after
         return PackResult(
             snapshot, null, null, null, after, eliminated, state,
             if (after.candidates.isEmpty()) "no_candidate_after_new_evidence" else null,
         )
     }
-
-    fun current(): PackSnapshot = before ?: initial()
-
     fun predict(body: Expr, a: String, b: String): Boolean? {
         val definition = CapabilityDefinition(
             "pack.eval", 1, mapOf("a" to CapType.Str, "b" to CapType.Str), CapType.Bool3, body,

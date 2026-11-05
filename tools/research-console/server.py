@@ -127,15 +127,31 @@ def workstate_check(state):
     checks = {
         "code_commit": state.get("last_code_commit", ""),
         "test_result": state.get("last_test_result", ""),
-        "current_task": state.get("current_task_id", ""),
     }
     problems = []
     if checks["code_commit"] and checks["code_commit"] not in text:
         problems.append("last_code_commit not present in WORKSTATE")
     if checks["test_result"] and checks["test_result"] not in text:
         problems.append("last_test_result not present in WORKSTATE")
-    if checks["current_task"] and checks["current_task"] not in text:
-        problems.append("current_task not present in WORKSTATE")
+    current = find_task(state, state.get("current_task_id", ""))
+    if current and current.get("title") not in text:
+        problems.append("current task title not present in WORKSTATE")
+    auth_match = re.search(r"^authorization:\s*(\S+)", text, re.MULTILINE)
+    if not auth_match or auth_match.group(1) != str(state.get("authorized_action", "none")):
+        problems.append("authorization line does not match tasks.json")
+    pack = state.get("active_pack")
+    if pack:
+        pack_match = re.search(r"^## 研究包 " + re.escape(str(pack.get("id"))) + r" · (\S+)", text, re.MULTILINE)
+        if not pack_match or pack_match.group(1) != str(pack.get("status")):
+            problems.append("pack status not present or mismatched in WORKSTATE")
+        for tid in pack.get("tasks", []):
+            task = find_task(state, tid)
+            if not task:
+                problems.append("pack task missing: " + tid)
+                continue
+            task_match = re.search(r"^- " + re.escape(tid) + r" · .* · (\S+) · patch ", text, re.MULTILINE)
+            if not task_match or task_match.group(1) != str(task.get("status")):
+                problems.append("task status mismatch in WORKSTATE: " + tid)
     return {"ok": not problems, "problems": problems, "path": str(path.relative_to(ROOT))}
 
 

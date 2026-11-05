@@ -3,7 +3,7 @@
   "updated_at": "2026-11-05T13:40:15.243777+00:00",
   "source": "Research Console initial import; planning data is not evidence",
   "current_task_id": "D2",
-  "authorized_action": "none",
+  "authorized_action": "PACK-01",
   "independent_closed_book": "not_run",
   "last_test_result": "305 passed / 305 total, 0 failed（B0 173 + E3 132）",
   "last_code_commit": "b6994d407477f3496d34e33bb9300579a3e6f61d",
@@ -18,7 +18,7 @@
       "research_question": "发现反例后，系统能否撤销旧规则、重新搜索并保留修正历史？",
       "hypothesis": "通过受控实验可以判断：反例驱动的知识修正与重新学习所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "反例驱动的知识修正与重新学习",
-      "status": "REVIEW",
+      "status": "PATCH_ONCE",
       "priority": "high",
       "dependencies": [
         "现有 A1 + B0 能力库/撤销",
@@ -1540,7 +1540,7 @@
       "research_question": "系统能否同时保留多个候选而非只选一个？",
       "hypothesis": "通过受控实验可以判断：并行保留多个猜想所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "并行保留多个猜想",
-      "status": "REVIEW",
+      "status": "PATCH_ONCE",
       "priority": "medium",
       "dependencies": [
         "existing B0 Composer/Filter/Interpreter; A1 query order"
@@ -5636,7 +5636,7 @@
       "research_question": "区分性实验设计：系统能否提出假设、设计实验并从结果中学习？",
       "hypothesis": "通过受控实验可以判断：区分性实验设计所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "区分性实验设计",
-      "status": "REVIEW",
+      "status": "PATCH_ONCE",
       "priority": "medium",
       "dependencies": [
         "existing B0 Composer/Filter/Interpreter; A1 query order"
@@ -9679,7 +9679,7 @@
   "active_pack": {
     "id": "PACK-01",
     "title": "多猜想、主动实验与反例修正",
-    "status": "REVIEW",
+    "status": "PATCH_ONCE",
     "tasks": [
       "D2",
       "RES-N02",
@@ -9688,6 +9688,8 @@
     "authorized_by": "research_owner",
     "started_at": "2026-11-05",
     "authorized_action": "PACK-01",
-    "boundary": "只允许包内三项任务通过执行门禁；不自动启动其他任务"
+    "boundary": "只允许包内三项任务通过执行门禁；不自动启动其他任务",
+    "patch_used": "1/1",
+    "patched_at": "2026-11-05"
   }
 }

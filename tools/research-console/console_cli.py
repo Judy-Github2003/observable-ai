@@ -25,43 +25,59 @@ def fail(message: str, code: int = 2):
     raise SystemExit(code)
 
 
+def gate(state, task_id: str | None, action: str | None = None, for_finish: bool = False):
+    """Pure authorization gate used by preflight and finish."""
+    task = server.find_task(state, task_id or state.get("current_task_id", ""))
+    if not task:
+        return False, "unknown task"
+    authorized = state.get("authorized_action", "none")
+    pack = state.get("active_pack")
+    if pack:
+        if task["id"] not in pack.get("tasks", []):
+            return False, "task is not in active pack " + str(pack.get("id"))
+        if task.get("authorized_action") != pack.get("id"):
+            return False, "task has no pack authorization"
+        if authorized != pack.get("id"):
+            return False, "global authorization is not active pack " + str(pack.get("id"))
+        if pack.get("status") not in {"IN_PROGRESS", "PATCH_ONCE"}:
+            return False, "pack status " + str(pack.get("status")) + " cannot start/finish"
+    else:
+        if authorized == "none":
+            return False, "no authorized_action in tasks.json"
+        if task.get("authorized_action") != authorized:
+            return False, "task authorization does not match global authorization"
+    if action and authorized != action:
+        return False, "authorized_action is " + authorized + ", not " + action
+    if for_finish:
+        if task.get("status") not in {"IN_PROGRESS", "PATCH_ONCE"}:
+            return False, "task status " + str(task.get("status")) + " cannot finish"
+    elif task.get("status") not in {"READY", "IN_PROGRESS", "PATCH_ONCE"}:
+        return False, "task status " + str(task.get("status")) + " cannot start"
+    if task.get("patch_used", 0) >= 1 and task.get("status") not in {"ACCEPTED", "ACCEPTED_LIMITED", "PAUSED"}:
+        return False, "patch quota used"
+    return True, None
+
+
 def preflight(task_id: str | None = None, action: str | None = None):
     state, directions, _ = server.load_state()
     errors = server.validate_state(state, directions)
     if errors:
         fail("data invalid: " + "; ".join(errors))
-    authorized = state.get("authorized_action", "none")
-    active_pack = state.get("active_pack")
     print(json.dumps({
         "git_head": server.git_info()["head"],
         "current_task_id": state.get("current_task_id"),
-        "authorized_action": authorized,
-        "active_pack": active_pack,
+        "authorized_action": state.get("authorized_action"),
+        "active_pack": state.get("active_pack"),
         "patch_used": None,
         "workstate": server.workstate_check(state),
     }, ensure_ascii=False, indent=2))
     ws = server.workstate_check(state)
     if not ws["ok"]:
         fail("WORKSTATE out of sync: " + "; ".join(ws.get("problems", [])))
-    if authorized == "none":
-        fail("no authorized_action in tasks.json")
-    task = server.find_task(state, task_id or state.get("current_task_id", ""))
-    if not task:
-        fail("unknown task")
-    if active_pack:
-        if task["id"] not in active_pack.get("tasks", []):
-            fail("task is not in active pack " + str(active_pack.get("id")))
-        if task.get("authorized_action") != active_pack.get("id"):
-            fail("task has no pack authorization")
-        if authorized != active_pack.get("id"):
-            fail("global authorization is not active pack " + str(active_pack.get("id")))
-    if action and authorized != action:
-        fail(f"authorized_action is {authorized}, not {action}")
-    if task.get("patch_used", 0) >= 1 and task.get("status") not in {"ACCEPTED", "ACCEPTED_LIMITED", "PAUSED"}:
-        fail(f"{task['id']} patch quota used ({task.get('patch_used')}/1)")
-    if task.get("status") not in {"READY", "IN_PROGRESS", "PATCH_ONCE"}:
-        fail(f"{task['id']} status {task.get('status')} cannot start")
-    print("AUTHORIZED: " + task["id"])
+    ok, reason = gate(state, task_id, action, for_finish=False)
+    if not ok:
+        fail(reason)
+    print("AUTHORIZED: " + str(task_id or state.get("current_task_id")))
 
 
 def render_workstate(state) -> str:
@@ -131,6 +147,9 @@ def finish(task_id: str, commit: str, test: str, report: str):
         task = server.find_task(state, task_id)
         if not task:
             fail("unknown task")
+        ok, reason = gate(state, task_id, for_finish=True)
+        if not ok:
+            fail(reason)
         before = json.loads(json.dumps(task))
         task["status"] = "REVIEW"
         task["commit_sha"] = commit

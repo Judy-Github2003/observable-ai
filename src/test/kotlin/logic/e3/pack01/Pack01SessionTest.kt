@@ -95,6 +95,54 @@ class Pack01SessionTest {
     }
 
     @Test
+    fun `current state evolves across two legal observations`() {
+        val s = session()
+        val initial = s.initial()
+        assertEquals(36, initial.candidates.size)
+        assertEquals(initial, s.current())
+        assertEquals(1, s.history().size)
+
+        val firstQuery = assertNotNull(s.chooseDistinguishing())
+        s.freeze(firstQuery)
+        val first = s.reveal()
+        val afterFirst = assertNotNull(first.after)
+        assertEquals(afterFirst, s.current())
+        assertTrue(afterFirst.candidates.size < initial.candidates.size)
+        assertTrue(afterFirst.observations.last().sourceId == "test-oracle")
+        assertEquals(2, s.history().size)
+
+        val secondQuery = assertNotNull(s.chooseDistinguishing())
+        assertTrue(secondQuery.input.sampleId != firstQuery.input.sampleId)
+        s.freeze(secondQuery)
+        val second = s.reveal()
+        val afterSecond = assertNotNull(second.after)
+        assertEquals(afterSecond, s.current())
+        assertTrue(afterSecond.candidates.size <= afterFirst.candidates.size)
+        assertEquals(3, s.history().size)
+        assertEquals(initial, s.history().first())
+        assertEquals(afterFirst, s.history()[1])
+        assertTrue(afterSecond.observations.last().sourceId == "test-oracle")
+    }
+
+    @Test
+    fun `forged frozen predictions and changed inputs are rejected`() {
+        val s = session()
+        val query = assertNotNull(s.chooseDistinguishing())
+        val forged = query.copy(predictions = query.predictions.mapValues { true })
+        assertFailsWith<IllegalStateException> { s.freeze(forged) }
+
+        val changed = query.copy(input = query.input.copy(a = "0", b = "1"))
+        assertFailsWith<IllegalStateException> { s.freeze(changed) }
+
+        val fresh = session()
+        assertFailsWith<IllegalStateException> { fresh.reveal() }
+
+        s.freeze(query)
+        s.reveal()
+        assertFailsWith<IllegalStateException> { s.reveal() }
+    }
+
+    @Test
     fun `export PACK-01 actual run record`() {
         val s = session()
         val before = s.initial()
