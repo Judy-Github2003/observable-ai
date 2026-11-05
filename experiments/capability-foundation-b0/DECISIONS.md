@@ -203,3 +203,12 @@
 - 计时/峰值为单次 JVM 近似值，不作性能结论；`L_total` 84/186/186 是静态代理。
 - SIMILAR 复用可能依赖二值域否定等价（`¬red ≡ blue`），换第三值时不保证成立；外部验收须换值域。
 - 原始结果：`benchmarks/results/m5-results-20261105.json`，冻结副本 `reports/B0-BENCHMARK-RESULTS.json`。
+
+## M6-1 冻结与交接（2026-11-05）
+
+- 冻结代码 SHA `0ca4561309aeb914df6e3f2c3877a50b080bf731`（M5-1b）；冻结提交另行记录，避免自引用。
+- IR `cap-ir-v1`、schema 3、Kotlin 2.2.21、JDK 21、Gradle 8.14.6；依赖版本固定。
+- 测试源码 SHA-256 `c5e3fb…20eee`，173/173；benchmark 结果 SHA-256 `a70603…31330`，协议 SHA-256 `4888b6…0a12`。
+- 干净 worktree 离线复现成功：173/173；A/B/C 结果与冻结一致（耗时/内存除外）。
+- `independent_closed_book=not_run`；不声称独立闭卷通过。
+- 下一步 E3-A 尚未开始；T1 方案只列选项，不启动。

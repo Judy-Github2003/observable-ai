@@ -1,0 +1,58 @@
+{
+  "project": "Observable AI / 可观测学习者",
+  "stage": "B0",
+  "status": "complete",
+  "freeze_date": "2026-11-05",
+  "code_sha": "0ca4561309aeb914df6e3f2c3877a50b080bf731",
+  "freeze_commit_note": "本文件所在提交为 B0 冻结提交；代码 SHA 指向 M5-1b 的已验证状态",
+  "ir_semantics_version": "cap-ir-v1",
+  "schema_version": 3,
+  "toolchain": {
+    "jdk": "21",
+    "kotlin": "2.2.21",
+    "gradle": "8.14.6",
+    "dependencies": {
+      "kotlinx-serialization-json": "1.9.0",
+      "sqlite-jdbc": "3.50.3.0"
+    }
+  },
+  "test_command": "gradlew.bat --offline --no-daemon test",
+  "tests": {
+    "total": 173,
+    "failed": 0,
+    "test_sources_sha256": "c5e3fbbc59acf1e418cdaf9676947c0e127c8f4f243ed40344436f5fe9220eee",
+    "source_files": 25
+  },
+  "benchmark": {
+    "generator_version": "b0-m5-v1",
+    "seed": 20261105,
+    "tasks_per_family": 2,
+    "generated_tasks": 24,
+    "train_tasks": 12,
+    "development_tasks": 12,
+    "budget": {
+      "maxDepth": 3,
+      "maxNodes": 32,
+      "maxCandidates": 3000,
+      "maxSteps": 10000
+    },
+    "results_file": "experiments/capability-foundation-b0/reports/B0-BENCHMARK-RESULTS.json",
+    "results_sha256": "a70603c92305b5eaf47b6e32d8b8aaf0975143c78b762daa0137cccddef31330",
+    "protocol_sha256": "4888b68b4044ebe689ae69e5ebe07c88c7b1ef6682cac6b654838a1490fe0a12"
+  },
+  "clean_checkout": {
+    "commit": "0ca4561309aeb914df6e3f2c3877a50b080bf731",
+    "offline_test": "173 passed / 173 total",
+    "benchmark": "A 6/12, B 9/12, C 9/12; helpers=[]; 结果与冻结结果一致（耗时除外）",
+    "reproduced": true,
+    "verified_on": "2026-11-05"
+  },
+  "attribution": {
+    "designer_primitives": "M1 IR/解释器参考骨架由云端 ChatGPT 提供；M2–M6 由本会话 DeepSeek Harness 实现",
+    "teacher_proposed": "本轮 B0 未调用教师 API，teacher_calls=0",
+    "student_composed": "M3-1c 两个新世界的具体候选；搜索算法为开发者预置",
+    "student_abstracted": "M4-1c 的 helper 候选；压缩不产生新事实"
+  },
+  "independent_closed_book": "not_run",
+  "next_stage": "E3-A（表示不足检测），尚未开始"
+}

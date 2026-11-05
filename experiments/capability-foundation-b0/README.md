@@ -1,7 +1,7 @@
-# 学习基底 B0：M1 状态
+# 学习基底 B0：冻结状态
 
-> 实现：云端 ChatGPT 提供 M1 参考骨架；DeepSeek Harness（本会话）集成、补测、修复。
-> 参考：`SPEC.md`、`DECISIONS.md`、`reports/M1-REPORT.md`
+> 实现：云端 ChatGPT 提供 M1 参考骨架；DeepSeek Harness（本会话）集成、补测、修复并完成 M2–M6。
+> 冻结代码 SHA：`0ca4561309aeb914df6e3f2c3877a50b080bf731`；参考：`SPEC.md`、`DECISIONS.md`、`reports/B0-IMPLEMENTATION-REPORT.md`。
 
 ## 状态
 
@@ -15,7 +15,7 @@
 | M3 Composer | **implemented**（1a 候选枚举、1b 证据筛选、1c 注册/留出集） |
 | M4 压缩 L1/L2 | **implemented**（1a L1 成本、1b 子树抽取、1c 重写与净收益；L3 `not_implemented`） |
 | M5 A/B/C/D 实验 | **implemented**（A/B/C 公开开发；D=L3 `not_implemented`） |
-| M6 冻结交接 | `not_implemented` |
+| M6 冻结交接 | **implemented**（`reports/B0-FREEZE.json`、干净 worktree 复现） |
 | 独立闭卷 | `not_run` |
 
 ## 实现范围
