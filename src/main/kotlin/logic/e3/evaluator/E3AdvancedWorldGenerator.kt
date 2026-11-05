@@ -3,6 +3,7 @@
 package logic.e3.evaluator
 
 import logic.e3.*
+import java.security.MessageDigest
 
 /**
  * A3 及匹配对照的生成器。所有世界共用同一套公开格式：
@@ -22,6 +23,13 @@ class E3AdvancedWorldGenerator(private val seed: Long) {
     /** 同一 schema/值域/来源格式的 SOLVABLE 与 LATENT_ALIASING 对照。 */
     fun matchedPair(index: Int = 0): Pair<EvaluatedWorld, EvaluatedWorld> =
         matchedSolvable(index) to matchedLatent(index + 1)
+
+    private fun opaqueWorldId(family: WorldFamily, index: Int): String {
+        // 公开 ID 是单向摘要，不含 seed/index，不可从字符串恢复生成参数。
+        val digest = MessageDigest.getInstance("SHA-256")
+            .digest("e3-world-v1|$seed|$index|${family.name}".toByteArray(Charsets.UTF_8))
+        return "w-" + digest.take(8).joinToString("") { "%02x".format(it) }
+    }
 
     private fun random(family: WorldFamily, index: Int) =
         java.util.Random(seed * 1_000_003L + family.ordinal * 97L + index)
@@ -100,7 +108,7 @@ class E3AdvancedWorldGenerator(private val seed: Long) {
     private fun binary(index: Int, family: WorldFamily): BinaryWorld {
         val fields = listOf("a", "b", "c")
         val values = mapOf("a" to listOf("0", "1"), "b" to listOf("0", "1"), "c" to listOf("0", "1"))
-        return BinaryWorld(fields, values, cartesian(fields, values), random(family, index), "world-$seed-$index")
+        return BinaryWorld(fields, values, cartesian(fields, values), random(family, index), opaqueWorldId(family, index))
     }
 
     private fun noisy(index: Int): EvaluatedWorld {
@@ -149,7 +157,9 @@ class E3AdvancedWorldGenerator(private val seed: Long) {
         val sameAB = domain.filter { it.getValue("a") == it.getValue("b") }.shuffled(rng).take(4)
         val observations = sameAB.mapIndexed { i, point ->
             observation("$worldId-P${i + 1}", "obj-$i", point, fields, rule(point), "source-a", true)
-        }
+        }.toMutableList()
+        // 第 5 条为同一可见向量的重复观测（来源不同、标签相同），统一 A3 公开样本数为 5。
+        observations += observation("$worldId-P5", "obj-repeat", sameAB[0], fields, rule(sameAB[0]), "source-b", true)
         val differentAB = domain.filter { it.getValue("a") != it.getValue("b") }.shuffled(rng)
         val hidden = differentAB.take(2).mapIndexed { i, point ->
             HiddenPoint("$worldId-H${i + 1}", point, emptyMap(), rule(point))
@@ -173,7 +183,7 @@ class E3AdvancedWorldGenerator(private val seed: Long) {
         for (point in shuffled) if (selected.size < 5 && point !in selected) selected += point
         val hiddenPoints = shuffled.filterNot { it in selected }.take(2)
         val queryPoints = shuffled.filterNot { it in selected || it in hiddenPoints }.take(1)
-        val worldId = "world-$seed-$index"
+        val worldId = opaqueWorldId(WorldFamily.SOLVABLE, index)
         val observations = selected.mapIndexed { i, point ->
             observation("$worldId-P${i + 1}", "obj-$i", point, fields, rule(point), if (i % 2 == 0) "source-a" else "source-b", null)
         }
@@ -189,7 +199,7 @@ class E3AdvancedWorldGenerator(private val seed: Long) {
         val values = mapOf("a" to listOf("a0", "a1", "a2"), "b" to listOf("b0", "b1", "b2"))
         val domain = cartesian(fields, values)
         val rng = random(WorldFamily.LATENT_ALIASING, index)
-        val worldId = "world-$seed-$index"
+        val worldId = opaqueWorldId(WorldFamily.LATENT_ALIASING, index)
         val rule: (Map<String, String>, Boolean) -> Boolean = { p, latent -> (p.getValue("a") == "a1") xor latent }
         val shuffled = domain.shuffled(rng)
         val collision = shuffled[0]

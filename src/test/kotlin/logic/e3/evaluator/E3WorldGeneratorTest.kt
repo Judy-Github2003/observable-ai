@@ -2,6 +2,8 @@
 // 原因：E3-A2/A3 生成器自检；签名只比较世界内容，不比较 seed 或 ID。
 package logic.e3.evaluator
 
+import logic.capability.*
+import kotlinx.serialization.json.*
 import logic.e3.ContractJson
 import logic.e3.FeatureKey
 import logic.e3.ObservedValue
@@ -53,6 +55,27 @@ class E3WorldGeneratorTest {
         for (family in WorldFamily.entries) {
             val signatures = (1L..7L).map { seed -> signature(E3WorldGenerator(seed).generate(family, 0)) }
             assertTrue(signatures.toSet().size > 1, "family=$family should vary across seeds")
+        }
+    }
+
+    @Test
+    fun `public world id is opaque and does not expose seed or index`() {
+        val seed = 987654321L
+        for (family in WorldFamily.entries) {
+            val worldId = E3WorldGenerator(seed).generate(family, 3).public.worldId
+            assertTrue(Regex("^w-[0-9a-f]{16}$").matches(worldId), "opaque id: $worldId")
+            assertFalse(worldId.contains(seed.toString()))
+            assertFalse(worldId.contains("seed"))
+            assertFalse(worldId.contains("index"))
+        }
+    }
+
+    @Test
+    fun `A3 families share the same public sample count`() {
+        val families = listOf(WorldFamily.NOISY_LABELS, WorldFamily.SEARCH_LIMITED, WorldFamily.AMBIGUOUS_EVIDENCE)
+        for (family in families) {
+            val world = E3WorldGenerator(43L).generate(family, 0)
+            assertEquals(5, world.public.observations.size, "family=$family")
         }
     }
 
@@ -167,7 +190,48 @@ class E3WorldGeneratorTest {
         }
         assertTrue(fits("a"))
         assertTrue(fits("b"))
-        assertTrue(world.public.observations.map { featureKey(it).canonical }.toSet().size == world.public.observations.size)
+        assertTrue(world.public.observations.groupBy { featureKey(it).canonical }.values.all { group ->
+            group.map { it.label }.toSet().size == 1
+        })
+    }
+
+    @Test
+    fun `search limited low budget composer control is recorded`() {
+        val world = E3WorldGenerator(37L).generate(WorldFamily.SEARCH_LIMITED, 0)
+        val type = CapType.Record(world.public.schema.fields.keys.sorted().associateWith { CapType.Str })
+        val inputs = mapOf("x" to type)
+        val constants = listOf("0", "1").map { CapValue.Str(it) }
+        val interpreter = CapabilityInterpreter(InMemoryResolver(emptyList()))
+        val records = ArrayList<kotlinx.serialization.json.JsonObject>()
+        for (depth in listOf(2, 3)) {
+            val composed = CapabilityComposer().compose(
+                ComposeRequest(inputs, CapType.Bool3, constants, emptyList(), ComposeBudget(depth, 32, 3000)),
+            )
+            var fitted = 0
+            for (candidate in composed.candidates) {
+                val definition = CapabilityDefinition("a3.control", 1, inputs, CapType.Bool3, candidate.body)
+                val ok = world.public.observations.all { obs ->
+                    val args = mapOf("x" to EvalResult.Known(CapValue.Rec(
+                        obs.visible.mapValues { (_, v) -> CapValue.Str((v as ObservedValue.Known).value) },
+                    )))
+                    val actual = interpreter.execute(definition, args)
+                    actual is EvalResult.Known && (actual.value as CapValue.Bool).value == obs.label
+                }
+                if (ok) fitted++
+            }
+            records += kotlinx.serialization.json.buildJsonObject {
+                put("maxDepth", depth)
+                put("generated", composed.generated)
+                if (composed.reason == null) put("reason", kotlinx.serialization.json.JsonNull) else put("reason", composed.reason)
+                put("candidate_count", composed.candidates.size)
+                put("candidates_fitting_public", fitted)
+            }
+        }
+        val out = java.nio.file.Path.of("experiments/representation-evolution-e3/reports/a3-search-limited-composer.json")
+        java.nio.file.Files.createDirectories(out.parent)
+        java.nio.file.Files.writeString(out, kotlinx.serialization.json.Json { prettyPrint = true }
+            .encodeToString(kotlinx.serialization.json.JsonArray.serializer(), kotlinx.serialization.json.JsonArray(records)) + "\n")
+        assertEquals(2, records.size)
     }
 
     @Test

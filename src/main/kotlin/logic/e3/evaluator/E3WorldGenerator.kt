@@ -4,8 +4,15 @@
 package logic.e3.evaluator
 
 import logic.e3.*
+import java.security.MessageDigest
 
 enum class WorldFamily { SOLVABLE, LATENT_ALIASING, NOISY_LABELS, SEARCH_LIMITED, AMBIGUOUS_EVIDENCE }
+
+internal fun opaqueWorldId(seed: Long, family: WorldFamily, index: Int): String {
+    val digest = MessageDigest.getInstance("SHA-256")
+        .digest("e3-world-v1|$seed|$index|${family.name}".toByteArray(Charsets.UTF_8))
+    return "w-" + digest.take(8).joinToString("") { "%02x".format(it) }
+}
 
 /** 公开可查询点：只有可见字段，没有标签，也没有隐藏上下文。 */
 data class PublicSample(val sampleId: String, val visible: Map<String, String>)
@@ -157,7 +164,7 @@ class E3WorldGenerator(private val seed: Long) {
         val hiddenPoints = shuffled.filterNot { it in selected }.take(2)
         val queryPoints = shuffled.filterNot { it in selected || it in hiddenPoints }.take(2)
         // 公开 worldId 不带家族名，避免 worldKind 通过 ID 泄漏。
-        val worldId = "world-$seed-$index"
+        val worldId = opaqueWorldId(seed, WorldFamily.SOLVABLE, index)
 
         val observations = selected.mapIndexed { i, point ->
             observation("$worldId-P${i + 1}", "obj-$i", point, fields, rule(point), "public-source", true)
@@ -199,7 +206,7 @@ class E3WorldGenerator(private val seed: Long) {
         val visibleDomain = cartesian(fields, values)
         val rng = random(WorldFamily.LATENT_ALIASING, index)
         val shuffled = visibleDomain.shuffled(rng)
-        val worldId = "world-$seed-$index"
+        val worldId = opaqueWorldId(seed, WorldFamily.LATENT_ALIASING, index)
         val rule: (Map<String, String>, Boolean) -> Boolean = { point, latent ->
             (point.getValue("kind") == "k1") xor latent
         }

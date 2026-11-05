@@ -3,7 +3,7 @@
     "note": "evaluator-side sample; contains hidden truth and must not be given to the student",
     "solvable": {
         "public": {
-            "worldId": "world-42-0",
+            "worldId": "w-de4ad981708315b1",
             "schema": {
                 "fields": {
                     "material": [
@@ -20,7 +20,7 @@
             },
             "observations": [
                 {
-                    "observationId": "world-42-0-P1",
+                    "observationId": "w-de4ad981708315b1-P1",
                     "objectId": "obj-0",
                     "visible": {
                         "material": {
@@ -43,7 +43,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P2",
+                    "observationId": "w-de4ad981708315b1-P2",
                     "objectId": "obj-1",
                     "visible": {
                         "material": {
@@ -66,7 +66,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P3",
+                    "observationId": "w-de4ad981708315b1-P3",
                     "objectId": "obj-2",
                     "visible": {
                         "material": {
@@ -89,7 +89,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P4",
+                    "observationId": "w-de4ad981708315b1-P4",
                     "objectId": "obj-3",
                     "visible": {
                         "material": {
@@ -112,7 +112,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P5",
+                    "observationId": "w-de4ad981708315b1-P5",
                     "objectId": "obj-4",
                     "visible": {
                         "material": {
@@ -137,14 +137,14 @@
             ],
             "queryPool": [
                 {
-                    "sampleId": "world-42-0-Q1",
+                    "sampleId": "w-de4ad981708315b1-Q1",
                     "visible": {
                         "material": "copper",
                         "seal": "open"
                     }
                 },
                 {
-                    "sampleId": "world-42-0-Q2",
+                    "sampleId": "w-de4ad981708315b1-Q2",
                     "visible": {
                         "material": "iron",
                         "seal": "partial"
@@ -157,28 +157,28 @@
             "ruleDescription": "material == copper AND seal == sealed",
             "hiddenFeature": null,
             "labels": {
-                "world-42-0-D1": false,
-                "world-42-0-D2": false,
-                "world-42-0-D3": false,
-                "world-42-0-D4": true,
-                "world-42-0-D5": false,
-                "world-42-0-D6": false,
-                "world-42-0-D7": false,
-                "world-42-0-D8": false,
-                "world-42-0-D9": false,
-                "world-42-0-H1": false,
-                "world-42-0-H2": false,
-                "world-42-0-P1": true,
-                "world-42-0-P2": false,
-                "world-42-0-P3": false,
-                "world-42-0-P4": false,
-                "world-42-0-P5": false,
-                "world-42-0-Q1": false,
-                "world-42-0-Q2": false
+                "w-de4ad981708315b1-D1": false,
+                "w-de4ad981708315b1-D2": false,
+                "w-de4ad981708315b1-D3": false,
+                "w-de4ad981708315b1-D4": true,
+                "w-de4ad981708315b1-D5": false,
+                "w-de4ad981708315b1-D6": false,
+                "w-de4ad981708315b1-D7": false,
+                "w-de4ad981708315b1-D8": false,
+                "w-de4ad981708315b1-D9": false,
+                "w-de4ad981708315b1-H1": false,
+                "w-de4ad981708315b1-H2": false,
+                "w-de4ad981708315b1-P1": true,
+                "w-de4ad981708315b1-P2": false,
+                "w-de4ad981708315b1-P3": false,
+                "w-de4ad981708315b1-P4": false,
+                "w-de4ad981708315b1-P5": false,
+                "w-de4ad981708315b1-Q1": false,
+                "w-de4ad981708315b1-Q2": false
             },
             "fullDomain": [
                 {
-                    "sampleId": "world-42-0-D1",
+                    "sampleId": "w-de4ad981708315b1-D1",
                     "visible": {
                         "material": "iron",
                         "seal": "sealed"
@@ -187,7 +187,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D2",
+                    "sampleId": "w-de4ad981708315b1-D2",
                     "visible": {
                         "material": "iron",
                         "seal": "open"
@@ -196,7 +196,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D3",
+                    "sampleId": "w-de4ad981708315b1-D3",
                     "visible": {
                         "material": "iron",
                         "seal": "partial"
@@ -205,7 +205,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D4",
+                    "sampleId": "w-de4ad981708315b1-D4",
                     "visible": {
                         "material": "copper",
                         "seal": "sealed"
@@ -214,7 +214,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D5",
+                    "sampleId": "w-de4ad981708315b1-D5",
                     "visible": {
                         "material": "copper",
                         "seal": "open"
@@ -223,7 +223,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D6",
+                    "sampleId": "w-de4ad981708315b1-D6",
                     "visible": {
                         "material": "copper",
                         "seal": "partial"
@@ -232,7 +232,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D7",
+                    "sampleId": "w-de4ad981708315b1-D7",
                     "visible": {
                         "material": "ceramic",
                         "seal": "sealed"
@@ -241,7 +241,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D8",
+                    "sampleId": "w-de4ad981708315b1-D8",
                     "visible": {
                         "material": "ceramic",
                         "seal": "open"
@@ -250,7 +250,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D9",
+                    "sampleId": "w-de4ad981708315b1-D9",
                     "visible": {
                         "material": "ceramic",
                         "seal": "partial"
@@ -263,7 +263,7 @@
     },
     "latent_aliasing": {
         "public": {
-            "worldId": "world-42-0",
+            "worldId": "w-b68e3c32150fcb23",
             "schema": {
                 "fields": {
                     "kind": [
@@ -279,7 +279,7 @@
             },
             "observations": [
                 {
-                    "observationId": "world-42-0-P1",
+                    "observationId": "w-b68e3c32150fcb23-P1",
                     "objectId": "obj-0a",
                     "visible": {
                         "kind": {
@@ -302,7 +302,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P2",
+                    "observationId": "w-b68e3c32150fcb23-P2",
                     "objectId": "obj-0b",
                     "visible": {
                         "kind": {
@@ -325,7 +325,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P5",
+                    "observationId": "w-b68e3c32150fcb23-P5",
                     "objectId": "obj-o0",
                     "visible": {
                         "kind": {
@@ -350,7 +350,7 @@
             ],
             "queryPool": [
                 {
-                    "sampleId": "world-42-0-Q1",
+                    "sampleId": "w-b68e3c32150fcb23-Q1",
                     "visible": {
                         "kind": "k2",
                         "shape": "s1"
@@ -363,28 +363,28 @@
             "ruleDescription": "kind == k1 XOR latent",
             "hiddenFeature": "latent",
             "labels": {
-                "world-42-0-D1": false,
-                "world-42-0-D10": true,
-                "world-42-0-D11": false,
-                "world-42-0-D12": true,
-                "world-42-0-D2": true,
-                "world-42-0-D3": false,
-                "world-42-0-D4": true,
-                "world-42-0-D5": true,
-                "world-42-0-D6": false,
-                "world-42-0-D7": true,
-                "world-42-0-D8": false,
-                "world-42-0-D9": false,
-                "world-42-0-H1": false,
-                "world-42-0-H2": false,
-                "world-42-0-P1": false,
-                "world-42-0-P2": true,
-                "world-42-0-P5": false,
-                "world-42-0-Q1": false
+                "w-b68e3c32150fcb23-D1": false,
+                "w-b68e3c32150fcb23-D10": true,
+                "w-b68e3c32150fcb23-D11": false,
+                "w-b68e3c32150fcb23-D12": true,
+                "w-b68e3c32150fcb23-D2": true,
+                "w-b68e3c32150fcb23-D3": false,
+                "w-b68e3c32150fcb23-D4": true,
+                "w-b68e3c32150fcb23-D5": true,
+                "w-b68e3c32150fcb23-D6": false,
+                "w-b68e3c32150fcb23-D7": true,
+                "w-b68e3c32150fcb23-D8": false,
+                "w-b68e3c32150fcb23-D9": false,
+                "w-b68e3c32150fcb23-H1": false,
+                "w-b68e3c32150fcb23-H2": false,
+                "w-b68e3c32150fcb23-P1": false,
+                "w-b68e3c32150fcb23-P2": true,
+                "w-b68e3c32150fcb23-P5": false,
+                "w-b68e3c32150fcb23-Q1": false
             },
             "fullDomain": [
                 {
-                    "sampleId": "world-42-0-D1",
+                    "sampleId": "w-b68e3c32150fcb23-D1",
                     "visible": {
                         "kind": "k0",
                         "shape": "s0"
@@ -395,7 +395,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D2",
+                    "sampleId": "w-b68e3c32150fcb23-D2",
                     "visible": {
                         "kind": "k0",
                         "shape": "s0"
@@ -406,7 +406,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D3",
+                    "sampleId": "w-b68e3c32150fcb23-D3",
                     "visible": {
                         "kind": "k0",
                         "shape": "s1"
@@ -417,7 +417,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D4",
+                    "sampleId": "w-b68e3c32150fcb23-D4",
                     "visible": {
                         "kind": "k0",
                         "shape": "s1"
@@ -428,7 +428,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D5",
+                    "sampleId": "w-b68e3c32150fcb23-D5",
                     "visible": {
                         "kind": "k1",
                         "shape": "s0"
@@ -439,7 +439,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D6",
+                    "sampleId": "w-b68e3c32150fcb23-D6",
                     "visible": {
                         "kind": "k1",
                         "shape": "s0"
@@ -450,7 +450,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D7",
+                    "sampleId": "w-b68e3c32150fcb23-D7",
                     "visible": {
                         "kind": "k1",
                         "shape": "s1"
@@ -461,7 +461,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D8",
+                    "sampleId": "w-b68e3c32150fcb23-D8",
                     "visible": {
                         "kind": "k1",
                         "shape": "s1"
@@ -472,7 +472,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D9",
+                    "sampleId": "w-b68e3c32150fcb23-D9",
                     "visible": {
                         "kind": "k2",
                         "shape": "s0"
@@ -483,7 +483,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D10",
+                    "sampleId": "w-b68e3c32150fcb23-D10",
                     "visible": {
                         "kind": "k2",
                         "shape": "s0"
@@ -494,7 +494,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D11",
+                    "sampleId": "w-b68e3c32150fcb23-D11",
                     "visible": {
                         "kind": "k2",
                         "shape": "s1"
@@ -505,7 +505,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D12",
+                    "sampleId": "w-b68e3c32150fcb23-D12",
                     "visible": {
                         "kind": "k2",
                         "shape": "s1"
@@ -520,7 +520,7 @@
     },
     "noisy_labels": {
         "public": {
-            "worldId": "world-42-0",
+            "worldId": "w-6bf847a2297a8710",
             "schema": {
                 "fields": {
                     "a": [
@@ -539,7 +539,7 @@
             },
             "observations": [
                 {
-                    "observationId": "world-42-0-P1",
+                    "observationId": "w-6bf847a2297a8710-P1",
                     "objectId": "obj-0",
                     "visible": {
                         "a": {
@@ -566,7 +566,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P2",
+                    "observationId": "w-6bf847a2297a8710-P2",
                     "objectId": "obj-0",
                     "visible": {
                         "a": {
@@ -593,7 +593,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P3",
+                    "observationId": "w-6bf847a2297a8710-P3",
                     "objectId": "obj-1",
                     "visible": {
                         "a": {
@@ -620,7 +620,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P4",
+                    "observationId": "w-6bf847a2297a8710-P4",
                     "objectId": "obj-2",
                     "visible": {
                         "a": {
@@ -647,7 +647,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P5",
+                    "observationId": "w-6bf847a2297a8710-P5",
                     "objectId": "obj-3",
                     "visible": {
                         "a": {
@@ -676,7 +676,7 @@
             ],
             "queryPool": [
                 {
-                    "sampleId": "world-42-0-Q1",
+                    "sampleId": "w-6bf847a2297a8710-Q1",
                     "visible": {
                         "a": "1",
                         "b": "1",
@@ -690,26 +690,26 @@
             "ruleDescription": "a == 1 (with contradictory reliable labels)",
             "hiddenFeature": null,
             "labels": {
-                "world-42-0-D1": false,
-                "world-42-0-D2": false,
-                "world-42-0-D3": false,
-                "world-42-0-D4": false,
-                "world-42-0-D5": true,
-                "world-42-0-D6": true,
-                "world-42-0-D7": true,
-                "world-42-0-D8": true,
-                "world-42-0-H1": false,
-                "world-42-0-H2": false,
-                "world-42-0-P1": true,
-                "world-42-0-P2": false,
-                "world-42-0-P3": true,
-                "world-42-0-P4": true,
-                "world-42-0-P5": false,
-                "world-42-0-Q1": true
+                "w-6bf847a2297a8710-D1": false,
+                "w-6bf847a2297a8710-D2": false,
+                "w-6bf847a2297a8710-D3": false,
+                "w-6bf847a2297a8710-D4": false,
+                "w-6bf847a2297a8710-D5": true,
+                "w-6bf847a2297a8710-D6": true,
+                "w-6bf847a2297a8710-D7": true,
+                "w-6bf847a2297a8710-D8": true,
+                "w-6bf847a2297a8710-H1": false,
+                "w-6bf847a2297a8710-H2": false,
+                "w-6bf847a2297a8710-P1": true,
+                "w-6bf847a2297a8710-P2": false,
+                "w-6bf847a2297a8710-P3": true,
+                "w-6bf847a2297a8710-P4": true,
+                "w-6bf847a2297a8710-P5": false,
+                "w-6bf847a2297a8710-Q1": true
             },
             "fullDomain": [
                 {
-                    "sampleId": "world-42-0-D1",
+                    "sampleId": "w-6bf847a2297a8710-D1",
                     "visible": {
                         "a": "0",
                         "b": "0",
@@ -719,7 +719,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D2",
+                    "sampleId": "w-6bf847a2297a8710-D2",
                     "visible": {
                         "a": "0",
                         "b": "0",
@@ -729,7 +729,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D3",
+                    "sampleId": "w-6bf847a2297a8710-D3",
                     "visible": {
                         "a": "0",
                         "b": "1",
@@ -739,7 +739,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D4",
+                    "sampleId": "w-6bf847a2297a8710-D4",
                     "visible": {
                         "a": "0",
                         "b": "1",
@@ -749,7 +749,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D5",
+                    "sampleId": "w-6bf847a2297a8710-D5",
                     "visible": {
                         "a": "1",
                         "b": "0",
@@ -759,7 +759,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D6",
+                    "sampleId": "w-6bf847a2297a8710-D6",
                     "visible": {
                         "a": "1",
                         "b": "0",
@@ -769,7 +769,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D7",
+                    "sampleId": "w-6bf847a2297a8710-D7",
                     "visible": {
                         "a": "1",
                         "b": "1",
@@ -779,7 +779,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D8",
+                    "sampleId": "w-6bf847a2297a8710-D8",
                     "visible": {
                         "a": "1",
                         "b": "1",
@@ -793,7 +793,7 @@
     },
     "search_limited": {
         "public": {
-            "worldId": "world-42-0",
+            "worldId": "w-0939edaf0917d964",
             "schema": {
                 "fields": {
                     "a": [
@@ -812,7 +812,7 @@
             },
             "observations": [
                 {
-                    "observationId": "world-42-0-P1",
+                    "observationId": "w-0939edaf0917d964-P1",
                     "objectId": "obj-0",
                     "visible": {
                         "a": {
@@ -839,7 +839,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P2",
+                    "observationId": "w-0939edaf0917d964-P2",
                     "objectId": "obj-1",
                     "visible": {
                         "a": {
@@ -866,7 +866,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P3",
+                    "observationId": "w-0939edaf0917d964-P3",
                     "objectId": "obj-2",
                     "visible": {
                         "a": {
@@ -893,7 +893,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P4",
+                    "observationId": "w-0939edaf0917d964-P4",
                     "objectId": "obj-3",
                     "visible": {
                         "a": {
@@ -920,7 +920,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P5",
+                    "observationId": "w-0939edaf0917d964-P5",
                     "objectId": "obj-4",
                     "visible": {
                         "a": {
@@ -949,7 +949,7 @@
             ],
             "queryPool": [
                 {
-                    "sampleId": "world-42-0-Q1",
+                    "sampleId": "w-0939edaf0917d964-Q1",
                     "visible": {
                         "a": "0",
                         "b": "1",
@@ -963,26 +963,26 @@
             "ruleDescription": "a == 1 XOR b == 1 XOR c == 1 (depth 4)",
             "hiddenFeature": null,
             "labels": {
-                "world-42-0-D1": false,
-                "world-42-0-D2": true,
-                "world-42-0-D3": true,
-                "world-42-0-D4": false,
-                "world-42-0-D5": true,
-                "world-42-0-D6": false,
-                "world-42-0-D7": false,
-                "world-42-0-D8": true,
-                "world-42-0-H1": false,
-                "world-42-0-H2": false,
-                "world-42-0-P1": true,
-                "world-42-0-P2": false,
-                "world-42-0-P3": true,
-                "world-42-0-P4": true,
-                "world-42-0-P5": false,
-                "world-42-0-Q1": true
+                "w-0939edaf0917d964-D1": false,
+                "w-0939edaf0917d964-D2": true,
+                "w-0939edaf0917d964-D3": true,
+                "w-0939edaf0917d964-D4": false,
+                "w-0939edaf0917d964-D5": true,
+                "w-0939edaf0917d964-D6": false,
+                "w-0939edaf0917d964-D7": false,
+                "w-0939edaf0917d964-D8": true,
+                "w-0939edaf0917d964-H1": false,
+                "w-0939edaf0917d964-H2": false,
+                "w-0939edaf0917d964-P1": true,
+                "w-0939edaf0917d964-P2": false,
+                "w-0939edaf0917d964-P3": true,
+                "w-0939edaf0917d964-P4": true,
+                "w-0939edaf0917d964-P5": false,
+                "w-0939edaf0917d964-Q1": true
             },
             "fullDomain": [
                 {
-                    "sampleId": "world-42-0-D1",
+                    "sampleId": "w-0939edaf0917d964-D1",
                     "visible": {
                         "a": "0",
                         "b": "0",
@@ -992,7 +992,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D2",
+                    "sampleId": "w-0939edaf0917d964-D2",
                     "visible": {
                         "a": "0",
                         "b": "0",
@@ -1002,7 +1002,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D3",
+                    "sampleId": "w-0939edaf0917d964-D3",
                     "visible": {
                         "a": "0",
                         "b": "1",
@@ -1012,7 +1012,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D4",
+                    "sampleId": "w-0939edaf0917d964-D4",
                     "visible": {
                         "a": "0",
                         "b": "1",
@@ -1022,7 +1022,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D5",
+                    "sampleId": "w-0939edaf0917d964-D5",
                     "visible": {
                         "a": "1",
                         "b": "0",
@@ -1032,7 +1032,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D6",
+                    "sampleId": "w-0939edaf0917d964-D6",
                     "visible": {
                         "a": "1",
                         "b": "0",
@@ -1042,7 +1042,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D7",
+                    "sampleId": "w-0939edaf0917d964-D7",
                     "visible": {
                         "a": "1",
                         "b": "1",
@@ -1052,7 +1052,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D8",
+                    "sampleId": "w-0939edaf0917d964-D8",
                     "visible": {
                         "a": "1",
                         "b": "1",
@@ -1066,7 +1066,7 @@
     },
     "ambiguous_evidence": {
         "public": {
-            "worldId": "world-42-0",
+            "worldId": "w-6e21620f72aa4698",
             "schema": {
                 "fields": {
                     "a": [
@@ -1085,7 +1085,7 @@
             },
             "observations": [
                 {
-                    "observationId": "world-42-0-P1",
+                    "observationId": "w-6e21620f72aa4698-P1",
                     "objectId": "obj-0",
                     "visible": {
                         "a": {
@@ -1112,7 +1112,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P2",
+                    "observationId": "w-6e21620f72aa4698-P2",
                     "objectId": "obj-1",
                     "visible": {
                         "a": {
@@ -1139,7 +1139,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P3",
+                    "observationId": "w-6e21620f72aa4698-P3",
                     "objectId": "obj-2",
                     "visible": {
                         "a": {
@@ -1166,7 +1166,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-P4",
+                    "observationId": "w-6e21620f72aa4698-P4",
                     "objectId": "obj-3",
                     "visible": {
                         "a": {
@@ -1191,11 +1191,38 @@
                     },
                     "round": 1,
                     "batchId": null
+                },
+                {
+                    "observationId": "w-6e21620f72aa4698-P5",
+                    "objectId": "obj-repeat",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "0"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-b",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
                 }
             ],
             "queryPool": [
                 {
-                    "sampleId": "world-42-0-Q1",
+                    "sampleId": "w-6e21620f72aa4698-Q1",
                     "visible": {
                         "a": "1",
                         "b": "0",
@@ -1209,25 +1236,26 @@
             "ruleDescription": "a == 1 (public also fits b == 1)",
             "hiddenFeature": null,
             "labels": {
-                "world-42-0-D1": false,
-                "world-42-0-D2": false,
-                "world-42-0-D3": false,
-                "world-42-0-D4": false,
-                "world-42-0-D5": true,
-                "world-42-0-D6": true,
-                "world-42-0-D7": true,
-                "world-42-0-D8": true,
-                "world-42-0-H1": true,
-                "world-42-0-H2": false,
-                "world-42-0-P1": false,
-                "world-42-0-P2": true,
-                "world-42-0-P3": true,
-                "world-42-0-P4": false,
-                "world-42-0-Q1": true
+                "w-6e21620f72aa4698-D1": false,
+                "w-6e21620f72aa4698-D2": false,
+                "w-6e21620f72aa4698-D3": false,
+                "w-6e21620f72aa4698-D4": false,
+                "w-6e21620f72aa4698-D5": true,
+                "w-6e21620f72aa4698-D6": true,
+                "w-6e21620f72aa4698-D7": true,
+                "w-6e21620f72aa4698-D8": true,
+                "w-6e21620f72aa4698-H1": true,
+                "w-6e21620f72aa4698-H2": false,
+                "w-6e21620f72aa4698-P1": false,
+                "w-6e21620f72aa4698-P2": true,
+                "w-6e21620f72aa4698-P3": true,
+                "w-6e21620f72aa4698-P4": false,
+                "w-6e21620f72aa4698-P5": false,
+                "w-6e21620f72aa4698-Q1": true
             },
             "fullDomain": [
                 {
-                    "sampleId": "world-42-0-D1",
+                    "sampleId": "w-6e21620f72aa4698-D1",
                     "visible": {
                         "a": "0",
                         "b": "0",
@@ -1237,7 +1265,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D2",
+                    "sampleId": "w-6e21620f72aa4698-D2",
                     "visible": {
                         "a": "0",
                         "b": "0",
@@ -1247,7 +1275,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D3",
+                    "sampleId": "w-6e21620f72aa4698-D3",
                     "visible": {
                         "a": "0",
                         "b": "1",
@@ -1257,7 +1285,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D4",
+                    "sampleId": "w-6e21620f72aa4698-D4",
                     "visible": {
                         "a": "0",
                         "b": "1",
@@ -1267,7 +1295,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-D5",
+                    "sampleId": "w-6e21620f72aa4698-D5",
                     "visible": {
                         "a": "1",
                         "b": "0",
@@ -1277,7 +1305,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D6",
+                    "sampleId": "w-6e21620f72aa4698-D6",
                     "visible": {
                         "a": "1",
                         "b": "0",
@@ -1287,7 +1315,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D7",
+                    "sampleId": "w-6e21620f72aa4698-D7",
                     "visible": {
                         "a": "1",
                         "b": "1",
@@ -1297,7 +1325,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-D8",
+                    "sampleId": "w-6e21620f72aa4698-D8",
                     "visible": {
                         "a": "1",
                         "b": "1",

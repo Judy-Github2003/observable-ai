@@ -165,4 +165,41 @@ object ContractJson {
         put("stoppedBecause", report.stoppedBecause)
         put("strategySource", report.strategySource)
     }.toString()
+
+    fun encodeCollisionReport(report: CollisionReport): String = buildJsonObject {
+        put("findings", buildJsonArray {
+            report.findings.forEach { finding ->
+                addJsonObject {
+                    put("featureKey", finding.featureKey)
+                    put("participants", buildJsonArray {
+                        finding.participants.forEach { p ->
+                            addJsonObject {
+                                put("observationId", p.observationId)
+                                put("sourceId", p.sourceId)
+                                put("round", p.round)
+                                put("label", p.label)
+                            }
+                        }
+                    })
+                    put("scope", buildJsonObject {
+                        put("hypothesisSpace", finding.scope.hypothesisSpace)
+                        put("observationDomain", finding.scope.observationDomain)
+                        if (finding.scope.queryDomain == null) put("queryDomain", JsonNull) else put("queryDomain", finding.scope.queryDomain)
+                    })
+                }
+            }
+        })
+        put("excludedUnknownValueIds", buildJsonArray { report.excludedUnknownValueIds.forEach { add(it) } })
+        put("excludedUnlabeledIds", buildJsonArray { report.excludedUnlabeledIds.forEach { add(it) } })
+        put("validationErrors", buildJsonArray {
+            report.validationErrors.forEach { error ->
+                addJsonObject {
+                    put("code", error.code)
+                    put("message", error.message)
+                    if (error.observationId == null) put("observationId", JsonNull) else put("observationId", error.observationId)
+                    if (error.field == null) put("field", JsonNull) else put("field", error.field)
+                }
+            }
+        })
+    }.toString()
 }

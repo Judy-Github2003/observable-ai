@@ -1,0 +1,16 @@
+[
+    {
+        "maxDepth": 2,
+        "generated": 16,
+        "reason": "depth_limit",
+        "candidate_count": 10,
+        "candidates_fitting_public": 0
+    },
+    {
+        "maxDepth": 3,
+        "generated": 181,
+        "reason": "depth_limit",
+        "candidate_count": 175,
+        "candidates_fitting_public": 3
+    }
+]
