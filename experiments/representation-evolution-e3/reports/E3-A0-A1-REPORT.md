@@ -69,3 +69,9 @@ duplicate_observation_id / duplicate_object_round
 - 契约与校验实现：DeepSeek Harness，2026-11-05。
 - 诊断算法、教师、学生判断均未参与 A0/A1。
 - B0 原实现与冻结版本保持原归属不变。
+
+## 审查后修正（A1.1，2026-11-05）
+
+- `FeatureKey` 改为 `K:<值>` / `U` 前缀，修复 `Known("?")` 与 `Unknown` 编码碰撞；补充 `?`、`\`、`|`、`=` 等测试。
+- 重复观测唯一键改为 `(objectId, round, sourceId)`，错误码 `duplicate_source_round`；允许不同来源同轮独立测量，拒绝同来源重复写。
+- 修正提交：`f826ca51575c8a683cb0cf1a99bea469193220b3`。

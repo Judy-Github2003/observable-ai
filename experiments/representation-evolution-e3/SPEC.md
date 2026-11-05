@@ -44,13 +44,21 @@ ProbeRequest = RepeatLabel | RequestPublicInstance | NoAction
 - 机器可读错误码：`schema_empty / schema_blank_field / schema_empty_domain /
   blank_observation_id / blank_object_id / blank_source_id / invalid_round /
   missing_field / unknown_field / invalid_value /
-  duplicate_observation_id / duplicate_object_round`。
-- 规范化特征键：字段排序，未知值编码 `?`，转义 `\ | =`。
+  duplicate_observation_id / duplicate_source_round`。
+- 规范化特征键：字段排序；已知值前缀 `K:`，未知值 `U`，转义 `\ | =`；`Known("?")` 与 `Unknown` 不得碰撞。
+- 重复观测：`(objectId, round, sourceId)` 唯一；不同来源可在同一对象/同一轮独立测量，同一来源重复写只算重复记录。
 - JSON 编码稳定；不得包含 `worldKind`、`hiddenFeature`、`targetAst`。
 
-## 5. A1 明确未做
+## 5. A2 最小世界生成器（已实现）
+
+- `logic.e3.evaluator`：`SOLVABLE` 与 `LATENT_ALIASING` 两个家族；固定 seed 可复现。
+- `PublicWorld` 只含 schema、公开观察、公开查询池；`HiddenTruth` 含 family/规则/隐藏特征/有限域真值，仅评测端持有。
+- `E3WorldOracle` 只按 sampleId 返回标签；`LATENT_ALIASING` 用隐藏 `latent` 产生同可见向量、不同标签的公开碰撞。
+- 边界：碰撞只证明当前可见属性不能唯一决定标签，不证明学生能发现隐藏属性。
+
+## 6. A1 本身明确未做
 
 - 没有诊断算法、碰撞检测、噪声判断或探测选择策略。
-- 没有世界生成器、oracle、隐藏数据或评分器（A2 起）。
+- A1 没有世界生成器、oracle、隐藏数据或评分器（A2 才开始）。
 - 没有调用 B0 Composer/Filter/Interpreter 的实验逻辑。
 - 没有修改 B0。
