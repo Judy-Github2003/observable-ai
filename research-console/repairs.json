@@ -18,13 +18,17 @@
         "tools/research-console/test_repair_gate.py",
         "research-console/repairs.json"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-05T16:06:39.864105+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-05T16:07:48.948051+00:00",
       "audit_event_ids": [
-        "ev-1793894799864-68f0ca"
+        "ev-1793894799864-68f0ca",
+        "ev-1793894868948-1ccc45"
       ],
-      "content_hash": "1dd90c29eec22f3587d5389d3f1b0144571571ff3292b918a2cb837a3fb26ca6"
+      "content_hash": "1dd90c29eec22f3587d5389d3f1b0144571571ff3292b918a2cb837a3fb26ca6",
+      "consumed_commit": "d940775bf30e38a7cc15fe734eb27804326e3142",
+      "consumed_test": "Kotlin 315/315; repair gate 7/7; old gate 5/5",
+      "consumed_report": "PACK-02R-GATE-01-REPORT.md"
     },
     {
       "repair_id": "PACK-02R-AUTH-01",
@@ -52,5 +56,5 @@
       "content_hash": "ad8234709b491d32e17356edb3f5d47562868157bf3634b6392602c3da35e5e9"
     }
   ],
-  "updated_at": "2026-11-05T16:06:39.872633+00:00"
+  "updated_at": "2026-11-05T16:07:48.961511+00:00"
 }
