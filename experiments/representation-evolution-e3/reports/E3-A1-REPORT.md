@@ -1,12 +1,12 @@
-# E3-A1 最小主动挑战闭环报告
+﻿# E3-A1 最小主动挑战闭环报告
 
 ```text
 阶段: A1
 范围: 合法输入选择 → 预测冻结 → 可信标签揭示 → 比较 → 记录证据
 状态: complete；未执行知识重新学习
-代码/测试提交: 2a86d02f1bd16f1cc71edabcb1a4b1803d75d0b8
+代码/测试提交: 795a2057786236256edd4b58c57b677248f4f100
 B0 冻结 SHA: 0ca4561309aeb914df6e3f2c3877a50b080bf731
-测试: 290/290（B0 173 + E3 117），失败 0
+测试: 292/292（B0 173 + E3 119），失败 0
 独立闭卷: not_run
 ```
 
@@ -99,3 +99,11 @@ challenge entry
 未调用 Composer/Filter 重新学习，未创建长期知识系统，未扩展 A9 评分，未执行 A2/B1/C1。
 
 A1 完成，等待审查。
+## 8. A1 唯一补丁（795a205）
+
+- `authorizedInputs()` 现在校验字段值域：字段集合等于 `schema.fields.keys`，值非空且属于 `schema.fields[field]`。
+- 新增 `ChallengeQueryLedger`：评测实验内共享已揭示 sampleId；初始已标注集合由评测端构造器传入。
+- `authorizedInputs()` 排除 ledger 已标注 sampleId；`reveal()` 成功校验后记录。
+- 去重按 sampleId；相同 visible 的不同 sampleId 仍可作为新对象。
+- 反例：域值 `"other"` 在 `"0"/"1"` 世界中被拒绝；会话一揭示 S1 后会话二不能再次首次查询 S1；初始 S1 第一轮不可选；S1/S2 同 visible 时 S2 可选。
+- 未实现持久化；未提供可信历史时使用新的空 ledger，不宣称跨会话历史去重。

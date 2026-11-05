@@ -1,33 +1,42 @@
-﻿# E3 工作状态（交接便笺）
+# E3 工作状态（交接便笺）
 
 ```text
 E3 stage: E3-A
-current_subtask: A1 最小主动挑战闭环完成；A2/B1/C1 未授权
-last_completed: A1 challenge run (select/predict/reveal/compare/record)
-last_code_commit: 2a86d02f1bd16f1cc71edabcb1a4b1803d75d0b8
+current_task: A1 unique patch (A1-FIX-01/02)
+research_direction: A
+authorization: A1 patch only; no A2/B1/C1/D
+last_verified_code_commit: 795a2057786236256edd4b58c57b677248f4f100
 base_b0_sha: 0ca4561309aeb914df6e3f2c3877a50b080bf731
 working_tree: clean
 last_test_command: JAVA_HOME=C:\Users\j1437\.jdks\jbr-21.0.11; .\gradlew.bat --offline --no-daemon test
-last_test_result: 290 passed / 290 total, 0 failed（B0 173 + E3 117）
+last_test_result: 292 passed / 292 total, 0 failed（B0 173 + E3 119）
 verification_source: implementer_run
 independent_closed_book: not_run
-next_action: 等待 A1 审查；A2/B1/C1 未授权
-known_blockers: none
+known_defects: none known for the two A1 patch items
+patch_count: 1/1
+test_task_status:
+  M1.0: REVIEW
+  M1.1a: ACCEPTED_LIMITED
+  A1: REVIEW (implementer tests passed; pending independent review)
+  A2: EXPLORATORY (not authorized)
+  B1: EXPLORATORY (not authorized)
+  C1: EXPLORATORY (not authorized)
+  D: EXPLORATORY (not authorized)
+paused_reason: none
+resume_conditions: n/a
+next_authorized_action: none; wait for review
+unauthorized: A2, B1, C1, D, M1.2+, A10-A12, E3-B/C
 ```
+
+## A1 patch record
+
+- A1-FIX-01：`authorizedInputs()` 增加字段值域校验；`"0"/"1"` 世界的 `"other"` 被拒绝。
+- A1-FIX-02：新增 `ChallengeQueryLedger`；同评测实验多会话共享，按 sampleId 去重；初始已标注由评测端传入；相同 visible 不同 sampleId 仍允许。
+- 测试：292/292；新增域值、跨会话重复、初始已标注、同 visible 异 sample 反例。
+- 限制：同 JVM；无持久化；无可信历史时使用空 ledger，不宣称跨会话历史去重。
 
 ## 说明
 
 - A8 三项修正：A6 截断/零幸存者分离；A8 探测证据核验；A7 先验证内容再消费 token。
-- A9：`A9-PROTOCOL.md` 定义五基线、同预算/查询成本、false-certainty + coverage 双指标；`E3A9Baselines` 最小 smoke 已跑，未做 A10 批量。
-- P3 已按反馈修订：新通道成功是 `NEW_FEATURE_UTILITY_VERIFIED`，不是表示不足的必要条件；表示不足仍只允许受限报告。
-- B0 `0ca4561` 只读；E3-B/C 未授权。
-- 详见 `reports/E3-A8-FIX-A9-REPORT.md`。
-
-
-
-
-
-
-
-
-
+- A9 评测基础设施冻结；B0 `0ca4561` 只读；E3-B/C 未授权。
+- A2/B1/C1/D 均未启动，等待研究负责人单独授权。
