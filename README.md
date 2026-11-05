@@ -17,7 +17,7 @@
 | 学前 24 课 | 23 条通用操作规则，8 批课程 | **训练 864/864，考试 960/960，24/24 课达标，教师调用 0** |
 | 独立抽查 | 冻结版本 + 新世界 + 隔离夹具 | **64/64** |
 | B0 类型化能力基底 | IR、能力库、验证/激活/撤销、组合、L1/L2 压缩、A/B/C 基准 | **M0–M6 完成；173/173 测试；独立闭卷 not_run** |
-| E3 开放表征与学习诊断 | A0–A8 契约/世界族/碰撞/适配/预算/探测/整合 + A9 协议与最小基线 | **进行中；全套 292/292 测试** |
+| E3 开放表征与学习诊断 | A0–A8 契约/世界族/碰撞/适配/预算/探测/整合 + A9 协议与最小基线 | **进行中；全套 295/295 测试** |
 
 **这不是“毕业”。** 两套各 120 题的综合卷尚未生成；小学 72 单元未开始。形状、颜色、情绪等只是**文本标签查询**，不代表真实看图、听声或情绪体验。
 
@@ -70,7 +70,7 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 | A8 | 多 finding 诊断整合 | 完成；已修正探测证据合并/候选状态 |
 | A9 | 公平对照协议 + 累计预算/评分契约 | 协议/smoke/评分示例完成；A10 未运行 |
 
-- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`；全套 **292/292**（B0 173 + E3 119）。
+- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`；全套 **295/295**（B0 173 + E3 122）。
 - 已实现最小生成器与独立 oracle；未实现 A9 对照基线、原因归因或评分器；E3-B/C 未授权。
 - `independent_closed_book=not_run`；E3 结果为 `implementer_run`。
 - 记录：[E3 SPEC](./experiments/representation-evolution-e3/SPEC.md)、[DECISIONS](./experiments/representation-evolution-e3/DECISIONS.md)、[WORKSTATE](./experiments/representation-evolution-e3/WORKSTATE.md)、[A0/A1 报告](./experiments/representation-evolution-e3/reports/E3-A0-A1-REPORT.md)、[A2 报告](./experiments/representation-evolution-e3/reports/E3-A2-REPORT.md)。
@@ -212,7 +212,7 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - **考试不是毕业**：单课 40 题达标只说明本课过线；综合卷与跨领域迁移尚未完成。
 - **B0 已冻结**：M0–M6 完成；L3 参数化抽象与 D 组 `not_implemented`；独立闭卷 `not_run`。
 - **B0 成绩口径**：173/173 为实现者自测；独立闭卷 `not_run`，不能写成外部验证或“已学会自主学习”。
-- **E3 当前边界**：完成 A0–A8（契约 + 世界族 + 碰撞 + 适配器 + 预算诊断 + 探测 + 整合）；A9 评测基础设施已冻结（P0 完成），A10 未运行；没有原因归因或评分器；不能把“生成器存在”当成诊断能力。全套 292/292 是 B0+E3 的 `implementer_run`。
+- **E3 当前边界**：完成 A0–A8（契约 + 世界族 + 碰撞 + 适配器 + 预算诊断 + 探测 + 整合）；A9 评测基础设施已冻结（P0 完成），A10 未运行；没有原因归因或评分器；不能把“生成器存在”当成诊断能力。全套 295/295 是 B0+E3 的 `implementer_run`。
 - **成本指标**：`L_total` 是冻结的静态长度代理，不代表运行更快；压缩通过不等于获得新知识。
 - **可复现性**：报告里的成绩来自真实进程执行；`runs/` 不随仓库分发，需按上面的命令自行生成。
 
@@ -237,6 +237,7 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - B0 M0–M4：**本会话 DeepSeek Harness** 实现；M1 参考骨架由云端 ChatGPT 提供；外部独立审查尚未进行。
 
 **独立闭卷尚未执行。** 同模型、不同会话不构成第三方验证；闭卷状态在报告中固定为 `not_run`，等待外部审查者。
+
 
 
 
