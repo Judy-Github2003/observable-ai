@@ -1,0 +1,146 @@
+{
+  "event_id": "ev-1793891582034-31913c",
+  "at": "2026-11-05T15:13:02.034826+00:00",
+  "kind": "patch_used",
+  "actor": "execution",
+  "note": "C4: ordinary patch 1/1",
+  "before": {
+    "id": "C4",
+    "aliases": [],
+    "title": "由旧概念构造复合概念",
+    "direction": "C",
+    "research_question": "旧概念能否组合成新的可执行概念？",
+    "hypothesis": "通过受控实验可以判断：由旧概念构造复合概念所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
+    "goal": "由旧概念构造复合概念",
+    "status": "REVIEW",
+    "priority": "medium",
+    "dependencies": [
+      "PACK-02: B0 Composer/Filter/Interpreter and active capability registry"
+    ],
+    "readiness_conditions": [
+      "需要研究负责人明确授权",
+      "需要可复核的独立测试条件"
+    ],
+    "known_implementation": [],
+    "proposed_approaches": [
+      "TBD：候选技术路线待研究；不得把规划当成已实现。"
+    ],
+    "minimal_experiment": "从公开样本生成候选谓词，经 Filter 筛选、heldout 验证和注册，在第二个任务中与不复用的基线比较。",
+    "success_criteria": [
+      "在独立测试上出现可复核的能力增量",
+      "保留反例、失败和成本记录"
+    ],
+    "failure_conditions": [
+      "无法优于基线",
+      "只能记忆或依赖教师直接答案",
+      "出现泄漏或不可复核结果"
+    ],
+    "attribution": "research_owner/ChatGPT 提出；尚未实施，未授权",
+    "known_limitations": [
+      "尚未实现",
+      "尚无本任务的独立实验证据"
+    ],
+    "patch_used": 0,
+    "commit_sha": "3d01e69301729a5ab44289e757e0ac5400fe2df2",
+    "evidence_links": [
+      "experiments/representation-evolution-e3/reports/E3-PACK02-REPORT.md"
+    ],
+    "decision_history": [
+      {
+        "at": "2026-11-05T12:43:28.553185+00:00",
+        "decision": "imported into Research Console as planning data",
+        "actor": "DeepSeek Harness"
+      },
+      {
+        "at": "2026-11-05",
+        "decision": "READY -> IN_PROGRESS under PACK-02 authorization",
+        "actor": "research_owner"
+      },
+      {
+        "at": "2026-11-05T14:48:36.899265+00:00",
+        "decision": "implementation finished; REVIEW; independent acceptance not implied",
+        "actor": "execution"
+      }
+    ],
+    "next_possible_actions": [
+      "等待研究负责人授权后，选择一个最小可验证实验"
+    ],
+    "authorized_action": "PACK-02",
+    "pack_id": "PACK-02"
+  },
+  "after": {
+    "id": "C4",
+    "aliases": [],
+    "title": "由旧概念构造复合概念",
+    "direction": "C",
+    "research_question": "旧概念能否组合成新的可执行概念？",
+    "hypothesis": "通过受控实验可以判断：由旧概念构造复合概念所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
+    "goal": "由旧概念构造复合概念",
+    "status": "REVIEW",
+    "priority": "medium",
+    "dependencies": [
+      "PACK-02: B0 Composer/Filter/Interpreter and active capability registry"
+    ],
+    "readiness_conditions": [
+      "需要研究负责人明确授权",
+      "需要可复核的独立测试条件"
+    ],
+    "known_implementation": [
+      "src/main/kotlin/logic/e3/pack02/Pack02Knowledge.kt",
+      "src/main/kotlin/logic/e3/pack02/Deduction.kt",
+      "src/main/kotlin/logic/e3/pack02/ExecutionFactAdapter.kt"
+    ],
+    "proposed_approaches": [
+      "TBD：候选技术路线待研究；不得把规划当成已实现。"
+    ],
+    "minimal_experiment": "从公开样本生成候选谓词，经 Filter 筛选、heldout 验证和注册，在第二个任务中与不复用的基线比较。",
+    "success_criteria": [
+      "在独立测试上出现可复核的能力增量",
+      "保留反例、失败和成本记录"
+    ],
+    "failure_conditions": [
+      "无法优于基线",
+      "只能记忆或依赖教师直接答案",
+      "出现泄漏或不可复核结果"
+    ],
+    "attribution": "research_owner/ChatGPT 提出；尚未实施，未授权",
+    "known_limitations": [
+      "复合 R 在受限假设空间内辨识；未声明穷尽",
+      "未完成已激活知识版本替换闭环",
+      "independent_closed_book=not_run"
+    ],
+    "patch_used": 1,
+    "commit_sha": "3d01e69301729a5ab44289e757e0ac5400fe2df2",
+    "evidence_links": [
+      "experiments/representation-evolution-e3/reports/E3-PACK02-REPORT.md",
+      "experiments/representation-evolution-e3/reports/pack02-run.json"
+    ],
+    "decision_history": [
+      {
+        "at": "2026-11-05T12:43:28.553185+00:00",
+        "decision": "imported into Research Console as planning data",
+        "actor": "DeepSeek Harness"
+      },
+      {
+        "at": "2026-11-05",
+        "decision": "READY -> IN_PROGRESS under PACK-02 authorization",
+        "actor": "research_owner"
+      },
+      {
+        "at": "2026-11-05T14:48:36.899265+00:00",
+        "decision": "implementation finished; REVIEW; independent acceptance not implied",
+        "actor": "execution"
+      },
+      {
+        "at": "2026-11-05",
+        "decision": "PACK-02 ordinary patch 1/1 used; status remains REVIEW",
+        "actor": "research_owner"
+      }
+    ],
+    "next_possible_actions": [
+      "等待研究负责人授权后，选择一个最小可验证实验"
+    ],
+    "authorized_action": "none",
+    "pack_id": "PACK-02"
+  }
+}

@@ -5,7 +5,7 @@
 子任务: C4 / RES-H01 / C8
 状态: REVIEW（实施完成，未验收）
 代码/测试提交: 3d01e69301729a5ab44289e757e0ac5400fe2df2
-测试: 314/314（B0 173 + E3 141），失败 0
+测试: 315/315（B0 173 + E3 142），失败 0
 独立闭卷: not_run
 ```
 
@@ -30,11 +30,11 @@
 |---|---:|---|---|---|
 | P | 10 | IDENTIFIED | 是 | 4/4 |
 | Q | 10 | IDENTIFIED | 是 | 4/4 |
-| R | 20006 | IDENTIFIED | 是 | 4/4 |
+| R | 1525 | IDENTIFIED | 是 | 4/4 |
 
-R 的 `usesIds = pack02.p,pack02.q`；依赖来自真实激活的能力定义，不是开发者直接注入的 AST。
+R 的 `usesIds = pack02.p,pack02.q`；依赖来自真实激活的能力定义，不是开发者直接注入的 AST。R 的 Composer reason 为 `depth_limit`，不是 `candidate_limit`。
 
-注意：R 搜索达到候选上限附近（20006），因此只声明“在本次生成空间内辨识”，不声明穷尽假设空间。
+原首次实施记录 20006/IDENTIFIED 已保留为历史，但当时未把 `candidate_limit` 传给 Filter；该记录不能作为有效搜索门禁证据。补丁后按 `maxDepth=3` 重新搜索得到 1525，未见 candidate_limit。
 
 ## 3. RES-H01：多步演绎
 
@@ -66,7 +66,7 @@ A -> B -> C -> D
 | 全部已激活知识 | 2385 | AMBIGUOUS | 是，含 `pack02.r` | 2/2 |
 | 无复合 R（仅 P,Q） | 1525 | REFUSED | 否 | 未产生可评估预测 |
 
-全部知识组选中候选确实调用 `pack02.r`，但 Filter 仍为 AMBIGUOUS；因此记录 `ambiguous_selection`，不宣称唯一规则。
+全部知识组选中候选确实调用 `pack02.r`，但 Filter 仍为 AMBIGUOUS；因此记录 `ambiguous_selection`，不宣称唯一规则。无 R 组未产生可评估预测，不记作 0% 准确率。
 
 ## 5. 联合实验
 
@@ -103,4 +103,44 @@ R -> S -> T
 ## 8. 状态
 
 三项任务实施完成，进入 `REVIEW`；不自行标记 ACCEPTED。等待研究负责人/ChatGPT 审查。
+## 9. PACK-02 唯一集中补丁
+
+### FIX-01：激活门禁
+
+- 正式 learn/reuse 只接受 `dbPath + KnowledgeRef(id/version/contentHash)`。
+- 使用 `activeCapabilities()` 取得合法快照；未激活、撤销、版本/哈希不匹配均拒绝。
+- Composer、Filter、Interpreter 使用同一快照。
+- C8 全知识组和无 R 组都从同一注册表读取；无 R 只排除 R，不引入未激活定义。
+- 直接构造 `CapabilityDefinition` 的正式入口已移除。
+
+### FIX-02：搜索截断
+
+- `compose.reason == "candidate_limit"` 时向 Filter 传 `searchExhausted=true`。
+- 强制截断返回 `search_budget_exhausted`，不选、不注册、不激活。
+- 补丁后 C4 采用 `maxDepth=3`，R 生成 1525，未触发 candidate_limit。
+- 原 20006/IDENTIFIED 记录保留为历史缺陷证据，不作为补丁后成功证据。
+
+### FIX-03：R 执行事实
+
+- 新增 `ExecutionFactAdapter`：只有合法 active R 且执行结果 `Known(true)` 才生成 VERIFIED Fact。
+- false/Unknown/Error/未激活/撤销均不得生成肯定事实。
+- Fact 保留 capabilityRef、inputDigest、执行 source。
+- 联合推导 R→S→T 的两条规则仍是开发者提供的实验规则，不宣称学生发现。
+
+### 补丁测试
+
+- 激活 P/Q/R 正常复用；
+- 未激活、错误版本、错误哈希、撤销 R 拒绝；
+- 直接定义不能进入正式入口；
+- 强制候选截断不激活；
+- R true→Fact→两步证明；false/Unknown/Error→无事实；
+- C8 无 R 组仍合法使用激活 P/Q。
+
+### 仍未验证
+
+- C8 仍 AMBIGUOUS；
+- 未形成唯一复合规则；
+- 未完成 B0 已激活知识替换闭环；
+- 无固定策略/无复用策略的完整统计对照；
+- `independent_closed_book=not_run`。
 
