@@ -71,3 +71,26 @@ E3-B 的核心应是“新通道的 cost/reliability/coverage 模型 + 价值信
 - “A8 已合并探测证据”在复核前不成立；现已修正。
 - “无一致候选”不能由冲突未搜索推出；现已用 CandidateEvidenceState 修正。
 - 不能把 LATENT_ALIASING 的碰撞解释为“隐藏属性已被发现”；仍只是不可辨识证据。
+
+## 2026-11-05 — A8 验收反馈与 P3 修订
+
+### 同意并已修正
+
+- ChatGPT 指出 P3 把“新增通道后仍不可分”当作表示不足的必要条件不合理。这个批评成立：新通道使样本可分并在独立数据上稳定增益，是新表征有用的证据，不是表示不足的证据。
+- 已把结论拆为 OBSERVED_COLLISION、NO_CONSISTENT_IN_BOUNDED_SPACE、NEW_FEATURE_UTILITY_VERIFIED、REPRESENTATION_INSUFFICIENCY 四类；后者只在覆盖/穷尽证明 + identifiability 论证 + 排除噪声/漂移/查询域不足/实现缺陷时使用，不要求新通道失败。
+- A8 修复：探测前后状态分离；A6 区分 NOT_RUN/SEARCH_TRUNCATED/ZERO_SURVIVORS；A7 先验证决策内容再消费 token；A8 拒绝不一致/重复的 ProbeTrace 证据。
+
+### 仍保留的分歧
+
+- “表示不足”是否能在有限观察下被证明，我持保留态度。更保守的做法是只报告“当前表征/预算/查询域下不可辨识”，把 REPRESENTATION_INSUFFICIENCY 作为需要更强假设的工程标签，而不是认识论结论。可区分实验：同一世界在固定 IR 穷尽后，新增通道是否带来稳定迁移收益；若收益只出现在训练样本，则不能称表示不足或新表征有效。
+- A9 的主指标应同时报告 false-certainty 与 coverage。只报 false-certainty 会奖励 ALWAYS_UNDETERMINED；只报 coverage 会奖励过度声称。两者必须成对报告。
+
+### A9 协议要点
+
+已写 A9-PROTOCOL.md：五基线同公开证据/查询权限/成本；主指标 false-certainty；同时报 coverage/valid coverage/probe gain/trace completeness；匹配世界、样本数/排列对照；隐藏真值只用于评测。
+
+### 待验证
+
+- H-A9-1：E3_DIAGNOSTIC 在同预算下 false-certainty 低于 B0_ONLY/COLLISION_ONLY，同时 valid coverage 不显著下降。
+- H-A9-2：REPEAT_ONLY 的收益只出现在冲突案例，且不能区分噪声与稳定异质性。
+- H-A9-3：COLLISION_ONLY 的 coverage 低但 false-certainty 也低；需报告 coverage 防止误读。
