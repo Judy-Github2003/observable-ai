@@ -209,6 +209,13 @@ def zh(value, mapping):
     return mapping.get(str(value), str(value))
 
 
+def zh_test_result(value):
+    text = str(value or "")
+    text = text.replace(" passed / ", "/").replace(" total, 0 failed", " 通过，0 失败")
+    text = text.replace(" total, ", " 总数，").replace(" failed", " 失败")
+    return text
+
+
 def event_note(note):
     text = str(note or "")
     if text.startswith("edited "):
@@ -275,7 +282,7 @@ def dashboard(state, directions, events):
         ("当前授权动作", esc("无" if state.get("authorized_action", "none") == "none" else state.get("authorized_action")), "没有明确授权时，任何任务都不得启动。"),
         ("独立闭卷", "未运行" if state.get("independent_closed_book", "not_run") == "not_run" else esc(state.get("independent_closed_book")), "实施者测试不等于独立验收。"),
         ("任务", f'{len(tasks)} 个 · {len(directions.get("directions", []))} 个方向', "任务状态以 tasks.json 为唯一权威。"),
-        ("测试记录", esc(state.get("last_test_result", "待定")), "实施者运行，不是独立闭卷。"),
+        ("测试记录", esc(zh_test_result(state.get("last_test_result", "待定"))), "实施者运行，不是独立闭卷。"),
         ("Git 工作区", esc("干净" if not git_info()["status"] else "有未提交修改")[:500], f'HEAD {esc(git_info()["head"][:12])}'),
     ]
     body = "<h1>研究总览</h1><p class='muted'>这不是完成率仪表盘；状态、证据、授权和未知分开显示。</p><div class='grid'>"
