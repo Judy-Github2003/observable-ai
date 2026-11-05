@@ -3,7 +3,14 @@
 package logic.e3.pack02
 
 enum class FactStatus { VERIFIED, UNKNOWN, REVOKED }
-data class Fact(val id: String, val proposition: String, val status: FactStatus = FactStatus.VERIFIED, val source: String = "public")
+data class Fact(
+    val id: String,
+    val proposition: String,
+    val status: FactStatus = FactStatus.VERIFIED,
+    val source: String = "public",
+    val capabilityRef: String? = null,
+    val inputDigest: String? = null,
+)
 data class Rule(val name: String, val premise: String, val conclusion: String, val sourceVerified: Boolean = true)
 data class ProofStep(
     val premises: List<String>,

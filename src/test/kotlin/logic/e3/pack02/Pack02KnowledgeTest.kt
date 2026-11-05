@@ -1,5 +1,5 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-05。
-// 原因：PACK-02 C4/C8 联合测试；基础谓词经 B0 注册/验证/激活，复合与复用不读隐藏目标。
+// 原因：PACK-02 C4/C8 测试；正式入口只使用注册表激活引用。
 package logic.e3.pack02
 
 import logic.capability.*
@@ -8,6 +8,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
@@ -35,79 +36,124 @@ class Pack02KnowledgeTest {
         val held = setOf("1,1,1", "2,0,1", "1,2,0", "0,1,2")
         val train = ArrayList<Pack02Sample>()
         val hold = ArrayList<Pack02Sample>()
-        for (a in listOf("0", "1", "2")) {
-            for (b in listOf("0", "1", "2")) {
-                for (c in listOf("0", "1", "2")) {
-                    val key = "$a,$b,$c"
-                    val sample = sample("r-$a$b$c", a, b, c, label = a == "1" && c == "1")
-                    if (key in held) hold += sample else train += sample
-                }
-            }
+        for (a in listOf("0", "1", "2")) for (b in listOf("0", "1", "2")) for (c in listOf("0", "1", "2")) {
+            val key = "$a,$b,$c"
+            val s = sample("r-$a$b$c", a, b, c, label = a == "1" && c == "1")
+            if (key in held) hold += s else train += s
         }
         return train to hold
     }
 
+    private fun ref(trace: Pack02Trace): KnowledgeRef {
+        val def = assertNotNull(trace.definition)
+        return KnowledgeRef(def.id, def.version, assertNotNull(trace.contentHash))
+    }
+
     @Test
-    fun `C4 composes two activated base predicates into an active composite`() {
+    fun `C4 composes active base predicates and enforces search budget`() {
         val path = Files.createTempFile("pack02-", ".sqlite")
-        val p = Pack02Knowledge.learn("pack02.p", listOf("a", "b"), pTraining(), pHeldout(), emptyList(), path, maxDepth = 2)
-        assertTrue(p.active, "P: ${p.failureCode} status=${p.filterStatus} consistent=${p.consistent} generated=${p.generated}")
-        val q = Pack02Knowledge.learn("pack02.q", listOf("b", "c"), qTraining(), qHeldout(), emptyList(), path, maxDepth = 2)
+        val p = Pack02Knowledge.learn("pack02.p", listOf("a", "b"), pTraining(), pHeldout(), path, maxDepth = 2)
+        assertTrue(p.active, "P: ${p.failureCode}")
+        val q = Pack02Knowledge.learn("pack02.q", listOf("b", "c"), qTraining(), qHeldout(), path, maxDepth = 2)
         assertTrue(q.active, "Q: ${q.failureCode}")
-        val pDef = assertNotNull(p.definition)
-        val qDef = assertNotNull(q.definition)
-        val r = Pack02Knowledge.learn("pack02.r", listOf("a", "b", "c"), rData().first, rData().second, listOf(pDef, qDef), path, maxDepth = 4, maxCandidates = 20000)
-        assertTrue(r.active, "R: ${r.failureCode} status=${r.filterStatus} consistent=${r.consistent} generated=${r.generated}")
+        val (rtrain, rheld) = rData()
+        val r = Pack02Knowledge.learn(
+            "pack02.r", listOf("a", "b", "c"), rtrain, rheld, path,
+            libraryRefs = listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000,
+        )
+        assertTrue(r.active, "R: ${r.failureCode} status=${r.filterStatus} generated=${r.generated} reason=${r.composeReason}")
         assertTrue(r.usesIds.containsAll(listOf("pack02.p", "pack02.q")))
-        assertTrue(r.heldoutCorrect == r.heldoutTotal)
-        // 联合：R 的真实执行结果作为事实，再由通用规则链做两步演绎。
-        val rTrue = Pack02Knowledge.predict(r.selectedBody!!, mapOf("a" to "1", "b" to "0", "c" to "1"), listOf(pDef, qDef))
-        assertTrue(rTrue == true)
-        val jointRules = listOf(Rule("r-s", "R", "S"), Rule("s-t", "S", "T"))
-        val joint = DeductionEngine().derive(listOf(Fact("f-r", "R")), jointRules, "T")
-        val proof = (joint as DeductionResult.Success).proof
-        assertTrue(ProofChecker().check(listOf(Fact("f-r", "R")), jointRules, proof, "T"))
+        assertEquals(4, r.heldoutCorrect)
+
+        val truncated = Pack02Knowledge.learn(
+            "pack02.truncated", listOf("a", "b"), pTraining(), pHeldout(), path, maxDepth = 3, maxCandidates = 1,
+        )
+        assertFalse(truncated.active)
+        assertEquals("search_budget_exhausted", truncated.failureCode)
         Files.deleteIfExists(path)
     }
 
     @Test
-    fun `C8 reuses composite knowledge in a new task with controls`() {
-        val path = Files.createTempFile("pack02-c8-", ".sqlite")
-        val p = Pack02Knowledge.learn("pack02.p", listOf("a", "b"), pTraining(), pHeldout(), emptyList(), path, maxDepth = 2)
-        val q = Pack02Knowledge.learn("pack02.q", listOf("b", "c"), qTraining(), qHeldout(), emptyList(), path, maxDepth = 2)
-        val pDef = assertNotNull(p.definition); val qDef = assertNotNull(q.definition)
-        val r = Pack02Knowledge.learn("pack02.r", listOf("a", "b", "c"), rData().first, rData().second, listOf(pDef, qDef), path, maxDepth = 4, maxCandidates = 20000)
-        val rDef = assertNotNull(r.definition)
-        val active = SqliteCapabilityRegistry(path).use { it.activeCapabilities() }
-        assertTrue(active.any { it.id == "pack02.r" }, "R must be active in registry")
+    fun `execution fact requires active R and true result and rejects revoked reference`() {
+        val path = Files.createTempFile("pack02-fact-", ".sqlite")
+        val p = Pack02Knowledge.learn("pack02.p", listOf("a", "b"), pTraining(), pHeldout(), path, maxDepth = 2)
+        val q = Pack02Knowledge.learn("pack02.q", listOf("b", "c"), qTraining(), qHeldout(), path, maxDepth = 2)
+        val (rtrain, rheld) = rData()
+        val r = Pack02Knowledge.learn("pack02.r", listOf("a", "b", "c"), rtrain, rheld, path, libraryRefs = listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000)
+        assertTrue(r.active, "R: ${r.failureCode}")
+        val rRef = ref(r)
+        val input = mapOf("a" to "1", "b" to "0", "c" to "1")
+        val fact = assertNotNull(ExecutionFactAdapter.fromExecution(path, rRef, input))
+        assertEquals(FactStatus.VERIFIED, fact.status)
+        assertEquals(rRef.id + "@" + rRef.version + "#" + rRef.contentHash, fact.capabilityRef)
+        assertNotNull(fact.inputDigest)
+        assertTrue(ExecutionFactAdapter.fromResult(rRef, input, EvalResult.Known(CapValue.Bool(false))) == null)
+        assertTrue(ExecutionFactAdapter.fromResult(rRef, input, EvalResult.Unknown("no")) == null)
+        assertTrue(ExecutionFactAdapter.fromResult(rRef, input, EvalResult.Error("bad")) == null)
 
+        val rules = listOf(Rule("r-s", "R", "S"), Rule("s-t", "S", "T"))
+        val proof = (DeductionEngine().derive(listOf(fact), rules, "T") as DeductionResult.Success).proof
+        assertTrue(ProofChecker().check(listOf(fact), rules, proof, "T"))
+
+        val registry = SqliteCapabilityRegistry(path)
+        try {
+            val revoked = CapabilityRevocationService(registry).revoke(rRef.id, rRef.version, "test", "test")
+            assertTrue(revoked.ok)
+        } finally {
+            registry.close()
+        }
+        assertTrue(ExecutionFactAdapter.fromExecution(path, rRef, input) == null)
+        Files.deleteIfExists(path)
+    }
+
+    @Test
+    fun `C8 uses only active registry references and no-composite excludes R`() {
+        val path = Files.createTempFile("pack02-c8-", ".sqlite")
+        val p = Pack02Knowledge.learn("pack02.p", listOf("a", "b"), pTraining(), pHeldout(), path, maxDepth = 2)
+        val q = Pack02Knowledge.learn("pack02.q", listOf("b", "c"), qTraining(), qHeldout(), path, maxDepth = 2)
+        val (rtrain, rheld) = rData()
+        val r = Pack02Knowledge.learn(
+            "pack02.r", listOf("a", "b", "c"), rtrain, rheld, path,
+            libraryRefs = listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000,
+        )
+        assertTrue(r.active, "R: ${r.failureCode}")
         val train = listOf(
-            sample("c1", "0", "0", "0", "0", false),
-            sample("c2", "1", "0", "1", "0", true),
-            sample("c3", "0", "1", "0", "1", true),
-            sample("c4", "1", "1", "1", "0", true),
-            sample("c5", "1", "0", "0", "1", true),
-            sample("c6", "0", "0", "1", "0", false),
-            sample("c7", "1", "1", "0", "0", false),
-            sample("c8", "0", "1", "1", "0", false),
+            sample("c1", "0", "0", "0", "0", false), sample("c2", "1", "0", "1", "0", true),
+            sample("c3", "0", "1", "0", "1", true), sample("c4", "1", "1", "1", "0", true),
+            sample("c5", "1", "0", "0", "1", true), sample("c6", "0", "0", "1", "0", false),
+            sample("c7", "1", "1", "0", "0", false), sample("c8", "0", "1", "1", "0", false),
         )
         val held = listOf(
-            sample("ch1", "1", "1", "1", "0", true),
-            sample("ch2", "0", "0", "0", "0", false),
+            sample("ch1", "1", "1", "1", "0", true), sample("ch2", "0", "0", "0", "0", false),
         )
-        val full = Pack02Knowledge.reuse("full", listOf("a", "b", "c", "d"), train, held, active, maxDepth = 3, preferredId = "pack02.r")
-        assertTrue(full.usesIds.contains("pack02.r"), "full must call R; status=${full.filterStatus} ids=${full.usesIds}")
-        assertEquals(held.size, full.heldoutCorrect, "status=${full.filterStatus} ids=${full.usesIds} body=${full.selectedCanonical}")
+        val refs = listOf(ref(p), ref(q), ref(r))
+        val full = Pack02Knowledge.reuse("full", listOf("a", "b", "c", "d"), train, held, path, refs, maxDepth = 3, maxCandidates = 20000, preferredId = "pack02.r")
+        assertTrue(full.usesIds.contains("pack02.r"), "full: ${full.failureCode} ${full.filterStatus}")
+        assertEquals(held.size, full.heldoutCorrect)
 
-        val noComposite = Pack02Knowledge.reuse("no-r", listOf("a", "b", "c", "d"), train, held, listOf(pDef, qDef), maxDepth = 3)
-        assertTrue(noComposite.failureCode != null || noComposite.heldoutCorrect < held.size)
+        val noR = Pack02Knowledge.reuse("no-r", listOf("a", "b", "c", "d"), train, held, path, listOf(ref(p), ref(q)), maxDepth = 3, maxCandidates = 20000)
+        assertTrue(noR.failureCode != null || noR.heldoutCorrect < held.size)
+        assertFalse(noR.active)
+
+        val badRef = ref(r).copy(contentHash = "bad-hash")
+        assertEquals("inactive_or_hash_mismatch", Pack02Knowledge.reuse("bad", listOf("a", "b", "c", "d"), train, held, path, listOf(badRef)).failureCode)
         val record = buildJsonObject {
             put("pack", "PACK-02")
-            put("p", buildJsonObject { put("generated", p.generated); put("status", p.filterStatus); put("active", p.active); put("heldout", p.heldoutCorrect) })
-            put("q", buildJsonObject { put("generated", q.generated); put("status", q.filterStatus); put("active", q.active); put("heldout", q.heldoutCorrect) })
-            put("r", buildJsonObject { put("generated", r.generated); put("status", r.filterStatus); put("active", r.active); put("heldout", r.heldoutCorrect); put("uses", r.usesIds.joinToString(",")) })
-            put("full", buildJsonObject { put("generated", full.generated); put("status", full.filterStatus); put("uses", full.usesIds.joinToString(",")); put("heldout", full.heldoutCorrect); put("failure", full.failureCode) })
-            put("noComposite", buildJsonObject { put("generated", noComposite.generated); put("status", noComposite.filterStatus); put("uses", noComposite.usesIds.joinToString(",")); put("heldout", noComposite.heldoutCorrect); put("failure", noComposite.failureCode) })
+            fun traceJson(t: Pack02Trace) = buildJsonObject {
+                put("generated", t.generated)
+                put("reason", t.composeReason)
+                put("searchExhausted", t.searchExhausted)
+                put("status", t.filterStatus)
+                put("active", t.active)
+                put("heldout", t.heldoutCorrect)
+                put("uses", t.usesIds.joinToString(","))
+                put("failure", t.failureCode)
+            }
+            put("p", traceJson(p))
+            put("q", traceJson(q))
+            put("r", traceJson(r))
+            put("full", traceJson(full))
+            put("noComposite", traceJson(noR))
         }
         val out = Path.of("experiments/representation-evolution-e3/reports/pack02-run.json")
         Files.createDirectories(out.parent)

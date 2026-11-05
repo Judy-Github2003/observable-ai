@@ -2,35 +2,52 @@
     "pack": "PACK-02",
     "p": {
         "generated": 10,
-        "status": "IDENTIFIED",
-        "active": true,
-        "heldout": 4
-    },
-    "q": {
-        "generated": 10,
-        "status": "IDENTIFIED",
-        "active": true,
-        "heldout": 4
-    },
-    "r": {
-        "generated": 20006,
+        "reason": "depth_limit",
+        "searchExhausted": false,
         "status": "IDENTIFIED",
         "active": true,
         "heldout": 4,
-        "uses": "pack02.p,pack02.q"
+        "uses": "",
+        "failure": null
+    },
+    "q": {
+        "generated": 10,
+        "reason": "depth_limit",
+        "searchExhausted": false,
+        "status": "IDENTIFIED",
+        "active": true,
+        "heldout": 4,
+        "uses": "",
+        "failure": null
+    },
+    "r": {
+        "generated": 1525,
+        "reason": "depth_limit",
+        "searchExhausted": false,
+        "status": "IDENTIFIED",
+        "active": true,
+        "heldout": 4,
+        "uses": "pack02.p,pack02.q",
+        "failure": null
     },
     "full": {
         "generated": 2385,
+        "reason": "depth_limit",
+        "searchExhausted": false,
         "status": "AMBIGUOUS",
-        "uses": "pack02.r",
+        "active": false,
         "heldout": 2,
+        "uses": "pack02.r",
         "failure": "ambiguous_selection"
     },
     "noComposite": {
         "generated": 1525,
+        "reason": "depth_limit",
+        "searchExhausted": false,
         "status": "REFUSED",
-        "uses": "",
+        "active": false,
         "heldout": 0,
+        "uses": "",
         "failure": "filter_refused"
     }
 }

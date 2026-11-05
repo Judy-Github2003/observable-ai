@@ -1,5 +1,5 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-05。
-// 原因：PACK-02 C4/C8 最小知识组合与跨任务复用；复用 B0，不修改冻结代码。
+// 原因：PACK-02 C4/C8 最小知识组合与复用；正式入口只接受注册表 active 引用。
 package logic.e3.pack02
 
 import logic.capability.*
@@ -8,9 +8,12 @@ import kotlinx.serialization.json.put
 import java.nio.file.Path
 
 data class Pack02Sample(val id: String, val values: Map<String, String>, val label: Boolean)
+data class KnowledgeRef(val id: String, val version: Int, val contentHash: String)
 data class Pack02Trace(
     val id: String,
     val generated: Int,
+    val composeReason: String?,
+    val searchExhausted: Boolean,
     val filterStatus: String,
     val consistent: Int,
     val selectedBody: Expr?,
@@ -32,26 +35,32 @@ object Pack02Knowledge {
         inputNames: List<String>,
         training: List<Pack02Sample>,
         heldout: List<Pack02Sample>,
-        library: List<CapabilityDefinition>,
         dbPath: Path,
+        libraryRefs: List<KnowledgeRef> = emptyList(),
         maxDepth: Int = 4,
         maxCandidates: Int = 4000,
     ): Pack02Trace {
+        val library = resolveActive(dbPath, libraryRefs)
+            ?: return failed(id, 0, null, false, "INACTIVE", 0, "inactive_or_hash_mismatch")
         val compose = compose(inputNames, training, library, maxDepth, maxCandidates)
-        val evidence = filter(inputNames, compose.candidates, training, library)
+        val exhausted = compose.reason == "candidate_limit"
+        val evidence = filter(inputNames, compose.candidates, training, library, exhausted)
         val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
         if (evidence.status != EvidenceStatus.IDENTIFIED) {
-            return failed(id, compose.generated, evidence.status.name, consistent.size, "filter_not_identified")
+            return failed(
+                id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size,
+                "search_budget_exhausted".takeIf { exhausted } ?: "filter_not_identified",
+            )
         }
         val selected = evidence.survivors.firstOrNull()
-            ?: return failed(id, compose.generated, evidence.status.name, consistent.size, "no_survivor")
+            ?: return failed(id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size, "no_survivor")
         val correct = heldout.count { sample ->
             predict(selected.body, sample.values.filterKeys { it in inputNames }, library) == sample.label
         }
         if (correct != heldout.size) {
             return Pack02Trace(
-                id, compose.generated, evidence.status.name, consistent.size, selected.body, selected.canonical,
-                correct, heldout.size, false, null, null, null, idsIn(selected.body),
+                id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size,
+                selected.body, selected.canonical, correct, heldout.size, false, null, null, null, idsIn(selected.body),
                 "heldout_verification_failed",
             )
         }
@@ -63,15 +72,16 @@ object Pack02Knowledge {
             val provenance = buildJsonObject {
                 put("source", "composer_bounded_search")
                 put("attribution", "student_composed")
-                put("library", library.joinToString(",") { it.id + "@" + it.version })
+                put("library", libraryRefs.joinToString(",") { it.id + "@" + it.version + "#" + it.contentHash })
                 put("selected_canonical", selected.canonical)
+                put("compose_reason", compose.reason ?: "exhausted")
             }.toString()
             val proposed = registry.propose(definition, provenance)
             if (!proposed.ok) {
                 return Pack02Trace(
-                    id, compose.generated, evidence.status.name, consistent.size, selected.body, selected.canonical,
-                    correct, heldout.size, false, null, null, null, idsIn(selected.body),
-                    proposed.code ?: "proposal_failed",
+                    id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size,
+                    selected.body, selected.canonical, correct, heldout.size, false, null, null, null,
+                    idsIn(selected.body), proposed.code ?: "proposal_failed",
                 )
             }
             val cases = heldout.map { sample ->
@@ -88,18 +98,19 @@ object Pack02Knowledge {
                 .verify(definition.id, definition.version, suite.suiteId, suite.suiteVersion)
             if (!verification.recorded || verification.outcome.verdict.name != "PASS") {
                 return Pack02Trace(
-                    id, compose.generated, evidence.status.name, consistent.size, selected.body, selected.canonical,
-                    correct, heldout.size, false, definition, proposed.contentHash, verification.runId,
-                    idsIn(selected.body), "verification_failed:${verification.recorded}:${verification.outcome.caseCount}:${verification.outcome.passedCount}:${verification.outcome.definiteCount}:${verification.outcome.trueCount}:${verification.outcome.falseCount}:${verification.code}",
+                    id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size,
+                    selected.body, selected.canonical, correct, heldout.size, false, definition,
+                    proposed.contentHash, verification.runId, idsIn(selected.body),
+                    verification.code ?: "verification_failed",
                 )
             }
             val activation = CapabilityActivationService(registry, suites)
                 .activate(definition.id, definition.version, verification.runId!!)
             return Pack02Trace(
-                id, compose.generated, evidence.status.name, consistent.size, selected.body, selected.canonical,
-                correct, heldout.size, activation.ok, if (activation.ok) definition else null,
-                proposed.contentHash, verification.runId, idsIn(selected.body),
-                if (activation.ok) null else activation.code ?: "activation_failed",
+                id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size,
+                selected.body, selected.canonical, correct, heldout.size, activation.ok,
+                if (activation.ok) definition else null, proposed.contentHash, verification.runId,
+                idsIn(selected.body), if (activation.ok) null else activation.code ?: "activation_failed",
             )
         } finally {
             registry.close()
@@ -111,34 +122,56 @@ object Pack02Knowledge {
         inputNames: List<String>,
         training: List<Pack02Sample>,
         heldout: List<Pack02Sample>,
-        library: List<CapabilityDefinition>,
+        dbPath: Path,
+        allowedRefs: List<KnowledgeRef>,
         maxDepth: Int = 4,
         maxCandidates: Int = 4000,
         preferredId: String? = null,
     ): Pack02Trace {
+        val library = resolveActive(dbPath, allowedRefs)
+            ?: return failed(id, 0, null, false, "INACTIVE", 0, "inactive_or_hash_mismatch")
         val compose = compose(inputNames, training, library, maxDepth, maxCandidates)
-        val evidence = filter(inputNames, compose.candidates, training, library)
+        val exhausted = compose.reason == "candidate_limit"
+        val evidence = filter(inputNames, compose.candidates, training, library, exhausted)
         val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
         if (evidence.status == EvidenceStatus.REFUSED) {
-            return failed(id, compose.generated, evidence.status.name, consistent.size, "filter_refused")
+            return failed(
+                id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size,
+                "search_budget_exhausted".takeIf { exhausted } ?: "filter_refused",
+            )
         }
         val selected = if (preferredId != null) {
             consistent.firstOrNull { preferredId in idsIn(it.body) } ?: evidence.survivors.firstOrNull { preferredId in idsIn(it.body) }
-        } else if (library.isEmpty()) evidence.survivors.firstOrNull()
-        else consistent.firstOrNull { idsIn(it.body).isNotEmpty() } ?: evidence.survivors.firstOrNull()
-        if (selected == null) return failed(id, compose.generated, evidence.status.name, consistent.size, "no_candidate")
-        val correct = heldout.count { sample ->
-            predict(selected.body, sample.values.filterKeys { it in inputNames }, library) == sample.label
+        } else {
+            evidence.survivors.firstOrNull() ?: consistent.firstOrNull()
         }
+        if (selected == null) return failed(id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size, "no_candidate")
+        val correct = heldout.count { sample -> predict(selected.body, sample.values.filterKeys { it in inputNames }, library) == sample.label }
         return Pack02Trace(
-            id, compose.generated, evidence.status.name, consistent.size, selected.body, selected.canonical,
-            correct, heldout.size, false, null, null, null, idsIn(selected.body),
+            id, compose.generated, compose.reason, exhausted, evidence.status.name, consistent.size,
+            selected.body, selected.canonical, correct, heldout.size, false, null, null, null,
+            idsIn(selected.body),
             when {
                 evidence.status == EvidenceStatus.AMBIGUOUS -> "ambiguous_selection"
                 correct != heldout.size -> "heldout_mismatch"
                 else -> null
             },
         )
+    }
+
+    fun activeSnapshot(dbPath: Path): List<CapabilityDefinition> = SqliteCapabilityRegistry(dbPath).use {
+        it.activeCapabilities()
+    }
+
+    fun resolveActive(dbPath: Path, refs: List<KnowledgeRef>): List<CapabilityDefinition>? {
+        if (refs.isEmpty()) return emptyList()
+        val active = activeSnapshot(dbPath)
+        val resolved = refs.map { ref ->
+            active.firstOrNull {
+                it.id == ref.id && it.version == ref.version && it.contentHash() == ref.contentHash
+            } ?: return null
+        }
+        return resolved
     }
 
     fun predict(body: Expr, values: Map<String, String>, library: List<CapabilityDefinition>): Boolean? {
@@ -185,7 +218,7 @@ object Pack02Knowledge {
         ComposeRequest(
             inputs = inputNames.associateWith { CapType.Str },
             output = CapType.Bool3,
-            constants = training.flatMap { it.values.values }.distinct().sorted().map { CapValue.Str(it) },
+            constants = training.flatMap { it.values.filterKeys { k -> k in inputNames }.values }.distinct().sorted().map { CapValue.Str(it) },
             library = library,
             budget = ComposeBudget(maxDepth = maxDepth, maxNodes = 40, maxCandidates = maxCandidates),
         ),
@@ -196,6 +229,7 @@ object Pack02Knowledge {
         candidates: List<ComposedCandidate>,
         training: List<Pack02Sample>,
         library: List<CapabilityDefinition>,
+        searchExhausted: Boolean,
     ): EvidenceResult {
         val examples = training.map { sample ->
             PublicExample(
@@ -211,9 +245,15 @@ object Pack02Knowledge {
             examples,
             domain,
             EvalBudget(maxSteps = 10000),
+            searchExhausted,
         )
     }
 
-    private fun failed(id: String, generated: Int, status: String, consistent: Int, code: String) =
-        Pack02Trace(id, generated, status, consistent, null, null, 0, 0, false, null, null, null, emptyList(), code)
+    private fun failed(
+        id: String, generated: Int, reason: String?, exhausted: Boolean, status: String,
+        consistent: Int, code: String,
+    ) = Pack02Trace(
+        id, generated, reason, exhausted, status, consistent, null, null, 0, 0,
+        false, null, null, null, emptyList(), code,
+    )
 }
