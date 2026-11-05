@@ -1,0 +1,36 @@
+{
+    "pack": "PACK-02",
+    "p": {
+        "generated": 10,
+        "status": "IDENTIFIED",
+        "active": true,
+        "heldout": 4
+    },
+    "q": {
+        "generated": 10,
+        "status": "IDENTIFIED",
+        "active": true,
+        "heldout": 4
+    },
+    "r": {
+        "generated": 20006,
+        "status": "IDENTIFIED",
+        "active": true,
+        "heldout": 4,
+        "uses": "pack02.p,pack02.q"
+    },
+    "full": {
+        "generated": 2385,
+        "status": "AMBIGUOUS",
+        "uses": "pack02.r",
+        "heldout": 2,
+        "failure": "ambiguous_selection"
+    },
+    "noComposite": {
+        "generated": 1525,
+        "status": "REFUSED",
+        "uses": "",
+        "heldout": 0,
+        "failure": "filter_refused"
+    }
+}

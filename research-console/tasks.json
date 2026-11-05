@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-05T14:14:18.966127+00:00",
+  "updated_at": "2026-11-05T14:26:49.863034+00:00",
   "source": "Research Console initial import; planning data is not evidence",
-  "current_task_id": "D2",
-  "authorized_action": "none",
+  "current_task_id": "C4",
+  "authorized_action": "PACK-02",
   "independent_closed_book": "not_run",
   "last_test_result": "307 passed / 307 total, 0 failed（B0 173 + E3 134）",
   "last_code_commit": "7b5fa828bbf8531d4e21f7a59de41bcb39ca684c",
@@ -1160,9 +1160,11 @@
       "research_question": "旧概念能否组合成新的可执行概念？",
       "hypothesis": "通过受控实验可以判断：由旧概念构造复合概念所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "由旧概念构造复合概念",
-      "status": "EXPLORATORY",
+      "status": "IN_PROGRESS",
       "priority": "medium",
-      "dependencies": [],
+      "dependencies": [
+        "PACK-02: B0 Composer/Filter/Interpreter and active capability registry"
+      ],
       "readiness_conditions": [
         "需要研究负责人明确授权",
         "需要可复核的独立测试条件"
@@ -1194,12 +1196,18 @@
           "at": "2026-11-05T12:43:28.553185+00:00",
           "decision": "imported into Research Console as planning data",
           "actor": "DeepSeek Harness"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "READY -> IN_PROGRESS under PACK-02 authorization",
+          "actor": "research_owner"
         }
       ],
       "next_possible_actions": [
         "等待研究负责人授权后，选择一个最小可验证实验"
       ],
-      "authorized_action": "none"
+      "authorized_action": "PACK-02",
+      "pack_id": "PACK-02"
     },
     {
       "id": "C5",
@@ -1356,9 +1364,11 @@
       "research_question": "概念能否在第二任务产生真实复用收益？",
       "hypothesis": "通过受控实验可以判断：跨不同任务的概念复用所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "跨不同任务的概念复用",
-      "status": "EXPLORATORY",
+      "status": "IN_PROGRESS",
       "priority": "high",
-      "dependencies": [],
+      "dependencies": [
+        "PACK-02: B0 Composer/Filter/Interpreter and active capability registry"
+      ],
       "readiness_conditions": [
         "需要研究负责人明确授权",
         "需要可复核的独立测试条件"
@@ -1390,12 +1400,18 @@
           "at": "2026-11-05T12:43:28.553185+00:00",
           "decision": "imported into Research Console as planning data",
           "actor": "DeepSeek Harness"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "READY -> IN_PROGRESS under PACK-02 authorization",
+          "actor": "research_owner"
         }
       ],
       "next_possible_actions": [
         "等待研究负责人授权后，选择一个最小可验证实验"
       ],
-      "authorized_action": "none"
+      "authorized_action": "PACK-02",
+      "pack_id": "PACK-02"
     },
     {
       "id": "C9",
@@ -3847,9 +3863,11 @@
       "research_question": "多步演绎：系统如何组合已知事实与规则产生可靠新结论？",
       "hypothesis": "通过受控实验可以判断：多步演绎所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "多步演绎",
-      "status": "EXPLORATORY",
+      "status": "IN_PROGRESS",
       "priority": "high",
-      "dependencies": [],
+      "dependencies": [
+        "PACK-02: B0 Composer/Filter/Interpreter and active capability registry"
+      ],
       "readiness_conditions": [
         "需要研究负责人明确授权",
         "需要可复核的独立测试条件"
@@ -3881,12 +3899,18 @@
           "at": "2026-11-05T12:43:28.553185+00:00",
           "decision": "imported into Research Console as planning data",
           "actor": "DeepSeek Harness"
+        },
+        {
+          "at": "2026-11-05",
+          "decision": "READY -> IN_PROGRESS under PACK-02 authorization",
+          "actor": "research_owner"
         }
       ],
       "next_possible_actions": [
         "等待研究负责人授权后，选择一个最小可验证实验"
       ],
-      "authorized_action": "none"
+      "authorized_action": "PACK-02",
+      "pack_id": "PACK-02"
     },
     {
       "id": "RES-H02",
@@ -9713,27 +9737,42 @@
     }
   ],
   "active_pack": {
-    "id": "PACK-01",
-    "title": "多猜想、主动实验与反例修正",
-    "status": "ACCEPTED_LIMITED",
+    "id": "PACK-02",
+    "title": "知识组合、多步演绎与跨任务复用",
+    "status": "IN_PROGRESS",
     "tasks": [
-      "D2",
-      "RES-N02",
-      "A-R1"
+      "C4",
+      "RES-H01",
+      "C8"
     ],
     "authorized_by": "research_owner",
     "started_at": "2026-11-05",
-    "authorized_action": "PACK-01",
-    "boundary": "只允许包内三项任务通过执行门禁；不自动启动其他任务",
-    "patch_used": "1/1",
-    "patched_at": "2026-11-05",
-    "exception": {
-      "exception_id": "PACK-01-EXCEPTION-01",
-      "exception_limit": 1,
-      "exception_used": 1,
-      "scope": "console_state_and_gate_tests_only",
-      "authorized_by": "research_owner",
-      "used_at": "2026-11-05"
+    "authorized_action": "PACK-02",
+    "boundary": "只允许 C4/RES-H01/C8 通过执行门禁；不自动启动 PACK-03"
+  },
+  "archived_packs": [
+    {
+      "id": "PACK-01",
+      "status": "ACCEPTED_LIMITED",
+      "tasks": [
+        "D2",
+        "RES-N02",
+        "A-R1"
+      ],
+      "patch_used": "1/1",
+      "exception": {
+        "exception_id": "PACK-01-EXCEPTION-01",
+        "exception_limit": 1,
+        "exception_used": 1,
+        "scope": "console_state_and_gate_tests_only",
+        "authorized_by": "research_owner",
+        "used_at": "2026-11-05"
+      },
+      "archived_at": "2026-11-05",
+      "legacy_issues": [
+        "attribution text may predate acceptance",
+        "document SHA in old report is historical"
+      ]
     }
-  }
+  ]
 }

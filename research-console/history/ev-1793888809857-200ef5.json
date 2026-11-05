@@ -1,0 +1,22 @@
+{
+  "event_id": "ev-1793888809857-200ef5",
+  "at": "2026-11-05T14:26:49.857606+00:00",
+  "kind": "authorization",
+  "actor": "research_owner",
+  "note": "PACK-02 authorized: C4/RES-H01/C8",
+  "before": null,
+  "after": {
+    "id": "PACK-02",
+    "title": "知识组合、多步演绎与跨任务复用",
+    "status": "IN_PROGRESS",
+    "tasks": [
+      "C4",
+      "RES-H01",
+      "C8"
+    ],
+    "authorized_by": "research_owner",
+    "started_at": "2026-11-05",
+    "authorized_action": "PACK-02",
+    "boundary": "只允许 C4/RES-H01/C8 通过执行门禁；不自动启动 PACK-03"
+  }
+}
