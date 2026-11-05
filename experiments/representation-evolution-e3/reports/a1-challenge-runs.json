@@ -1,0 +1,44 @@
+[
+    {
+        "case": "supported",
+        "sampleId": "w-81b2c0f05267c9d3-Q1",
+        "location": "IN_DECLARED_QUERY_DOMAIN",
+        "candidateCanonical": "b3c8681893fd2ce0cf315b030340998e4036080372a4baccb319d2105c10a02b",
+        "predictionId": "challenge-pred-1",
+        "predictionSequence": 1,
+        "labelSequence": 2,
+        "comparison": "SUPPORTED",
+        "label": false,
+        "predicted": false,
+        "observationId": "challenge-obs-w-81b2c0f05267c9d3-Q1-2",
+        "evidenceIds": [
+            "w-81b2c0f05267c9d3-P1",
+            "w-81b2c0f05267c9d3-P2",
+            "w-81b2c0f05267c9d3-P3",
+            "w-81b2c0f05267c9d3-P4",
+            "w-81b2c0f05267c9d3-P5",
+            "challenge-obs-w-81b2c0f05267c9d3-Q1-2"
+        ]
+    },
+    {
+        "case": "contradicted",
+        "sampleId": "challenge-wrong-w-aa63b5b7340df5ce",
+        "location": "OUTSIDE_DECLARED_QUERY_DOMAIN",
+        "candidateCanonical": "5af904d7ba46808a351c2aac87f36c88625862bc5eb091378540fa90956a07d9",
+        "predictionId": "challenge-pred-1",
+        "predictionSequence": 1,
+        "labelSequence": 2,
+        "comparison": "CONTRADICTED",
+        "label": true,
+        "predicted": false,
+        "observationId": "challenge-obs-challenge-wrong-w-aa63b5b7340df5ce-2",
+        "evidenceIds": [
+            "w-aa63b5b7340df5ce-P1",
+            "w-aa63b5b7340df5ce-P2",
+            "w-aa63b5b7340df5ce-P3",
+            "w-aa63b5b7340df5ce-P4",
+            "w-aa63b5b7340df5ce-P5",
+            "challenge-obs-challenge-wrong-w-aa63b5b7340df5ce-2"
+        ]
+    }
+]
