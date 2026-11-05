@@ -3,7 +3,7 @@
 ```text
 B0 current_subtask: M5-1a
 last_completed: M4-1c
-last_good_commit: d06c72a95b491f052989b8aa939b3c99079f3650
+last_good_commit: ae1618c8cb70677d657ef9ea56076b9074d81352
 working_tree: clean
 schema_version: 3
 last_test_command: JAVA_HOME=C:\Users\j1437\.jdks\jbr-21.0.11; .\gradlew.bat --offline --no-daemon test
@@ -15,7 +15,7 @@ independent_closed_book: not_run
 
 ## 说明
 
-- `last_good_commit` 是 M4-1b 的提交；M4-1c 的提交 SHA 以 `git log -1` 为准，下次提交时回填。
+- `last_good_commit` 是 M4-1c 的提交（M4 已 complete）；下一次提交时再回填新 SHA。
 - 环境：新开 shell 未设 `JAVA_HOME`，需先指向 `C:\Users\j1437\.jdks\jbr-21.0.11`。
 - 已实现：M0、M1、M2a、M2b、M2c、M3、M4（L1/L2；L3 not_implemented）。
 - 未实现：M5、M6。
