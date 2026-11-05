@@ -5,7 +5,7 @@ package logic.e3.evaluator
 
 import logic.e3.*
 
-enum class WorldFamily { SOLVABLE, LATENT_ALIASING }
+enum class WorldFamily { SOLVABLE, LATENT_ALIASING, NOISY_LABELS, SEARCH_LIMITED, AMBIGUOUS_EVIDENCE }
 
 /** 公开可查询点：只有可见字段，没有标签，也没有隐藏上下文。 */
 data class PublicSample(val sampleId: String, val visible: Map<String, String>)
@@ -40,12 +40,40 @@ data class HiddenTruth(
     val hiddenFeature: String?,
     val truthBySampleId: Map<String, Boolean>,
     val fullDomain: List<HiddenPoint>,
+    /** 目标规则在冻结 IR 中的近似深度；仅评测端用于 SEARCH_LIMITED 区分。 */
+    val ruleDepth: Int = 1,
+    /** 明确保存 held-out 隐藏点，禁止用 fullDomain 的 D 系列 ID 推断隐藏集。 */
+    val heldOut: List<HiddenPoint>,
 )
+
+sealed interface PublicQueryAnswer {
+    data class Labeled(val sampleId: String, val label: Boolean) : PublicQueryAnswer
+    data class Rejected(val reason: String) : PublicQueryAnswer
+}
+
+/** 学生查询入口：只允许 queryPool 的 sampleId；不持有 HiddenTruth/fullDomain。 */
+class PublicQueryOracle private constructor(private val allowed: Map<String, Boolean>) {
+    val allowedIds: Set<String> get() = allowed.keys
+    fun query(sampleId: String): PublicQueryAnswer =
+        allowed[sampleId]?.let { PublicQueryAnswer.Labeled(sampleId, it) }
+            ?: PublicQueryAnswer.Rejected("query_not_allowed")
+
+    companion object {
+        fun from(queryPool: List<PublicSample>, labels: Map<String, Boolean>): PublicQueryOracle =
+            PublicQueryOracle(queryPool.associate { it.sampleId to labels.getValue(it.sampleId) })
+    }
+}
+
+data class StudentView(val public: PublicWorld, val query: PublicQueryOracle)
 
 data class EvaluatedWorld(
     val public: PublicWorld,
     val truth: HiddenTruth,
-)
+    val publicQuery: PublicQueryOracle,
+) {
+    /** 学生接口只拿 public + 受控查询；不得把 truth/fullDomain 传出去。 */
+    fun studentView(): StudentView = StudentView(public, publicQuery)
+}
 
 /** 独立 oracle：只能按 sampleId 返回标签；不向学生暴露 hidden/family。 */
 class E3WorldOracle(private val truth: HiddenTruth) {
@@ -66,6 +94,7 @@ class E3WorldGenerator(private val seed: Long) {
     fun generate(family: WorldFamily, index: Int = 0): EvaluatedWorld = when (family) {
         WorldFamily.SOLVABLE -> solvable(index)
         WorldFamily.LATENT_ALIASING -> latentAliasing(index)
+        else -> E3AdvancedWorldGenerator(seed).generate(family, index)
     }
 
     private fun random(family: WorldFamily, index: Int) =
@@ -128,7 +157,7 @@ class E3WorldGenerator(private val seed: Long) {
         val hiddenPoints = shuffled.filterNot { it in selected }.take(2)
         val queryPoints = shuffled.filterNot { it in selected || it in hiddenPoints }.take(2)
         // 公开 worldId 不带家族名，避免 worldKind 通过 ID 泄漏。
-        val worldId = "world-%d-%d-%04x".format(seed, index, ((seed * 31 + WorldFamily.SOLVABLE.ordinal) and 0xffff).toInt())
+        val worldId = "world-$seed-$index"
 
         val observations = selected.mapIndexed { i, point ->
             observation("$worldId-P${i + 1}", "obj-$i", point, fields, rule(point), "public-source", true)
@@ -152,10 +181,12 @@ class E3WorldGenerator(private val seed: Long) {
                 query.map { sample -> sample.sampleId to rule(sample.visible) } +
                 domainTruth.map { it.sampleId to it.label }).toMap(),
             fullDomain = domainTruth,
+            heldOut = hidden,
         )
         return EvaluatedWorld(
             PublicWorld(worldId, VisibleSchema(values), observations, observations.map { it.observationId }, query),
             truth,
+            PublicQueryOracle.from(query, truth.truthBySampleId),
         )
     }
 
@@ -168,7 +199,7 @@ class E3WorldGenerator(private val seed: Long) {
         val visibleDomain = cartesian(fields, values)
         val rng = random(WorldFamily.LATENT_ALIASING, index)
         val shuffled = visibleDomain.shuffled(rng)
-        val worldId = "world-%d-%d-%04x".format(seed, index, ((seed * 31 + WorldFamily.LATENT_ALIASING.ordinal) and 0xffff).toInt())
+        val worldId = "world-$seed-$index"
         val rule: (Map<String, String>, Boolean) -> Boolean = { point, latent ->
             (point.getValue("kind") == "k1") xor latent
         }
@@ -211,10 +242,12 @@ class E3WorldGenerator(private val seed: Long) {
                 query.mapIndexed { i, sample -> sample.sampleId to rule(sample.visible, i % 2 == 1) } +
                 fullDomain.map { it.sampleId to it.label }).toMap(),
             fullDomain = fullDomain,
+            heldOut = hidden,
         )
         return EvaluatedWorld(
             PublicWorld(worldId, VisibleSchema(values), observations, observations.map { it.observationId }, query),
             truth,
+            PublicQueryOracle.from(query, truth.truthBySampleId),
         )
     }
 }

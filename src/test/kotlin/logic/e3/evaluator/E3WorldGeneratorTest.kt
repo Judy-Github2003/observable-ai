@@ -1,9 +1,10 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-05。
-// 原因：E3-A2 生成器自检；验证可复现、种子变化、公开/隐藏分层与 oracle。
+// 原因：E3-A2/A3 生成器自检；签名只比较世界内容，不比较 seed 或 ID。
 package logic.e3.evaluator
 
 import logic.e3.ContractJson
 import logic.e3.FeatureKey
+import logic.e3.ObservedValue
 import logic.e3.featureKey
 import logic.e3.validateObservations
 import kotlin.test.Test
@@ -13,20 +14,33 @@ import kotlin.test.assertTrue
 
 class E3WorldGeneratorTest {
 
+    /** 只比较世界实际内容：schema、观察的可见值/标签/来源格式、查询池、真值；不含 seed/ID。 */
     private fun signature(world: EvaluatedWorld): String = buildString {
-        append(world.public.worldId)
-        append('|')
         append(ContractJson.encodeSchema(world.public.schema))
         append('|')
-        append(ContractJson.encodeObservations(world.public.observations))
+        world.public.observations
+            .map { obs ->
+                obs.visible.entries.sortedBy { it.key }.joinToString(",") { (k, v) ->
+                    k + "=" + when (v) {
+                        is ObservedValue.Known -> "K:" + v.value
+                        ObservedValue.Unknown -> "U"
+                    }
+                } + "#" + obs.label + "#" + obs.provenance.sourceId + "#" +
+                    obs.provenance.reliableDeterministicLabels + "#" + obs.round
+            }
+            .sorted()
+            .forEach { append(it).append(';') }
         append('|')
-        append(world.public.queryPool.joinToString(";") { it.sampleId + ":" + it.visible.toSortedMap() })
+        world.public.queryPool.map { it.visible.toSortedMap().toString() }.sorted().forEach { append(it).append(';') }
         append('|')
-        append(world.truth.fullDomain.joinToString(";") { it.sampleId + ":" + it.label })
+        world.truth.fullDomain
+            .map { it.visible.toSortedMap().toString() + "#" + it.label }
+            .sorted()
+            .forEach { append(it).append(';') }
     }
 
     @Test
-    fun `same seed reproduces both world families`() {
+    fun `same seed reproduces every world family`() {
         for (family in WorldFamily.entries) {
             val first = E3WorldGenerator(42L).generate(family, 0)
             val second = E3WorldGenerator(42L).generate(family, 0)
@@ -35,9 +49,9 @@ class E3WorldGeneratorTest {
     }
 
     @Test
-    fun `different seeds change public data or truth`() {
+    fun `different seeds change world content without relying on ids`() {
         for (family in WorldFamily.entries) {
-            val signatures = (1L..5L).map { seed -> signature(E3WorldGenerator(seed).generate(family, 0)) }
+            val signatures = (1L..7L).map { seed -> signature(E3WorldGenerator(seed).generate(family, 0)) }
             assertTrue(signatures.toSet().size > 1, "family=$family should vary across seeds")
         }
     }
@@ -50,8 +64,8 @@ class E3WorldGeneratorTest {
                 ContractJson.encodeSchema(world.public.schema) +
                 world.public.toString()
             assertFalse(encoded.contains("latent"), "public data must not expose hidden feature: $family")
-            assertFalse(encoded.contains("worldKind"), "public data must not expose world kind")
-            assertFalse(encoded.contains("targetAst"), "public data must not expose target AST")
+            assertFalse(encoded.contains("worldKind"))
+            assertFalse(encoded.contains("targetAst"))
             assertTrue(world.public.schema.fields.keys.none { it == "latent" })
         }
     }
@@ -68,6 +82,18 @@ class E3WorldGeneratorTest {
     }
 
     @Test
+    fun `public query oracle only accepts query pool ids`() {
+        val world = E3WorldGenerator(19L).generate(WorldFamily.LATENT_ALIASING, 0)
+        val view = world.studentView()
+        val queryId = view.public.queryPool.single().sampleId
+        assertTrue(view.query.query(queryId) is PublicQueryAnswer.Labeled)
+        for (forbidden in world.truth.heldOut.map { it.sampleId } + world.truth.fullDomain.filter { it.sampleId.contains("-D") }.map { it.sampleId }) {
+            assertEquals(PublicQueryAnswer.Rejected("query_not_allowed"), view.query.query(forbidden))
+        }
+        assertEquals(setOf(queryId), view.query.allowedIds)
+    }
+
+    @Test
     fun `latent world contains same-visible different-label evidence`() {
         val world = E3WorldGenerator(3L).generate(WorldFamily.LATENT_ALIASING, 0)
         val groups = world.public.observations.groupBy { featureKey(it).canonical }
@@ -75,36 +101,86 @@ class E3WorldGeneratorTest {
     }
 
     @Test
-    fun `public observations are valid and hidden points are disjoint`() {
+    fun `public observations are valid and public query held-out vectors are disjoint`() {
         for (family in WorldFamily.entries) {
             val world = E3WorldGenerator(5L).generate(family, 0)
             assertTrue(validateObservations(world.public.schema, world.public.observations).ok, "family=$family")
             val publicKeys = world.public.observations.map { it.visible.toSortedMap() }.toSet()
-            val hiddenKeys = world.truth.fullDomain
-                .filter { it.sampleId.contains("-H") }
-                .map { it.visible.toSortedMap() }
-                .toSet()
-            assertTrue(publicKeys.intersect(hiddenKeys).isEmpty(), "hidden held-out must not reuse public visible vectors")
+            val queryKeys = world.public.queryPool.map { it.visible.toSortedMap() }.toSet()
+            val heldOutKeys = world.truth.heldOut.map { it.visible.toSortedMap() }.toSet()
+            assertTrue(publicKeys.intersect(queryKeys).isEmpty(), "public/query overlap: $family")
+            assertTrue(publicKeys.intersect(heldOutKeys).isEmpty(), "public/heldOut overlap: $family")
+            assertTrue(queryKeys.intersect(heldOutKeys).isEmpty(), "query/heldOut overlap: $family")
+            assertEquals(2, world.truth.heldOut.size, "heldOut must be explicit and non-empty: $family")
         }
-    }
-
-    @Test
-    fun `query pool has no labels and is disjoint from hidden`() {
-        val world = E3WorldGenerator(13L).generate(WorldFamily.SOLVABLE, 0)
-        val queryKeys = world.public.queryPool.map { it.visible.toSortedMap() }.toSet()
-        val hiddenKeys = world.truth.fullDomain.filter { it.sampleId.contains("-H") }.map { it.visible.toSortedMap() }.toSet()
-        assertTrue(queryKeys.intersect(hiddenKeys).isEmpty())
-        assertTrue(world.public.queryPool.all { it.sampleId.isNotBlank() })
     }
 
     @Test
     fun `feature key still distinguishes unknown from literal question mark`() {
         val world = E3WorldGenerator(17L).generate(WorldFamily.SOLVABLE, 0)
         val first = world.public.observations.first()
-        val known = first.copy(visible = first.visible + ("material" to logic.e3.ObservedValue.Known("?")))
-        val unknown = first.copy(visible = first.visible + ("material" to logic.e3.ObservedValue.Unknown))
+        val known = first.copy(visible = first.visible + ("material" to ObservedValue.Known("?")))
+        val unknown = first.copy(visible = first.visible + ("material" to ObservedValue.Unknown))
         val a: FeatureKey = featureKey(known)
         val b: FeatureKey = featureKey(unknown)
         assertTrue(a.canonical != b.canonical)
+    }
+
+    // ---------- 匹配对照与 A3 证据 ----------
+
+    @Test
+    fun `matched pair shares schema domains and source format`() {
+        val (solvable, latent) = E3AdvancedWorldGenerator(23L).matchedPair(0)
+        assertEquals(solvable.public.schema, latent.public.schema)
+        assertEquals(solvable.public.observations.size, latent.public.observations.size)
+        assertEquals(solvable.public.queryPool.size, latent.public.queryPool.size)
+        assertEquals(solvable.truth.heldOut.size, latent.truth.heldOut.size)
+        assertEquals(
+            solvable.public.observations.groupingBy { it.provenance.sourceId }.eachCount().keys,
+            latent.public.observations.groupingBy { it.provenance.sourceId }.eachCount().keys,
+        )
+        assertEquals(
+            solvable.public.observations.map { it.provenance.reliableDeterministicLabels }.toSet(),
+            latent.public.observations.map { it.provenance.reliableDeterministicLabels }.toSet(),
+        )
+        assertFalse(solvable.public.worldId.contains("solvable"))
+        assertFalse(latent.public.worldId.contains("latent"))
+    }
+
+    @Test
+    fun `noisy labels expose reliable-source contradiction`() {
+        val world = E3WorldGenerator(29L).generate(WorldFamily.NOISY_LABELS, 0)
+        val groups = world.public.observations.groupBy { featureKey(it).canonical }
+        assertTrue(groups.values.any { group ->
+            group.map { it.label }.toSet() == setOf(true, false) &&
+                group.map { it.provenance.sourceId }.toSet().size == 1 &&
+                group.all { it.provenance.reliableDeterministicLabels == true }
+        })
+        assertTrue(world.truth.family == WorldFamily.NOISY_LABELS)
+    }
+
+    @Test
+    fun `ambiguous evidence fits two different shallow hypotheses`() {
+        val world = E3WorldGenerator(31L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)
+        fun fits(field: String): Boolean = world.public.observations.all { obs ->
+            (obs.visible.getValue(field) as ObservedValue.Known).value == "1" == obs.label
+        }
+        assertTrue(fits("a"))
+        assertTrue(fits("b"))
+        assertTrue(world.public.observations.map { featureKey(it).canonical }.toSet().size == world.public.observations.size)
+    }
+
+    @Test
+    fun `search limited truth is deeper and no simple field rule fits`() {
+        val world = E3WorldGenerator(37L).generate(WorldFamily.SEARCH_LIMITED, 0)
+        assertTrue(world.truth.ruleDepth > 3)
+        fun fits(field: String): Boolean = world.public.observations.all { obs ->
+            (obs.visible.getValue(field) as ObservedValue.Known).value == "1" == obs.label
+        }
+        assertFalse(fits("a"))
+        assertFalse(fits("b"))
+        assertFalse(fits("c"))
+        val groups = world.public.observations.groupBy { featureKey(it).canonical }
+        assertTrue(groups.values.none { group -> group.map { it.label }.toSet().size > 1 })
     }
 }

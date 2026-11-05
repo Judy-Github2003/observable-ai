@@ -3,7 +3,7 @@
     "note": "evaluator-side sample; contains hidden truth and must not be given to the student",
     "solvable": {
         "public": {
-            "worldId": "world-42-0-0516",
+            "worldId": "world-42-0",
             "schema": {
                 "fields": {
                     "material": [
@@ -20,7 +20,7 @@
             },
             "observations": [
                 {
-                    "observationId": "world-42-0-0516-P1",
+                    "observationId": "world-42-0-P1",
                     "objectId": "obj-0",
                     "visible": {
                         "material": {
@@ -43,7 +43,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-0516-P2",
+                    "observationId": "world-42-0-P2",
                     "objectId": "obj-1",
                     "visible": {
                         "material": {
@@ -66,7 +66,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-0516-P3",
+                    "observationId": "world-42-0-P3",
                     "objectId": "obj-2",
                     "visible": {
                         "material": {
@@ -89,7 +89,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-0516-P4",
+                    "observationId": "world-42-0-P4",
                     "objectId": "obj-3",
                     "visible": {
                         "material": {
@@ -112,7 +112,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-0516-P5",
+                    "observationId": "world-42-0-P5",
                     "objectId": "obj-4",
                     "visible": {
                         "material": {
@@ -137,14 +137,14 @@
             ],
             "queryPool": [
                 {
-                    "sampleId": "world-42-0-0516-Q1",
+                    "sampleId": "world-42-0-Q1",
                     "visible": {
                         "material": "copper",
                         "seal": "open"
                     }
                 },
                 {
-                    "sampleId": "world-42-0-0516-Q2",
+                    "sampleId": "world-42-0-Q2",
                     "visible": {
                         "material": "iron",
                         "seal": "partial"
@@ -157,28 +157,28 @@
             "ruleDescription": "material == copper AND seal == sealed",
             "hiddenFeature": null,
             "labels": {
-                "world-42-0-0516-D1": false,
-                "world-42-0-0516-D2": false,
-                "world-42-0-0516-D3": false,
-                "world-42-0-0516-D4": true,
-                "world-42-0-0516-D5": false,
-                "world-42-0-0516-D6": false,
-                "world-42-0-0516-D7": false,
-                "world-42-0-0516-D8": false,
-                "world-42-0-0516-D9": false,
-                "world-42-0-0516-H1": false,
-                "world-42-0-0516-H2": false,
-                "world-42-0-0516-P1": true,
-                "world-42-0-0516-P2": false,
-                "world-42-0-0516-P3": false,
-                "world-42-0-0516-P4": false,
-                "world-42-0-0516-P5": false,
-                "world-42-0-0516-Q1": false,
-                "world-42-0-0516-Q2": false
+                "world-42-0-D1": false,
+                "world-42-0-D2": false,
+                "world-42-0-D3": false,
+                "world-42-0-D4": true,
+                "world-42-0-D5": false,
+                "world-42-0-D6": false,
+                "world-42-0-D7": false,
+                "world-42-0-D8": false,
+                "world-42-0-D9": false,
+                "world-42-0-H1": false,
+                "world-42-0-H2": false,
+                "world-42-0-P1": true,
+                "world-42-0-P2": false,
+                "world-42-0-P3": false,
+                "world-42-0-P4": false,
+                "world-42-0-P5": false,
+                "world-42-0-Q1": false,
+                "world-42-0-Q2": false
             },
             "fullDomain": [
                 {
-                    "sampleId": "world-42-0-0516-D1",
+                    "sampleId": "world-42-0-D1",
                     "visible": {
                         "material": "iron",
                         "seal": "sealed"
@@ -187,7 +187,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0516-D2",
+                    "sampleId": "world-42-0-D2",
                     "visible": {
                         "material": "iron",
                         "seal": "open"
@@ -196,7 +196,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0516-D3",
+                    "sampleId": "world-42-0-D3",
                     "visible": {
                         "material": "iron",
                         "seal": "partial"
@@ -205,7 +205,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0516-D4",
+                    "sampleId": "world-42-0-D4",
                     "visible": {
                         "material": "copper",
                         "seal": "sealed"
@@ -214,7 +214,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-0516-D5",
+                    "sampleId": "world-42-0-D5",
                     "visible": {
                         "material": "copper",
                         "seal": "open"
@@ -223,7 +223,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0516-D6",
+                    "sampleId": "world-42-0-D6",
                     "visible": {
                         "material": "copper",
                         "seal": "partial"
@@ -232,7 +232,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0516-D7",
+                    "sampleId": "world-42-0-D7",
                     "visible": {
                         "material": "ceramic",
                         "seal": "sealed"
@@ -241,7 +241,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0516-D8",
+                    "sampleId": "world-42-0-D8",
                     "visible": {
                         "material": "ceramic",
                         "seal": "open"
@@ -250,7 +250,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0516-D9",
+                    "sampleId": "world-42-0-D9",
                     "visible": {
                         "material": "ceramic",
                         "seal": "partial"
@@ -263,7 +263,7 @@
     },
     "latent_aliasing": {
         "public": {
-            "worldId": "world-42-0-0517",
+            "worldId": "world-42-0",
             "schema": {
                 "fields": {
                     "kind": [
@@ -279,7 +279,7 @@
             },
             "observations": [
                 {
-                    "observationId": "world-42-0-0517-P1",
+                    "observationId": "world-42-0-P1",
                     "objectId": "obj-0a",
                     "visible": {
                         "kind": {
@@ -302,7 +302,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-0517-P2",
+                    "observationId": "world-42-0-P2",
                     "objectId": "obj-0b",
                     "visible": {
                         "kind": {
@@ -325,7 +325,7 @@
                     "batchId": null
                 },
                 {
-                    "observationId": "world-42-0-0517-P5",
+                    "observationId": "world-42-0-P5",
                     "objectId": "obj-o0",
                     "visible": {
                         "kind": {
@@ -350,7 +350,7 @@
             ],
             "queryPool": [
                 {
-                    "sampleId": "world-42-0-0517-Q1",
+                    "sampleId": "world-42-0-Q1",
                     "visible": {
                         "kind": "k2",
                         "shape": "s1"
@@ -363,28 +363,28 @@
             "ruleDescription": "kind == k1 XOR latent",
             "hiddenFeature": "latent",
             "labels": {
-                "world-42-0-0517-D1": false,
-                "world-42-0-0517-D10": true,
-                "world-42-0-0517-D11": false,
-                "world-42-0-0517-D12": true,
-                "world-42-0-0517-D2": true,
-                "world-42-0-0517-D3": false,
-                "world-42-0-0517-D4": true,
-                "world-42-0-0517-D5": true,
-                "world-42-0-0517-D6": false,
-                "world-42-0-0517-D7": true,
-                "world-42-0-0517-D8": false,
-                "world-42-0-0517-D9": false,
-                "world-42-0-0517-H1": false,
-                "world-42-0-0517-H2": false,
-                "world-42-0-0517-P1": false,
-                "world-42-0-0517-P2": true,
-                "world-42-0-0517-P5": false,
-                "world-42-0-0517-Q1": false
+                "world-42-0-D1": false,
+                "world-42-0-D10": true,
+                "world-42-0-D11": false,
+                "world-42-0-D12": true,
+                "world-42-0-D2": true,
+                "world-42-0-D3": false,
+                "world-42-0-D4": true,
+                "world-42-0-D5": true,
+                "world-42-0-D6": false,
+                "world-42-0-D7": true,
+                "world-42-0-D8": false,
+                "world-42-0-D9": false,
+                "world-42-0-H1": false,
+                "world-42-0-H2": false,
+                "world-42-0-P1": false,
+                "world-42-0-P2": true,
+                "world-42-0-P5": false,
+                "world-42-0-Q1": false
             },
             "fullDomain": [
                 {
-                    "sampleId": "world-42-0-0517-D1",
+                    "sampleId": "world-42-0-D1",
                     "visible": {
                         "kind": "k0",
                         "shape": "s0"
@@ -395,7 +395,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0517-D2",
+                    "sampleId": "world-42-0-D2",
                     "visible": {
                         "kind": "k0",
                         "shape": "s0"
@@ -406,7 +406,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-0517-D3",
+                    "sampleId": "world-42-0-D3",
                     "visible": {
                         "kind": "k0",
                         "shape": "s1"
@@ -417,7 +417,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0517-D4",
+                    "sampleId": "world-42-0-D4",
                     "visible": {
                         "kind": "k0",
                         "shape": "s1"
@@ -428,7 +428,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-0517-D5",
+                    "sampleId": "world-42-0-D5",
                     "visible": {
                         "kind": "k1",
                         "shape": "s0"
@@ -439,7 +439,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-0517-D6",
+                    "sampleId": "world-42-0-D6",
                     "visible": {
                         "kind": "k1",
                         "shape": "s0"
@@ -450,7 +450,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0517-D7",
+                    "sampleId": "world-42-0-D7",
                     "visible": {
                         "kind": "k1",
                         "shape": "s1"
@@ -461,7 +461,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-0517-D8",
+                    "sampleId": "world-42-0-D8",
                     "visible": {
                         "kind": "k1",
                         "shape": "s1"
@@ -472,7 +472,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0517-D9",
+                    "sampleId": "world-42-0-D9",
                     "visible": {
                         "kind": "k2",
                         "shape": "s0"
@@ -483,7 +483,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0517-D10",
+                    "sampleId": "world-42-0-D10",
                     "visible": {
                         "kind": "k2",
                         "shape": "s0"
@@ -494,7 +494,7 @@
                     "label": true
                 },
                 {
-                    "sampleId": "world-42-0-0517-D11",
+                    "sampleId": "world-42-0-D11",
                     "visible": {
                         "kind": "k2",
                         "shape": "s1"
@@ -505,7 +505,7 @@
                     "label": false
                 },
                 {
-                    "sampleId": "world-42-0-0517-D12",
+                    "sampleId": "world-42-0-D12",
                     "visible": {
                         "kind": "k2",
                         "shape": "s1"
@@ -513,6 +513,797 @@
                     "hidden": {
                         "latent": "1"
                     },
+                    "label": true
+                }
+            ]
+        }
+    },
+    "noisy_labels": {
+        "public": {
+            "worldId": "world-42-0",
+            "schema": {
+                "fields": {
+                    "a": [
+                        "0",
+                        "1"
+                    ],
+                    "b": [
+                        "0",
+                        "1"
+                    ],
+                    "c": [
+                        "0",
+                        "1"
+                    ]
+                }
+            },
+            "observations": [
+                {
+                    "observationId": "world-42-0-P1",
+                    "objectId": "obj-0",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P2",
+                    "objectId": "obj-0",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 2,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P3",
+                    "objectId": "obj-1",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P4",
+                    "objectId": "obj-2",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "0"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P5",
+                    "objectId": "obj-3",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "0"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                }
+            ],
+            "queryPool": [
+                {
+                    "sampleId": "world-42-0-Q1",
+                    "visible": {
+                        "a": "1",
+                        "b": "1",
+                        "c": "0"
+                    }
+                }
+            ]
+        },
+        "truth": {
+            "family": "NOISY_LABELS",
+            "ruleDescription": "a == 1 (with contradictory reliable labels)",
+            "hiddenFeature": null,
+            "labels": {
+                "world-42-0-D1": false,
+                "world-42-0-D2": false,
+                "world-42-0-D3": false,
+                "world-42-0-D4": false,
+                "world-42-0-D5": true,
+                "world-42-0-D6": true,
+                "world-42-0-D7": true,
+                "world-42-0-D8": true,
+                "world-42-0-H1": false,
+                "world-42-0-H2": false,
+                "world-42-0-P1": true,
+                "world-42-0-P2": false,
+                "world-42-0-P3": true,
+                "world-42-0-P4": true,
+                "world-42-0-P5": false,
+                "world-42-0-Q1": true
+            },
+            "fullDomain": [
+                {
+                    "sampleId": "world-42-0-D1",
+                    "visible": {
+                        "a": "0",
+                        "b": "0",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D2",
+                    "visible": {
+                        "a": "0",
+                        "b": "0",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D3",
+                    "visible": {
+                        "a": "0",
+                        "b": "1",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D4",
+                    "visible": {
+                        "a": "0",
+                        "b": "1",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D5",
+                    "visible": {
+                        "a": "1",
+                        "b": "0",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D6",
+                    "visible": {
+                        "a": "1",
+                        "b": "0",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D7",
+                    "visible": {
+                        "a": "1",
+                        "b": "1",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D8",
+                    "visible": {
+                        "a": "1",
+                        "b": "1",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": true
+                }
+            ]
+        }
+    },
+    "search_limited": {
+        "public": {
+            "worldId": "world-42-0",
+            "schema": {
+                "fields": {
+                    "a": [
+                        "0",
+                        "1"
+                    ],
+                    "b": [
+                        "0",
+                        "1"
+                    ],
+                    "c": [
+                        "0",
+                        "1"
+                    ]
+                }
+            },
+            "observations": [
+                {
+                    "observationId": "world-42-0-P1",
+                    "objectId": "obj-0",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P2",
+                    "objectId": "obj-1",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "0"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P3",
+                    "objectId": "obj-2",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P4",
+                    "objectId": "obj-3",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "0"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P5",
+                    "objectId": "obj-4",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                }
+            ],
+            "queryPool": [
+                {
+                    "sampleId": "world-42-0-Q1",
+                    "visible": {
+                        "a": "0",
+                        "b": "1",
+                        "c": "0"
+                    }
+                }
+            ]
+        },
+        "truth": {
+            "family": "SEARCH_LIMITED",
+            "ruleDescription": "a == 1 XOR b == 1 XOR c == 1 (depth 4)",
+            "hiddenFeature": null,
+            "labels": {
+                "world-42-0-D1": false,
+                "world-42-0-D2": true,
+                "world-42-0-D3": true,
+                "world-42-0-D4": false,
+                "world-42-0-D5": true,
+                "world-42-0-D6": false,
+                "world-42-0-D7": false,
+                "world-42-0-D8": true,
+                "world-42-0-H1": false,
+                "world-42-0-H2": false,
+                "world-42-0-P1": true,
+                "world-42-0-P2": false,
+                "world-42-0-P3": true,
+                "world-42-0-P4": true,
+                "world-42-0-P5": false,
+                "world-42-0-Q1": true
+            },
+            "fullDomain": [
+                {
+                    "sampleId": "world-42-0-D1",
+                    "visible": {
+                        "a": "0",
+                        "b": "0",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D2",
+                    "visible": {
+                        "a": "0",
+                        "b": "0",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D3",
+                    "visible": {
+                        "a": "0",
+                        "b": "1",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D4",
+                    "visible": {
+                        "a": "0",
+                        "b": "1",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D5",
+                    "visible": {
+                        "a": "1",
+                        "b": "0",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D6",
+                    "visible": {
+                        "a": "1",
+                        "b": "0",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D7",
+                    "visible": {
+                        "a": "1",
+                        "b": "1",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D8",
+                    "visible": {
+                        "a": "1",
+                        "b": "1",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": true
+                }
+            ]
+        }
+    },
+    "ambiguous_evidence": {
+        "public": {
+            "worldId": "world-42-0",
+            "schema": {
+                "fields": {
+                    "a": [
+                        "0",
+                        "1"
+                    ],
+                    "b": [
+                        "0",
+                        "1"
+                    ],
+                    "c": [
+                        "0",
+                        "1"
+                    ]
+                }
+            },
+            "observations": [
+                {
+                    "observationId": "world-42-0-P1",
+                    "objectId": "obj-0",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "0"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P2",
+                    "objectId": "obj-1",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "0"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P3",
+                    "objectId": "obj-2",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "1"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": true,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                },
+                {
+                    "observationId": "world-42-0-P4",
+                    "objectId": "obj-3",
+                    "visible": {
+                        "a": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "b": {
+                            "status": "known",
+                            "value": "0"
+                        },
+                        "c": {
+                            "status": "known",
+                            "value": "1"
+                        }
+                    },
+                    "label": false,
+                    "provenance": {
+                        "sourceId": "source-a",
+                        "sourceKind": "EXTERNAL_PROVIDED",
+                        "requestedByStudent": false,
+                        "reliableDeterministicLabels": true
+                    },
+                    "round": 1,
+                    "batchId": null
+                }
+            ],
+            "queryPool": [
+                {
+                    "sampleId": "world-42-0-Q1",
+                    "visible": {
+                        "a": "1",
+                        "b": "0",
+                        "c": "1"
+                    }
+                }
+            ]
+        },
+        "truth": {
+            "family": "AMBIGUOUS_EVIDENCE",
+            "ruleDescription": "a == 1 (public also fits b == 1)",
+            "hiddenFeature": null,
+            "labels": {
+                "world-42-0-D1": false,
+                "world-42-0-D2": false,
+                "world-42-0-D3": false,
+                "world-42-0-D4": false,
+                "world-42-0-D5": true,
+                "world-42-0-D6": true,
+                "world-42-0-D7": true,
+                "world-42-0-D8": true,
+                "world-42-0-H1": true,
+                "world-42-0-H2": false,
+                "world-42-0-P1": false,
+                "world-42-0-P2": true,
+                "world-42-0-P3": true,
+                "world-42-0-P4": false,
+                "world-42-0-Q1": true
+            },
+            "fullDomain": [
+                {
+                    "sampleId": "world-42-0-D1",
+                    "visible": {
+                        "a": "0",
+                        "b": "0",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D2",
+                    "visible": {
+                        "a": "0",
+                        "b": "0",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D3",
+                    "visible": {
+                        "a": "0",
+                        "b": "1",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D4",
+                    "visible": {
+                        "a": "0",
+                        "b": "1",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": false
+                },
+                {
+                    "sampleId": "world-42-0-D5",
+                    "visible": {
+                        "a": "1",
+                        "b": "0",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D6",
+                    "visible": {
+                        "a": "1",
+                        "b": "0",
+                        "c": "1"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D7",
+                    "visible": {
+                        "a": "1",
+                        "b": "1",
+                        "c": "0"
+                    },
+                    "hidden": {},
+                    "label": true
+                },
+                {
+                    "sampleId": "world-42-0-D8",
+                    "visible": {
+                        "a": "1",
+                        "b": "1",
+                        "c": "1"
+                    },
+                    "hidden": {},
                     "label": true
                 }
             ]
