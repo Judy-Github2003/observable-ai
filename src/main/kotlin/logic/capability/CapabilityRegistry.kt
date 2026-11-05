@@ -6,6 +6,7 @@
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-2a 增加验证/激活读取与 appendActivation；激活不修改 capabilities.status。
 // 修改：DeepSeek Harness，2026-11-05，B0 M2c-1a 增加 schema v3 撤销表与撤销读写；旧四表、status 约束与历史记录不变。
 // 修改：DeepSeek Harness，2026-11-05，B0 M3-1a 增加 activeCapabilities()：只返回激活且依赖健康的能力快照。
+// 修改：DeepSeek Harness，2026-11-05，B0 M4-1a 增加 capabilityInventory()：供 L1 成本审计读取完整能力定义。
 package logic.capability
 
 import kotlinx.serialization.json.*
@@ -519,6 +520,26 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
             connection.autoCommit = true
         }
         return RegistryResult(true)
+    }
+
+    /**
+     * M4-1a：返回库内全部能力的完整定义；任一能力不可检查则整体失败。
+     * 用完整 `inspect`（含依赖校验），避免在损坏库上计算成本或统计。
+     */
+    internal fun capabilityInventory(): CapabilityInventory {
+        val keys = LinkedHashSet<Pair<String, Int>>()
+        connection.prepareStatement("SELECT capability_id,version FROM capabilities ORDER BY capability_id,version").use { statement ->
+            statement.executeQuery().use { rows ->
+                while (rows.next()) keys += rows.getString(1) to rows.getInt(2)
+            }
+        }
+        val definitions = ArrayList<CapabilityDefinition>(keys.size)
+        for ((id, version) in keys) {
+            val inspected = inspect(id, version)
+            if (!inspected.ok) return CapabilityInventory.Failed(inspected.code ?: "inspection_failed")
+            definitions += inspected.definition ?: return CapabilityInventory.Failed("invalid_stored_definition")
+        }
+        return CapabilityInventory.Ok(definitions)
     }
 
     /**
