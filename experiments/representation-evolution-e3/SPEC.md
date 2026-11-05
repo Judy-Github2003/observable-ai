@@ -82,8 +82,18 @@ ProbeRequest = RepeatLabel | RequestPublicInstance | NoAction
 - 真实调用 Composer/Filter，记录 `SearchTrace`、`FilterTrace`、有界 `EvidenceScope`；区分 depth_limit、candidate_limit、歧义、冲突、无完整观察。
 - `IDENTIFIED` 只表示当前有界假设空间与公开 query domain 内的辨识。
 - 不 import evaluator；不读取 family/HiddenTruth/target rule/ruleDepth。
+- 输入校验：queryDomain 字段完整性/额外字段/值域/重复点/256 上限；constants 必须来自公开 schema 值域并记录来源。
+- `FilterTrace.domainSize` 取真实 `EvidenceResult.domainSize`；`SearchTrace` 记录 maxComposeRounds/maxNodes/maxCandidates/maxSteps 与 observedAstMaxDepth；空域不等于完整验证。
 
-## 8. A1 本身明确未做
+## 8. A6 搜索空间覆盖与预算诊断（已实现）
+
+- 同一公开证据跑低/有限提高预算；记录真实 Composer/Filter 轨迹、候选 hash 集、幸存者 hash 集、行为等价类、预算变化。
+- 判定：冲突、无完整观察、预算敏感候选集、多个候选、搜索截断、当前无一致候选、稳定有界辨识、UNDETERMINED。
+- 高预算新候选不声称真实规则；高预算失败不声称表示不足；`depth_limit` 不等于规律不在假设空间。
+- 不 import evaluator；不读取 family/HiddenTruth/target AST/ruleDepth。
+- 真实输出：`reports/a6-budget-diagnosis.json`。
+
+## 9. A1 本身明确未做
 
 - 没有诊断算法、碰撞检测、噪声判断或探测选择策略。
 - A1 没有世界生成器、oracle、隐藏数据或评分器（A2 才开始）。

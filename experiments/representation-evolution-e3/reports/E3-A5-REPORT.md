@@ -1,4 +1,4 @@
-# E3-A4 复核修正 + A5 工作报告
+﻿# E3-A4 复核修正 + A5 工作报告
 
 ```text
 阶段: E3-A
@@ -85,3 +85,9 @@ E3B0DiagnosticAdapter.diagnose(
 - 未实现 A6 搜索空间覆盖诊断、A7 之后策略。
 - 未修改 B0；E3-B/C 未授权。
 - 下一步：`A6` 搜索空间覆盖与预算诊断。
+
+## 复核后修正（2026-11-05）
+
+- 已补 PublicConstants 来源、queryDomain 全字段/值域/重复/256 上限校验、真实 FilterTrace.domainSize、SearchTrace 的 maxComposeRounds/maxNodes/maxCandidates/maxSteps/observedAstMaxDepth。
+- 最新实现与真实输出见 E3-A5-A6-REPORT.md。
+

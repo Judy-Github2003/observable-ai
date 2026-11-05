@@ -1,4 +1,4 @@
-# E3-A 决策记录
+﻿# E3-A 决策记录
 
 ## A0（2026-11-05）
 
@@ -70,3 +70,13 @@
 - A5 记录 `SearchTrace`/`FilterTrace`/有界范围；区分 observation collision、no complete observations、depth_limit、candidate_limit、ambiguous、refused。
 - `depth_limit` 不解释为“规律不在假设空间”；`IDENTIFIED` 仅限当前假设空间与查询域。
 - 不读取 evaluator family/HiddenTruth/target rule/ruleDepth；A6 才做搜索空间覆盖诊断。
+
+## A5 修正 / A6（2026-11-05）
+
+- PublicConstants(values, source)；常量必须在公开 schema 值域，来源非空。
+- queryDomain 校验缺失/额外/非法值/重复/超过 B0 256 点上限；非法输入统一 INVALID_INPUT，不抛异常。
+- SearchTrace 用 maxComposeRounds 并记录 maxNodes/maxCandidates/maxSteps/observedAstMaxDepth；组合轮数不等于 AST 深度。
+- FilterTrace.domainSize 取真实 EvidenceResult.domainSize；空域标注为非完整验证。
+- A6 新增 E3SearchBudgetDiagnoser：低/高预算真实搜索对照，记录候选集、幸存者集、行为等价类和预算变化；verdict 覆盖冲突、预算敏感、多个候选、截断、无一致候选、UNDETERMINED。
+- 高预算新候选不当作真实规则；高预算失败不当作表示不足；A6 只诊断公开证据与预算。
+
