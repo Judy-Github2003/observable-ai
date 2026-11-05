@@ -145,3 +145,13 @@
 - 多个等价类 → `AMBIGUOUS`，返回最多 3 个能区分它们的输入；没有查询域且幸存者多于一个 → `insufficient_query_domain`。
 - 没有一致候选 → `REFUSED / no_consistent_candidate`；候选为空 → `hypothesis_space_exhausted`。
 - 等价只在公开域上成立，报告写 `bounded_equivalence`，不冒充全局语义等价。
+
+## M3-1c 组合结果注册与留出检验（2026-11-05）
+
+- `StudentCompositionService.composeAndPropose`：`activeCapabilities()` → 有界搜索 → 公开样本筛选 → 仅 `IDENTIFIED` 候选以 `student_composed` 写入 `candidate`。
+- provenance 固定记录 `acquisition_method=student_composed`、`proposer=local_composer`、`teacher_calls=0`、`composer_source`、`search_candidates`、`budget_reason`、`public_examples`。
+- `verifyAndActivate` 必须用宿主登记的可信套件通过，再走激活门禁；搜索不能写 `verified/active`。
+- `HeldOutEvaluator` 只在激活后评估留出样本，结果不回流；留出集不出现在组合/筛选接口。
+- 两个新世界（设备兼容、访问资格）使用同一套 IR 原语与空能力库；撤销关键库能力会出现可观测退化。
+- `student_composed` 只描述具体候选来源；搜索算法、IR、验证机制仍属开发者预置，不得写成学生发明算法或获得概念。
+- `CompositionResult.elapsedMillis` 仅作报告参考，不参与判定或比较。
