@@ -1,4 +1,4 @@
-# E3-A9 公平对照协议（v2，冻结前草案）
+﻿# E3-A9 公平对照协议（v2，冻结前草案）
 
 > 状态：协议草案 + 最小可执行基线；**未批量运行 A10**。
 > 原则：先冻结指标、预算、世界、信息权限，再运行；隐藏真值只用于评测，不进入任何基线诊断。
@@ -34,9 +34,11 @@
 
 - `composerCalls`：Composer 调用次数；
 - `generatedCandidates`：所有调用的 `generated` 总和；
-- `filterCandidateEvaluations`：Filter 候选×公开样本执行量；
+- `estimatedFilterEvaluations`：候选×样本上界（估计）；
+- `observedFilterExampleEvaluations`：EvidenceResult.evaluations 实际数量×样本数；
+- `observedFilterQueryDomainEvaluations`：survivors×domainSize 实际查询域执行量；
 - `interpreterExecutions`：行为等价类/额外解释执行的次数；
-- `publicQueries` / `queryCost`；
+- `publicInstanceRequests` / `repeatRequests` / `totalProbeCost` / `successfulProbeCount` / `independentEvidenceCount`；
 - `elapsedNanos`：实际墙钟。
 
 公平方案：
@@ -103,22 +105,49 @@ actualClaim（动作执行状态）
 - 重复测量/NoAction 不得提高 diagnostic coverage。
 - E3_DIAGNOSTIC 不得用 recordedObservationId 冒充 requestedSampleId。
 
-## 6. 世界与冻结
+## 6. 独立评分入口
+
+评测端 `logic.e3.evaluator.A9IndependentScorer`：
+
+- 学生提交冻结候选 AST/canonical/结论/boundedScope/queryDomain/evidenceIds。
+- 评测端读取 `HiddenTruth.heldOut` 与 `fullDomain`，执行候选，计算隐藏错误率。
+- 有界有效性：候选在声明 queryDomain 上是否与 truth 一致，且候选唯一。
+- 越权：`claimedGlobal` 或结构化 `A9CausalClaim`（GLOBAL_RULE/HIDDEN_ATTRIBUTE/NOISE/WORLD_CAUSE）；不只看单一布尔。
+- 无候选/无 evidenceIds/无 queryDomain/无 heldOut/哈希不匹配 → `NOT_EVALUATED`，不得补 0。
+- 评测端代码/隐藏真值不进入学生接口。
+
+## 7. A10 建议增加第六基线（未实现）
+
+`B0_ACTIVE_QUERY`：B0_ONLY + 用 Filter 的 distinguishingQueries 执行一次受控公开查询；不经过 A4/A6/A7/A8 综合诊断。
+
+- 目的：分离“多获得一次标签”的收益与“综合诊断机制”的增量价值。
+- 同查询预算/成本；不得读取 hidden/family。
+- 可加随机查询负对照，但本轮不要求。
+- A10 冻结前必须先实现并记录该基线；本轮未运行。
 
 - 世界族：SOLVABLE、LATENT_ALIASING、NOISY_LABELS、SEARCH_LIMITED、AMBIGUOUS_EVIDENCE。
 - 每族至少两个规则模板/两个 seed；世界与 seed 运行前冻结并记哈希。
 - 样本数/排列：4/5/6 条公开样本对照；顺序打乱版本单独评价。
 - 查询池与隐藏集不重叠；source/reliability 声明冻结。
 
-## 7. 运行与停止
+## 8. 世界与冻结
+
+- 世界族：SOLVABLE、LATENT_ALIASING、NOISY_LABELS、SEARCH_LIMITED、AMBIGUOUS_EVIDENCE。
+- 每族至少两个规则模板/两个 seed；世界与 seed 运行前冻结并记哈希。
+- 样本数/排列：4/5/6 条公开样本对照；顺序打乱版本单独评价。
+- 查询池与隐藏集不重叠；source/reliability 声明冻结。
+
+## 9. 运行与停止
 
 - 先跑 smoke（5 基线 × 固定案例），确认 schema/成本/动作/无泄漏。
 - 协议冻结后才可跑 A10；本轮**不跑 A10**。
 - 失败、异常、NOT_RUN 全部保留，不得丢弃。
 - 结论只对冻结世界/预算/查询域有效。
 
-## 8. 最小实现
+## 10. 最小实现
 
 代码：`src/main/kotlin/logic/e3/E3A9Baselines.kt`、`E3UsageMeter.kt`
 真实 smoke：`reports/a9-baseline-smoke.json`
 测试：`E3A9BaselineTest`（15 行 smoke + 预算/指标/动作反例）。
+
+
