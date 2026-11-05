@@ -100,9 +100,20 @@ ProbeRequest = RepeatLabel | RequestPublicInstance | NoAction
 - 冲突且原因不确定时只选择重复测量，不宣布噪声；多个假设可区分时选 Filter 建议且在 gateway 允许的公开查询；预算截断/无合法动作/已辨识时 NoAction。
 - 查询只经 `PublicProbeGateway`（测试由受控 `PublicQueryOracle` 包装）；不读取 HiddenTruth/family/target。
 - 记录动作、成本、结果、诊断前后状态、来源归因；重复测量与重复查询同一 ID 不算新独立证据。
+- 执行门禁：plan 签发 decisionId，execute 独立校验 token/maxActions/合法 ID/cost；伪造/过期/无效响应拒绝。
+- 重复测量区分 REPLAYED_LABEL/FRESH_MEASUREMENT；`newObservationRecorded` 与 `independentEvidence` 分开。
+- 已辨识后的 NoAction 仅限当前有界空间/策略，不声称世界不存在有价值查询；策略来源与动作归因分开。
 - 真实轨迹：`reports/a7-action-traces.json`。
 
-## 10. A1 本身明确未做
+## 10. A8 诊断整合（已实现）
+
+- `E3DiagnosticIntegrator` 将 A4 冲突、A6 预算 facts、A7 行动轨迹整合为 `DiagnosticReport`。
+- 同一案例允许多个 finding；每项含 evidenceIds/scope/sourceHypotheses/observationConclusion/assumptions/alternatives。
+- 冲突保留 noise/hidden/context/data error 等替代解释；预算敏感不称表示不足；有界辨识不称全局正确；不足允许 UNDETERMINED。
+- 不读取 WorldFamily/HiddenTruth/target rule；strategySource=designer_primitive。
+- 真实输出：`reports/a8-diagnostic-report.json`。
+
+## 11. A1 本身明确未做
 
 - 没有诊断算法、碰撞检测、噪声判断或探测选择策略。
 - A1 没有世界生成器、oracle、隐藏数据或评分器（A2 才开始）。

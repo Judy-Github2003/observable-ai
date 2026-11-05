@@ -1,4 +1,4 @@
-﻿# E3-A 决策记录
+# E3-A 决策记录
 
 ## A0（2026-11-05）
 
@@ -89,4 +89,12 @@
 - 空 queryDomain → TRAINING_ONLY_CONSISTENCY；只声明训练观察一致性，不称独立查询域辨识。
 - A7 新增 E3ProbeSession：冲突选 RepeatLabel（不宣布噪声），歧义选合法公开区分查询，预算/无合法/已辨识选 NoAction。
 - 动作记录成本、观察、诊断前后状态、归因；RepeatLabel 与重复查询同一 ID 均不算新独立证据。
+
+## A7 修正 / A8（2026-11-05）
+
+- `execute()` 独立门禁：plan 签发 decisionId；拒绝伪造/过期/已消费/超 maxActions/非法查询/cost 不匹配的决策。
+- 网关响应在入证据前校验 sampleId/visible/字段/值域/标签；无效响应拒绝并记录。
+- 重复测量区分 REPLAYED_LABEL / FRESH_MEASUREMENT；`newObservationRecorded` 与 `independentEvidence` 分开，回放不称独立证据。
+- 已辨识 NoAction 仅限当前有界空间/策略；保留“策略外可能有价值查询”的替代解释；strategySource 与 attribution 分开。
+- A8 `E3DiagnosticIntegrator` 整合 A4/A6/A7；多 finding、证据 ID/scope、替代解释、UNDETERMINED；冲突/预算/辨识均不越权归因。
 
