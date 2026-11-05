@@ -47,3 +47,17 @@
 - `AMBIGUOUS_EVIDENCE`：`a==1` 与 `b==1` 同时拟合公开数据；隐藏输入用于后续区分。
 - 三个 A3 家族统一使用三字段 schema、来源格式和 5/1/2 公开/查询/隐藏分层；不靠 family 字段区分。
 - 仍未实现诊断算法；A4 才做可观察碰撞检测。证据模式存在不等于学生能正确诊断。
+
+## A2/A3 复核修正（2026-11-05）
+
+- 公开 `worldId` 改为 SHA-256 摘要 `w-<16 hex>`，不含 seed/index；正式实验要求 evaluator/seed/HiddenTruth 在独立进程或 classpath。
+- `AMBIGUOUS_EVIDENCE` 初版实际只有 4 条公开观察（报告误写 5）；现补第 5 条同标签重复观测，A3 三族统一为 5 条，并加计数测试。
+- `SEARCH_LIMITED` 增加真实 Composer 低预算对照（depth 2/3），结果见 `reports/a3-search-limited-composer.json`；未运行高预算，不宣称预算唯一原因。
+- 后续对照计划：用 4/5/6 条公开样本和不同排列，检查样本数量/顺序是否成为类别线索。
+
+## A4（2026-11-05）
+
+- 新增 `ObservableCollisionDetector`，只按完整 Known 可见向量分组；同组不同布尔标签报告冲突。
+- 报告保留 observationId/sourceId/round/label 和证据范围；Unknown/未标注分别排除，非法输入返回机器错误。
+- 明确不做原因归因：不推断隐藏属性、噪声、随机性或世界类别；不读取 evaluator family/HiddenTruth。
+- 无冲突、多来源、不同轮次、Unknown、多冲突组和编码字段均有测试。

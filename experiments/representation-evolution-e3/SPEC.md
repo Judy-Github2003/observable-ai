@@ -53,13 +53,23 @@ ProbeRequest = RepeatLabel | RequestPublicInstance | NoAction
 
 - `logic.e3.evaluator`：`SOLVABLE`、`LATENT_ALIASING`、`NOISY_LABELS`、`SEARCH_LIMITED`、`AMBIGUOUS_EVIDENCE`；固定 seed 可复现。
 - `PublicWorld` 只含 schema、公开观察、公开查询池；`HiddenTruth` 含 family/规则/隐藏特征/有限域真值/`heldOut`，仅评测端持有。
+- 公开 `worldId` 为 `w-<hash>`，不暴露 seed/index；正式学生实验需将 evaluator 包、seed 和 HiddenTruth 放在独立进程/classpath。
 - `PublicQueryOracle`/`StudentView`：学生只能查询 queryPool ID；H/D 系列或猜测 ID 返回 `query_not_allowed`，不持有完整真值。
 - `LATENT_ALIASING` 用隐藏 `latent` 产生同可见向量、不同标签的公开碰撞。
 - 匹配对照：`matchedPair()` 让 SOLVABLE 与 LATENT_ALIASING 共用 schema、值域、来源格式和样本数量，公开 ID 中性。
 - A3 证据区别：可靠同源冲突（NOISY）；浅候选全部不拟合且无碰撞（SEARCH_LIMITED）；两个浅假设同时拟合（AMBIGUOUS）。
+- A3 三族公开样本统一为 5 条；后续用 4/5/6 条与不同排列做对照，避免样本数量成为类别线索。
+- SEARCH_LIMITED 已记录真实 Composer 低预算对照（depth 2/3）：`reports/a3-search-limited-composer.json`；未运行高预算，不能宣称预算唯一原因。
 - 边界：碰撞只证明当前可见属性不能唯一决定标签，不证明学生能发现隐藏属性；生成器存在不等于诊断能力。
 
-## 6. A1 本身明确未做
+## 6. A4 可观察碰撞检测（已实现）
+
+- `ObservableCollisionDetector.detect(schema, observations)` 只按完整 Known 可见向量分组；同组不同布尔标签才是冲突。
+- 报告含 featureKey、observationId、sourceId、round、label、范围；Unknown/未标注分别排除；非法输入返回机器错误。
+- 不推断隐藏属性、噪声、随机性或世界原因；不 import evaluator/family/HiddenTruth。
+- 无冲突、多来源、不同轮次、Unknown 值均有测试。
+
+## 7. A1 本身明确未做
 
 - 没有诊断算法、碰撞检测、噪声判断或探测选择策略。
 - A1 没有世界生成器、oracle、隐藏数据或评分器（A2 才开始）。
