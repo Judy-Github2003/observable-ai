@@ -33,6 +33,8 @@ data class A9BaselineResult(
     val claimedGlobal: Boolean = false,
     val candidateBodies: List<Expr> = emptyList(),
     val candidateCanonicals: List<String> = emptyList(),
+    val queryDomain: List<Map<String, String>> = emptyList(),
+    val searchRecord: A9FrozenSearchRecord? = null,
 )
 
 /** 评测端 truth；只供独立评分，不进入基线。 */
@@ -89,8 +91,10 @@ class E3A9BaselineRunner {
                 A9BaselineResult(
                     baseline, claim, null, signal.usableObservationIds, signal.boundedScope, meter.snapshot(),
                     listOf("b0_filter_only", "status=${signal.status}"),
-                    candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateBodies else emptyList(),
-                    candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateHashes else emptyList(),
+                    candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateBodies.take(1) else emptyList(),
+                    candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateHashes.take(1) else emptyList(),
+                    queryDomain = queryDomain,
+                    searchRecord = record(signal, high, constants, queryDomain, "b0_before_probe"),
                 )
             }
             A9BaselineId.COLLISION_ONLY -> {
@@ -139,13 +143,35 @@ class E3A9BaselineRunner {
                 A9BaselineResult(
                     baseline, claim, actionRecord(probe), ids, integrated.signal.boundedScope, meter.snapshot(),
                     listOf("integrated_report", "strategy=${integrated.report.strategySource}"),
-                    candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateBodies else emptyList(),
-                    candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateHashes else emptyList(),
+                    candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateBodies.take(1) else emptyList(),
+                    candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateHashes.take(1) else emptyList(),
+                    queryDomain = queryDomain,
+                    searchRecord = record(integrated.signal, high, constants, queryDomain, "e3_after_probe"),
                 )
             }
         }
         return result
     }
+
+    private fun record(
+        signal: DiagnosticSignal,
+        budget: DiagnosticBudget,
+        constants: PublicConstants,
+        queryDomain: List<Map<String, String>>,
+        stage: String,
+    ): A9FrozenSearchRecord = A9FrozenSearchRecord(
+        runId = "a9-${System.nanoTime()}",
+        budget = budget,
+        constants = constants,
+        queryDomain = queryDomain,
+        composedCandidateHashes = signal.composedCandidateHashes,
+        consistentCandidates = signal.consistentCandidateBodies.zip(signal.consistentCandidateHashes)
+            .map { (body, canonical) -> A9FrozenCandidate(body, canonical) },
+        reason = signal.search?.reason,
+        generated = signal.search?.generated ?: 0,
+        candidateCount = signal.search?.candidateCount ?: 0,
+        frozenAtStage = stage,
+    )
 
     private fun actionRecord(trace: ProbeTrace): A9ActionRecord = when (val action = trace.action) {
         is ProbeAction.RequestPublicInstance -> A9ActionRecord(

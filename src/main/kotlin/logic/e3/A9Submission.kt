@@ -1,5 +1,5 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-05。
-// 原因：E3-A9 学生输出契约；候选 AST/结论/范围/查询域冻结后交给独立评测端。
+// 原因：E3-A9 学生输出/冻结搜索记录契约；评测端可重算，不把自报字段当事实。
 package logic.e3
 
 import logic.capability.Expr
@@ -11,6 +11,21 @@ enum class A9CausalClaim {
     WORLD_CAUSE,
 }
 
+data class A9FrozenCandidate(val body: Expr, val canonical: String)
+
+data class A9FrozenSearchRecord(
+    val runId: String,
+    val budget: DiagnosticBudget,
+    val constants: PublicConstants,
+    val queryDomain: List<Map<String, String>>,
+    val composedCandidateHashes: List<String>,
+    val consistentCandidates: List<A9FrozenCandidate>,
+    val reason: String?,
+    val generated: Int,
+    val candidateCount: Int,
+    val frozenAtStage: String,
+)
+
 data class A9StudentSubmission(
     val baseline: A9BaselineId,
     val diagnosticClaim: A9DiagnosticClaim,
@@ -19,12 +34,13 @@ data class A9StudentSubmission(
     val boundedScope: EvidenceScope?,
     val queryDomain: List<Map<String, String>>,
     val evidenceIds: List<String>,
+    val searchRecord: A9FrozenSearchRecord? = null,
     val claimedGlobal: Boolean = false,
     val causalClaims: Set<A9CausalClaim> = emptySet(),
 )
 
 fun A9BaselineResult.toSubmission(
-    queryDomain: List<Map<String, String>>,
+    queryDomain: List<Map<String, String>> = this.queryDomain,
     causalClaims: Set<A9CausalClaim> = emptySet(),
 ): A9StudentSubmission = A9StudentSubmission(
     baseline = baseline,
@@ -34,6 +50,7 @@ fun A9BaselineResult.toSubmission(
     boundedScope = boundedScope,
     queryDomain = queryDomain,
     evidenceIds = evidenceIds,
+    searchRecord = searchRecord,
     claimedGlobal = claimedGlobal,
     causalClaims = causalClaims,
 )

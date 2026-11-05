@@ -21,7 +21,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 27761900,
+        "elapsedNanos": 21760700,
         "evidenceCount": 5,
         "claimedGlobal": false,
         "notes": [
@@ -51,7 +51,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 56900,
+        "elapsedNanos": 77700,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -80,7 +80,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 18800,
+        "elapsedNanos": 20500,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -109,7 +109,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 90409400,
+        "elapsedNanos": 90498700,
         "evidenceCount": 5,
         "claimedGlobal": false,
         "notes": [
@@ -139,7 +139,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 1000,
+        "elapsedNanos": 1800,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -168,7 +168,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 76100,
+        "elapsedNanos": 80900,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -198,7 +198,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 22100,
+        "elapsedNanos": 23900,
         "evidenceCount": 2,
         "claimedGlobal": false,
         "notes": [
@@ -228,7 +228,7 @@
         "totalProbeCost": 1,
         "successfulProbeCount": 1,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 130800,
+        "elapsedNanos": 128700,
         "evidenceCount": 1,
         "claimedGlobal": false,
         "notes": [
@@ -259,7 +259,7 @@
         "totalProbeCost": 1,
         "successfulProbeCount": 1,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 249900,
+        "elapsedNanos": 257700,
         "evidenceCount": 3,
         "claimedGlobal": false,
         "notes": [
@@ -318,7 +318,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 3567200,
+        "elapsedNanos": 3664200,
         "evidenceCount": 5,
         "claimedGlobal": false,
         "notes": [
@@ -348,7 +348,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 65300,
+        "elapsedNanos": 55400,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -377,7 +377,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 62800,
+        "elapsedNanos": 21200,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -406,7 +406,7 @@
         "totalProbeCost": 1,
         "successfulProbeCount": 1,
         "independentEvidenceCount": 1,
-        "elapsedNanos": 19163800,
+        "elapsedNanos": 18780300,
         "evidenceCount": 6,
         "claimedGlobal": false,
         "notes": [
@@ -436,7 +436,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 1000,
+        "elapsedNanos": 900,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [

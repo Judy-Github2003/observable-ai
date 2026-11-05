@@ -1,5 +1,5 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-05。
-// 原因：E3-A9 独立评测端；读取 HiddenTruth/heldOut，执行冻结候选；不得进入学生接口。
+// 原因：E3-A9 独立评分；有界辨识按 H/公开证据/查询域的行为类判定，不直接以 Oracle 一致为成功。
 package logic.e3.evaluator
 
 import logic.capability.*
@@ -9,10 +9,14 @@ enum class A9EvaluationStatus { EVALUATED, NOT_EVALUATED }
 
 data class A9EvaluationResult(
     val status: A9EvaluationStatus,
-    val boundedClaimValidity: Boolean?,
+    val boundedIdentificationValidity: Boolean?,
+    val queryTruthAgreement: Boolean?,
     val heldoutPredictionError: Double?,
     val epistemicOverclaim: Boolean,
     val overclaimReasons: List<String>,
+    val behaviorClassCount: Int?,
+    val consistentCandidateCount: Int?,
+    val truthConflictDetected: Boolean,
     val evaluatedQueryPoints: Int,
     val evaluatedHeldoutPoints: Int,
     val notEvaluatedReason: String? = null,
@@ -20,70 +24,113 @@ data class A9EvaluationResult(
 
 /**
  * 独立评分入口：
- * - 学生只提交冻结候选 AST/结论/范围/查询域；
- * - 评测端持有 HiddenTruth，执行候选并计算隐藏错误；
- * - 有界声明有效性按声明 queryDomain 检查；
- * - 结构化越权来自 claimedGlobal/causalClaims，不依赖单一布尔字段。
+ * 1. 重算冻结搜索记录（H/公开证据/预算/查询域），拒绝不可验证的自报；
+ * 2. 有界辨识 = 一致候选在声明查询域上只有 1 个行为等价类；
+ * 3. queryTruthAgreement 单独计算；LATENT 同 visible 多真值时标记冲突，不静默覆盖；
+ * 4. heldoutPredictionError 独立；
+ * 5. 结构化越权独立。
  */
 class A9IndependentScorer(private val truth: HiddenTruth) {
 
-    fun evaluate(schema: VisibleSchema, submission: A9StudentSubmission): A9EvaluationResult {
+    fun evaluate(
+        schema: VisibleSchema,
+        observations: List<Observation>,
+        submission: A9StudentSubmission,
+    ): A9EvaluationResult {
         val overclaimReasons = ArrayList<String>()
         if (submission.claimedGlobal) overclaimReasons += "claimed_global"
         overclaimReasons += submission.causalClaims.map { "causal_claim:${it.name}" }
         val overclaim = overclaimReasons.isNotEmpty()
 
         fun notEvaluated(reason: String) = A9EvaluationResult(
-            A9EvaluationStatus.NOT_EVALUATED, null, null, overclaim, overclaimReasons, 0, 0, reason,
+            A9EvaluationStatus.NOT_EVALUATED, null, null, null, overclaim, overclaimReasons,
+            null, null, false, 0, 0, reason,
         )
 
         if (submission.diagnosticClaim != A9DiagnosticClaim.BOUNDED_IDENTIFIED) {
             return notEvaluated("not_a_bounded_identification_claim")
         }
-        if (submission.candidateBodies.isEmpty()) return notEvaluated("no_candidate_ast")
+        val record = submission.searchRecord ?: return notEvaluated("missing_frozen_search_record")
+        if (record.queryDomain != submission.queryDomain) return notEvaluated("search_record_query_domain_mismatch")
+        if (submission.candidateBodies.isEmpty()) return notEvaluated("no_selected_candidate")
         if (submission.evidenceIds.isEmpty()) return notEvaluated("no_evidence_ids")
         if (submission.queryDomain.isEmpty()) return notEvaluated("no_bounded_query_domain")
         if (truth.heldOut.isEmpty()) return notEvaluated("no_heldout_points")
-        if (submission.candidateBodies.size != submission.candidateCanonicals.size) {
-            return notEvaluated("candidate_canonical_count_mismatch")
+
+        val recomputed = E3B0DiagnosticAdapter().diagnose(
+            schema, observations, record.constants, record.queryDomain, record.budget,
+        )
+        if (record.composedCandidateHashes != recomputed.composedCandidateHashes ||
+            record.consistentCandidates.map { it.canonical } != recomputed.consistentCandidateHashes ||
+            record.reason != recomputed.search?.reason ||
+            record.generated != (recomputed.search?.generated ?: 0)
+        ) {
+            return notEvaluated("frozen_search_record_mismatch")
         }
-        for ((body, canonical) in submission.candidateBodies.zip(submission.candidateCanonicals)) {
-            if (CanonicalJson.astHash(body) != canonical) return notEvaluated("candidate_hash_mismatch")
-        }
+        val consistent = recomputed.consistentCandidateBodies.zip(recomputed.consistentCandidateHashes)
+        if (consistent.isEmpty()) return notEvaluated("no_consistent_candidate")
+        val selectedBody = submission.candidateBodies.first()
+        val selectedHash = submission.candidateCanonicals.firstOrNull()
+            ?: return notEvaluated("missing_selected_candidate_hash")
+        if (selectedHash !in consistent.map { it.second }) return notEvaluated("selected_candidate_not_consistent")
+        if (CanonicalJson.astHash(selectedBody) != selectedHash) return notEvaluated("selected_candidate_hash_mismatch")
 
         val type = CapType.Record(schema.fieldNames().associateWith { CapType.Str })
         val inputs = mapOf("x" to type)
         val interpreter = CapabilityInterpreter(InMemoryResolver(emptyList()))
-        val definition = CapabilityDefinition("a9.evaluated_candidate", 1, inputs, CapType.Bool3, submission.candidateBodies.first())
 
-        fun predict(point: Map<String, String>): Boolean? {
+        fun predict(body: Expr, point: Map<String, String>): Boolean? {
+            val definition = CapabilityDefinition("a9.evaluated_candidate", 1, inputs, CapType.Bool3, body)
             val args = mapOf("x" to EvalResult.Known(CapValue.Rec(
                 schema.fieldNames().associateWith { CapValue.Str(point.getValue(it)) },
             )))
-            val result = interpreter.execute(definition, args)
-            return if (result is EvalResult.Known) (result.value as CapValue.Bool).value else null
+            return when (val result = interpreter.execute(definition, args)) {
+                is EvalResult.Known -> (result.value as CapValue.Bool).value
+                else -> null
+            }
         }
 
-        val queryTruth = truth.fullDomain.associateBy { it.visible.toSortedMap() }
-        if (submission.queryDomain.any { it.toSortedMap() !in queryTruth }) {
-            return notEvaluated("query_domain_not_covered_by_truth")
+        fun signature(body: Expr): String = submission.queryDomain.joinToString("|") { point ->
+            when (predict(body, point)) {
+                true -> "T"
+                false -> "F"
+                null -> "U"
+            }
         }
-        val queryCorrect = submission.queryDomain.count { point ->
-            predict(point) == queryTruth.getValue(point.toSortedMap()).label
-        }
-        val boundedValid = queryCorrect == submission.queryDomain.size && submission.candidateBodies.size == 1
 
-        val heldoutErrors = truth.heldOut.count { point ->
-            predict(point.visible) != point.label
+        val classes = consistent.map { it.first }.map(::signature).toSet()
+        val boundedValidity = classes.size == 1
+        val selectedSignature = signature(selectedBody)
+
+        val truthByVisible = truth.fullDomain.groupBy { it.visible.toSortedMap() }
+        var truthConflict = false
+        var queryTruthAgreement: Boolean? = null
+        if (submission.queryDomain.all { truthByVisible.containsKey(it.toSortedMap()) }) {
+            val labels = submission.queryDomain.map { point ->
+                truthByVisible.getValue(point.toSortedMap()).map { it.label }.toSet()
+            }
+            truthConflict = labels.any { it.size > 1 }
+            if (!truthConflict) {
+                queryTruthAgreement = submission.queryDomain.indices.all { index ->
+                    val expected = labels[index].single()
+                    predict(selectedBody, submission.queryDomain[index]) == expected
+                }
+            }
         }
+
+        val heldoutErrors = truth.heldOut.count { point -> predict(selectedBody, point.visible) != point.label }
         val heldoutError = heldoutErrors.toDouble() / truth.heldOut.size
 
         return A9EvaluationResult(
             status = A9EvaluationStatus.EVALUATED,
-            boundedClaimValidity = boundedValid,
+            boundedIdentificationValidity = boundedValidity && selectedSignature == classes.singleOrNull(),
+            queryTruthAgreement = queryTruthAgreement,
             heldoutPredictionError = heldoutError,
             epistemicOverclaim = overclaim,
             overclaimReasons = overclaimReasons,
+            behaviorClassCount = classes.size,
+            consistentCandidateCount = consistent.size,
+            truthConflictDetected = truthConflict,
             evaluatedQueryPoints = submission.queryDomain.size,
             evaluatedHeldoutPoints = truth.heldOut.size,
         )

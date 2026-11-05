@@ -2,8 +2,12 @@
     {
         "case": "valid",
         "status": "EVALUATED",
-        "boundedClaimValidity": true,
+        "boundedIdentificationValidity": true,
         "heldoutPredictionError": 0.0,
+        "queryTruthAgreement": true,
+        "behaviorClassCount": 1,
+        "consistentCandidateCount": 1,
+        "truthConflictDetected": false,
         "epistemicOverclaim": false,
         "overclaimReasons": [],
         "evaluatedQueryPoints": 2,
@@ -13,8 +17,12 @@
     {
         "case": "global_overclaim",
         "status": "EVALUATED",
-        "boundedClaimValidity": true,
+        "boundedIdentificationValidity": true,
         "heldoutPredictionError": 0.0,
+        "queryTruthAgreement": true,
+        "behaviorClassCount": 1,
+        "consistentCandidateCount": 1,
+        "truthConflictDetected": false,
         "epistemicOverclaim": true,
         "overclaimReasons": [
             "claimed_global"
@@ -26,8 +34,12 @@
     {
         "case": "causal_overclaim",
         "status": "EVALUATED",
-        "boundedClaimValidity": true,
+        "boundedIdentificationValidity": true,
         "heldoutPredictionError": 0.0,
+        "queryTruthAgreement": true,
+        "behaviorClassCount": 1,
+        "consistentCandidateCount": 1,
+        "truthConflictDetected": false,
         "epistemicOverclaim": true,
         "overclaimReasons": [
             "causal_claim:HIDDEN_ATTRIBUTE"
@@ -39,12 +51,31 @@
     {
         "case": "no_candidate",
         "status": "NOT_EVALUATED",
-        "boundedClaimValidity": null,
+        "boundedIdentificationValidity": null,
         "heldoutPredictionError": null,
+        "queryTruthAgreement": null,
+        "behaviorClassCount": null,
+        "consistentCandidateCount": null,
+        "truthConflictDetected": false,
         "epistemicOverclaim": false,
         "overclaimReasons": [],
         "evaluatedQueryPoints": 0,
         "evaluatedHeldoutPoints": 0,
-        "notEvaluatedReason": "no_candidate_ast"
+        "notEvaluatedReason": "no_selected_candidate"
+    },
+    {
+        "case": "latent_truth_conflict",
+        "status": "EVALUATED",
+        "boundedIdentificationValidity": true,
+        "heldoutPredictionError": 0.0,
+        "queryTruthAgreement": null,
+        "behaviorClassCount": 1,
+        "consistentCandidateCount": 1,
+        "truthConflictDetected": true,
+        "epistemicOverclaim": false,
+        "overclaimReasons": [],
+        "evaluatedQueryPoints": 2,
+        "evaluatedHeldoutPoints": 2,
+        "notEvaluatedReason": null
     }
 ]
