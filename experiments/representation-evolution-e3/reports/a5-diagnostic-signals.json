@@ -15,7 +15,11 @@
             "collisionFindings": 0,
             "collisionParticipants": [],
             "search": {
-                "maxDepth": 3,
+                "maxComposeRounds": 3,
+                "maxNodes": 32,
+                "maxCandidates": 3000,
+                "maxSteps": 10000,
+                "observedAstMaxDepth": 4,
                 "generated": 1255,
                 "exhausted": true,
                 "reason": "depth_limit",
@@ -29,7 +33,7 @@
                 "domainSize": 2
             },
             "notes": [
-                "depth_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
+                "compose_round_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
                 "identified_scope_is_bounded_to_current_hypothesis_and_query_domain"
             ]
         },
@@ -75,7 +79,11 @@
             "collisionFindings": 0,
             "collisionParticipants": [],
             "search": {
-                "maxDepth": 3,
+                "maxComposeRounds": 3,
+                "maxNodes": 32,
+                "maxCandidates": 3000,
+                "maxSteps": 10000,
+                "observedAstMaxDepth": 4,
                 "generated": 181,
                 "exhausted": true,
                 "reason": "depth_limit",
@@ -89,7 +97,7 @@
                 "domainSize": 1
             },
             "notes": [
-                "depth_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
+                "compose_round_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
                 "identified_scope_is_bounded_to_current_hypothesis_and_query_domain"
             ]
         },
@@ -107,7 +115,11 @@
             "collisionFindings": 0,
             "collisionParticipants": [],
             "search": {
-                "maxDepth": 3,
+                "maxComposeRounds": 3,
+                "maxNodes": 32,
+                "maxCandidates": 3000,
+                "maxSteps": 10000,
+                "observedAstMaxDepth": 4,
                 "generated": 181,
                 "exhausted": true,
                 "reason": "depth_limit",
@@ -121,7 +133,7 @@
                 "domainSize": 1
             },
             "notes": [
-                "depth_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
+                "compose_round_limit_observed; this does NOT prove the target rule is outside the hypothesis space",
                 "identified_scope_is_bounded_to_current_hypothesis_and_query_domain"
             ]
         }

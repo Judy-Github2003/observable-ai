@@ -1,0 +1,191 @@
+{
+    "note": "A6 budget diagnosis; public inputs only; no family/truth fields in inputs",
+    "cases": [
+        {
+            "case": "solvable",
+            "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "budgetChanges": [
+                "rounds:2->3",
+                "nodes:32->32",
+                "candidates:3000->3000",
+                "steps:10000->10000"
+            ],
+            "runs": [
+                {
+                    "maxComposeRounds": 2,
+                    "status": "REFUSED",
+                    "search": {
+                        "generated": 37,
+                        "reason": "depth_limit",
+                        "candidateCount": 28,
+                        "maxCandidates": 3000
+                    },
+                    "filter": {
+                        "status": "REFUSED",
+                        "reason": "no_consistent_candidate",
+                        "survivorCount": 0,
+                        "domainSize": 0
+                    },
+                    "behaviorClasses": 0
+                },
+                {
+                    "maxComposeRounds": 3,
+                    "status": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+                    "search": {
+                        "generated": 1255,
+                        "reason": "depth_limit",
+                        "candidateCount": 1246,
+                        "maxCandidates": 3000
+                    },
+                    "filter": {
+                        "status": "IDENTIFIED",
+                        "reason": null,
+                        "survivorCount": 1,
+                        "domainSize": 2
+                    },
+                    "behaviorClasses": 1
+                }
+            ],
+            "notes": [
+                "high_budget_new_candidates_do_not_prove_the_true_world_rule",
+                "high_budget_failure_does_not_prove_representation_insufficiency",
+                "compose_rounds_are_not_ast_depth",
+                "candidate_set_changed_with_budget; this is budget sensitivity, not truth identification"
+            ]
+        },
+        {
+            "case": "search_limited",
+            "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "budgetChanges": [
+                "rounds:2->3",
+                "nodes:32->32",
+                "candidates:3000->3000",
+                "steps:10000->10000"
+            ],
+            "runs": [
+                {
+                    "maxComposeRounds": 2,
+                    "status": "REFUSED",
+                    "search": {
+                        "generated": 16,
+                        "reason": "depth_limit",
+                        "candidateCount": 10,
+                        "maxCandidates": 3000
+                    },
+                    "filter": {
+                        "status": "REFUSED",
+                        "reason": "no_consistent_candidate",
+                        "survivorCount": 0,
+                        "domainSize": 0
+                    },
+                    "behaviorClasses": 0
+                },
+                {
+                    "maxComposeRounds": 3,
+                    "status": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+                    "search": {
+                        "generated": 181,
+                        "reason": "depth_limit",
+                        "candidateCount": 175,
+                        "maxCandidates": 3000
+                    },
+                    "filter": {
+                        "status": "AMBIGUOUS",
+                        "reason": null,
+                        "survivorCount": 6,
+                        "domainSize": 1
+                    },
+                    "behaviorClasses": 2
+                }
+            ],
+            "notes": [
+                "high_budget_new_candidates_do_not_prove_the_true_world_rule",
+                "high_budget_failure_does_not_prove_representation_insufficiency",
+                "compose_rounds_are_not_ast_depth",
+                "candidate_set_changed_with_budget; this is budget sensitivity, not truth identification"
+            ]
+        },
+        {
+            "case": "ambiguous",
+            "verdict": "MULTIPLE_CANDIDATES_REMAIN",
+            "budgetChanges": [
+                "rounds:2->3",
+                "nodes:32->32",
+                "candidates:3000->3000",
+                "steps:10000->10000"
+            ],
+            "runs": [
+                {
+                    "maxComposeRounds": 2,
+                    "status": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+                    "search": {
+                        "generated": 16,
+                        "reason": "depth_limit",
+                        "candidateCount": 10,
+                        "maxCandidates": 3000
+                    },
+                    "filter": {
+                        "status": "AMBIGUOUS",
+                        "reason": null,
+                        "survivorCount": 2,
+                        "domainSize": 1
+                    },
+                    "behaviorClasses": 2
+                },
+                {
+                    "maxComposeRounds": 3,
+                    "status": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+                    "search": {
+                        "generated": 181,
+                        "reason": "depth_limit",
+                        "candidateCount": 175,
+                        "maxCandidates": 3000
+                    },
+                    "filter": {
+                        "status": "AMBIGUOUS",
+                        "reason": null,
+                        "survivorCount": 20,
+                        "domainSize": 1
+                    },
+                    "behaviorClasses": 2
+                }
+            ],
+            "notes": [
+                "high_budget_new_candidates_do_not_prove_the_true_world_rule",
+                "high_budget_failure_does_not_prove_representation_insufficiency",
+                "compose_rounds_are_not_ast_depth"
+            ]
+        },
+        {
+            "case": "latent",
+            "verdict": "OBSERVATION_COLLISION",
+            "budgetChanges": [
+                "rounds:2->3",
+                "nodes:32->32",
+                "candidates:3000->3000",
+                "steps:10000->10000"
+            ],
+            "runs": [
+                {
+                    "maxComposeRounds": 2,
+                    "status": "OBSERVATION_COLLISION",
+                    "search": null,
+                    "filter": null,
+                    "behaviorClasses": 0
+                },
+                {
+                    "maxComposeRounds": 3,
+                    "status": "OBSERVATION_COLLISION",
+                    "search": null,
+                    "filter": null,
+                    "behaviorClasses": 0
+                }
+            ],
+            "notes": [
+                "high_budget_new_candidates_do_not_prove_the_true_world_rule",
+                "high_budget_failure_does_not_prove_representation_insufficiency",
+                "compose_rounds_are_not_ast_depth"
+            ]
+        }
+    ]
+}

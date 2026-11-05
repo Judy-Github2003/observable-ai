@@ -28,7 +28,7 @@ class E3A5SampleExportTest {
                     val signal = adapter.diagnose(
                         world.public.schema,
                         world.public.observations,
-                        world.public.schema.fields.values.flatten().distinct(),
+                        PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
                         world.public.queryPool.map { it.visible },
                     )
                     addJsonObject {
@@ -49,7 +49,11 @@ class E3A5SampleExportTest {
                             }
                         })
                         if (signal.search == null) put("search", JsonNull) else put("search", buildJsonObject {
-                            put("maxDepth", signal.search!!.maxDepth)
+                            put("maxComposeRounds", signal.search!!.maxComposeRounds)
+                            put("maxNodes", signal.search!!.maxNodes)
+                            put("maxCandidates", signal.search!!.maxCandidates)
+                            put("maxSteps", signal.search!!.maxSteps)
+                            put("observedAstMaxDepth", signal.search!!.observedAstMaxDepth)
                             put("generated", signal.search!!.generated)
                             put("exhausted", signal.search!!.exhausted)
                             if (signal.search!!.reason == null) put("reason", JsonNull) else put("reason", signal.search!!.reason)
