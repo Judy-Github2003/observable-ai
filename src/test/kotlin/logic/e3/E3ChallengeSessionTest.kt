@@ -118,6 +118,39 @@ class E3ChallengeSessionTest {
     }
 
     @Test
+    fun `query domain mismatch is rejected`() {
+        val result = boundedResult()
+        val tamperedOuter = result.copy(queryDomain = result.queryDomain + mapOf("x" to "other"))
+        assertEquals("query_domain_mismatch", E3ChallengeSession.open(tamperedOuter).rejectionCode)
+
+        val tamperedSnapshot = result.copy(
+            searchRecord = result.searchRecord!!.copy(queryDomain = result.searchRecord.queryDomain + mapOf("x" to "other")),
+        )
+        assertEquals("query_domain_mismatch", E3ChallengeSession.open(tamperedSnapshot).rejectionCode)
+    }
+
+    @Test
+    fun `tampered snapshot candidate AST or inconsistent candidate set is rejected`() {
+        val result = boundedResult()
+        val snapshot = result.searchRecord!!
+        val first = snapshot.consistentCandidates.first()
+        val tamperedAst = snapshot.copy(
+            consistentCandidates = listOf(first.copy(body = Expr.Const(CapValue.Bool(!(first.body is Expr.Const)))) ) +
+                snapshot.consistentCandidates.drop(1),
+        )
+        assertEquals("snapshot_candidate_hash_mismatch", E3ChallengeSession.open(result.copy(searchRecord = tamperedAst)).rejectionCode)
+
+        val foreignBody = Expr.Const(CapValue.Bool(false))
+        val foreign = A9FrozenCandidate(foreignBody, logic.capability.CanonicalJson.astHash(foreignBody))
+        val inconsistent = snapshot.copy(consistentCandidates = snapshot.consistentCandidates + foreign)
+        assertEquals("snapshot_candidate_not_in_composed", E3ChallengeSession.open(result.copy(searchRecord = inconsistent)).rejectionCode)
+
+        val selected = result.candidateCanonicals.single()
+        val missingComposed = snapshot.copy(composedCandidateHashes = snapshot.composedCandidateHashes - selected)
+        assertEquals("snapshot_candidate_not_in_composed", E3ChallengeSession.open(result.copy(searchRecord = missingComposed)).rejectionCode)
+    }
+
+    @Test
     fun `pending state does not query labels or modify knowledge`() {
         val result = boundedResult()
         val entry = E3ChallengeSession.open(result)

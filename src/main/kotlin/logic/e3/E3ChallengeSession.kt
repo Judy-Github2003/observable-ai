@@ -42,6 +42,7 @@ object E3ChallengeSession {
             return reject("not_bounded_identified")
         }
         val snapshot = result.searchRecord ?: return reject("missing_search_record")
+        if (result.queryDomain != snapshot.queryDomain) return reject("query_domain_mismatch")
         if (snapshot.publicEvidenceIds.isEmpty()) return reject("missing_evidence")
         if (snapshot.queryDomain.isEmpty()) return reject("empty_query_domain")
         if (!validBudget(snapshot.budget)) return reject("invalid_budget")
@@ -50,12 +51,20 @@ object E3ChallengeSession {
         if (result.candidateBodies.size != 1 || result.candidateCanonicals.size != 1) {
             return reject("multiple_selected_candidates")
         }
+        if (snapshot.consistentCandidates.isEmpty()) return reject("empty_consistent_candidates")
+        if (snapshot.consistentCandidates.any { CanonicalJson.astHash(it.body) != it.canonical }) {
+            return reject("snapshot_candidate_hash_mismatch")
+        }
+        if (snapshot.consistentCandidates.any { it.canonical !in snapshot.composedCandidateHashes }) {
+            return reject("snapshot_candidate_not_in_composed")
+        }
         val body = result.candidateBodies.single()
         val canonical = result.candidateCanonicals.single()
         if (CanonicalJson.astHash(body) != canonical) return reject("candidate_canonical_mismatch")
         if (snapshot.consistentCandidates.none { it.canonical == canonical }) {
             return reject("candidate_not_in_snapshot")
         }
+        if (canonical !in snapshot.composedCandidateHashes) return reject("selected_not_in_composed_candidates")
         if (result.evidenceIds.isEmpty() || result.evidenceIds.any { it !in snapshot.publicEvidenceIds }) {
             return reject("evidence_not_in_snapshot")
         }
