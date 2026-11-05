@@ -90,10 +90,26 @@ class E3A9BaselineTest {
                 }
             }
         }
-        assertEquals(15, rows.size)
+        assertEquals(18, rows.size)
         val out = Path.of("experiments/representation-evolution-e3/reports/a9-baseline-smoke.json")
         Files.createDirectories(out.parent)
         Files.writeString(out, Json { prettyPrint = true }.encodeToString(JsonArray.serializer(), JsonArray(rows)) + "\n")
+    }
+
+    @Test
+    fun `B0 active query uses one authorized public query without E3 diagnosis`() {
+        val world = E3WorldGenerator(109L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)
+        val result = runner().run(
+            A9BaselineId.B0_ACTIVE_QUERY, world.public.schema, world.public.observations,
+            PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            world.public.queryPool.map { it.visible }, gateway(world),
+        )
+        assertNotNull(result.action)
+        assertEquals(A9ActionKind.REQUEST_PUBLIC_INSTANCE, result.action!!.actionKind)
+        assertNotNull(result.action!!.requestedSampleId)
+        assertEquals(1, result.computation.publicInstanceRequests)
+        assertEquals(1, result.computation.totalProbeCost)
+        assertEquals(result.action!!.actualCost, result.computation.totalProbeCost)
     }
 
     @Test
@@ -169,6 +185,25 @@ class E3A9BaselineTest {
         assertTrue(request.computation.publicInstanceRequests >= 1)
         assertEquals(request.action!!.actualCost, request.computation.totalProbeCost)
         assertEquals(1, request.computation.successfulProbeCount)
+    }
+
+    @Test
+    fun `collision and undetermined have independent scoring validity`() {
+        val collision = A9BaselineResult(
+            A9BaselineId.COLLISION_ONLY, A9DiagnosticClaim.OBSERVATION_COLLISION, null, listOf("o1", "o2"), null,
+            E3UsageSnapshot(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), emptyList(),
+        )
+        val collisionScore = A9Scorer.score(collision, A9CaseTruth(null, null, collisionPresent = true, requiresAbstention = false))
+        assertTrue(collisionScore.collisionEvidenceCorrect!!)
+        assertFalse(collisionScore.diagnosticCoverage)
+
+        val abstain = A9BaselineResult(
+            A9BaselineId.ALWAYS_UNDETERMINED, A9DiagnosticClaim.UNDETERMINED, null, emptyList(), null,
+            E3UsageSnapshot(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), emptyList(),
+        )
+        val abstainScore = A9Scorer.score(abstain, A9CaseTruth(null, null, collisionPresent = null, requiresAbstention = true))
+        assertTrue(abstainScore.validAbstention!!)
+        assertFalse(abstainScore.diagnosticCoverage)
     }
 
     @Test

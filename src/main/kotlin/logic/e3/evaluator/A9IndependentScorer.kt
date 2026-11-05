@@ -19,6 +19,7 @@ data class A9EvaluationResult(
     val truthConflictDetected: Boolean,
     val evaluatedQueryPoints: Int,
     val evaluatedHeldoutPoints: Int,
+    val evaluationMaxSteps: Int = 0,
     val notEvaluatedReason: String? = null,
 )
 
@@ -36,7 +37,24 @@ class A9IndependentScorer(private val truth: HiddenTruth) {
         schema: VisibleSchema,
         observations: List<Observation>,
         submission: A9StudentSubmission,
+        event: A9TrustedActionEvent? = null,
+        context: A9ExecutionContext? = null,
     ): A9EvaluationResult {
+        var trustedEvidence = observations
+        if (event != null) {
+            val expectedContext = context ?: return A9EvaluationResult(
+                A9EvaluationStatus.NOT_EVALUATED, null, null, null, false, emptyList(),
+                null, null, false, 0, 0, 0, "missing_execution_context",
+            )
+            val replay = A9TrustedReplay.reconstruct(schema, observations, event, expectedContext)
+            if (replay.second != null) {
+                return A9EvaluationResult(
+                    A9EvaluationStatus.NOT_EVALUATED, null, null, null, false, emptyList(),
+                    null, null, false, 0, 0, 0, "trusted_event_invalid:${replay.second}",
+                )
+            }
+            trustedEvidence = replay.first
+        }
         val overclaimReasons = ArrayList<String>()
         if (submission.claimedGlobal) overclaimReasons += "claimed_global"
         overclaimReasons += submission.causalClaims.map { "causal_claim:${it.name}" }
@@ -44,7 +62,7 @@ class A9IndependentScorer(private val truth: HiddenTruth) {
 
         fun notEvaluated(reason: String) = A9EvaluationResult(
             A9EvaluationStatus.NOT_EVALUATED, null, null, null, overclaim, overclaimReasons,
-            null, null, false, 0, 0, reason,
+            null, null, false, 0, 0, 0, reason,
         )
 
         if (submission.diagnosticClaim != A9DiagnosticClaim.BOUNDED_IDENTIFIED) {
@@ -52,18 +70,30 @@ class A9IndependentScorer(private val truth: HiddenTruth) {
         }
         val record = submission.searchRecord ?: return notEvaluated("missing_frozen_search_record")
         if (record.queryDomain != submission.queryDomain) return notEvaluated("search_record_query_domain_mismatch")
+        if (record.boundedScope != submission.boundedScope) return notEvaluated("search_record_scope_mismatch")
+        if (record.publicEvidenceIds != trustedEvidence.map { it.observationId }) return notEvaluated("search_record_evidence_mismatch")
+        if (context != null) {
+            if (record.runId != context.runId) return notEvaluated("search_record_run_id_mismatch")
+            if (record.budget != context.budget) return notEvaluated("search_record_budget_mismatch")
+            val frozenIndex = context.stageOrder.indexOf(record.frozenAtStage)
+            val hiddenIndex = context.stageOrder.indexOf(context.hiddenScoringStage)
+            if (frozenIndex < 0 || hiddenIndex < 0 || frozenIndex >= hiddenIndex) {
+                return notEvaluated("candidate_not_frozen_before_hidden_scoring")
+            }
+        }
         if (submission.candidateBodies.isEmpty()) return notEvaluated("no_selected_candidate")
         if (submission.evidenceIds.isEmpty()) return notEvaluated("no_evidence_ids")
         if (submission.queryDomain.isEmpty()) return notEvaluated("no_bounded_query_domain")
         if (truth.heldOut.isEmpty()) return notEvaluated("no_heldout_points")
 
         val recomputed = E3B0DiagnosticAdapter().diagnose(
-            schema, observations, record.constants, record.queryDomain, record.budget,
+            schema, trustedEvidence, record.constants, record.queryDomain, record.budget,
         )
         if (record.composedCandidateHashes != recomputed.composedCandidateHashes ||
             record.consistentCandidates.map { it.canonical } != recomputed.consistentCandidateHashes ||
             record.reason != recomputed.search?.reason ||
-            record.generated != (recomputed.search?.generated ?: 0)
+            record.generated != (recomputed.search?.generated ?: 0) ||
+            record.candidateCount != (recomputed.search?.candidateCount ?: 0)
         ) {
             return notEvaluated("frozen_search_record_mismatch")
         }
@@ -133,6 +163,7 @@ class A9IndependentScorer(private val truth: HiddenTruth) {
             truthConflictDetected = truthConflict,
             evaluatedQueryPoints = submission.queryDomain.size,
             evaluatedHeldoutPoints = truth.heldOut.size,
+            evaluationMaxSteps = record.budget.maxSteps,
         )
     }
 }

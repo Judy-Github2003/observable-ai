@@ -4,7 +4,7 @@ package logic.e3
 
 import logic.capability.Expr
 
-enum class A9BaselineId { B0_ONLY, COLLISION_ONLY, REPEAT_ONLY, E3_DIAGNOSTIC, ALWAYS_UNDETERMINED }
+enum class A9BaselineId { B0_ONLY, B0_ACTIVE_QUERY, COLLISION_ONLY, REPEAT_ONLY, E3_DIAGNOSTIC, ALWAYS_UNDETERMINED }
 
 /** 诊断结论；动作本身不是知识结论。 */
 enum class A9DiagnosticClaim { BOUNDED_IDENTIFIED, OBSERVATION_COLLISION, UNDETERMINED }
@@ -41,6 +41,8 @@ data class A9BaselineResult(
 data class A9CaseTruth(
     val boundedClaimValid: Boolean?,
     val heldoutPredictionError: Double?,
+    val collisionPresent: Boolean? = null,
+    val requiresAbstention: Boolean? = null,
 )
 
 data class A9Score(
@@ -49,6 +51,8 @@ data class A9Score(
     val epistemicOverclaim: Boolean,
     val diagnosticCoverage: Boolean,
     val collisionCoverage: Boolean,
+    val collisionEvidenceCorrect: Boolean? = null,
+    val validAbstention: Boolean? = null,
 )
 
 object A9Scorer {
@@ -62,6 +66,12 @@ object A9Scorer {
         epistemicOverclaim = result.claimedGlobal,
         diagnosticCoverage = result.diagnosticClaim == A9DiagnosticClaim.BOUNDED_IDENTIFIED,
         collisionCoverage = result.diagnosticClaim == A9DiagnosticClaim.OBSERVATION_COLLISION,
+        collisionEvidenceCorrect = if (result.diagnosticClaim == A9DiagnosticClaim.OBSERVATION_COLLISION) {
+            truth.collisionPresent == true && result.evidenceIds.isNotEmpty()
+        } else null,
+        validAbstention = if (result.diagnosticClaim == A9DiagnosticClaim.UNDETERMINED) {
+            truth.requiresAbstention == true
+        } else null,
     )
 }
 
@@ -94,8 +104,57 @@ class E3A9BaselineRunner {
                     candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateBodies.take(1) else emptyList(),
                     candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) signal.consistentCandidateHashes.take(1) else emptyList(),
                     queryDomain = queryDomain,
-                    searchRecord = record(signal, high, constants, queryDomain, "b0_before_probe"),
+                    searchRecord = record(signal, high, constants, queryDomain, "b0_before_probe", observations),
                 )
+            }
+            A9BaselineId.B0_ACTIVE_QUERY -> {
+                val firstSignal = E3B0DiagnosticAdapter().diagnose(schema, observations, constants, queryDomain, high, meter)
+                val suggestedId = if (firstSignal.status == DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE && gateway != null) {
+                    firstSignal.suggestedQueryValues.mapNotNull { value ->
+                        gateway.allowedQueryIds.firstOrNull { id -> gateway.visibleOf(id) == value }
+                    }.firstOrNull()
+                } else null
+                if (suggestedId == null || gateway == null) {
+                    A9BaselineResult(
+                        baseline, A9DiagnosticClaim.UNDETERMINED, null, firstSignal.usableObservationIds,
+                        firstSignal.boundedScope, meter.snapshot(), listOf("b0_active_no_legal_query"),
+                    )
+                } else {
+                    meter.recordPublicInstanceRequest()
+                    val response = gateway.requestPublicInstance(suggestedId)
+                    val valid = response.sampleId == suggestedId && response.visible == gateway.visibleOf(suggestedId) &&
+                        response.label != null && response.objectId != null
+                    if (!valid) {
+                        A9BaselineResult(
+                            baseline, A9DiagnosticClaim.UNDETERMINED, null, firstSignal.usableObservationIds,
+                            firstSignal.boundedScope, meter.snapshot(), listOf("b0_active_invalid_response"),
+                        )
+                    } else {
+                        meter.recordProbeSuccess(1, independent = true)
+                        val round = (observations.maxOfOrNull { it.round } ?: 0) + 1
+                        val added = Observation(
+                            "b0-active-$suggestedId", response.objectId!!,
+                            response.visible!!.mapValues { (_, v) -> ObservedValue.Known(v) },
+                            response.label, EvidenceProvenance(response.sourceId, SourceKind.STUDENT_REQUESTED, true, null),
+                            round,
+                        )
+                        val after = E3B0DiagnosticAdapter().diagnose(schema, observations + added, constants, queryDomain, high, meter)
+                        val claim = if (after.status == DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE) {
+                            A9DiagnosticClaim.BOUNDED_IDENTIFIED
+                        } else A9DiagnosticClaim.UNDETERMINED
+                        A9BaselineResult(
+                            baseline, claim,
+                            A9ActionRecord(A9ActionKind.REQUEST_PUBLIC_INSTANCE, suggestedId, null, added.observationId,
+                                MeasurementKind.PUBLIC_INSTANCE, true, 1, after.status.name),
+                            after.usableObservationIds, after.boundedScope, meter.snapshot(),
+                            listOf("b0_active_query", "status=${after.status}"),
+                            candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) after.consistentCandidateBodies.take(1) else emptyList(),
+                            candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) after.consistentCandidateHashes.take(1) else emptyList(),
+                            queryDomain = queryDomain,
+                            searchRecord = record(after, high, constants, queryDomain, "b0_active_after_probe", observations + added),
+                        )
+                    }
+                }
             }
             A9BaselineId.COLLISION_ONLY -> {
                 val collision = ObservableCollisionDetector.detect(schema, observations)
@@ -146,7 +205,7 @@ class E3A9BaselineRunner {
                     candidateBodies = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateBodies.take(1) else emptyList(),
                     candidateCanonicals = if (claim == A9DiagnosticClaim.BOUNDED_IDENTIFIED) integrated.signal.consistentCandidateHashes.take(1) else emptyList(),
                     queryDomain = queryDomain,
-                    searchRecord = record(integrated.signal, high, constants, queryDomain, "e3_after_probe"),
+                    searchRecord = record(integrated.signal, high, constants, queryDomain, "e3_after_probe", observations + listOfNotNull(probe.addedObservation)),
                 )
             }
         }
@@ -159,6 +218,7 @@ class E3A9BaselineRunner {
         constants: PublicConstants,
         queryDomain: List<Map<String, String>>,
         stage: String,
+        observations: List<Observation>,
     ): A9FrozenSearchRecord = A9FrozenSearchRecord(
         runId = "a9-${System.nanoTime()}",
         budget = budget,
@@ -171,6 +231,8 @@ class E3A9BaselineRunner {
         generated = signal.search?.generated ?: 0,
         candidateCount = signal.search?.candidateCount ?: 0,
         frozenAtStage = stage,
+        publicEvidenceIds = observations.map { it.observationId },
+        boundedScope = signal.boundedScope,
     )
 
     private fun actionRecord(trace: ProbeTrace): A9ActionRecord = when (val action = trace.action) {

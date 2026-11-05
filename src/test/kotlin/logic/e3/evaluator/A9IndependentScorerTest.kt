@@ -50,6 +50,102 @@ class A9IndependentScorerTest {
         assertTrue(result.heldoutPredictionError!! > 0.0)
     }
 
+    private fun gateway(world: EvaluatedWorld): PublicProbeGateway {
+        val byId = world.public.queryPool.associateBy { it.sampleId }
+        val oracle = world.publicQuery
+        return object : PublicProbeGateway {
+            override val allowedQueryIds = oracle.allowedIds
+            override fun visibleOf(sampleId: String) = byId[sampleId]?.visible
+            override fun requestPublicInstance(sampleId: String): ProbeObservation {
+                val point = byId[sampleId]
+                return when (val a = oracle.query(sampleId)) {
+                    is PublicQueryAnswer.Labeled -> ProbeObservation(sampleId, "query-$sampleId", point?.visible, a.label, "student-query")
+                    is PublicQueryAnswer.Rejected -> ProbeObservation(sampleId, null, point?.visible, null, "student-query", a.reason)
+                }
+            }
+            override fun repeatLabel(objectId: String, sourceId: String): ProbeObservation? = null
+        }
+    }
+
+    @Test
+    fun `end-to-end probe event rebuilds evidence and scores frozen candidate`() {
+        val world = E3WorldGenerator(109L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)
+        val constants = PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains")
+        val query = world.public.queryPool.map { it.visible }
+        val high = DiagnosticBudget(3, 32, 3000, 10000)
+        val session = E3ProbeSession(world.public.schema, world.public.observations, constants, query, high, gateway(world))
+        val trace = session.execute(session.plan())
+        val added = trace.addedObservation!!
+        val action = trace.action as ProbeAction.RequestPublicInstance
+        val integrated = E3DiagnosticIntegrator().integrate(
+            world.public.schema, world.public.observations, constants, query,
+            DiagnosticBudget(2, 32, 3000, 10000), high, trace,
+        )
+        val signal = integrated.signal
+        val allIds = world.public.observations.map { it.observationId } + added.observationId
+        val record = A9FrozenSearchRecord(
+            runId = "run-e2e",
+            budget = high,
+            constants = constants,
+            queryDomain = query,
+            composedCandidateHashes = signal.composedCandidateHashes,
+            consistentCandidates = signal.consistentCandidateBodies.zip(signal.consistentCandidateHashes)
+                .map { (body, canonical) -> A9FrozenCandidate(body, canonical) },
+            reason = signal.search?.reason,
+            generated = signal.search?.generated ?: 0,
+            candidateCount = signal.search?.candidateCount ?: 0,
+            frozenAtStage = "freeze",
+            publicEvidenceIds = allIds,
+            boundedScope = signal.boundedScope,
+        )
+        val candidate = record.consistentCandidates.first()
+        val submission = A9StudentSubmission(
+            A9BaselineId.E3_DIAGNOSTIC, A9DiagnosticClaim.BOUNDED_IDENTIFIED,
+            listOf(candidate.body), listOf(candidate.canonical), record.boundedScope,
+            query, allIds, record,
+        )
+        val event = A9TrustedActionEvent(
+            "run-e2e", "probe", A9ActionKind.REQUEST_PUBLIC_INSTANCE,
+            requestedSampleId = action.sampleId,
+            recordedObservation = added,
+            measurementKind = trace.measurementKind,
+            independentEvidence = trace.independentEvidence,
+            actualCost = trace.cost,
+        )
+        val context = A9ExecutionContext(
+            "run-e2e", allIds, high, gateway(world).allowedQueryIds,
+            listOf("search", "probe", "freeze", "hidden_scoring"),
+        )
+        val result = A9IndependentScorer(world.truth).evaluate(
+            world.public.schema, world.public.observations, submission, event, context,
+        )
+        assertEquals(A9EvaluationStatus.EVALUATED, result.status)
+        assertEquals(allIds, record.publicEvidenceIds)
+        assertTrue(result.boundedIdentificationValidity!!)
+    }
+
+    @Test
+    fun `tampered frozen record or event is rejected`() {
+        val world = world()
+        val submission = boundedSubmission(world)
+        val record = submission.searchRecord!!
+        val context = A9ExecutionContext(
+            record.runId, submission.evidenceIds, record.budget, emptySet(),
+            listOf("search", "freeze", "hidden_scoring"),
+        )
+        val tamperedBudget = submission.copy(searchRecord = record.copy(budget = DiagnosticBudget(1, 1, 1, 1)))
+        assertEquals("search_record_budget_mismatch", A9IndependentScorer(world.truth)
+            .evaluate(world.public.schema, world.public.observations, tamperedBudget, null, context).notEvaluatedReason)
+
+        val forgedIds = submission.copy(searchRecord = record.copy(publicEvidenceIds = listOf("forged")))
+        assertEquals("search_record_evidence_mismatch", A9IndependentScorer(world.truth)
+            .evaluate(world.public.schema, world.public.observations, forgedIds, null, context).notEvaluatedReason)
+
+        val lateFreeze = submission.copy(searchRecord = record.copy(frozenAtStage = "hidden_scoring"))
+        assertEquals("candidate_not_frozen_before_hidden_scoring", A9IndependentScorer(world.truth)
+            .evaluate(world.public.schema, world.public.observations, lateFreeze, null, context).notEvaluatedReason)
+    }
+
     @Test
     fun `one candidate matching oracle is not bounded identification if other classes remain`() {
         val world = E3WorldGenerator(109L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)

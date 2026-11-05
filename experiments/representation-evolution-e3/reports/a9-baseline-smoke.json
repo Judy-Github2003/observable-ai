@@ -23,12 +23,43 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 23114700,
+        "elapsedNanos": 21846900,
         "evidenceCount": 5,
         "claimedGlobal": false,
         "notes": [
             "b0_filter_only",
             "status=IDENTIFIED_WITHIN_BOUNDED_SPACE"
+        ]
+    },
+    {
+        "case": "solvable",
+        "baseline": "B0_ACTIVE_QUERY",
+        "diagnosticClaim": "UNDETERMINED",
+        "action": null,
+        "requestedSampleId": null,
+        "repeatedObjectId": null,
+        "recordedObservationId": null,
+        "measurementKind": null,
+        "independentEvidence": false,
+        "actualCost": 0,
+        "composerCalls": 1,
+        "generatedCandidates": 1255,
+        "estimatedFilterEvaluations": 6230,
+        "observedFilterExampleEvaluations": 6230,
+        "observedFilterQueryDomainEvaluations": 2,
+        "representativeFilterQueryDomainEvaluations": 2,
+        "preCompressionConsistentCandidates": 1,
+        "interpreterExecutions": 0,
+        "publicInstanceRequests": 0,
+        "repeatRequests": 0,
+        "totalProbeCost": 0,
+        "successfulProbeCount": 0,
+        "independentEvidenceCount": 0,
+        "elapsedNanos": 21240400,
+        "evidenceCount": 5,
+        "claimedGlobal": false,
+        "notes": [
+            "b0_active_no_legal_query"
         ]
     },
     {
@@ -55,7 +86,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 62100,
+        "elapsedNanos": 63500,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -86,7 +117,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 19300,
+        "elapsedNanos": 19700,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -117,7 +148,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 90440100,
+        "elapsedNanos": 90027500,
         "evidenceCount": 5,
         "claimedGlobal": false,
         "notes": [
@@ -149,7 +180,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 1700,
+        "elapsedNanos": 1100,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -180,12 +211,43 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 164600,
+        "elapsedNanos": 125100,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
             "b0_filter_only",
             "status=OBSERVATION_COLLISION"
+        ]
+    },
+    {
+        "case": "latent",
+        "baseline": "B0_ACTIVE_QUERY",
+        "diagnosticClaim": "UNDETERMINED",
+        "action": null,
+        "requestedSampleId": null,
+        "repeatedObjectId": null,
+        "recordedObservationId": null,
+        "measurementKind": null,
+        "independentEvidence": false,
+        "actualCost": 0,
+        "composerCalls": 0,
+        "generatedCandidates": 0,
+        "estimatedFilterEvaluations": 0,
+        "observedFilterExampleEvaluations": 0,
+        "observedFilterQueryDomainEvaluations": 0,
+        "representativeFilterQueryDomainEvaluations": 0,
+        "preCompressionConsistentCandidates": 0,
+        "interpreterExecutions": 0,
+        "publicInstanceRequests": 0,
+        "repeatRequests": 0,
+        "totalProbeCost": 0,
+        "successfulProbeCount": 0,
+        "independentEvidenceCount": 0,
+        "elapsedNanos": 32100,
+        "evidenceCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "b0_active_no_legal_query"
         ]
     },
     {
@@ -212,7 +274,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 62900,
+        "elapsedNanos": 24700,
         "evidenceCount": 2,
         "claimedGlobal": false,
         "notes": [
@@ -244,7 +306,7 @@
         "totalProbeCost": 1,
         "successfulProbeCount": 1,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 152800,
+        "elapsedNanos": 134700,
         "evidenceCount": 1,
         "claimedGlobal": false,
         "notes": [
@@ -277,7 +339,7 @@
         "totalProbeCost": 1,
         "successfulProbeCount": 1,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 482700,
+        "elapsedNanos": 281800,
         "evidenceCount": 3,
         "claimedGlobal": false,
         "notes": [
@@ -309,7 +371,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 1000,
+        "elapsedNanos": 600,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -340,12 +402,44 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 3562600,
+        "elapsedNanos": 3730800,
         "evidenceCount": 5,
         "claimedGlobal": false,
         "notes": [
             "b0_filter_only",
             "status=AMBIGUOUS_WITHIN_BOUNDED_SPACE"
+        ]
+    },
+    {
+        "case": "ambiguous",
+        "baseline": "B0_ACTIVE_QUERY",
+        "diagnosticClaim": "BOUNDED_IDENTIFIED",
+        "action": "REQUEST_PUBLIC_INSTANCE",
+        "requestedSampleId": "w-1f74e58dd751cfc6-Q1",
+        "repeatedObjectId": null,
+        "recordedObservationId": "b0-active-w-1f74e58dd751cfc6-Q1",
+        "measurementKind": "PUBLIC_INSTANCE",
+        "independentEvidence": true,
+        "actualCost": 1,
+        "composerCalls": 2,
+        "generatedCandidates": 362,
+        "estimatedFilterEvaluations": 1925,
+        "observedFilterExampleEvaluations": 1925,
+        "observedFilterQueryDomainEvaluations": 29,
+        "representativeFilterQueryDomainEvaluations": 21,
+        "preCompressionConsistentCandidates": 29,
+        "interpreterExecutions": 0,
+        "publicInstanceRequests": 1,
+        "repeatRequests": 0,
+        "totalProbeCost": 1,
+        "successfulProbeCount": 1,
+        "independentEvidenceCount": 1,
+        "elapsedNanos": 6988700,
+        "evidenceCount": 6,
+        "claimedGlobal": false,
+        "notes": [
+            "b0_active_query",
+            "status=IDENTIFIED_WITHIN_BOUNDED_SPACE"
         ]
     },
     {
@@ -372,7 +466,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 70300,
+        "elapsedNanos": 57500,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -403,7 +497,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 49700,
+        "elapsedNanos": 20300,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
@@ -434,7 +528,7 @@
         "totalProbeCost": 1,
         "successfulProbeCount": 1,
         "independentEvidenceCount": 1,
-        "elapsedNanos": 19006100,
+        "elapsedNanos": 18844200,
         "evidenceCount": 6,
         "claimedGlobal": false,
         "notes": [
@@ -466,7 +560,7 @@
         "totalProbeCost": 0,
         "successfulProbeCount": 0,
         "independentEvidenceCount": 0,
-        "elapsedNanos": 1300,
+        "elapsedNanos": 1100,
         "evidenceCount": 0,
         "claimedGlobal": false,
         "notes": [
