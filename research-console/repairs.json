@@ -61,7 +61,34 @@
       "consumed_commit": "f427cdb8399fee99d9c367cac0b48070e49edac7",
       "consumed_test": "Kotlin 316/316; PACK-02 9/9; repair gate 7/7; old gate 5/5",
       "consumed_report": "PACK-02R-AUTH-01-REPORT.md"
+    },
+    {
+      "repair_id": "PACK-02R-ACTIVE-01",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "Active identification experiment only: new 0/1/2 world, candidate persistence, distinguishing queries, frozen predictions, trusted oracle, optional development reuse check.",
+      "approval_reference": "Research-owner message PACK-02R-ACTIVE-01, 2026-11-06: approve ACTIVE special experiment; no EVAL/PACK-03.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "PACK-02R-ACTIVE-01",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/ActiveLearning.kt",
+        "src/test/kotlin/logic/e3/pack02/ActiveLearningTest.kt",
+        "experiments/representation-evolution-e3/reports/pack02r-active-run.json",
+        "experiments/representation-evolution-e3/reports/pack02r-active-baseline.json",
+        "experiments/representation-evolution-e3/reports/pack02r-active-c8.json"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-05T16:34:30.423995+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1793896470423-6a21a7"
+      ],
+      "content_hash": "9fa1ae0aae30775f2c9d699724cd9d7a2fe2fa1182b7e7a5ee2624cced8fac86"
     }
   ],
-  "updated_at": "2026-11-05T16:13:34.788699+00:00"
+  "updated_at": "2026-11-05T16:34:30.438068+00:00"
 }

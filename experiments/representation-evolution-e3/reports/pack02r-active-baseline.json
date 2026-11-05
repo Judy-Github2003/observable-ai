@@ -1,0 +1,10 @@
+{
+    "strategy": "fixed",
+    "status": "BUDGET_EXHAUSTED",
+    "rounds": 3,
+    "initialCandidates": 81,
+    "remainingCandidates": 77,
+    "initialClasses": 4,
+    "remainingClasses": 3,
+    "activation": null
+}
