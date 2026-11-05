@@ -21,10 +21,28 @@ data class BehaviorClass(
     val candidateHashes: List<String>,
 )
 
+data class CandidateLayers(
+    val composerGenerated: Int,
+    val consistentWithEvidence: Int,
+    val behaviorClasses: Int,
+    val filterRepresentatives: Int,
+)
+
+data class BudgetFacts(
+    val budgetSensitive: Boolean,
+    val multipleBehaviorClasses: Boolean,
+    val noConsistentCandidate: Boolean,
+    val searchTruncated: Boolean,
+    val reasonUndetermined: Boolean,
+    val observationCollision: Boolean,
+)
+
 data class BudgetRun(
     val budget: DiagnosticBudget,
     val signal: DiagnosticSignal,
     val behaviorClasses: List<BehaviorClass>,
+    val behaviorEvalMaxSteps: Int,
+    val layers: CandidateLayers,
 )
 
 data class BudgetDiagnosis(
@@ -33,6 +51,7 @@ data class BudgetDiagnosis(
     val budgetChanges: List<String>,
     val scope: EvidenceScope?,
     val notes: List<String>,
+    val facts: BudgetFacts,
 )
 
 /**
@@ -54,8 +73,19 @@ class E3SearchBudgetDiagnoser {
         val adapter = E3B0DiagnosticAdapter()
         val runs = listOf(low, high).map { budget ->
             val signal = adapter.diagnose(schema, observations, constants, queryDomain, budget)
-            val classes = behaviorClasses(schema, signal.survivorBodies, queryDomain, observations)
-            BudgetRun(budget, signal, classes)
+            val classes = behaviorClasses(schema, signal.consistentCandidateBodies, queryDomain, observations, budget.maxSteps)
+            BudgetRun(
+                budget = budget,
+                signal = signal,
+                behaviorClasses = classes,
+                behaviorEvalMaxSteps = budget.maxSteps,
+                layers = CandidateLayers(
+                    composerGenerated = signal.composedCandidateHashes.size,
+                    consistentWithEvidence = signal.consistentCandidateHashes.size,
+                    behaviorClasses = classes.size,
+                    filterRepresentatives = signal.filter?.survivorCount ?: 0,
+                ),
+            )
         }
         val changes = listOf(
             "rounds:${low.maxComposeRounds}->${high.maxComposeRounds}",
@@ -69,31 +99,18 @@ class E3SearchBudgetDiagnoser {
         notes += "compose_rounds_are_not_ast_depth"
 
         val bad = runs.map { it.signal.status }
-        val verdict = when {
-            DiagnosticSignalStatus.INVALID_INPUT in bad -> BudgetVerdict.INVALID_INPUT
-            DiagnosticSignalStatus.NO_COMPLETE_OBSERVATIONS in bad -> BudgetVerdict.NO_COMPLETE_OBSERVATIONS
-            DiagnosticSignalStatus.OBSERVATION_COLLISION in bad -> BudgetVerdict.OBSERVATION_COLLISION
-            runs.any { it.signal.search?.reason == "candidate_limit" } &&
-                runs.any { it.signal.status == DiagnosticSignalStatus.REFUSED || it.signal.status == DiagnosticSignalStatus.NO_CANDIDATE } ->
-                BudgetVerdict.SEARCH_TRUNCATED_UNDETERMINED
-            (runs.any { it.signal.survivorHashes.isEmpty() } && runs.any { it.signal.survivorHashes.isNotEmpty() }) ->
-                BudgetVerdict.BUDGET_SENSITIVE_CANDIDATE_SET
-            runs.any { it.behaviorClasses.size > 1 } -> BudgetVerdict.MULTIPLE_CANDIDATES_REMAIN
-            runs.any { it.signal.status == DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE } ->
-                BudgetVerdict.MULTIPLE_CANDIDATES_REMAIN
-            runs.map { it.signal.survivorHashes.toSet() }.distinct().size > 1 ->
-                BudgetVerdict.BUDGET_SENSITIVE_CANDIDATE_SET
-            runs.all {
-                it.signal.status == DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE &&
-                    it.signal.survivorHashes.size == 1
-            } && runs.map { it.signal.survivorHashes }.distinct().size == 1 ->
-                BudgetVerdict.STABLE_IDENTIFIED_BOUNDED
-            runs.all { it.signal.survivorHashes.isEmpty() } &&
-                runs.any { it.signal.search?.reason == "depth_limit" || it.signal.search?.reason == null } ->
-                BudgetVerdict.SEARCH_TRUNCATED_UNDETERMINED
-            runs.all { it.signal.survivorHashes.isEmpty() } -> BudgetVerdict.NO_CONSISTENT_CANDIDATE
-            else -> BudgetVerdict.UNDETERMINED
-        }
+        val facts = BudgetFacts(
+            budgetSensitive = runs.map { it.signal.composedCandidateHashes.toSet() }.distinct().size > 1 ||
+                runs.map { it.signal.consistentCandidateHashes.toSet() }.distinct().size > 1,
+            multipleBehaviorClasses = runs.any { it.behaviorClasses.size > 1 },
+            noConsistentCandidate = runs.all { it.signal.consistentCandidateHashes.isEmpty() },
+            searchTruncated = runs.any {
+                it.signal.search?.reason == "depth_limit" || it.signal.search?.reason == "candidate_limit"
+            },
+            reasonUndetermined = runs.any { it.signal.search?.reason == null },
+            observationCollision = DiagnosticSignalStatus.OBSERVATION_COLLISION in bad,
+        )
+        val verdict = classifyVerdict(runs, facts)
         if (verdict == BudgetVerdict.NO_CONSISTENT_CANDIDATE) {
             notes += "no_consistent_candidate_within_these_budgets_and_query_domain; not proof of representation insufficiency"
         }
@@ -109,7 +126,35 @@ class E3SearchBudgetDiagnoser {
             budgetChanges = changes,
             scope = runs.mapNotNull { it.signal.boundedScope }.firstOrNull(),
             notes = notes,
+            facts = facts,
         )
+    }
+
+    /** 独立可测的主状态分类；保留 facts 作为同时成立的事实。 */
+    internal fun classifyVerdict(runs: List<BudgetRun>, facts: BudgetFacts): BudgetVerdict {
+        val bad = runs.map { it.signal.status }
+        return when {
+            facts.observationCollision -> BudgetVerdict.OBSERVATION_COLLISION
+            DiagnosticSignalStatus.INVALID_INPUT in bad -> BudgetVerdict.INVALID_INPUT
+            DiagnosticSignalStatus.NO_COMPLETE_OBSERVATIONS in bad -> BudgetVerdict.NO_COMPLETE_OBSERVATIONS
+            runs.all { it.signal.filter?.reason == "no_consistent_candidate" } ->
+                BudgetVerdict.NO_CONSISTENT_CANDIDATE
+            runs.all { it.signal.status == DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE } && facts.multipleBehaviorClasses ->
+                BudgetVerdict.MULTIPLE_CANDIDATES_REMAIN
+            facts.budgetSensitive -> BudgetVerdict.BUDGET_SENSITIVE_CANDIDATE_SET
+            facts.searchTruncated && runs.any { it.signal.status == DiagnosticSignalStatus.REFUSED || it.signal.status == DiagnosticSignalStatus.NO_CANDIDATE } ->
+                BudgetVerdict.SEARCH_TRUNCATED_UNDETERMINED
+            facts.multipleBehaviorClasses -> BudgetVerdict.MULTIPLE_CANDIDATES_REMAIN
+            runs.any { it.signal.status == DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE } ->
+                BudgetVerdict.MULTIPLE_CANDIDATES_REMAIN
+            runs.all {
+                it.signal.status == DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE &&
+                    it.signal.survivorHashes.size == 1
+            } && runs.map { it.signal.survivorHashes }.distinct().size == 1 ->
+                BudgetVerdict.STABLE_IDENTIFIED_BOUNDED
+            runs.all { it.signal.consistentCandidateHashes.isEmpty() } -> BudgetVerdict.NO_CONSISTENT_CANDIDATE
+            else -> BudgetVerdict.UNDETERMINED
+        }
     }
 
     private fun behaviorClasses(
@@ -117,6 +162,7 @@ class E3SearchBudgetDiagnoser {
         bodies: List<Expr>,
         queryDomain: List<Map<String, String>>,
         observations: List<Observation>,
+        maxSteps: Int,
     ): List<BehaviorClass> {
         val points = if (queryDomain.isNotEmpty()) {
             queryDomain
@@ -137,7 +183,7 @@ class E3SearchBudgetDiagnoser {
                 val args = mapOf("x" to EvalResult.Known(CapValue.Rec(
                     schema.fieldNames().associateWith { CapValue.Str(point.getValue(it)) },
                 )))
-                when (val result = interpreter.execute(definition, args)) {
+                when (val result = interpreter.execute(definition, args, EvalBudget(maxSteps = maxSteps))) {
                     is EvalResult.Known -> "K:" + (result.value as CapValue.Bool).value
                     is EvalResult.Unknown -> "U:" + result.reason
                     is EvalResult.Error -> "E:" + result.code

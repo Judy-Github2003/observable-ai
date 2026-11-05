@@ -31,6 +31,7 @@ data class FilterTrace(
     val status: String,
     val reason: String?,
     val survivorCount: Int,
+    val consistentCount: Int,
     val queryCount: Int,
     /** 来自真实 Filter 的 EvidenceResult.domainSize，不是传入列表长度。 */
     val domainSize: Int,
@@ -44,6 +45,7 @@ enum class DiagnosticSignalStatus {
     AMBIGUOUS_WITHIN_BOUNDED_SPACE,
     REFUSED,
     NO_CANDIDATE,
+    TRAINING_ONLY_CONSISTENCY,
 }
 
 data class DiagnosticSignal(
@@ -59,8 +61,11 @@ data class DiagnosticSignal(
     val constantsSource: String? = null,
     val composedCandidateHashes: List<String> = emptyList(),
     val survivorHashes: List<String> = emptyList(),
+    val consistentCandidateHashes: List<String> = emptyList(),
     /** 仅供 A6 计算行为等价类；不写入面向学生的 JSON。 */
-    val survivorBodies: List<Expr> = emptyList(),
+    val consistentCandidateBodies: List<Expr> = emptyList(),
+    val queryDomainProvided: Boolean = false,
+    val suggestedQueryValues: List<Map<String, String>> = emptyList(),
 )
 
 class E3B0DiagnosticAdapter {
@@ -141,10 +146,16 @@ class E3B0DiagnosticAdapter {
             composed.reason == "candidate_limit",
         )
 
-        val status = when (evidence.status) {
+        val consistent = evidence.evaluations.filter { it.consistent }.map { it.candidate }
+        val baseStatus = when (evidence.status) {
             EvidenceStatus.IDENTIFIED -> DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE
             EvidenceStatus.AMBIGUOUS -> DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE
             EvidenceStatus.REFUSED -> if (composed.candidates.isEmpty()) DiagnosticSignalStatus.NO_CANDIDATE else DiagnosticSignalStatus.REFUSED
+        }
+        val status = if (queryDomain.isEmpty() && baseStatus == DiagnosticSignalStatus.IDENTIFIED_WITHIN_BOUNDED_SPACE) {
+            DiagnosticSignalStatus.TRAINING_ONLY_CONSISTENCY
+        } else {
+            baseStatus
         }
         val notes = ArrayList<String>()
         if (composed.reason == "depth_limit") {
@@ -154,7 +165,7 @@ class E3B0DiagnosticAdapter {
             notes += "candidate_limit_observed; search truncated before exhaustion"
         }
         notes += "identified_scope_is_bounded_to_current_hypothesis_and_query_domain"
-        if (queryDomain.isEmpty()) notes += "query_domain_restricted_to_observed_points"
+        if (queryDomain.isEmpty()) notes += "query_domain_empty_training_only; no independent query-domain identification"
         if (evidence.domainSize == 0) notes += "filter_domain_empty_or_unavailable; not a complete domain verification"
         if (collision.excludedUnknownValueIds.isNotEmpty()) notes += "unknown_values_excluded_from_examples"
         if (collision.excludedUnlabeledIds.isNotEmpty()) notes += "unlabeled_observations_excluded"
@@ -180,19 +191,27 @@ class E3B0DiagnosticAdapter {
                 status = evidence.status.name,
                 reason = evidence.reason,
                 survivorCount = evidence.survivors.size,
+                consistentCount = consistent.size,
                 queryCount = evidence.distinguishingQueries.size,
                 domainSize = evidence.domainSize,
             ),
             boundedScope = EvidenceScope(
                 hypothesisSpace = "typed IR composeRounds<=${budget.maxComposeRounds}, nodes<=${budget.maxNodes}, library=[]",
                 observationDomain = "${usable.size} complete Known labeled observations",
-                queryDomain = "${evidence.domainSize} evaluated public query points",
+                queryDomain = if (queryDomain.isEmpty()) "training observations only; no independent query domain" else "${evidence.domainSize} evaluated public query points",
             ),
             notes = notes,
             constantsSource = constants.source,
             composedCandidateHashes = composed.candidates.map { it.astHash },
             survivorHashes = evidence.survivors.map { it.astHash },
-            survivorBodies = evidence.survivors.map { it.body },
+            consistentCandidateHashes = consistent.map { it.astHash },
+            consistentCandidateBodies = consistent.map { it.body },
+            queryDomainProvided = queryDomain.isNotEmpty(),
+            suggestedQueryValues = evidence.distinguishingQueries.mapNotNull { point ->
+                val rec = point["x"] as? CapValue.Rec ?: return@mapNotNull null
+                if (rec.fields.values.any { it !is CapValue.Str }) return@mapNotNull null
+                rec.fields.mapValues { (_, v) -> (v as CapValue.Str).value }
+            },
         )
     }
 

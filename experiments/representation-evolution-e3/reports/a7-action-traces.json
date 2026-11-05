@@ -1,0 +1,82 @@
+{
+    "note": "A7 real action traces; controlled public gateway only",
+    "cases": [
+        {
+            "case": "solvable",
+            "action": "NoAction",
+            "reason": "already_identified_within_bounded_space_no_valuable_action",
+            "plannedCost": 0,
+            "executedCost": 0,
+            "independentEvidence": false,
+            "beforeStatus": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "afterStatus": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "observationLabel": null,
+            "observationObjectId": null,
+            "notes": [
+                "no_action_executed"
+            ]
+        },
+        {
+            "case": "latent",
+            "action": "RepeatLabel(objectId=obj-0a, sourceId=source-a)",
+            "reason": "collision_cause_uncertain_repeat_measurement_not_noise_claim",
+            "plannedCost": 1,
+            "executedCost": 1,
+            "independentEvidence": false,
+            "beforeStatus": "OBSERVATION_COLLISION",
+            "afterStatus": "OBSERVATION_COLLISION",
+            "observationLabel": false,
+            "observationObjectId": "obj-0a",
+            "notes": [
+                "repeat_is_not_new_independent_evidence",
+                "cause_remains_undetermined_until_evidence"
+            ]
+        },
+        {
+            "case": "noisy",
+            "action": "RepeatLabel(objectId=obj-0, sourceId=source-a)",
+            "reason": "collision_cause_uncertain_repeat_measurement_not_noise_claim",
+            "plannedCost": 1,
+            "executedCost": 1,
+            "independentEvidence": false,
+            "beforeStatus": "OBSERVATION_COLLISION",
+            "afterStatus": "OBSERVATION_COLLISION",
+            "observationLabel": true,
+            "observationObjectId": "obj-0",
+            "notes": [
+                "repeat_is_not_new_independent_evidence",
+                "cause_remains_undetermined_until_evidence"
+            ]
+        },
+        {
+            "case": "ambiguous",
+            "action": "RequestPublicInstance(sampleId=w-1f74e58dd751cfc6-Q1)",
+            "reason": "distinguishing_public_query_selected",
+            "plannedCost": 1,
+            "executedCost": 1,
+            "independentEvidence": true,
+            "beforeStatus": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+            "afterStatus": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "observationLabel": true,
+            "observationObjectId": "query-w-1f74e58dd751cfc6-Q1",
+            "notes": [
+                "new_public_instance_added_to_observations"
+            ]
+        },
+        {
+            "case": "no_legal_query",
+            "action": "NO_ACTION",
+            "reason": "no_legal_public_query",
+            "plannedCost": 0,
+            "executedCost": 0,
+            "independentEvidence": false,
+            "beforeStatus": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+            "afterStatus": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+            "observationLabel": null,
+            "observationObjectId": null,
+            "notes": [
+                "no_action_executed"
+            ]
+        }
+    ]
+}

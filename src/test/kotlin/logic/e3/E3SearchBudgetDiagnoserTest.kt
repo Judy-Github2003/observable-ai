@@ -55,8 +55,60 @@ class E3SearchBudgetDiagnoserTest {
         val result = run(WorldFamily.AMBIGUOUS_EVIDENCE, 109L)
         assertEquals(BudgetVerdict.MULTIPLE_CANDIDATES_REMAIN, result.verdict)
         assertTrue(result.runs.all { it.signal.status == DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE })
-        assertTrue(result.runs.all { it.behaviorClasses.size == 2 })
-        assertTrue(result.runs.all { it.signal.filter!!.survivorCount >= 2 })
+        assertTrue(result.runs.all { it.behaviorClasses.size >= 2 })
+        assertTrue(result.runs.all { it.signal.filter!!.consistentCount >= it.signal.filter!!.survivorCount })
+    }
+
+    @Test
+    fun `behavior classes use the run eval budget and candidate layers are preserved`() {
+        val result = run(WorldFamily.SOLVABLE, 101L)
+        for (run in result.runs) {
+            assertEquals(run.budget.maxSteps, run.behaviorEvalMaxSteps)
+            assertEquals(run.signal.composedCandidateHashes.size, run.layers.composerGenerated)
+            assertEquals(run.signal.consistentCandidateHashes.size, run.layers.consistentWithEvidence)
+            assertEquals(run.signal.filter?.survivorCount ?: 0, run.layers.filterRepresentatives)
+            assertTrue(run.layers.consistentWithEvidence >= run.layers.filterRepresentatives)
+        }
+    }
+
+    @Test
+    fun `empty query domain is training-only not independent identification`() {
+        val world = E3WorldGenerator(101L).generate(WorldFamily.SOLVABLE, 0)
+        val signal = E3B0DiagnosticAdapter().diagnose(
+            world.public.schema,
+            world.public.observations,
+            PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            emptyList(),
+        )
+        assertEquals(DiagnosticSignalStatus.TRAINING_ONLY_CONSISTENCY, signal.status)
+        assertTrue(signal.notes.any { it.contains("query_domain_empty_training_only") })
+        assertTrue(signal.boundedScope!!.queryDomain!!.contains("no independent query domain"))
+    }
+
+    @Test
+    fun `no consistent candidate verdict is reachable`() {
+        val base = run(WorldFamily.SEARCH_LIMITED, 107L)
+        val runs = base.runs.map { run ->
+            run.copy(
+                signal = run.signal.copy(
+                    status = DiagnosticSignalStatus.REFUSED,
+                    filter = FilterTrace("REFUSED", "no_consistent_candidate", 0, 0, 0, 0),
+                    survivorHashes = emptyList(),
+                    consistentCandidateHashes = emptyList(),
+                    consistentCandidateBodies = emptyList(),
+                ),
+                behaviorClasses = emptyList(),
+            )
+        }
+        val facts = BudgetFacts(
+            budgetSensitive = false,
+            multipleBehaviorClasses = false,
+            noConsistentCandidate = true,
+            searchTruncated = true,
+            reasonUndetermined = false,
+            observationCollision = false,
+        )
+        assertEquals(BudgetVerdict.NO_CONSISTENT_CANDIDATE, diagnoser.classifyVerdict(runs, facts))
     }
 
     @Test

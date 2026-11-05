@@ -35,6 +35,14 @@ class E3A6SampleExportTest {
                     addJsonObject {
                         put("case", name)
                         put("verdict", result.verdict.name)
+                        put("facts", buildJsonObject {
+                            put("budgetSensitive", result.facts.budgetSensitive)
+                            put("multipleBehaviorClasses", result.facts.multipleBehaviorClasses)
+                            put("noConsistentCandidate", result.facts.noConsistentCandidate)
+                            put("searchTruncated", result.facts.searchTruncated)
+                            put("reasonUndetermined", result.facts.reasonUndetermined)
+                            put("observationCollision", result.facts.observationCollision)
+                        })
                         put("budgetChanges", buildJsonArray { result.budgetChanges.forEach { add(it) } })
                         put("runs", buildJsonArray {
                             result.runs.forEach { run ->
@@ -54,6 +62,10 @@ class E3A6SampleExportTest {
                                         put("domainSize", run.signal.filter!!.domainSize)
                                     })
                                     put("behaviorClasses", run.behaviorClasses.size)
+                                    put("consistentCandidateCount", run.layers.consistentWithEvidence)
+                                    put("filterRepresentativeCount", run.layers.filterRepresentatives)
+                                    put("composerGeneratedCount", run.layers.composerGenerated)
+                                    put("behaviorEvalMaxSteps", run.behaviorEvalMaxSteps)
                                 }
                             }
                         })

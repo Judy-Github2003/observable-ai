@@ -4,6 +4,14 @@
         {
             "case": "solvable",
             "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "facts": {
+                "budgetSensitive": true,
+                "multipleBehaviorClasses": false,
+                "noConsistentCandidate": false,
+                "searchTruncated": true,
+                "reasonUndetermined": false,
+                "observationCollision": false
+            },
             "budgetChanges": [
                 "rounds:2->3",
                 "nodes:32->32",
@@ -26,7 +34,11 @@
                         "survivorCount": 0,
                         "domainSize": 0
                     },
-                    "behaviorClasses": 0
+                    "behaviorClasses": 0,
+                    "consistentCandidateCount": 0,
+                    "filterRepresentativeCount": 0,
+                    "composerGeneratedCount": 28,
+                    "behaviorEvalMaxSteps": 10000
                 },
                 {
                     "maxComposeRounds": 3,
@@ -43,7 +55,11 @@
                         "survivorCount": 1,
                         "domainSize": 2
                     },
-                    "behaviorClasses": 1
+                    "behaviorClasses": 1,
+                    "consistentCandidateCount": 1,
+                    "filterRepresentativeCount": 1,
+                    "composerGeneratedCount": 1246,
+                    "behaviorEvalMaxSteps": 10000
                 }
             ],
             "notes": [
@@ -56,6 +72,14 @@
         {
             "case": "search_limited",
             "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "facts": {
+                "budgetSensitive": true,
+                "multipleBehaviorClasses": true,
+                "noConsistentCandidate": false,
+                "searchTruncated": true,
+                "reasonUndetermined": false,
+                "observationCollision": false
+            },
             "budgetChanges": [
                 "rounds:2->3",
                 "nodes:32->32",
@@ -78,7 +102,11 @@
                         "survivorCount": 0,
                         "domainSize": 0
                     },
-                    "behaviorClasses": 0
+                    "behaviorClasses": 0,
+                    "consistentCandidateCount": 0,
+                    "filterRepresentativeCount": 0,
+                    "composerGeneratedCount": 10,
+                    "behaviorEvalMaxSteps": 10000
                 },
                 {
                     "maxComposeRounds": 3,
@@ -95,7 +123,11 @@
                         "survivorCount": 6,
                         "domainSize": 1
                     },
-                    "behaviorClasses": 2
+                    "behaviorClasses": 2,
+                    "consistentCandidateCount": 6,
+                    "filterRepresentativeCount": 6,
+                    "composerGeneratedCount": 175,
+                    "behaviorEvalMaxSteps": 10000
                 }
             ],
             "notes": [
@@ -108,6 +140,14 @@
         {
             "case": "ambiguous",
             "verdict": "MULTIPLE_CANDIDATES_REMAIN",
+            "facts": {
+                "budgetSensitive": true,
+                "multipleBehaviorClasses": true,
+                "noConsistentCandidate": false,
+                "searchTruncated": true,
+                "reasonUndetermined": false,
+                "observationCollision": false
+            },
             "budgetChanges": [
                 "rounds:2->3",
                 "nodes:32->32",
@@ -130,7 +170,11 @@
                         "survivorCount": 2,
                         "domainSize": 1
                     },
-                    "behaviorClasses": 2
+                    "behaviorClasses": 2,
+                    "consistentCandidateCount": 2,
+                    "filterRepresentativeCount": 2,
+                    "composerGeneratedCount": 10,
+                    "behaviorEvalMaxSteps": 10000
                 },
                 {
                     "maxComposeRounds": 3,
@@ -147,7 +191,11 @@
                         "survivorCount": 20,
                         "domainSize": 1
                     },
-                    "behaviorClasses": 2
+                    "behaviorClasses": 2,
+                    "consistentCandidateCount": 20,
+                    "filterRepresentativeCount": 20,
+                    "composerGeneratedCount": 175,
+                    "behaviorEvalMaxSteps": 10000
                 }
             ],
             "notes": [
@@ -159,6 +207,14 @@
         {
             "case": "latent",
             "verdict": "OBSERVATION_COLLISION",
+            "facts": {
+                "budgetSensitive": false,
+                "multipleBehaviorClasses": false,
+                "noConsistentCandidate": true,
+                "searchTruncated": false,
+                "reasonUndetermined": true,
+                "observationCollision": true
+            },
             "budgetChanges": [
                 "rounds:2->3",
                 "nodes:32->32",
@@ -171,14 +227,22 @@
                     "status": "OBSERVATION_COLLISION",
                     "search": null,
                     "filter": null,
-                    "behaviorClasses": 0
+                    "behaviorClasses": 0,
+                    "consistentCandidateCount": 0,
+                    "filterRepresentativeCount": 0,
+                    "composerGeneratedCount": 0,
+                    "behaviorEvalMaxSteps": 10000
                 },
                 {
                     "maxComposeRounds": 3,
                     "status": "OBSERVATION_COLLISION",
                     "search": null,
                     "filter": null,
-                    "behaviorClasses": 0
+                    "behaviorClasses": 0,
+                    "consistentCandidateCount": 0,
+                    "filterRepresentativeCount": 0,
+                    "composerGeneratedCount": 0,
+                    "behaviorEvalMaxSteps": 10000
                 }
             ],
             "notes": [
