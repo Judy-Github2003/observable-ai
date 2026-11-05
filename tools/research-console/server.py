@@ -457,7 +457,11 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_html(activity_page(state, event_list()))
                 return
             if path.startswith("/activity/"):
-                content = history_page(path.split("/")[-1])
+                event_id = path.split("/")[-1]
+                if not re.fullmatch(r"ev-[A-Za-z0-9-]+", event_id):
+                    self.error_page("invalid history event id", 400)
+                    return
+                content = history_page(event_id)
                 if content is None:
                     self.error_page("history event not found", 404)
                 else:
