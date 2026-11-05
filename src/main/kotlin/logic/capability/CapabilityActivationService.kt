@@ -1,6 +1,7 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-04。
 // 原因：B0 M2b-2a 激活门禁：用追加式 activations 记录推导逻辑状态，不改 capabilities.status。
 // 边界：这里“可信”是宿主进程内机制（登记表 + 记录核对），不是对恶意数据库管理员的强对抗安全承诺。
+// 修改：DeepSeek Harness，2026-11-05，B0 M2c-1a 增加已撤销版本拒绝；撤销不恢复旧版本。
 package logic.capability
 
 import kotlinx.serialization.json.buildJsonObject
@@ -62,6 +63,10 @@ internal class CapabilityActivationService(
         val contentHash = inspected.contentHash
         if (!inspected.ok || definition == null || contentHash == null) {
             return ActivationResult(false, inspected.code ?: "inspection_failed", null)
+        }
+        // 1b) 已撤销版本永久不可再激活；修正必须发布新版本，而不是恢复旧版本。
+        if (registry.readRevocation(capabilityId, capabilityVersion) != null) {
+            return ActivationResult(false, "revoked", null)
         }
 
         // 2) 验证记录必须存在，并精确绑定到当前 (id, version, contentHash)。

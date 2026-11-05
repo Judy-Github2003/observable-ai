@@ -106,3 +106,13 @@
 - `ok=true` 只表示门禁通过且确实执行；`resultKind` 区分 `known/unknown/error`，`Unknown` 不是 `false`，`Error` 不是成功预测。
 - `CapabilityRegistry.resolve` 与 `CapabilityInterpreter` 保留为内部开发/验证接口；正式应用必须走 `executeActive`。同进程内不是安全边界。
 - 执行结果本轮不单独持久化（schema 固定 6 表）；不新增执行日志表，也不拿验证记录冒充执行证据。
+
+## M2c-1a 追加式撤销（2026-11-05）
+
+- schema v3：`revocations(revoke_id, capability_id, version, content_hash, reason_code, evidence_ref, created_at)`，外键指向 `capabilities(capability_id,version)`，只追加。
+- 迁移路径：`0→3` 一次建全；`1→3`、`2→3` 单事务补表；`3` 原样打开；其他版本 `unsupported_schema_version`；失败 `schema_migration_failed` 且回滚。
+- `revoke` 要求原因码与证据引用非空（各 ≤4 KiB），否则 `invalid_revocation_reason` / `invalid_evidence_ref`。
+- 重复撤销：同 `(id,version)` 同哈希 → `already_revoked` 幂等，不追加事件；哈希不一致 → `revocation_conflict`。
+- 撤销记录 + `events(kind='revoked')` 同事务；触发器注入失败实测回滚。
+- 撤销优先于激活与执行：`CapabilityActivationService` 与 `CapabilityExecutionService` 对已撤销版本返回 `revoked`；`inspect` 仍可读，历史验证/激活/正文记录全部保留。
+- 本轮不提供旧版本“取消撤销/恢复”；修正必须发布新版本、重新验证和激活。传递依赖失效与恢复在 M2c-1b。

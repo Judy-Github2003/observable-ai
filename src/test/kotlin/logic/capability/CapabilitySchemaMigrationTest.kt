@@ -1,5 +1,6 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-04。
 // 原因：B0 M2b-1a 验收测试 M01–M05；只验证 v1→v2 迁移与回滚，不写验证器、不激活能力。
+// 修改：DeepSeek Harness，2026-11-05，B0 M2c-1a 把迁移终点改为 v3（撤销表），并补 v2→v3 用例。
 package logic.capability
 
 import kotlinx.serialization.json.Json
@@ -202,7 +203,7 @@ class CapabilitySchemaMigrationTest {
     )
 
     @Test
-    fun `M01 v1 fixture migrates to v2 without touching old rows`() {
+    fun `M01 v1 fixture migrates to v3 without touching old rows`() {
         val path = db()
         val fixture = writeV1Fixture(path)
         assertEquals(1, userVersion(path))
@@ -210,7 +211,7 @@ class CapabilitySchemaMigrationTest {
         assertFalse(tableExists(path, "verification_runs"))
 
         SqliteCapabilityRegistry(path).use { registry ->
-            assertEquals(2, userVersion(path))
+            assertEquals(3, userVersion(path))
             assertTrue(registry.inspect("core.is_red", 1).ok)
             assertTrue(registry.inspect("demo.red_round", 1).ok)
             val caller = registry.inspect("demo.red_round", 1)
@@ -224,27 +225,29 @@ class CapabilitySchemaMigrationTest {
         assertEquals(before, oldTableSnapshots.map { snapshot(path, it) })
         assertTrue(tableExists(path, "verification_runs"))
         assertTrue(tableExists(path, "activations"))
+        assertTrue(tableExists(path, "revocations"))
         assertEquals(0, snapshot(path, "SELECT * FROM verification_runs").length)
         assertEquals(0, snapshot(path, "SELECT * FROM activations").length)
-        assertEquals(2, userVersion(path))
+        assertEquals(0, snapshot(path, "SELECT * FROM revocations").length)
+        assertEquals(3, userVersion(path))
     }
 
     @Test
-    fun `M02 empty database initializes directly to v2`() {
+    fun `M02 empty database initializes directly to v3`() {
         val path = db()
         SqliteCapabilityRegistry(path).use { registry ->
-            assertEquals(2, userVersion(path))
+            assertEquals(3, userVersion(path))
             assertEquals(
-                setOf("activations", "bodies", "capabilities", "dependencies", "events", "verification_runs"),
+                setOf("activations", "bodies", "capabilities", "dependencies", "events", "revocations", "verification_runs"),
                 tables(path),
             )
             assertTrue(registry.inspect("core.absent", 1).code == "not_found")
         }
-        assertEquals(2, userVersion(path))
+        assertEquals(3, userVersion(path))
     }
 
     @Test
-    fun `M03 repeated reopen stays on v2 and keeps data`() {
+    fun `M03 repeated reopen stays on v3 and keeps data`() {
         val path = db()
         val helper = CapabilityDefinition(
             "core.is_red", 1, mapOf("item" to itemType), CapType.Bool3,
@@ -254,7 +257,7 @@ class CapabilitySchemaMigrationTest {
         repeat(3) {
             SqliteCapabilityRegistry(path).use { registry -> assertTrue(registry.inspect("core.is_red", 1).ok) }
         }
-        assertEquals(2, userVersion(path))
+        assertEquals(3, userVersion(path))
         assertEquals(1, snapshot(path, "SELECT capability_id FROM capabilities").lineSequence().count { it.isNotBlank() })
         assertEquals(0, snapshot(path, "SELECT * FROM verification_runs").length)
     }
@@ -284,9 +287,10 @@ class CapabilitySchemaMigrationTest {
             connection.createStatement().use { it.executeUpdate("DROP TABLE activations") }
         }
         SqliteCapabilityRegistry(path).use { registry ->
-            assertEquals(2, userVersion(path))
+            assertEquals(3, userVersion(path))
             assertTrue(registry.inspect("demo.red_round", 1).ok)
             assertEquals(0, snapshot(path, "SELECT * FROM activations").length)
+            assertEquals(0, snapshot(path, "SELECT * FROM revocations").length)
         }
     }
 
@@ -294,11 +298,40 @@ class CapabilitySchemaMigrationTest {
     fun `M05 unknown schema versions are rejected without migration`() {
         val path = db()
         connect(path).use { connection ->
-            connection.createStatement().use { it.execute("PRAGMA user_version = 3") }
+            connection.createStatement().use { it.execute("PRAGMA user_version = 4") }
         }
         val failed = assertFailsWith<RegistryException> { SqliteCapabilityRegistry(path) }
         assertEquals("unsupported_schema_version", failed.code)
-        assertEquals(3, userVersion(path))
+        assertEquals(4, userVersion(path))
         assertFalse(tableExists(path, "capabilities"))
+    }
+
+    @Test
+    fun `M06 v2 database gains revocations without touching verification history`() {
+        val path = db()
+        val helper = CapabilityDefinition(
+            "core.is_red", 1, mapOf("item" to itemType), CapType.Bool3,
+            Expr.Eq(Expr.Field(input, "color"), Expr.Const(CapValue.Str("red"))),
+        )
+        SqliteCapabilityRegistry(path).use { registry ->
+            assertTrue(registry.propose(helper).ok)
+            assertEquals(3, userVersion(path))
+        }
+        val before = oldTableSnapshots.map { snapshot(path, it) }
+        // 把 v3 库退化成 v2 形态：移除撤销表并改回版本号，再让注册表补迁。
+        connect(path).use { connection ->
+            connection.createStatement().use { statement ->
+                statement.executeUpdate("DROP TABLE revocations")
+                statement.execute("PRAGMA user_version = 2")
+            }
+        }
+        assertFalse(tableExists(path, "revocations"))
+        SqliteCapabilityRegistry(path).use { registry ->
+            assertEquals(3, userVersion(path))
+            assertTrue(tableExists(path, "revocations"))
+            assertEquals(0, snapshot(path, "SELECT * FROM revocations").length)
+            assertTrue(registry.inspect("core.is_red", 1).ok)
+        }
+        assertEquals(before, oldTableSnapshots.map { snapshot(path, it) })
     }
 }

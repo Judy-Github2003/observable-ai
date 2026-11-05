@@ -1,6 +1,7 @@
 // 本文件实现：DeepSeek Harness（本会话），2026-11-04。
 // 原因：B0 M2b-2b 正式执行入口 executeActive：每次先过激活与传递依赖门禁，再交给 M1 解释器。
 // 边界：同进程内的 resolve/解释器仍是内部开发与验证接口，不是对恶意调用者的硬隔离；权限沙箱留后续。
+// 修改：DeepSeek Harness，2026-11-05，B0 M2c-1a 增加撤销优先检查；正式入口拒绝已撤销版本。
 package logic.capability
 
 /**
@@ -38,6 +39,11 @@ internal class CapabilityExecutionService(private val registry: SqliteCapability
         args: Map<String, EvalResult>,
         budget: EvalBudget = EvalBudget(),
     ): ActiveExecutionResult {
+        // 0) 撤销优先：被撤销的版本即使还有旧激活记录、旧验证记录，也不得再正式执行。
+        if (registry.readRevocation(capabilityId, capabilityVersion) != null) {
+            return rejected(capabilityId, capabilityVersion, "revoked")
+        }
+
         // 1) 当前定义必须可检查：body/签名/依赖表/语义版本任一损坏都拒绝执行。
         val inspected = registry.inspect(capabilityId, capabilityVersion)
         val definition = inspected.definition

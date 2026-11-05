@@ -4,6 +4,7 @@
 //       不改旧四表、不改 capabilities.status 的 candidate 约束，也不在本步写入验证或激活记录。
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-1c 增加 appendVerificationRun：验证记录与 verified 事件同事务追加。
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-2a 增加验证/激活读取与 appendActivation；激活不修改 capabilities.status。
+// 修改：DeepSeek Harness，2026-11-05，B0 M2c-1a 增加 schema v3 撤销表与撤销读写；旧四表、status 约束与历史记录不变。
 package logic.capability
 
 import kotlinx.serialization.json.*
@@ -52,19 +53,26 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
     private fun initializeSchema() {
         val version = readUserVersion()
         when (version) {
-            // 空库：一次性建好 v1 旧四表与 v2 新表，直接落在 user_version=2，避免“先 1 再迁 2”留下中间态。
+            // 空库：一次性建好 v1 旧四表、v2 验证/激活表、v3 撤销表，直接落在 user_version=3。
             0 -> inSchemaTransaction("schema_init_failed") {
                 createV1Tables()
                 createV2Tables()
-                writeUserVersion(2)
+                createV3Tables()
+                writeUserVersion(3)
             }
-            // v1 旧库：只补两张新表并推进版本号；失败必须整体回滚，不能留下“表建了一半”的库。
+            // v1 旧库：补 v2、v3 阶段表并推进版本号；失败必须整体回滚，不能留下“表建了一半”的库。
             1 -> inSchemaTransaction("schema_migration_failed") {
                 createV2Tables()
-                writeUserVersion(2)
+                createV3Tables()
+                writeUserVersion(3)
             }
-            // 已是 v2：正常打开，不重复执行迁移（重复 CREATE 会因表名冲突失败）。
-            2 -> Unit
+            // v2 库：只补撤销表；验证/激活历史原样保留。
+            2 -> inSchemaTransaction("schema_migration_failed") {
+                createV3Tables()
+                writeUserVersion(3)
+            }
+            // 已是 v3：正常打开，不重复执行迁移（重复 CREATE 会因表名冲突失败）。
+            3 -> Unit
             else -> throw RegistryException("unsupported_schema_version", "user_version=$version")
         }
     }
@@ -195,6 +203,29 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
                     created_at TEXT NOT NULL,
                     FOREIGN KEY(capability_id,version) REFERENCES capabilities(capability_id,version),
                     FOREIGN KEY(verification_run_id) REFERENCES verification_runs(run_id)
+                )
+                """.trimIndent(),
+            )
+        }
+    }
+
+    /**
+     * v3 撤销表：只追加。撤销不删除旧能力、不覆盖验证/激活记录，
+     * 因此历史审计仍可读取该版本，正式入口则根据本表拒绝执行。
+     */
+    private fun createV3Tables() {
+        connection.createStatement().use { statement ->
+            statement.executeUpdate(
+                """
+                CREATE TABLE revocations (
+                    revoke_id TEXT PRIMARY KEY,
+                    capability_id TEXT NOT NULL,
+                    version INTEGER NOT NULL CHECK(version > 0),
+                    content_hash TEXT NOT NULL,
+                    reason_code TEXT NOT NULL,
+                    evidence_ref TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    FOREIGN KEY(capability_id,version) REFERENCES capabilities(capability_id,version)
                 )
                 """.trimIndent(),
             )
@@ -463,6 +494,70 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
                 connection.rollback()
             } catch (_: Exception) {
                 // 同 appendVerificationRun：回滚失败仍返回 transaction_failed，不假装成功。
+            }
+            return RegistryResult(false, "transaction_failed", null)
+        } finally {
+            connection.autoCommit = true
+        }
+        return RegistryResult(true)
+    }
+
+    /** M2c-1a：读取某能力版本是否已被撤销；正式入口与激活门禁据此拒绝，历史审计仍可 inspect。 */
+    internal fun readRevocation(capabilityId: String, capabilityVersion: Int): RevocationSnapshot? =
+        connection.prepareStatement(
+            "SELECT revoke_id,content_hash,reason_code,evidence_ref,created_at FROM revocations WHERE capability_id=? AND version=? ORDER BY created_at,revoke_id LIMIT 1",
+        ).use { statement ->
+            statement.setString(1, capabilityId)
+            statement.setInt(2, capabilityVersion)
+            statement.executeQuery().use { rows ->
+                if (!rows.next()) {
+                    null
+                } else {
+                    RevocationSnapshot(
+                        revokeId = rows.getString(1),
+                        capabilityId = capabilityId,
+                        capabilityVersion = capabilityVersion,
+                        contentHash = rows.getString(2),
+                        reasonCode = rows.getString(3),
+                        evidenceRef = rows.getString(4),
+                        createdAt = rows.getString(5),
+                    )
+                }
+            }
+        }
+
+    /** M2c-1a：撤销记录与 revoked 事件同事务追加；不删除、不更新任何旧行。 */
+    internal fun appendRevocation(row: RevocationRow, payloadJson: String): RegistryResult {
+        connection.autoCommit = false
+        try {
+            connection.prepareStatement(
+                "INSERT INTO revocations(revoke_id,capability_id,version,content_hash,reason_code,evidence_ref,created_at) VALUES(?,?,?,?,?,?,?)",
+            ).use { statement ->
+                statement.setString(1, row.revokeId)
+                statement.setString(2, row.capabilityId)
+                statement.setInt(3, row.capabilityVersion)
+                statement.setString(4, row.contentHash)
+                statement.setString(5, row.reasonCode)
+                statement.setString(6, row.evidenceRef)
+                statement.setString(7, Instant.now().toString())
+                statement.executeUpdate()
+            }
+            connection.prepareStatement(
+                "INSERT INTO events(kind,capability_id,version,payload_json,created_at) VALUES(?,?,?,?,?)",
+            ).use { statement ->
+                statement.setString(1, "revoked")
+                statement.setString(2, row.capabilityId)
+                statement.setInt(3, row.capabilityVersion)
+                statement.setString(4, payloadJson)
+                statement.setString(5, Instant.now().toString())
+                statement.executeUpdate()
+            }
+            connection.commit()
+        } catch (_: Exception) {
+            try {
+                connection.rollback()
+            } catch (_: Exception) {
+                // 与验证/激活写入一致：回滚失败返回 transaction_failed，不假装成功。
             }
             return RegistryResult(false, "transaction_failed", null)
         } finally {
