@@ -4,6 +4,8 @@ package logic.e3
 
 import logic.capability.*
 
+enum class CandidateEvidenceState { NOT_RUN, RUN_WITH_ZERO_SURVIVORS, SEARCH_TRUNCATED, RUN_WITH_SURVIVORS }
+
 enum class BudgetVerdict {
     INVALID_INPUT,
     NO_COMPLETE_OBSERVATIONS,
@@ -43,6 +45,7 @@ data class BudgetRun(
     val behaviorClasses: List<BehaviorClass>,
     val behaviorEvalMaxSteps: Int,
     val layers: CandidateLayers,
+    val candidateEvidenceState: CandidateEvidenceState,
 )
 
 data class BudgetDiagnosis(
@@ -85,6 +88,7 @@ class E3SearchBudgetDiagnoser {
                     behaviorClasses = classes.size,
                     filterRepresentatives = signal.filter?.survivorCount ?: 0,
                 ),
+                candidateEvidenceState = evidenceState(signal),
             )
         }
         val changes = listOf(
@@ -103,7 +107,7 @@ class E3SearchBudgetDiagnoser {
             budgetSensitive = runs.map { it.signal.composedCandidateHashes.toSet() }.distinct().size > 1 ||
                 runs.map { it.signal.consistentCandidateHashes.toSet() }.distinct().size > 1,
             multipleBehaviorClasses = runs.any { it.behaviorClasses.size > 1 },
-            noConsistentCandidate = runs.all { it.signal.consistentCandidateHashes.isEmpty() },
+            noConsistentCandidate = runs.all { it.candidateEvidenceState == CandidateEvidenceState.RUN_WITH_ZERO_SURVIVORS },
             searchTruncated = runs.any {
                 it.signal.search?.reason == "depth_limit" || it.signal.search?.reason == "candidate_limit"
             },
@@ -128,6 +132,15 @@ class E3SearchBudgetDiagnoser {
             notes = notes,
             facts = facts,
         )
+    }
+
+    private fun evidenceState(signal: DiagnosticSignal): CandidateEvidenceState = when {
+        signal.status == DiagnosticSignalStatus.INVALID_INPUT ||
+            signal.status == DiagnosticSignalStatus.NO_COMPLETE_OBSERVATIONS ||
+            signal.status == DiagnosticSignalStatus.OBSERVATION_COLLISION -> CandidateEvidenceState.NOT_RUN
+        signal.consistentCandidateHashes.isNotEmpty() -> CandidateEvidenceState.RUN_WITH_SURVIVORS
+        signal.search?.reason == "depth_limit" || signal.search?.reason == "candidate_limit" -> CandidateEvidenceState.SEARCH_TRUNCATED
+        else -> CandidateEvidenceState.RUN_WITH_ZERO_SURVIVORS
     }
 
     /** 独立可测的主状态分类；保留 facts 作为同时成立的事实。 */

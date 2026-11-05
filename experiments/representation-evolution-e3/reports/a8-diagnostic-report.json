@@ -6,6 +6,11 @@
             "strategySource": "designer_primitive",
             "stoppedBecause": "budget=BUDGET_SENSITIVE_CANDIDATE_SET; probe=NO_ACTION",
             "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "beforeVerdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "afterVerdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "beforeStatus": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "afterStatus": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "addedEvidenceIds": [],
             "facts": {
                 "budgetSensitive": true,
                 "multipleBehaviorClasses": false,
@@ -132,10 +137,17 @@
             "strategySource": "designer_primitive",
             "stoppedBecause": "budget=OBSERVATION_COLLISION; probe=EXECUTED",
             "verdict": "OBSERVATION_COLLISION",
+            "beforeVerdict": "OBSERVATION_COLLISION",
+            "afterVerdict": "OBSERVATION_COLLISION",
+            "beforeStatus": "OBSERVATION_COLLISION",
+            "afterStatus": "OBSERVATION_COLLISION",
+            "addedEvidenceIds": [
+                "repeat-obj-0a-2"
+            ],
             "facts": {
                 "budgetSensitive": false,
                 "multipleBehaviorClasses": false,
-                "noConsistentCandidate": true,
+                "noConsistentCandidate": false,
                 "searchTruncated": false,
                 "reasonUndetermined": true,
                 "observationCollision": true
@@ -144,12 +156,13 @@
                 {
                     "kind": "OBSERVED_LABEL_COLLISION",
                     "evidenceIds": [
+                        "repeat-obj-0a-2",
                         "w-4f8797bfa31aeddb-P1",
                         "w-4f8797bfa31aeddb-P2"
                     ],
                     "scope": {
                         "hypothesisSpace": "observable feature vectors only; no causal/hidden explanation",
-                        "observationDomain": "3 observations, schema fields=[kind, shape]",
+                        "observationDomain": "4 observations, schema fields=[kind, shape]",
                         "queryDomain": null
                     },
                     "sourceHypotheses": [
@@ -169,12 +182,13 @@
                 {
                     "kind": "UNDETERMINED",
                     "evidenceIds": [
+                        "repeat-obj-0a-2",
                         "w-4f8797bfa31aeddb-P1",
                         "w-4f8797bfa31aeddb-P2"
                     ],
                     "scope": {
                         "hypothesisSpace": "observable feature vectors only; no causal/hidden explanation",
-                        "observationDomain": "3 observations, schema fields=[kind, shape]",
+                        "observationDomain": "4 observations, schema fields=[kind, shape]",
                         "queryDomain": null
                     },
                     "sourceHypotheses": [
@@ -189,28 +203,6 @@
                         "hidden attribute",
                         "context change",
                         "data error"
-                    ]
-                },
-                {
-                    "kind": "UNDETERMINED",
-                    "evidenceIds": [],
-                    "scope": {
-                        "hypothesisSpace": "bounded run",
-                        "observationDomain": "public observations",
-                        "queryDomain": null
-                    },
-                    "sourceHypotheses": [
-                        "no consistent candidate was found in the tested budgets"
-                    ],
-                    "observationConclusion": "no consistent candidate under these budgets and query domain",
-                    "assumptions": [
-                        "budgets and query domain are fixed as recorded"
-                    ],
-                    "alternativeExplanations": [
-                        "target outside hypothesis space",
-                        "budget too small",
-                        "query domain insufficient",
-                        "noise or inconsistency"
                     ]
                 },
                 {
@@ -245,9 +237,16 @@
             "strategySource": "designer_primitive",
             "stoppedBecause": "budget=BUDGET_SENSITIVE_CANDIDATE_SET; probe=EXECUTED",
             "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "beforeVerdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "afterVerdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "beforeStatus": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+            "afterStatus": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "addedEvidenceIds": [
+                "probe-w-19e7003dc2c196bd-Q1-2"
+            ],
             "facts": {
                 "budgetSensitive": true,
-                "multipleBehaviorClasses": true,
+                "multipleBehaviorClasses": false,
                 "noConsistentCandidate": false,
                 "searchTruncated": true,
                 "reasonUndetermined": false,
@@ -261,11 +260,12 @@
                         "w-19e7003dc2c196bd-P2",
                         "w-19e7003dc2c196bd-P3",
                         "w-19e7003dc2c196bd-P4",
-                        "w-19e7003dc2c196bd-P5"
+                        "w-19e7003dc2c196bd-P5",
+                        "probe-w-19e7003dc2c196bd-Q1-2"
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [
@@ -288,11 +288,12 @@
                         "w-19e7003dc2c196bd-P2",
                         "w-19e7003dc2c196bd-P3",
                         "w-19e7003dc2c196bd-P4",
-                        "w-19e7003dc2c196bd-P5"
+                        "w-19e7003dc2c196bd-P5",
+                        "probe-w-19e7003dc2c196bd-Q1-2"
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [
@@ -310,30 +311,30 @@
                     ]
                 },
                 {
-                    "kind": "MULTIPLE_HYPOTHESES",
+                    "kind": "SUPPORTED_WITHIN_BOUNDED_H",
                     "evidenceIds": [
                         "w-19e7003dc2c196bd-P1",
                         "w-19e7003dc2c196bd-P2",
                         "w-19e7003dc2c196bd-P3",
                         "w-19e7003dc2c196bd-P4",
-                        "w-19e7003dc2c196bd-P5"
+                        "w-19e7003dc2c196bd-P5",
+                        "probe-w-19e7003dc2c196bd-Q1-2"
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [
-                        "multiple behavior classes fit the public evidence"
+                        "one behavior class remains within the bounded hypothesis space"
                     ],
-                    "observationConclusion": "more than one distinguishable candidate remains on the public query domain",
+                    "observationConclusion": "candidate is identifiable within current bounds and query domain only",
                     "assumptions": [
-                        "public query domain is the current discriminating domain"
+                        "current IR depth/nodes/candidates and public query domain"
                     ],
                     "alternativeExplanations": [
-                        "insufficient distinguishing queries",
-                        "noise",
-                        "representation mismatch"
+                        "global rule may differ outside the query domain",
+                        "unobserved inputs may distinguish candidates"
                     ]
                 },
                 {
@@ -343,7 +344,7 @@
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [
@@ -366,11 +367,18 @@
         {
             "case": "ambiguous",
             "strategySource": "designer_primitive",
-            "stoppedBecause": "budget=MULTIPLE_CANDIDATES_REMAIN; probe=EXECUTED",
-            "verdict": "MULTIPLE_CANDIDATES_REMAIN",
+            "stoppedBecause": "budget=BUDGET_SENSITIVE_CANDIDATE_SET; probe=EXECUTED",
+            "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "beforeVerdict": "MULTIPLE_CANDIDATES_REMAIN",
+            "afterVerdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "beforeStatus": "AMBIGUOUS_WITHIN_BOUNDED_SPACE",
+            "afterStatus": "IDENTIFIED_WITHIN_BOUNDED_SPACE",
+            "addedEvidenceIds": [
+                "probe-w-1f74e58dd751cfc6-Q1-2"
+            ],
             "facts": {
                 "budgetSensitive": true,
-                "multipleBehaviorClasses": true,
+                "multipleBehaviorClasses": false,
                 "noConsistentCandidate": false,
                 "searchTruncated": true,
                 "reasonUndetermined": false,
@@ -384,11 +392,12 @@
                         "w-1f74e58dd751cfc6-P2",
                         "w-1f74e58dd751cfc6-P3",
                         "w-1f74e58dd751cfc6-P4",
-                        "w-1f74e58dd751cfc6-P5"
+                        "w-1f74e58dd751cfc6-P5",
+                        "probe-w-1f74e58dd751cfc6-Q1-2"
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [
@@ -411,11 +420,12 @@
                         "w-1f74e58dd751cfc6-P2",
                         "w-1f74e58dd751cfc6-P3",
                         "w-1f74e58dd751cfc6-P4",
-                        "w-1f74e58dd751cfc6-P5"
+                        "w-1f74e58dd751cfc6-P5",
+                        "probe-w-1f74e58dd751cfc6-Q1-2"
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [
@@ -433,30 +443,30 @@
                     ]
                 },
                 {
-                    "kind": "MULTIPLE_HYPOTHESES",
+                    "kind": "SUPPORTED_WITHIN_BOUNDED_H",
                     "evidenceIds": [
                         "w-1f74e58dd751cfc6-P1",
                         "w-1f74e58dd751cfc6-P2",
                         "w-1f74e58dd751cfc6-P3",
                         "w-1f74e58dd751cfc6-P4",
-                        "w-1f74e58dd751cfc6-P5"
+                        "w-1f74e58dd751cfc6-P5",
+                        "probe-w-1f74e58dd751cfc6-Q1-2"
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [
-                        "multiple behavior classes fit the public evidence"
+                        "one behavior class remains within the bounded hypothesis space"
                     ],
-                    "observationConclusion": "more than one distinguishable candidate remains on the public query domain",
+                    "observationConclusion": "candidate is identifiable within current bounds and query domain only",
                     "assumptions": [
-                        "public query domain is the current discriminating domain"
+                        "current IR depth/nodes/candidates and public query domain"
                     ],
                     "alternativeExplanations": [
-                        "insufficient distinguishing queries",
-                        "noise",
-                        "representation mismatch"
+                        "global rule may differ outside the query domain",
+                        "unobserved inputs may distinguish candidates"
                     ]
                 },
                 {
@@ -466,7 +476,7 @@
                     ],
                     "scope": {
                         "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
-                        "observationDomain": "5 complete Known labeled observations",
+                        "observationDomain": "6 complete Known labeled observations",
                         "queryDomain": "1 evaluated public query points"
                     },
                     "sourceHypotheses": [

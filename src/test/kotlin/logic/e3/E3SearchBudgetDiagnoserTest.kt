@@ -6,6 +6,7 @@ import logic.e3.evaluator.E3WorldGenerator
 import logic.e3.evaluator.WorldFamily
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -109,6 +110,21 @@ class E3SearchBudgetDiagnoserTest {
             observationCollision = false,
         )
         assertEquals(BudgetVerdict.NO_CONSISTENT_CANDIDATE, diagnoser.classifyVerdict(runs, facts))
+    }
+
+    @Test
+    fun `collision is not run and is not classified as zero consistent`() {
+        val result = run(WorldFamily.LATENT_ALIASING, 103L)
+        assertFalse(result.facts.noConsistentCandidate)
+        assertTrue(result.runs.all { it.candidateEvidenceState == CandidateEvidenceState.NOT_RUN })
+        assertEquals(BudgetVerdict.OBSERVATION_COLLISION, result.verdict)
+    }
+
+    @Test
+    fun `truncated search is distinguished from zero survivors`() {
+        val result = run(WorldFamily.SEARCH_LIMITED, 107L)
+        assertEquals(CandidateEvidenceState.SEARCH_TRUNCATED, result.runs[0].candidateEvidenceState)
+        assertFalse(result.facts.noConsistentCandidate)
     }
 
     @Test

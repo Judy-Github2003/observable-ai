@@ -2,11 +2,21 @@
 // 原因：E3-A8 将 A4 冲突、A5/A6 搜索事实、A7 行动轨迹整合为可追溯 DiagnosticReport。
 package logic.e3
 
+data class ProbeStateChange(
+    val beforeStatus: DiagnosticSignalStatus,
+    val afterStatus: DiagnosticSignalStatus,
+    val addedEvidenceIds: List<String>,
+    val changed: Boolean,
+)
+
 data class IntegratedDiagnosis(
     val report: DiagnosticReport,
     val budget: BudgetDiagnosis,
+    val beforeBudget: BudgetDiagnosis,
+    val afterBudget: BudgetDiagnosis,
     val probe: ProbeTrace?,
     val signal: DiagnosticSignal,
+    val stateChange: ProbeStateChange,
 )
 
 /**
@@ -24,7 +34,11 @@ class E3DiagnosticIntegrator {
         high: DiagnosticBudget,
         probe: ProbeTrace? = null,
     ): IntegratedDiagnosis {
-        val budget = E3SearchBudgetDiagnoser().diagnose(schema, observations, constants, queryDomain, low, high)
+        val diagnoser = E3SearchBudgetDiagnoser()
+        val beforeBudget = diagnoser.diagnose(schema, observations, constants, queryDomain, low, high)
+        val afterObservations = if (probe?.addedObservation != null) observations + probe.addedObservation else observations
+        val afterBudget = diagnoser.diagnose(schema, afterObservations, constants, queryDomain, low, high)
+        val budget = afterBudget
         val signal = budget.runs.last().signal
         val findings = ArrayList<DiagnosticFinding>()
         val collision = signal.collisionReport
@@ -167,6 +181,13 @@ class E3DiagnosticIntegrator {
             stoppedBecause = "budget=${budget.verdict}; probe=${probe?.executionStatus ?: "not_run"}",
             strategySource = E3_STRATEGY_SOURCE,
         )
-        return IntegratedDiagnosis(report, budget, probe, signal)
+        val beforeSignal = beforeBudget.runs.last().signal
+        val stateChange = ProbeStateChange(
+            beforeStatus = beforeSignal.status,
+            afterStatus = signal.status,
+            addedEvidenceIds = listOfNotNull(probe?.addedObservation?.observationId),
+            changed = beforeSignal.status != signal.status || probe?.addedObservation != null,
+        )
+        return IntegratedDiagnosis(report, budget, beforeBudget, afterBudget, probe, signal, stateChange)
     }
 }

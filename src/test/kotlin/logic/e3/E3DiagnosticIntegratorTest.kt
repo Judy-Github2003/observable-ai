@@ -88,6 +88,9 @@ class E3DiagnosticIntegratorTest {
         val probeFinding = result.report.findings.first { it.kind == FindingKind.PROBE_EXECUTED }
         assertEquals(trace.recordedObservationId, probeFinding.evidenceIds.single())
         assertTrue(probeFinding.observationConclusion!!.contains("cost=1"))
+        assertEquals(listOf(trace.recordedObservationId), result.stateChange.addedEvidenceIds)
+        assertTrue(result.stateChange.changed)
+        assertTrue(result.beforeBudget.runs.last().signal.status != result.afterBudget.runs.last().signal.status)
     }
 
     @Test

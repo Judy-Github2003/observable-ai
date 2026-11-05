@@ -58,6 +58,11 @@ class E3A8SampleExportTest {
                         put("strategySource", integrated.report.strategySource)
                         put("stoppedBecause", integrated.report.stoppedBecause)
                         put("verdict", integrated.budget.verdict.name)
+                        put("beforeVerdict", integrated.beforeBudget.verdict.name)
+                        put("afterVerdict", integrated.afterBudget.verdict.name)
+                        put("beforeStatus", integrated.stateChange.beforeStatus.name)
+                        put("afterStatus", integrated.stateChange.afterStatus.name)
+                        put("addedEvidenceIds", buildJsonArray { integrated.stateChange.addedEvidenceIds.forEach { add(it) } })
                         put("facts", buildJsonObject {
                             put("budgetSensitive", integrated.budget.facts.budgetSensitive)
                             put("multipleBehaviorClasses", integrated.budget.facts.multipleBehaviorClasses)

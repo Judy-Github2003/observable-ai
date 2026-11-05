@@ -65,6 +65,7 @@ data class ProbeTrace(
     val measurementKind: MeasurementKind? = null,
     val newObservationRecorded: Boolean = false,
     val recordedObservationId: String? = null,
+    val addedObservation: Observation? = null,
 )
 
 /**
@@ -187,6 +188,7 @@ class E3ProbeSession(
                     measurementKind = MeasurementKind.PUBLIC_INSTANCE,
                     newObservationRecorded = true,
                     recordedObservationId = recordId,
+                    addedObservation = currentObservations.last(),
                 )
             }
             is ProbeAction.RepeatLabel -> {
@@ -221,6 +223,7 @@ class E3ProbeSession(
                     measurementKind = response.measurementKind,
                     newObservationRecorded = true,
                     recordedObservationId = recordId,
+                    addedObservation = currentObservations.last(),
                 )
             }
         }

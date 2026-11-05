@@ -210,7 +210,7 @@
             "facts": {
                 "budgetSensitive": false,
                 "multipleBehaviorClasses": false,
-                "noConsistentCandidate": true,
+                "noConsistentCandidate": false,
                 "searchTruncated": false,
                 "reasonUndetermined": true,
                 "observationCollision": true
