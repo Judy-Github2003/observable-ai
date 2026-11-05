@@ -149,9 +149,19 @@ def workstate_check(state):
             if not task:
                 problems.append("pack task missing: " + tid)
                 continue
-            task_match = re.search(r"^- " + re.escape(tid) + r" · .* · (\S+) · patch ", text, re.MULTILINE)
-            if not task_match or task_match.group(1) != str(task.get("status")):
-                problems.append("task status mismatch in WORKSTATE: " + tid)
+            task_match = re.search(r"^- " + re.escape(tid) + r" · .* · (\S+) · patch (\d+)/1", text, re.MULTILINE)
+            if not task_match or task_match.group(1) != str(task.get("status")) or int(task_match.group(2)) != int(task.get("patch_used", 0)):
+                problems.append("task status/patch mismatch in WORKSTATE: " + tid)
+        if "- 普通补丁: " + str(pack.get("patch_used", "0/1")) not in text:
+            problems.append("pack patch usage mismatch in WORKSTATE")
+        exception = pack.get("exception")
+        if exception:
+            expected = "used " + str(exception.get("exception_used")) + "/" + str(exception.get("exception_limit"))
+            if exception.get("exception_id") not in text or expected not in text:
+                problems.append("pack exception usage missing/mismatched in WORKSTATE")
+    for patched in [t for t in state["tasks"] if t.get("patch_used", 0) > 0]:
+        if f"{patched['id']} {patched.get('patch_used')}/1" not in text:
+            problems.append("patch_count missing task: " + patched["id"])
     return {"ok": not problems, "problems": problems, "path": str(path.relative_to(ROOT))}
 
 

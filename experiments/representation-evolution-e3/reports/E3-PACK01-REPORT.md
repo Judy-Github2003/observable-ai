@@ -3,7 +3,7 @@
 ```text
 研究包: PACK-01
 子任务: D2 / RES-N02 / A-R1
-状态: REVIEW（三个子任务均为 REVIEW；不代表已验收）
+状态: ACCEPTED_LIMITED（研究负责人裁定；含 PACK-01-EXCEPTION-01）
 代码/测试提交: 7b5fa828bbf8531d4e21f7a59de41bcb39ca684c
 测试: 307/307（B0 173 + E3 134），失败 0
 独立闭卷: not_run
@@ -97,7 +97,7 @@ PACK-01 证明了一个受限的联合机制：
 
 ## 9. 下一步
 
-三个子任务均进入 `REVIEW`；等待研究负责人/ChatGPT 审查。不自动启动其他任务。
+三个子任务及研究包已按研究负责人裁定写回 `ACCEPTED_LIMITED`；例外额度 `1/1` 已使用。不得启动 PACK-02 或其他任务。
 ## 10. PACK-01 唯一补丁（7b5fa82）
 
 补丁额度 1/1。
@@ -139,3 +139,34 @@ PACK-01 证明了一个受限的联合机制：
 - 未更换 B0 已激活知识；
 - 未证明查询策略优于固定策略；
 - 独立闭卷仍为 `not_run`。
+## 11. 验收裁定与一次性例外（已写回）
+
+研究负责人裁定：
+
+- D2：`ACCEPTED_LIMITED`
+- RES-N02：`ACCEPTED_LIMITED`
+- A-R1：`ACCEPTED_LIMITED`
+- PACK-01：`ACCEPTED_LIMITED`
+
+例外记录：
+
+```text
+exception_id: PACK-01-EXCEPTION-01
+exception_limit: 1
+exception_used: 1
+scope: console_state_and_gate_tests_only
+authorized_by: research_owner
+```
+
+修补轮次：普通补丁 `1/1` + 本次例外 `1/1`；普通上限仍为 1，不继承给其他包。
+子任务 `patch_used` 已同步为 `1/1`；没有重新开启研究执行权限。
+
+保留限制：
+
+- 主要是受控小世界实验；
+- 可以维护多个候选并根据证据更新；
+- 可以使用候选分歧选择合法查询；
+- 能根据反例修正候选集合；
+- 尚未证明普遍的自主科学发现；
+- 尚未完成已激活知识的完整版本替换闭环；
+- `independent_closed_book=not_run`。

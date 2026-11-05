@@ -97,26 +97,40 @@ def render_workstate(state) -> str:
         f"last_test_result: {state.get('last_test_result', 'TBD')}",
         "verification_source: implementer_run",
         f"independent_closed_book: {state.get('independent_closed_book', 'not_run')}",
-        "patch_count: A1 1/1; C1 1/1",
-        "test_task_status:",
     ]
-    for tid in ("A1", "C1"):
+    patched = [t for t in state["tasks"] if t.get("patch_used", 0) > 0]
+    if patched:
+        lines.append("patch_count: " + "; ".join(f"{t['id']} {t.get('patch_used')}/1" for t in patched))
+    else:
+        lines.append("patch_count: none")
+    lines.append("test_task_status:")
+    status_ids = ["A1", "C1"]
+    pack = state.get("active_pack")
+    if pack:
+        status_ids += [tid for tid in pack.get("tasks", []) if tid not in status_ids]
+    for tid in status_ids:
         if tid in tasks:
             lines.append(f"  {tid}: {tasks[tid]['status']} (patch {tasks[tid].get('patch_used', 0)}/1)")
+    following = state.get("authorized_action", "none")
     lines += [
         "paused_reason: none",
-        "next_authorized_action: none; wait for research-owner authorization",
-        "unauthorized: A-R1/A2/A11/A12, B1-B8, C2-C10, D1-D10, X1-X8, F1-F12, RES-*",
+        f"next_authorized_action: {following}" if following != "none" else "next_authorized_action: none; wait for research-owner authorization",
+        "unauthorized: " + str(sum(1 for t in state["tasks"] if t.get("status") in {"PROPOSED", "EXPLORATORY", "READY"} and t.get("authorized_action", "none") == "none")) + " tasks without authorization",
         "```",
     ]
-    pack = state.get("active_pack")
     if pack:
         lines += ["", f"## 研究包 {pack.get('id')} · {pack.get('status', 'TBD')}", ""]
         for tid in pack.get("tasks", []):
             task = tasks.get(tid)
             if task:
                 lines.append(f"- {tid} · {task['title']} · {task['status']} · patch {task.get('patch_used', 0)}/1")
-        lines += ["", "> 包内任务独立状态；包整体 REVIEW 不代表已验收。"]
+        use = pack.get("patch_used", "0/1")
+        lines += ["", f"- 普通补丁: {use}"]
+        exception = pack.get("exception")
+        if exception:
+            lines.append(f"- 例外: {exception.get('exception_id')} · used {exception.get('exception_used')}/{exception.get('exception_limit')}")
+            lines.append(f"- 例外范围: {exception.get('scope')} · {exception.get('authorized_by')}")
+        lines += ["", "> 包内任务独立状态；包整体 ACCEPTED_LIMITED 不代表独立闭卷通过。"]
     lines += [
         "> 本文件是 Research Console 状态的交接视图；权威状态为 `research-console/tasks.json`。",
         "",

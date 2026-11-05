@@ -11,22 +11,29 @@ working_tree: see Research Console health
 last_test_result: 307 passed / 307 total, 0 failed（B0 173 + E3 134）
 verification_source: implementer_run
 independent_closed_book: not_run
-patch_count: A1 1/1; C1 1/1
+patch_count: A-R1 1/1; A1 1/1; C1 1/1; D2 1/1; M1.1a 1/1; P0 1/1; RES-N02 1/1
 test_task_status:
   A1: ACCEPTED_LIMITED (patch 1/1)
   C1: ACCEPTED_LIMITED (patch 1/1)
+  D2: ACCEPTED_LIMITED (patch 1/1)
+  RES-N02: ACCEPTED_LIMITED (patch 1/1)
+  A-R1: ACCEPTED_LIMITED (patch 1/1)
 paused_reason: none
 next_authorized_action: none; wait for research-owner authorization
-unauthorized: A-R1/A2/A11/A12, B1-B8, C2-C10, D1-D10, X1-X8, F1-F12, RES-*
+unauthorized: 172 tasks without authorization
 ```
 
-## 研究包 PACK-01 · REVIEW
+## 研究包 PACK-01 · ACCEPTED_LIMITED
 
-- D2 · 并行保留多个猜想 · REVIEW · patch 0/1
-- RES-N02 · 区分性实验设计 · REVIEW · patch 0/1
-- A-R1 · 反例驱动的知识修正与重新学习 · REVIEW · patch 0/1
+- D2 · 并行保留多个猜想 · ACCEPTED_LIMITED · patch 1/1
+- RES-N02 · 区分性实验设计 · ACCEPTED_LIMITED · patch 1/1
+- A-R1 · 反例驱动的知识修正与重新学习 · ACCEPTED_LIMITED · patch 1/1
 
-> 包内任务独立状态；包整体 REVIEW 不代表已验收。
+- 普通补丁: 1/1
+- 例外: PACK-01-EXCEPTION-01 · used 1/1
+- 例外范围: console_state_and_gate_tests_only · research_owner
+
+> 包内任务独立状态；包整体 ACCEPTED_LIMITED 不代表独立闭卷通过。
 > 本文件是 Research Console 状态的交接视图；权威状态为 `research-console/tasks.json`。
 
-Generated: 2026-11-05T13:55:08.857601+00:00
+Generated: 2026-11-05T14:14:59.629040+00:00

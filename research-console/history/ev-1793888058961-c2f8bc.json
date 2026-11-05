@@ -1,0 +1,16 @@
+{
+  "event_id": "ev-1793888058961-c2f8bc",
+  "at": "2026-11-05T14:14:18.961135+00:00",
+  "kind": "exception_used",
+  "actor": "research_owner",
+  "note": "PACK-01-EXCEPTION-01: 1/1 used",
+  "before": null,
+  "after": {
+    "exception_id": "PACK-01-EXCEPTION-01",
+    "exception_limit": 1,
+    "exception_used": 1,
+    "scope": "console_state_and_gate_tests_only",
+    "authorized_by": "research_owner",
+    "used_at": "2026-11-05"
+  }
+}
