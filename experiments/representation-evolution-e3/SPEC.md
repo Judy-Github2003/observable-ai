@@ -65,11 +65,25 @@ ProbeRequest = RepeatLabel | RequestPublicInstance | NoAction
 ## 6. A4 可观察碰撞检测（已实现）
 
 - `ObservableCollisionDetector.detect(schema, observations)` 只按完整 Known 可见向量分组；同组不同布尔标签才是冲突。
-- 报告含 featureKey、observationId、sourceId、round、label、范围；Unknown/未标注分别排除；非法输入返回机器错误。
+- 报告含 featureKey、observationId、objectId、sourceId、round、label、范围；Unknown/未标注分别排除；非法输入返回机器错误。
+- `objectId` 用于区分同一对象重复测量与不同对象碰撞；来源/轮次保留。
 - 不推断隐藏属性、噪声、随机性或世界原因；不 import evaluator/family/HiddenTruth。
 - 无冲突、多来源、不同轮次、Unknown 值均有测试。
 
-## 7. A1 本身明确未做
+### worldId 安全边界
+
+- 当前 `w-<SHA256(seed/index/family) 前 8 字节>` 只是伪匿名，不是安全隔离；低熵 seed 可被枚举比对。
+- 正式考试必须把生成器、seed、HiddenTruth 放进独立进程/classpath；学生只接收 `StudentView`。不得依赖该哈希隐藏生成参数。本轮不实现复杂身份系统。
+
+## 7. A5 只读 B0 诊断适配器（已实现）
+
+- `E3B0DiagnosticAdapter.diagnose` 将完整 Known 有标签观察转为 B0 `PublicExample`；Unknown/未标注显式排除，不字符串化。
+- 复用 A4 碰撞报告；有冲突则返回 `OBSERVATION_COLLISION` 并跳过 Composer/Filter，不假装搜索能解决矛盾。
+- 真实调用 Composer/Filter，记录 `SearchTrace`、`FilterTrace`、有界 `EvidenceScope`；区分 depth_limit、candidate_limit、歧义、冲突、无完整观察。
+- `IDENTIFIED` 只表示当前有界假设空间与公开 query domain 内的辨识。
+- 不 import evaluator；不读取 family/HiddenTruth/target rule/ruleDepth。
+
+## 8. A1 本身明确未做
 
 - 没有诊断算法、碰撞检测、噪声判断或探测选择策略。
 - A1 没有世界生成器、oracle、隐藏数据或评分器（A2 才开始）。

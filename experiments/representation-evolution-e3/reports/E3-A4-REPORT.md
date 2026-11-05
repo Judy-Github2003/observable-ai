@@ -46,7 +46,7 @@ B0 冻结 SHA: 0ca4561309aeb914df6e3f2c3877a50b080bf731
 ```text
 ObservableCollisionDetector.detect(schema, observations) -> CollisionReport
 CollisionFinding(featureKey, participants, scope)
-CollisionParticipant(observationId, sourceId, round, label)
+CollisionParticipant(observationId, objectId, sourceId, round, label)
 ```
 
 规则：

@@ -61,3 +61,12 @@
 - 报告保留 observationId/sourceId/round/label 和证据范围；Unknown/未标注分别排除，非法输入返回机器错误。
 - 明确不做原因归因：不推断隐藏属性、噪声、随机性或世界类别；不读取 evaluator family/HiddenTruth。
 - 无冲突、多来源、不同轮次、Unknown、多冲突组和编码字段均有测试。
+
+## A4 修正 / A5（2026-11-05）
+
+- `CollisionParticipant` 增加 `objectId`；同一对象重复测量与不同对象碰撞可由 objectId 区分，来源/轮次仍保留。
+- worldId 的 SHA-256 只做伪匿名，不构成安全隔离；低熵 seed 可被枚举。正式考试要求独立评测进程/classpath 与 seed 隔离，不能依赖哈希隐藏参数。
+- A5 新增 `E3B0DiagnosticAdapter`：只读调用冻结 Composer/Filter；完整 Known 观察转 B0 输入，Unknown/未标注显式排除；冲突时复用 A4 报告并跳过搜索。
+- A5 记录 `SearchTrace`/`FilterTrace`/有界范围；区分 observation collision、no complete observations、depth_limit、candidate_limit、ambiguous、refused。
+- `depth_limit` 不解释为“规律不在假设空间”；`IDENTIFIED` 仅限当前假设空间与查询域。
+- 不读取 evaluator family/HiddenTruth/target rule/ruleDepth；A6 才做搜索空间覆盖诊断。
