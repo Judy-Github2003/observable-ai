@@ -41,6 +41,7 @@ class E3ProbeSessionTest {
                     null, objectId,
                     original.visible.mapValues { (_, v) -> (v as ObservedValue.Known).value },
                     original.label, "repeat-$sourceId",
+                    measurementKind = MeasurementKind.REPLAYED_LABEL,
                 )
             }
         }
@@ -134,10 +135,70 @@ class E3ProbeSessionTest {
         val decision = session.plan()
         val first = session.execute(decision)
         val second = session.execute(decision)
-        assertTrue(first.independentEvidence)
+        assertTrue(first.executionStatus == ProbeExecutionStatus.EXECUTED)
+        assertEquals(ProbeExecutionStatus.REJECTED_STALE_OR_FORGED_DECISION, second.executionStatus)
         assertFalse(second.independentEvidence)
         assertEquals(0, second.cost)
-        assertTrue(second.notes.any { it.contains("duplicate_query_not_new_evidence") })
+        assertTrue(second.notes.any { it.contains("stale_or_forged_decision") })
+    }
+
+    @Test
+    fun `forged stale and over-budget decisions are rejected`() {
+        val world = E3WorldGenerator(103L).generate(WorldFamily.LATENT_ALIASING, 0)
+        val session = session(world)
+        val decision = session.plan()
+        val forged = decision.copy(decisionId = "forged")
+        assertEquals(ProbeExecutionStatus.REJECTED_STALE_OR_FORGED_DECISION, session.execute(forged).executionStatus)
+
+        val maxZero = session(world, maxActions = 0)
+        val blocked = maxZero.plan()
+        assertEquals(ProbeExecutionStatus.REJECTED_ACTION_BUDGET, maxZero.execute(blocked).executionStatus)
+    }
+
+    @Test
+    fun `invalid gateway response is not added to evidence`() {
+        val world = E3WorldGenerator(109L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)
+        val good = gateway(world)
+        val bad = object : PublicProbeGateway {
+            override val allowedQueryIds = good.allowedQueryIds
+            override fun visibleOf(sampleId: String) = good.visibleOf(sampleId)
+            override fun requestPublicInstance(sampleId: String): ProbeObservation =
+                good.requestPublicInstance(sampleId).copy(sampleId = "wrong-id")
+            override fun repeatLabel(objectId: String, sourceId: String) = good.repeatLabel(objectId, sourceId)
+        }
+        val session = E3ProbeSession(
+            world.public.schema, world.public.observations,
+            PublicConstants(world.public.schema.fields.values.flatten().distinct(), "schema_domains"),
+            world.public.queryPool.map { it.visible },
+            DiagnosticBudget(3, 32, 3000, 10000), bad,
+        )
+        val trace = session.execute(session.plan())
+        assertEquals(ProbeExecutionStatus.REJECTED_INVALID_RESPONSE, trace.executionStatus)
+        assertFalse(trace.newObservationRecorded)
+    }
+
+    @Test
+    fun `repeat measurement kind and new record are distinguished from independence`() {
+        val world = E3WorldGenerator(103L).generate(WorldFamily.LATENT_ALIASING, 0)
+        val session = session(world)
+        val trace = session.execute(session.plan())
+        assertEquals(MeasurementKind.REPLAYED_LABEL, trace.measurementKind)
+        assertTrue(trace.newObservationRecorded)
+        assertFalse(trace.independentEvidence)
+        assertTrue(trace.recordedObservationId != null)
+    }
+
+    @Test
+    fun `no action after identification is bounded to current policy`() {
+        val world = E3WorldGenerator(101L).generate(WorldFamily.SOLVABLE, 0)
+        val session = session(world)
+        val decision = session.plan()
+        assertTrue(decision.reason.contains("current_bounded_space_and_policy"))
+        val trace = session.execute(decision)
+        assertEquals(ProbeExecutionStatus.NO_ACTION, trace.executionStatus)
+        assertTrue(trace.notes.any { it.contains("no_claim_that_no_valuable_query_exists") })
+        assertEquals("designer_primitive", decision.strategySource)
+        assertEquals("student_selected_public_probe", decision.attribution)
     }
 
     @Test

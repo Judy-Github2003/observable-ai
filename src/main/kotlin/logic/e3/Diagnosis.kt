@@ -9,6 +9,9 @@ enum class FindingKind {
     SEARCH_TRUNCATED,
     LABEL_INSTABILITY_OBSERVED,
     UNDETERMINED,
+    BUDGET_SENSITIVE,
+    PROBE_EXECUTED,
+    NO_ACTION_TAKEN,
 }
 
 /** 结论适用范围：假设空间、观察域、查询域分开写，避免把“有限域唯一”升级成全局真理。 */

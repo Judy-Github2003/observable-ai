@@ -1,0 +1,490 @@
+{
+    "note": "A8 integrated reports from real A6/A7 runs; public inputs only",
+    "cases": [
+        {
+            "case": "solvable",
+            "strategySource": "designer_primitive",
+            "stoppedBecause": "budget=BUDGET_SENSITIVE_CANDIDATE_SET; probe=NO_ACTION",
+            "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "facts": {
+                "budgetSensitive": true,
+                "multipleBehaviorClasses": false,
+                "noConsistentCandidate": false,
+                "searchTruncated": true,
+                "reasonUndetermined": false,
+                "observationCollision": false
+            },
+            "findings": [
+                {
+                    "kind": "SEARCH_TRUNCATED",
+                    "evidenceIds": [
+                        "w-81b2c0f05267c9d3-P1",
+                        "w-81b2c0f05267c9d3-P2",
+                        "w-81b2c0f05267c9d3-P3",
+                        "w-81b2c0f05267c9d3-P4",
+                        "w-81b2c0f05267c9d3-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "2 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "target could be inside the current typed-IR hypothesis space"
+                    ],
+                    "observationConclusion": "search stopped by compose rounds/candidates, not by exhaustion of all expressions",
+                    "assumptions": [
+                        "current IR/library and constants are fixed"
+                    ],
+                    "alternativeExplanations": [
+                        "target outside current hypothesis space",
+                        "query domain insufficient",
+                        "implementation defect or insufficient budget"
+                    ]
+                },
+                {
+                    "kind": "BUDGET_SENSITIVE",
+                    "evidenceIds": [
+                        "w-81b2c0f05267c9d3-P1",
+                        "w-81b2c0f05267c9d3-P2",
+                        "w-81b2c0f05267c9d3-P3",
+                        "w-81b2c0f05267c9d3-P4",
+                        "w-81b2c0f05267c9d3-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "2 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "candidate set depends on the compose/eval budget"
+                    ],
+                    "observationConclusion": "candidate set changed between low and increased budget",
+                    "assumptions": [
+                        "only budget changed; observations/query domain held fixed"
+                    ],
+                    "alternativeExplanations": [
+                        "search truncation",
+                        "representation gap",
+                        "unstable query domain",
+                        "implementation defect"
+                    ]
+                },
+                {
+                    "kind": "SUPPORTED_WITHIN_BOUNDED_H",
+                    "evidenceIds": [
+                        "w-81b2c0f05267c9d3-P1",
+                        "w-81b2c0f05267c9d3-P2",
+                        "w-81b2c0f05267c9d3-P3",
+                        "w-81b2c0f05267c9d3-P4",
+                        "w-81b2c0f05267c9d3-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "2 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "one behavior class remains within the bounded hypothesis space"
+                    ],
+                    "observationConclusion": "candidate is identifiable within current bounds and query domain only",
+                    "assumptions": [
+                        "current IR depth/nodes/candidates and public query domain"
+                    ],
+                    "alternativeExplanations": [
+                        "global rule may differ outside the query domain",
+                        "unobserved inputs may distinguish candidates"
+                    ]
+                },
+                {
+                    "kind": "NO_ACTION_TAKEN",
+                    "evidenceIds": [
+                        "w-81b2c0f05267c9d3-P1",
+                        "w-81b2c0f05267c9d3-P2",
+                        "w-81b2c0f05267c9d3-P3",
+                        "w-81b2c0f05267c9d3-P4",
+                        "w-81b2c0f05267c9d3-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "2 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "no action was selected within current policy and budget"
+                    ],
+                    "observationConclusion": "NoAction within the current bounded space and public policy",
+                    "assumptions": [
+                        "current policy/gateway/budget"
+                    ],
+                    "alternativeExplanations": [
+                        "a valuable query may exist outside the current policy or observation vocabulary"
+                    ]
+                }
+            ],
+            "probeStatus": "NO_ACTION",
+            "probeCost": 0,
+            "probeRecordedObservationId": null,
+            "probeIndependentEvidence": false
+        },
+        {
+            "case": "latent",
+            "strategySource": "designer_primitive",
+            "stoppedBecause": "budget=OBSERVATION_COLLISION; probe=EXECUTED",
+            "verdict": "OBSERVATION_COLLISION",
+            "facts": {
+                "budgetSensitive": false,
+                "multipleBehaviorClasses": false,
+                "noConsistentCandidate": true,
+                "searchTruncated": false,
+                "reasonUndetermined": true,
+                "observationCollision": true
+            },
+            "findings": [
+                {
+                    "kind": "OBSERVED_LABEL_COLLISION",
+                    "evidenceIds": [
+                        "w-4f8797bfa31aeddb-P1",
+                        "w-4f8797bfa31aeddb-P2"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "observable feature vectors only; no causal/hidden explanation",
+                        "observationDomain": "3 observations, schema fields=[kind, shape]",
+                        "queryDomain": null
+                    },
+                    "sourceHypotheses": [
+                        "a deterministic function of current visible features fits all labels"
+                    ],
+                    "observationConclusion": "same complete visible vector has both true and false observed labels",
+                    "assumptions": [
+                        "labels are for this observation context"
+                    ],
+                    "alternativeExplanations": [
+                        "label noise",
+                        "unobserved context or hidden attribute",
+                        "recording error",
+                        "non-deterministic process"
+                    ]
+                },
+                {
+                    "kind": "UNDETERMINED",
+                    "evidenceIds": [
+                        "w-4f8797bfa31aeddb-P1",
+                        "w-4f8797bfa31aeddb-P2"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "observable feature vectors only; no causal/hidden explanation",
+                        "observationDomain": "3 observations, schema fields=[kind, shape]",
+                        "queryDomain": null
+                    },
+                    "sourceHypotheses": [
+                        "collision cause is not identifiable from these observations alone"
+                    ],
+                    "observationConclusion": "collision alone does not decide between noise/context/hidden representation",
+                    "assumptions": [
+                        "no independent repeated measurement or external context is available"
+                    ],
+                    "alternativeExplanations": [
+                        "noise",
+                        "hidden attribute",
+                        "context change",
+                        "data error"
+                    ]
+                },
+                {
+                    "kind": "UNDETERMINED",
+                    "evidenceIds": [],
+                    "scope": {
+                        "hypothesisSpace": "bounded run",
+                        "observationDomain": "public observations",
+                        "queryDomain": null
+                    },
+                    "sourceHypotheses": [
+                        "no consistent candidate was found in the tested budgets"
+                    ],
+                    "observationConclusion": "no consistent candidate under these budgets and query domain",
+                    "assumptions": [
+                        "budgets and query domain are fixed as recorded"
+                    ],
+                    "alternativeExplanations": [
+                        "target outside hypothesis space",
+                        "budget too small",
+                        "query domain insufficient",
+                        "noise or inconsistency"
+                    ]
+                },
+                {
+                    "kind": "PROBE_EXECUTED",
+                    "evidenceIds": [
+                        "repeat-obj-0a-2"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "bounded run",
+                        "observationDomain": "public observations",
+                        "queryDomain": null
+                    },
+                    "sourceHypotheses": [
+                        "A7 selected a legal public action"
+                    ],
+                    "observationConclusion": "action=RepeatLabel(objectId=obj-0a, sourceId=source-a); cost=1; measurement=REPLAYED_LABEL",
+                    "assumptions": [
+                        "gateway returned a validated public response"
+                    ],
+                    "alternativeExplanations": [
+                        "the new observation may still not distinguish all hypotheses"
+                    ]
+                }
+            ],
+            "probeStatus": "EXECUTED",
+            "probeCost": 1,
+            "probeRecordedObservationId": "repeat-obj-0a-2",
+            "probeIndependentEvidence": false
+        },
+        {
+            "case": "search_limited",
+            "strategySource": "designer_primitive",
+            "stoppedBecause": "budget=BUDGET_SENSITIVE_CANDIDATE_SET; probe=EXECUTED",
+            "verdict": "BUDGET_SENSITIVE_CANDIDATE_SET",
+            "facts": {
+                "budgetSensitive": true,
+                "multipleBehaviorClasses": true,
+                "noConsistentCandidate": false,
+                "searchTruncated": true,
+                "reasonUndetermined": false,
+                "observationCollision": false
+            },
+            "findings": [
+                {
+                    "kind": "SEARCH_TRUNCATED",
+                    "evidenceIds": [
+                        "w-19e7003dc2c196bd-P1",
+                        "w-19e7003dc2c196bd-P2",
+                        "w-19e7003dc2c196bd-P3",
+                        "w-19e7003dc2c196bd-P4",
+                        "w-19e7003dc2c196bd-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "target could be inside the current typed-IR hypothesis space"
+                    ],
+                    "observationConclusion": "search stopped by compose rounds/candidates, not by exhaustion of all expressions",
+                    "assumptions": [
+                        "current IR/library and constants are fixed"
+                    ],
+                    "alternativeExplanations": [
+                        "target outside current hypothesis space",
+                        "query domain insufficient",
+                        "implementation defect or insufficient budget"
+                    ]
+                },
+                {
+                    "kind": "BUDGET_SENSITIVE",
+                    "evidenceIds": [
+                        "w-19e7003dc2c196bd-P1",
+                        "w-19e7003dc2c196bd-P2",
+                        "w-19e7003dc2c196bd-P3",
+                        "w-19e7003dc2c196bd-P4",
+                        "w-19e7003dc2c196bd-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "candidate set depends on the compose/eval budget"
+                    ],
+                    "observationConclusion": "candidate set changed between low and increased budget",
+                    "assumptions": [
+                        "only budget changed; observations/query domain held fixed"
+                    ],
+                    "alternativeExplanations": [
+                        "search truncation",
+                        "representation gap",
+                        "unstable query domain",
+                        "implementation defect"
+                    ]
+                },
+                {
+                    "kind": "MULTIPLE_HYPOTHESES",
+                    "evidenceIds": [
+                        "w-19e7003dc2c196bd-P1",
+                        "w-19e7003dc2c196bd-P2",
+                        "w-19e7003dc2c196bd-P3",
+                        "w-19e7003dc2c196bd-P4",
+                        "w-19e7003dc2c196bd-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "multiple behavior classes fit the public evidence"
+                    ],
+                    "observationConclusion": "more than one distinguishable candidate remains on the public query domain",
+                    "assumptions": [
+                        "public query domain is the current discriminating domain"
+                    ],
+                    "alternativeExplanations": [
+                        "insufficient distinguishing queries",
+                        "noise",
+                        "representation mismatch"
+                    ]
+                },
+                {
+                    "kind": "PROBE_EXECUTED",
+                    "evidenceIds": [
+                        "probe-w-19e7003dc2c196bd-Q1-2"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "A7 selected a legal public action"
+                    ],
+                    "observationConclusion": "action=RequestPublicInstance(sampleId=w-19e7003dc2c196bd-Q1); cost=1; measurement=PUBLIC_INSTANCE",
+                    "assumptions": [
+                        "gateway returned a validated public response"
+                    ],
+                    "alternativeExplanations": [
+                        "the new observation may still not distinguish all hypotheses"
+                    ]
+                }
+            ],
+            "probeStatus": "EXECUTED",
+            "probeCost": 1,
+            "probeRecordedObservationId": "probe-w-19e7003dc2c196bd-Q1-2",
+            "probeIndependentEvidence": true
+        },
+        {
+            "case": "ambiguous",
+            "strategySource": "designer_primitive",
+            "stoppedBecause": "budget=MULTIPLE_CANDIDATES_REMAIN; probe=EXECUTED",
+            "verdict": "MULTIPLE_CANDIDATES_REMAIN",
+            "facts": {
+                "budgetSensitive": true,
+                "multipleBehaviorClasses": true,
+                "noConsistentCandidate": false,
+                "searchTruncated": true,
+                "reasonUndetermined": false,
+                "observationCollision": false
+            },
+            "findings": [
+                {
+                    "kind": "SEARCH_TRUNCATED",
+                    "evidenceIds": [
+                        "w-1f74e58dd751cfc6-P1",
+                        "w-1f74e58dd751cfc6-P2",
+                        "w-1f74e58dd751cfc6-P3",
+                        "w-1f74e58dd751cfc6-P4",
+                        "w-1f74e58dd751cfc6-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "target could be inside the current typed-IR hypothesis space"
+                    ],
+                    "observationConclusion": "search stopped by compose rounds/candidates, not by exhaustion of all expressions",
+                    "assumptions": [
+                        "current IR/library and constants are fixed"
+                    ],
+                    "alternativeExplanations": [
+                        "target outside current hypothesis space",
+                        "query domain insufficient",
+                        "implementation defect or insufficient budget"
+                    ]
+                },
+                {
+                    "kind": "BUDGET_SENSITIVE",
+                    "evidenceIds": [
+                        "w-1f74e58dd751cfc6-P1",
+                        "w-1f74e58dd751cfc6-P2",
+                        "w-1f74e58dd751cfc6-P3",
+                        "w-1f74e58dd751cfc6-P4",
+                        "w-1f74e58dd751cfc6-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "candidate set depends on the compose/eval budget"
+                    ],
+                    "observationConclusion": "candidate set changed between low and increased budget",
+                    "assumptions": [
+                        "only budget changed; observations/query domain held fixed"
+                    ],
+                    "alternativeExplanations": [
+                        "search truncation",
+                        "representation gap",
+                        "unstable query domain",
+                        "implementation defect"
+                    ]
+                },
+                {
+                    "kind": "MULTIPLE_HYPOTHESES",
+                    "evidenceIds": [
+                        "w-1f74e58dd751cfc6-P1",
+                        "w-1f74e58dd751cfc6-P2",
+                        "w-1f74e58dd751cfc6-P3",
+                        "w-1f74e58dd751cfc6-P4",
+                        "w-1f74e58dd751cfc6-P5"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "multiple behavior classes fit the public evidence"
+                    ],
+                    "observationConclusion": "more than one distinguishable candidate remains on the public query domain",
+                    "assumptions": [
+                        "public query domain is the current discriminating domain"
+                    ],
+                    "alternativeExplanations": [
+                        "insufficient distinguishing queries",
+                        "noise",
+                        "representation mismatch"
+                    ]
+                },
+                {
+                    "kind": "PROBE_EXECUTED",
+                    "evidenceIds": [
+                        "probe-w-1f74e58dd751cfc6-Q1-2"
+                    ],
+                    "scope": {
+                        "hypothesisSpace": "typed IR composeRounds<=3, nodes<=32, library=[]",
+                        "observationDomain": "5 complete Known labeled observations",
+                        "queryDomain": "1 evaluated public query points"
+                    },
+                    "sourceHypotheses": [
+                        "A7 selected a legal public action"
+                    ],
+                    "observationConclusion": "action=RequestPublicInstance(sampleId=w-1f74e58dd751cfc6-Q1); cost=1; measurement=PUBLIC_INSTANCE",
+                    "assumptions": [
+                        "gateway returned a validated public response"
+                    ],
+                    "alternativeExplanations": [
+                        "the new observation may still not distinguish all hypotheses"
+                    ]
+                }
+            ],
+            "probeStatus": "EXECUTED",
+            "probeCost": 1,
+            "probeRecordedObservationId": "probe-w-1f74e58dd751cfc6-Q1-2",
+            "probeIndependentEvidence": true
+        }
+    ]
+}
