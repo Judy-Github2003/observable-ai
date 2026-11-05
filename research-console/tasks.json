@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-05T12:46:13.968135+00:00",
+  "updated_at": "2026-11-05T13:40:15.243777+00:00",
   "source": "Research Console initial import; planning data is not evidence",
   "current_task_id": "D2",
-  "authorized_action": "PACK-01",
+  "authorized_action": "none",
   "independent_closed_book": "not_run",
-  "last_test_result": "297 passed / 297 total, 0 failed（B0 173 + E3 124）",
-  "last_code_commit": "41d778a974af70eb20ed8b9afeab71faa9fb0b12",
+  "last_test_result": "305 passed / 305 total, 0 failed（B0 173 + E3 132）",
+  "last_code_commit": "b6994d407477f3496d34e33bb9300579a3e6f61d",
   "last_docs_commit": "c8be93aeec700c17cbd0adb58a42f6f30dcc9079",
   "git_head_at_import": "c8be93aeec700c17cbd0adb58a42f6f30dcc9079",
   "tasks": [
@@ -18,7 +18,7 @@
       "research_question": "发现反例后，系统能否撤销旧规则、重新搜索并保留修正历史？",
       "hypothesis": "通过受控实验可以判断：反例驱动的知识修正与重新学习所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "反例驱动的知识修正与重新学习",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "priority": "high",
       "dependencies": [
         "现有 A1 + B0 能力库/撤销",
@@ -50,8 +50,10 @@
         "尚无本任务的独立实验证据"
       ],
       "patch_used": 0,
-      "commit_sha": "",
-      "evidence_links": [],
+      "commit_sha": "b6994d407477f3496d34e33bb9300579a3e6f61d",
+      "evidence_links": [
+        "experiments/representation-evolution-e3/reports/E3-PACK01-REPORT.md"
+      ],
       "decision_history": [
         {
           "at": "2026-11-05T12:43:28.553185+00:00",
@@ -62,6 +64,11 @@
           "at": "2026-11-05",
           "decision": "authorized in PACK-01; independent task status retained",
           "actor": "research_owner"
+        },
+        {
+          "at": "2026-11-05T13:40:15.237304+00:00",
+          "decision": "implementation finished; REVIEW; independent acceptance not implied",
+          "actor": "execution"
         }
       ],
       "next_possible_actions": [
@@ -1533,7 +1540,7 @@
       "research_question": "系统能否同时保留多个候选而非只选一个？",
       "hypothesis": "通过受控实验可以判断：并行保留多个猜想所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "并行保留多个猜想",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "priority": "medium",
       "dependencies": [
         "existing B0 Composer/Filter/Interpreter; A1 query order"
@@ -1564,8 +1571,10 @@
         "尚无本任务的独立实验证据"
       ],
       "patch_used": 0,
-      "commit_sha": "",
-      "evidence_links": [],
+      "commit_sha": "b6994d407477f3496d34e33bb9300579a3e6f61d",
+      "evidence_links": [
+        "experiments/representation-evolution-e3/reports/E3-PACK01-REPORT.md"
+      ],
       "decision_history": [
         {
           "at": "2026-11-05T12:43:28.553185+00:00",
@@ -1576,6 +1585,11 @@
           "at": "2026-11-05",
           "decision": "authorized in PACK-01; independent task status retained",
           "actor": "research_owner"
+        },
+        {
+          "at": "2026-11-05T13:40:14.984016+00:00",
+          "decision": "implementation finished; REVIEW; independent acceptance not implied",
+          "actor": "execution"
         }
       ],
       "next_possible_actions": [
@@ -5622,7 +5636,7 @@
       "research_question": "区分性实验设计：系统能否提出假设、设计实验并从结果中学习？",
       "hypothesis": "通过受控实验可以判断：区分性实验设计所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
       "goal": "区分性实验设计",
-      "status": "IN_PROGRESS",
+      "status": "REVIEW",
       "priority": "medium",
       "dependencies": [
         "existing B0 Composer/Filter/Interpreter; A1 query order"
@@ -5653,8 +5667,10 @@
         "尚无本任务的独立实验证据"
       ],
       "patch_used": 0,
-      "commit_sha": "",
-      "evidence_links": [],
+      "commit_sha": "b6994d407477f3496d34e33bb9300579a3e6f61d",
+      "evidence_links": [
+        "experiments/representation-evolution-e3/reports/E3-PACK01-REPORT.md"
+      ],
       "decision_history": [
         {
           "at": "2026-11-05T12:43:28.553185+00:00",
@@ -5665,6 +5681,11 @@
           "at": "2026-11-05",
           "decision": "authorized in PACK-01; independent task status retained",
           "actor": "research_owner"
+        },
+        {
+          "at": "2026-11-05T13:40:15.116279+00:00",
+          "decision": "implementation finished; REVIEW; independent acceptance not implied",
+          "actor": "execution"
         }
       ],
       "next_possible_actions": [
@@ -9658,7 +9679,7 @@
   "active_pack": {
     "id": "PACK-01",
     "title": "多猜想、主动实验与反例修正",
-    "status": "IN_PROGRESS",
+    "status": "REVIEW",
     "tasks": [
       "D2",
       "RES-N02",
