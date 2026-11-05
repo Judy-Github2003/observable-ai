@@ -31,3 +31,19 @@
 - 固定种子用 `java.util.Random(seed*1_000_003 + family.ordinal*97 + index)`；同一 seed 完全复现，不同 seed 至少改变采样/规则。
 - oracle 只按 `sampleId` 返回标签；`HiddenTruth.fullDomain` 供评测端全枚举，不进入公开数据。
 - 边界：LATENT_ALIASING 只证明**当前可见属性不能唯一决定标签**，不证明学生能发现隐藏属性，也不证明真实世界存在该隐藏属性。
+
+## A2 审查修正（2026-11-05）
+
+- `HiddenTruth.heldOut` 显式保存 held-out 点；测试直接比较 public/query/heldOut 的可见向量，不再用 D 系列 ID。
+- 种子变化测试只比较 schema/观察/查询/真值内容，移除 worldId、sampleId 等 seed 派生字段。
+- `PublicQueryOracle`/`StudentView` 只允许 queryPool ID；H/D 或猜测 ID 返回 `query_not_allowed`，学生视图不携带完整 `HiddenTruth`。
+- `E3AdvancedWorldGenerator.matchedPair()` 提供同 schema、同值域、同来源格式和样本数的 SOLVABLE/LATENT 对照；公开 ID 中性。
+- 保留 `E3WorldOracle` 作为评测端完整真值接口；它不进入学生视图。
+
+## A3（2026-11-05）
+
+- `NOISY_LABELS`：同一可靠来源、同一对象、不同轮标签相反；证据层是“同源可靠冲突”，不是隐藏特征推断。
+- `SEARCH_LIMITED`：三变量 XOR，`ruleDepth=4`；公开数据无碰撞，单字段及浅层 AND/OR 候选均不拟合。`ruleDepth` 仅评测端持有。
+- `AMBIGUOUS_EVIDENCE`：`a==1` 与 `b==1` 同时拟合公开数据；隐藏输入用于后续区分。
+- 三个 A3 家族统一使用三字段 schema、来源格式和 5/1/2 公开/查询/隐藏分层；不靠 family 字段区分。
+- 仍未实现诊断算法；A4 才做可观察碰撞检测。证据模式存在不等于学生能正确诊断。

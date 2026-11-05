@@ -2,24 +2,24 @@
 
 ```text
 E3 stage: E3-A
-current_subtask: A3
-last_completed: A2
-last_code_commit: 14567ac16d42ab05157ad65ad05fb15a5ecfface
+current_subtask: A4
+last_completed: A2 fixes + A3
+last_code_commit: 797ba371150f11a6a29d02dbae99e9650c0302ee
 base_b0_sha: 0ca4561309aeb914df6e3f2c3877a50b080bf731
 working_tree: clean
 last_test_command: JAVA_HOME=C:\Users\j1437\.jdks\jbr-21.0.11; .\gradlew.bat --offline --no-daemon test
-last_test_result: 192 passed / 192 total, 0 failed（B0 173 + E3 19）
+last_test_result: 197 passed / 197 total, 0 failed（B0 173 + E3 24）
 verification_source: implementer_run
 independent_closed_book: not_run
-next_action: A3 增补 NOISY_LABELS、SEARCH_LIMITED、AMBIGUOUS_EVIDENCE 世界族
+next_action: A4 可观察碰撞检测器（只做证据检测）
 known_blockers: none
 ```
 
 ## 说明
 
-- A0：已记录 B0 基线、JDK/Gradle、回归结果；E3 目录与只读边界建立。
-- A1：`logic.e3` 数据契约与校验完成；审查后修正 FeatureKey 的 `K:/U` 前缀与 `(objectId,round,sourceId)` 唯一性。
-- A2：`logic.e3.evaluator` 最小生成器完成（SOLVABLE + LATENT_ALIASING），固定 seed 可复现，公开/隐藏分层，独立 oracle，自检通过。
-- B0 `0ca4561` 只读；本阶段未改 B0 生产源码/测试/冻结报告。
-- E3-B/C 未授权；A3 完成后仍不得自动进入 A4 以后。
+- A2 审查修正：显式 `heldOut`、内容-only 种子测试、`PublicQueryOracle`/`StudentView`、匹配 schema/来源的 SOLVABLE/LATENT 对照。
+- A3：新增 `NOISY_LABELS`、`SEARCH_LIMITED`、`AMBIGUOUS_EVIDENCE`；证据层分别为同源可靠冲突、浅候选全不拟合、两个浅假设并立。
+- B0 `0ca4561` 只读；未改 B0 生产源码/测试/冻结报告。
+- E3-B/C 未授权；A4 完成后不得自动进入 A5。
 - `independent_closed_book=not_run`；所有自测为 `implementer_run`。
+- 详见 `reports/E3-A2-A3-REPORT.md`。

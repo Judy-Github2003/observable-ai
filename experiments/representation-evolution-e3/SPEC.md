@@ -49,12 +49,15 @@ ProbeRequest = RepeatLabel | RequestPublicInstance | NoAction
 - 重复观测：`(objectId, round, sourceId)` 唯一；不同来源可在同一对象/同一轮独立测量，同一来源重复写只算重复记录。
 - JSON 编码稳定；不得包含 `worldKind`、`hiddenFeature`、`targetAst`。
 
-## 5. A2 最小世界生成器（已实现）
+## 5. A2/A3 世界生成器（已实现）
 
-- `logic.e3.evaluator`：`SOLVABLE` 与 `LATENT_ALIASING` 两个家族；固定 seed 可复现。
-- `PublicWorld` 只含 schema、公开观察、公开查询池；`HiddenTruth` 含 family/规则/隐藏特征/有限域真值，仅评测端持有。
-- `E3WorldOracle` 只按 sampleId 返回标签；`LATENT_ALIASING` 用隐藏 `latent` 产生同可见向量、不同标签的公开碰撞。
-- 边界：碰撞只证明当前可见属性不能唯一决定标签，不证明学生能发现隐藏属性。
+- `logic.e3.evaluator`：`SOLVABLE`、`LATENT_ALIASING`、`NOISY_LABELS`、`SEARCH_LIMITED`、`AMBIGUOUS_EVIDENCE`；固定 seed 可复现。
+- `PublicWorld` 只含 schema、公开观察、公开查询池；`HiddenTruth` 含 family/规则/隐藏特征/有限域真值/`heldOut`，仅评测端持有。
+- `PublicQueryOracle`/`StudentView`：学生只能查询 queryPool ID；H/D 系列或猜测 ID 返回 `query_not_allowed`，不持有完整真值。
+- `LATENT_ALIASING` 用隐藏 `latent` 产生同可见向量、不同标签的公开碰撞。
+- 匹配对照：`matchedPair()` 让 SOLVABLE 与 LATENT_ALIASING 共用 schema、值域、来源格式和样本数量，公开 ID 中性。
+- A3 证据区别：可靠同源冲突（NOISY）；浅候选全部不拟合且无碰撞（SEARCH_LIMITED）；两个浅假设同时拟合（AMBIGUOUS）。
+- 边界：碰撞只证明当前可见属性不能唯一决定标签，不证明学生能发现隐藏属性；生成器存在不等于诊断能力。
 
 ## 6. A1 本身明确未做
 
