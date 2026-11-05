@@ -194,3 +194,12 @@
 - 公开样本 6 / 开发样本 2，目标 AST 不进入组合器；三类收益（静态成本、搜索耗时、新任务正确率）分开报告。
 - `EXHAUSTIVE` 只是调用方声明；声明域 8 点为全枚举，不等于全局语义等价；无法枚举必须标 `bounded_verified`。
 - 入口：Gradle `benchmark` 或 `BenchmarkCliKt`，支持 `--seed`、`--tasks-per-family`；无外部运行证据前 `independent_closed_book=not_run`。
+
+## M5-1b 公开开发结果（2026-11-05）
+
+- 种子 `20261105`，24 任务（12 开发）；A 6/12、B 9/12、C 9/12；三组 BOUNDARY 均为 `ambiguous`，无错误晋升。
+- B 相对 A 的增量仅来自 REUSE 族（复合原语复用）；SIMILAR/NO_STRUCTURE A/B 相同。
+- C 在训练集已解决程序上未找到净收益 helper（`helpers=[]`），静态成本、耗时、正确率与 B 相同；不调参制造正收益。
+- 计时/峰值为单次 JVM 近似值，不作性能结论；`L_total` 84/186/186 是静态代理。
+- SIMILAR 复用可能依赖二值域否定等价（`¬red ≡ blue`），换第三值时不保证成立；外部验收须换值域。
+- 原始结果：`benchmarks/results/m5-results-20261105.json`，冻结副本 `reports/B0-BENCHMARK-RESULTS.json`。

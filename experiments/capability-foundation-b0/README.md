@@ -14,7 +14,7 @@
 | M2c 撤销与依赖失效 | **implemented**（1a/1b） |
 | M3 Composer | **implemented**（1a 候选枚举、1b 证据筛选、1c 注册/留出集） |
 | M4 压缩 L1/L2 | **implemented**（1a L1 成本、1b 子树抽取、1c 重写与净收益；L3 `not_implemented`） |
-| M5 A/B/C/D 实验 | `not_implemented` |
+| M5 A/B/C/D 实验 | **implemented**（A/B/C 公开开发；D=L3 `not_implemented`） |
 | M6 冻结交接 | `not_implemented` |
 | 独立闭卷 | `not_run` |
 
@@ -35,7 +35,7 @@
 python tools/capability_b0_benchmark.py   # not_implemented（M5）
 ```
 
-测试：全套 **170/170**（V1/V2 27 + M1 21 + M2a 17 + M2b 50 + M2c 15 + M3 24 + M4 16）。
+测试：全套 **173/173**（V1/V2 27 + M1 21 + M2a 17 + M2b 50 + M2c 15 + M3 24 + M4 16）。
 
 ## 边界
 
