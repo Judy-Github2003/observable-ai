@@ -6,7 +6,7 @@
 
 ---
 
-## 现在到哪一步（2026-11-04）
+## 现在到哪一步（2026-11-05）
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
@@ -16,6 +16,7 @@
 | 第 2 课 | 属性查询、分组、比较、补教 | 通过 |
 | 学前 24 课 | 23 条通用操作规则，8 批课程 | **训练 864/864，考试 960/960，24/24 课达标，教师调用 0** |
 | 独立抽查 | 冻结版本 + 新世界 + 隔离夹具 | **64/64** |
+| B0 类型化能力基底 | IR、能力库、验证/激活/撤销、组合、L1/L2 压缩 | **M0–M4 完成；M5/M6 未实现；170/170 测试** |
 
 **这不是“毕业”。** 两套各 120 题的综合卷尚未生成；小学 72 单元未开始。形状、颜色、情绪等只是**文本标签查询**，不代表真实看图、听声或情绪体验。
 
@@ -31,6 +32,25 @@ V1 是“教师写操作、学生执行”。V2 开始让教师**只给逐条标
 | 独立闭卷 | **not_run**（等待外部审查者） |
 
 入口：`logic.discovery.DiscoveryCliKt`；说明见 [V2 实验说明](./experiments/rule-discovery-v1/README.md)，接口见 [CONTRACT](./experiments/rule-discovery-v1/CONTRACT.md)，[工作报告](./experiments/rule-discovery-v1/reports/V2-WORKLOG.md)，[待解决问题](./experiments/rule-discovery-v1/OPEN-ISSUES.md)。
+
+### B0：类型化能力基底（2026-11-05）
+
+B0 把“能力”本身变成可版本化、可验证、可撤销、可组合的对象，作为后续学习实验的基础设施；它**不是**新的知识表征架构，也**不等于**完整的自主学习系统。
+
+| 里程碑 | 内容 | 状态 |
+|---|---|---|
+| M0 | 冻结基线、任务书与目录 | 完成 |
+| M1 | 11 节点 Typed IR、三值解释器、类型检查、资源预算 | 完成 |
+| M2a–M2c | SQLite 能力库、不可变版本、可信验证、激活门禁、撤销与传递失效 | 完成 |
+| M3 | 有界组合、公开样本筛选、`student_composed` 注册、两个新世界与留出集 | 完成 |
+| M4 | L1 正文共享验收、冻结成本模型、L2 子树抽取/重写/净收益；L3 `not_implemented` | 完成（L1/L2） |
+| M5 | A/B/C 同预算基准与原始结果 | `not_implemented` |
+| M6 | 冻结、复现与交接 | `not_implemented` |
+
+- 全套测试 **170/170**（实现者自测，不是外部独立验证）；独立闭卷 **`not_run`**。
+- 入口与记录：[B0 README](./experiments/capability-foundation-b0/README.md)、[M4 报告](./experiments/capability-foundation-b0/reports/M4-REPORT.md)、[工作状态](./experiments/capability-foundation-b0/WORKSTATE.md)。
+- 长期方向与边界：[RESEARCH-NORTH-STAR](./docs/RESEARCH-NORTH-STAR.md)。
+- B0 完成后先冻结当前代码与实验结果，再按研究者授权启动 **E3-A（表示不足检测）**；不自动进入 E3-B/C 或大规模课程训练。
 
 ---
 
@@ -136,10 +156,24 @@ src/main/kotlin/logic/
   AuditTrail.kt     rule_enter/exit/error、span/trace、事实依据
   RuleCatalog.kt    规则目录加载与校验
 
+  capability/       B0 类型化能力基底
+    CapabilityIr.kt / CapabilityJson.kt / CapabilityTypeChecker.kt / CapabilityInterpreter.kt
+    CapabilityRegistry.kt        SQLite 能力库（schema v3、不可变版本、验证/激活/撤销）
+    TrustedVerification.kt       宿主可信套件与内存验证引擎
+    CapabilityVerificationService.kt / CapabilityActivationService.kt / CapabilityExecutionService.kt
+    CapabilityComposer.kt        有界强类型候选枚举
+    CandidateEvidenceFilter.kt   公开样本筛选、歧义与拒答
+    StudentComposition.kt        student_composed 注册与留出集评估
+    LibraryCost.kt / SubtreeExtraction.kt / SubtreeRewriting.kt   成本模型与 L1/L2 压缩
+
 experiments/
   curriculum/       课程计划、规则目录 rules.json、批量教材 curriculum.json
   lessons/          第 1/2 课材料与说明
   reports/          各阶段验证与审计记录
+  capability-foundation-b0/  B0 任务书、决策、报告与工作状态
+
+docs/
+  RESEARCH-NORTH-STAR.md  长期研究目标与边界
 
 tools/              批量考试生成器、HTML/JSON 报告渲染
 可读性工程/         注释与可读性改造的记录、示例、验证
@@ -153,6 +187,9 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - **能力归属**：当前 24 课里 21 条规则是 `teacher_programmed`，2 条是历史回填。学生证明的是“能稳定执行并迁移到新世界”，不是“自己发现了方法”。
 - **语义 vs 标签**：通过的是符号层任务；没有视觉、听觉、真实情绪，也没有自由语言理解。
 - **考试不是毕业**：单课 40 题达标只说明本课过线；综合卷与跨领域迁移尚未完成。
+- **B0 尚未完成**：M5 基准与 M6 冻结交接为 `not_implemented`；L3 参数化抽象未实现。
+- **B0 成绩口径**：170/170 为实现者自测；独立闭卷 `not_run`，不能写成外部验证或“已学会自主学习”。
+- **成本指标**：`L_total` 是冻结的静态长度代理，不代表运行更快；压缩通过不等于获得新知识。
 - **可复现性**：报告里的成绩来自真实进程执行；`runs/` 不随仓库分发，需按上面的命令自行生成。
 
 ## 开发约定
@@ -173,5 +210,6 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - 学前 24 课批量实现：本地 DeepSeek Harness 会话。
 - 首考执行、抽查复验、报告校验、开源整理、V2：**本会话 DeepSeek Harness**。
 - `codex_spotcheck.py` 由 Codex 编写；本会话执行，并修正 1 处夹具前提（对象缺 `name` 不是非法世界）。
+- B0 M0–M4：**本会话 DeepSeek Harness** 实现；M1 参考骨架由云端 ChatGPT 提供；外部独立审查尚未进行。
 
 **独立闭卷尚未执行。** 同模型、不同会话不构成第三方验证；闭卷状态在报告中固定为 `not_run`，等待外部审查者。
