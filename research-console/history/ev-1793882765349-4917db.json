@@ -1,0 +1,17 @@
+{
+  "event_id": "ev-1793882765349-4917db",
+  "at": "2026-11-05T12:46:05.349950+00:00",
+  "kind": "idea_proposed",
+  "actor": "planning",
+  "note": "API 验收：新想法入口",
+  "before": null,
+  "after": {
+    "id": "idea-1793882765-3b82",
+    "title": "API 验收：新想法入口",
+    "body": "用于验证 /api/ideas 返回 JSON；仍是 PROPOSED，不创建任务。",
+    "author": "acceptance_test",
+    "status": "PROPOSED",
+    "created_at": "2026-11-05T12:46:05.336939+00:00",
+    "history": []
+  }
+}

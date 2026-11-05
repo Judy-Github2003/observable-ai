@@ -15,3 +15,16 @@
 - 教师运行器只记录可见的进程启动、输入、等待和解析步骤，不声称记录内部推理或思维链。
 - 学习行为、匹配键、数据库 schema、配置默认值、API/CLI 权限、来源标记、超时与回收机制不得在可读性修改中改变；如确需修改，应先说明理由并单独审计。
 - 不得预先写“Codex 已审计/已合并”；候选副本需经审计后再生效。
+
+## Research Console 状态门禁（2026-11-05）
+
+- 本约定影响所有后续研究任务；它是执行前门禁，不改变研究总纲或自动授权任何任务。
+- 任何研究/规划任务开始前，必须先运行：
+  `python tools/research-console/console_cli.py preflight --task <任务ID>`
+  并在答复中记录 Git HEAD、授权动作、补丁额度和 WORKSTATE 同步结果。
+- 若 preflight 返回 `REFUSED`（无授权、补丁耗尽、状态冲突或数据无效），停止实施并报告，不得绕过。
+- 任务结束后，使用受控入口记录 `REVIEW` 与证据：
+  `python tools/research-console/console_cli.py finish --task <ID> --commit <SHA> --test "<结果>" --report <路径>`
+  DeepSeek 不得自行写 `ACCEPTED`；验收裁定只属于研究负责人/ChatGPT 审查记录。
+- `experiments/representation-evolution-e3/WORKSTATE.md` 的权威状态是 `research-console/tasks.json`；本文件由 `sync-workstate` 生成/校验，不得手工制造第二套真相。
+- Research Console 服务只绑定 `127.0.0.1`，写入需要本地 token 与角色；不得把写入接口公开到公网。

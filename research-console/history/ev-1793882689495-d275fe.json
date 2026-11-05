@@ -1,0 +1,110 @@
+{
+  "event_id": "ev-1793882689495-d275fe",
+  "at": "2026-11-05T12:44:49.495338+00:00",
+  "kind": "task_edited",
+  "actor": "planning",
+  "note": "edited RES-E01",
+  "before": {
+    "id": "RES-E01",
+    "aliases": [],
+    "title": "知识状态模型",
+    "direction": "E",
+    "research_question": "知识状态模型：系统如何区分事实、假设、推断、未知和证据不足？",
+    "hypothesis": "通过受控实验可以判断：知识状态模型所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
+    "goal": "知识状态模型",
+    "status": "EXPLORATORY",
+    "priority": "high",
+    "dependencies": [],
+    "readiness_conditions": [
+      "需要研究负责人明确授权",
+      "需要可复核的独立测试条件"
+    ],
+    "known_implementation": [],
+    "proposed_approaches": [
+      "TBD：候选技术路线待研究；不得把规划当成已实现。"
+    ],
+    "minimal_experiment": "对同一命题提供不同证据组合，要求系统输出不同知识状态并说明何种新证据会改变它。",
+    "success_criteria": [
+      "在独立测试上出现可复核的能力增量",
+      "保留反例、失败和成本记录"
+    ],
+    "failure_conditions": [
+      "无法优于基线",
+      "只能记忆或依赖教师直接答案",
+      "出现泄漏或不可复核结果"
+    ],
+    "attribution": "research_owner/ChatGPT 提出；尚未实施，未授权",
+    "known_limitations": [
+      "尚未实现",
+      "尚无本任务的独立实验证据"
+    ],
+    "patch_used": 0,
+    "commit_sha": "",
+    "evidence_links": [],
+    "decision_history": [
+      {
+        "at": "2026-11-05T12:43:28.553185+00:00",
+        "decision": "imported into Research Console as planning data",
+        "actor": "DeepSeek Harness"
+      }
+    ],
+    "next_possible_actions": [
+      "等待研究负责人授权后，选择一个最小可验证实验"
+    ],
+    "authorized_action": "none"
+  },
+  "after": {
+    "id": "RES-E01",
+    "aliases": [],
+    "title": "知识状态模型",
+    "direction": "E",
+    "research_question": "知识状态模型：系统如何区分事实、假设、推断、未知和证据不足？",
+    "hypothesis": "通过受控实验可以判断：知识状态模型所描述的能力是否真实出现，并排除教师注入、数据泄漏和开发者预设工作流。",
+    "goal": "知识状态模型",
+    "status": "EXPLORATORY",
+    "priority": "high",
+    "dependencies": [],
+    "readiness_conditions": [
+      "需要研究负责人明确授权",
+      "需要可复核的独立测试条件"
+    ],
+    "known_implementation": [],
+    "proposed_approaches": [
+      "TBD：候选技术路线待研究；不得把规划当成已实现。"
+    ],
+    "minimal_experiment": "控制台验收用规划说明：保留此任务为探索性，不启动实验。",
+    "success_criteria": [
+      "在独立测试上出现可复核的能力增量",
+      "保留反例、失败和成本记录"
+    ],
+    "failure_conditions": [
+      "无法优于基线",
+      "只能记忆或依赖教师直接答案",
+      "出现泄漏或不可复核结果"
+    ],
+    "attribution": "research_owner/ChatGPT 提出；尚未实施，未授权",
+    "known_limitations": [
+      "尚未实现",
+      "尚无本任务的独立实验证据"
+    ],
+    "patch_used": 0,
+    "commit_sha": "",
+    "evidence_links": [],
+    "decision_history": [
+      {
+        "at": "2026-11-05T12:43:28.553185+00:00",
+        "decision": "imported into Research Console as planning data",
+        "actor": "DeepSeek Harness"
+      },
+      {
+        "at": "2026-11-05T12:44:49.494338+00:00",
+        "decision": "planning edited via Research Console",
+        "actor": "planning"
+      }
+    ],
+    "next_possible_actions": [
+      "等待研究负责人授权后，选择一个最小可验证实验"
+    ],
+    "authorized_action": "none"
+  }
+}

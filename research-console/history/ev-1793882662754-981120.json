@@ -1,0 +1,17 @@
+{
+  "event_id": "ev-1793882662754-981120",
+  "at": "2026-11-05T12:44:22.754915+00:00",
+  "kind": "idea_proposed",
+  "actor": "planning",
+  "note": "测试想法：挑战后保留反例历史",
+  "before": null,
+  "after": {
+    "id": "idea-1793882662-f002",
+    "title": "测试想法：挑战后保留反例历史",
+    "body": "来自控制台验收的临时测试想法；不进入正式任务。",
+    "author": "acceptance_test",
+    "status": "PROPOSED",
+    "created_at": "2026-11-05T12:44:22.743916+00:00",
+    "history": []
+  }
+}

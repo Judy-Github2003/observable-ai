@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "directions": [
+    {
+      "code": "A",
+      "name": "知识诊断、验证与修正",
+      "question": "系统如何检测冲突、验证结论并在反例后修正知识？",
+      "task_ids": [
+        "A-R1",
+        "A-R2",
+        "A-R3",
+        "A-R4",
+        "A-R5",
+        "A1",
+        "A11",
+        "A12",
+        "A2-A10",
+        "B0",
+        "E3-A0",
+        "E3-A1",
+        "E3-A2",
+        "E3-A3",
+        "E3-A4",
+        "E3-A5",
+        "E3-A6",
+        "E3-A7",
+        "E3-A8",
+        "E3-A9",
+        "M1.0",
+        "M1.1a",
+        "P0"
+      ]
+    },
+    {
+      "code": "B",
+      "name": "新观察与知识获取",
+      "question": "系统如何判断缺少信息并合法获得新的观察？",
+      "task_ids": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6",
+        "B7",
+        "B8"
+      ]
+    },
+    {
+      "code": "C",
+      "name": "概念构造与知识表示",
+      "question": "系统如何从证据构造可执行、可验证、可复用的概念？",
+      "task_ids": [
+        "C1",
+        "C10",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "C9"
+      ]
+    },
+    {
+      "code": "D",
+      "name": "学习策略与知识积累",
+      "question": "系统如何根据历史学习经验调整学习行动并积累知识？",
+      "task_ids": [
+        "D1",
+        "D10",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D7",
+        "D8",
+        "D9"
+      ]
+    },
+    {
+      "code": "E",
+      "name": "认识论与知识状态",
+      "question": "系统如何区分事实、假设、推断、未知和证据不足？",
+      "task_ids": [
+        "RES-E01",
+        "RES-E02",
+        "RES-E03",
+        "RES-E04",
+        "RES-E05",
+        "RES-E06"
+      ]
+    },
+    {
+      "code": "F",
+      "name": "长期开放架构研究",
+      "question": "哪些长期表示、推理和混合架构值得研究？",
+      "task_ids": [
+        "F1",
+        "F10",
+        "F11",
+        "F12",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "V0",
+        "V1",
+        "V2"
+      ]
+    },
+    {
+      "code": "G",
+      "name": "因果推理与反事实",
+      "question": "系统如何从相关观察走向因果理解？",
+      "task_ids": [
+        "RES-G01",
+        "RES-G02",
+        "RES-G03",
+        "RES-G04",
+        "RES-G05",
+        "RES-G06"
+      ]
+    },
+    {
+      "code": "H",
+      "name": "形式推理与多步演绎",
+      "question": "系统如何组合已知事实与规则产生可靠新结论？",
+      "task_ids": [
+        "RES-H01",
+        "RES-H02",
+        "RES-H03",
+        "RES-H04",
+        "RES-H05",
+        "RES-H06"
+      ]
+    },
+    {
+      "code": "I",
+      "name": "记忆与知识生命周期",
+      "question": "系统如何长期保存、更新、退役和恢复知识？",
+      "task_ids": [
+        "RES-I01",
+        "RES-I02",
+        "RES-I03",
+        "RES-I04",
+        "RES-I05",
+        "RES-I06"
+      ]
+    },
+    {
+      "code": "J",
+      "name": "行动模型与工具操作",
+      "question": "系统如何把知识转化为受控行动？",
+      "task_ids": [
+        "RES-J01",
+        "RES-J02",
+        "RES-J03",
+        "RES-J04",
+        "RES-J05",
+        "RES-J06"
+      ]
+    },
+    {
+      "code": "K",
+      "name": "教师模型与外部知识协作",
+      "question": "系统如何向教师学习而不依赖教师？",
+      "task_ids": [
+        "RES-K01",
+        "RES-K02",
+        "RES-K03",
+        "RES-K04",
+        "RES-K05",
+        "RES-K06"
+      ]
+    },
+    {
+      "code": "L",
+      "name": "世界模型与时间动态",
+      "question": "系统如何理解对象、状态、事件和时间变化？",
+      "task_ids": [
+        "RES-L01",
+        "RES-L02",
+        "RES-L03",
+        "RES-L04",
+        "RES-L05",
+        "RES-L06"
+      ]
+    },
+    {
+      "code": "M",
+      "name": "表征结构自主进化",
+      "question": "系统能否学习新的知识结构而不只是填充固定模板？",
+      "task_ids": [
+        "RES-M01",
+        "RES-M02",
+        "RES-M03",
+        "RES-M04",
+        "RES-M05",
+        "RES-M06"
+      ]
+    },
+    {
+      "code": "N",
+      "name": "科学实验与自主发现",
+      "question": "系统能否提出假设、设计实验并从结果中学习？",
+      "task_ids": [
+        "RES-N01",
+        "RES-N02",
+        "RES-N03",
+        "RES-N04",
+        "RES-N05",
+        "RES-N06"
+      ]
+    },
+    {
+      "code": "O",
+      "name": "错误隔离与知识可靠性",
+      "question": "错误如何被定位、隔离并阻止传播？",
+      "task_ids": [
+        "RES-O01",
+        "RES-O02",
+        "RES-O03",
+        "RES-O04",
+        "RES-O05",
+        "RES-O06"
+      ]
+    },
+    {
+      "code": "P",
+      "name": "符号接地与现实对应",
+      "question": "内部概念如何对应对象、属性和观测？",
+      "task_ids": [
+        "RES-P01",
+        "RES-P02",
+        "RES-P03",
+        "RES-P04",
+        "RES-P05",
+        "RES-P06"
+      ]
+    },
+    {
+      "code": "Q",
+      "name": "课程学习与自主出题",
+      "question": "系统如何形成逐步增长的学习过程？",
+      "task_ids": [
+        "RES-Q01",
+        "RES-Q02",
+        "RES-Q03",
+        "RES-Q04",
+        "RES-Q05",
+        "RES-Q06"
+      ]
+    },
+    {
+      "code": "R",
+      "name": "元认知与资源决策",
+      "question": "系统如何观察自己的知识并决定下一步学习行动？",
+      "task_ids": [
+        "RES-R01",
+        "RES-R02",
+        "RES-R03",
+        "RES-R04",
+        "RES-R05",
+        "RES-R06"
+      ]
+    },
+    {
+      "code": "S",
+      "name": "自然语言知识学习",
+      "question": "系统如何从字词和语法逐步形成语言知识？",
+      "task_ids": [
+        "RES-S01",
+        "RES-S02",
+        "RES-S03",
+        "RES-S04",
+        "RES-S05",
+        "RES-S06"
+      ]
+    },
+    {
+      "code": "T",
+      "name": "多模态知识融合",
+      "question": "不同模态如何共享、冲突和校验知识？",
+      "task_ids": [
+        "RES-T01",
+        "RES-T02",
+        "RES-T03",
+        "RES-T04",
+        "RES-T05",
+        "RES-T06"
+      ]
+    },
+    {
+      "code": "U",
+      "name": "涌现与能力跃迁机制",
+      "question": "多能力组合后是否出现单模块没有的新行为？",
+      "task_ids": [
+        "RES-U01",
+        "RES-U02",
+        "RES-U03",
+        "RES-U04",
+        "RES-U05",
+        "RES-U06"
+      ]
+    },
+    {
+      "code": "V",
+      "name": "科学评测与可证伪性",
+      "question": "如何证明能力真实存在而不是记忆或注入？",
+      "task_ids": [
+        "RES-V01",
+        "RES-V02",
+        "RES-V03",
+        "RES-V04",
+        "RES-V05",
+        "RES-V06"
+      ]
+    },
+    {
+      "code": "W",
+      "name": "可解释性与知识干预",
+      "question": "如何检查、解释和修改内部知识？",
+      "task_ids": [
+        "RES-W01",
+        "RES-W02",
+        "RES-W03",
+        "RES-W04",
+        "RES-W05",
+        "RES-W06"
+      ]
+    },
+    {
+      "code": "X",
+      "name": "多能力组合",
+      "question": "多个能力如何联动形成完整学习循环？",
+      "task_ids": [
+        "X1",
+        "X2",
+        "X3",
+        "X4",
+        "X5",
+        "X6",
+        "X7",
+        "X8"
+      ]
+    },
+    {
+      "code": "Y",
+      "name": "数学、程序与算法发现",
+      "question": "系统如何从基础规则形成数学与程序能力？",
+      "task_ids": [
+        "RES-Y01",
+        "RES-Y02",
+        "RES-Y03",
+        "RES-Y04",
+        "RES-Y05",
+        "RES-Y06"
+      ]
+    },
+    {
+      "code": "Z",
+      "name": "多智能体与知识协同",
+      "question": "多个学习者能否共同构建和验证知识？",
+      "task_ids": [
+        "RES-Z01",
+        "RES-Z02",
+        "RES-Z03",
+        "RES-Z04",
+        "RES-Z05",
+        "RES-Z06"
+      ]
+    }
+  ],
+  "note": "A/B/C/D/X/F are existing directions; E,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,Y,Z are the A-Z extension. Directions are not a serial stage plan."
+}
