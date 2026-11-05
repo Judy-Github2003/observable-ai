@@ -150,8 +150,14 @@ class E3SearchBudgetDiagnoser {
             facts.observationCollision -> BudgetVerdict.OBSERVATION_COLLISION
             DiagnosticSignalStatus.INVALID_INPUT in bad -> BudgetVerdict.INVALID_INPUT
             DiagnosticSignalStatus.NO_COMPLETE_OBSERVATIONS in bad -> BudgetVerdict.NO_COMPLETE_OBSERVATIONS
-            runs.all { it.signal.filter?.reason == "no_consistent_candidate" } ->
-                BudgetVerdict.NO_CONSISTENT_CANDIDATE
+            runs.all {
+                it.candidateEvidenceState == CandidateEvidenceState.SEARCH_TRUNCATED &&
+                    it.signal.consistentCandidateHashes.isEmpty()
+            } -> BudgetVerdict.SEARCH_TRUNCATED_UNDETERMINED
+            runs.all {
+                it.signal.filter?.reason == "no_consistent_candidate" &&
+                    it.candidateEvidenceState == CandidateEvidenceState.RUN_WITH_ZERO_SURVIVORS
+            } -> BudgetVerdict.NO_CONSISTENT_CANDIDATE
             runs.all { it.signal.status == DiagnosticSignalStatus.AMBIGUOUS_WITHIN_BOUNDED_SPACE } && facts.multipleBehaviorClasses ->
                 BudgetVerdict.MULTIPLE_CANDIDATES_REMAIN
             facts.budgetSensitive -> BudgetVerdict.BUDGET_SENSITIVE_CANDIDATE_SET

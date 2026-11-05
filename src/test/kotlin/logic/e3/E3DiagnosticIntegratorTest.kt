@@ -94,6 +94,22 @@ class E3DiagnosticIntegratorTest {
     }
 
     @Test
+    fun `forged or duplicate probe evidence is rejected`() {
+        val world = E3WorldGenerator(109L).generate(WorldFamily.AMBIGUOUS_EVIDENCE, 0)
+        val trace = probe(world)
+        val forged = trace.copy(recordedObservationId = "wrong-id")
+        val forgedResult = integrate(world, forged)
+        assertFalse(forgedResult.stateChange.probeEvidenceAccepted)
+        assertTrue(forgedResult.stateChange.addedEvidenceIds.isEmpty())
+        assertTrue(forgedResult.report.findings.any { it.kind == FindingKind.UNDETERMINED && it.observationConclusion!!.contains("probe_evidence_rejected") })
+
+        val duplicate = trace.copy(addedObservation = world.public.observations.first(), recordedObservationId = world.public.observations.first().observationId)
+        val duplicateResult = integrate(world, duplicate)
+        assertFalse(duplicateResult.stateChange.probeEvidenceAccepted)
+        assertEquals("duplicate_evidence_id", duplicateResult.stateChange.rejectionReason)
+    }
+
+    @Test
     fun `no action after identification is bounded and does not deny future queries`() {
         val world = E3WorldGenerator(101L).generate(WorldFamily.SOLVABLE, 0)
         val result = integrate(world, probe(world))

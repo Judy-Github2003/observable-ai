@@ -137,7 +137,8 @@ class E3ProbeSession(
     fun execute(decision: ProbeDecision): ProbeTrace {
         val before = diagnosis()
         // 执行门禁：只接受当前会话签发且未消费的决策；外部伪造/过期/篡改一律拒绝。
-        val issued = issuedDecisions.remove(decision.decisionId)
+        // 先验证内容，再消费 decisionId；篡改提交不得使合法决策失效。
+        val issued = issuedDecisions[decision.decisionId]
         if (issued == null || issued != decision) {
             return rejected(before, decision, ProbeExecutionStatus.REJECTED_STALE_OR_FORGED_DECISION, "stale_or_forged_decision")
         }
@@ -149,6 +150,7 @@ class E3ProbeSession(
         }
         return when (val action = decision.action) {
             ProbeAction.NoAction -> {
+                issuedDecisions.remove(decision.decisionId)
                 actionsTaken++
                 ProbeTrace(
                     action, 0, null, false, before, before,
@@ -162,8 +164,10 @@ class E3ProbeSession(
                     return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_ACTION, "query_id_not_allowed")
                 }
                 if (action.sampleId in usedQueryIds) {
+                    issuedDecisions.remove(decision.decisionId)
                     return rejected(before, decision, ProbeExecutionStatus.DUPLICATE_QUERY, "duplicate_query_not_new_evidence")
                 }
+                issuedDecisions.remove(decision.decisionId)
                 val response = gateway.requestPublicInstance(action.sampleId)
                 val error = validatePublicResponse(action.sampleId, response)
                 if (error != null) {
@@ -195,6 +199,7 @@ class E3ProbeSession(
                 if (decision.cost != 1) return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_ACTION, "invalid_repeat_cost")
                 val original = currentObservations.filter { it.objectId == action.objectId }
                 if (original.isEmpty()) return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_ACTION, "repeat_object_not_in_evidence")
+                issuedDecisions.remove(decision.decisionId)
                 val response = gateway?.repeatLabel(action.objectId, action.sourceId)
                     ?: return rejected(before, decision, ProbeExecutionStatus.REJECTED_INVALID_RESPONSE, "repeat_not_supported_or_rejected")
                 val error = validateRepeatResponse(action, original, response)

@@ -149,6 +149,10 @@ class E3ProbeSessionTest {
         val decision = session.plan()
         val forged = decision.copy(decisionId = "forged")
         assertEquals(ProbeExecutionStatus.REJECTED_STALE_OR_FORGED_DECISION, session.execute(forged).executionStatus)
+        // 篡改同一 token 不得消费合法决策。
+        val tampered = decision.copy(reason = "tampered")
+        assertEquals(ProbeExecutionStatus.REJECTED_STALE_OR_FORGED_DECISION, session.execute(tampered).executionStatus)
+        assertEquals(ProbeExecutionStatus.EXECUTED, session.execute(decision).executionStatus)
 
         val maxZero = session(world, maxActions = 0)
         val blocked = maxZero.plan()

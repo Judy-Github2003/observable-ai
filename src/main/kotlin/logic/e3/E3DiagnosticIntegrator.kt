@@ -7,6 +7,8 @@ data class ProbeStateChange(
     val afterStatus: DiagnosticSignalStatus,
     val addedEvidenceIds: List<String>,
     val changed: Boolean,
+    val probeEvidenceAccepted: Boolean,
+    val rejectionReason: String? = null,
 )
 
 data class IntegratedDiagnosis(
@@ -36,7 +38,10 @@ class E3DiagnosticIntegrator {
     ): IntegratedDiagnosis {
         val diagnoser = E3SearchBudgetDiagnoser()
         val beforeBudget = diagnoser.diagnose(schema, observations, constants, queryDomain, low, high)
-        val afterObservations = if (probe?.addedObservation != null) observations + probe.addedObservation else observations
+        val evidenceValidation = validateProbeEvidence(schema, observations, probe)
+        val acceptedObservation = evidenceValidation.first
+        val rejectionReason = evidenceValidation.second
+        val afterObservations = if (acceptedObservation != null) observations + acceptedObservation else observations
         val afterBudget = diagnoser.diagnose(schema, afterObservations, constants, queryDomain, low, high)
         val budget = afterBudget
         val signal = budget.runs.last().signal
@@ -145,6 +150,15 @@ class E3DiagnosticIntegrator {
         if (probe != null) {
             val probeEvidence = probe.recordedObservationId?.let { listOf(it) } ?: usableIds
             findings += when {
+                probe.addedObservation != null && acceptedObservation == null -> DiagnosticFinding(
+                    kind = FindingKind.UNDETERMINED,
+                    evidenceIds = listOfNotNull(probe.recordedObservationId),
+                    scope = scope,
+                    sourceHypotheses = listOf("probe evidence failed validation"),
+                    observationConclusion = "probe_evidence_rejected: ${rejectionReason ?: "unknown"}",
+                    assumptions = listOf("evidence IDs/schema/duplicates must be consistent"),
+                    alternativeExplanations = listOf("forged trace", "duplicate evidence", "stale observation", "invalid schema"),
+                )
                 probe.executionStatus == ProbeExecutionStatus.EXECUTED && probe.newObservationRecorded -> DiagnosticFinding(
                     kind = FindingKind.PROBE_EXECUTED,
                     evidenceIds = probeEvidence,
@@ -185,9 +199,30 @@ class E3DiagnosticIntegrator {
         val stateChange = ProbeStateChange(
             beforeStatus = beforeSignal.status,
             afterStatus = signal.status,
-            addedEvidenceIds = listOfNotNull(probe?.addedObservation?.observationId),
-            changed = beforeSignal.status != signal.status || probe?.addedObservation != null,
+            addedEvidenceIds = listOfNotNull(acceptedObservation?.observationId),
+            changed = beforeSignal.status != signal.status || acceptedObservation != null,
+            probeEvidenceAccepted = acceptedObservation != null,
+            rejectionReason = rejectionReason,
         )
         return IntegratedDiagnosis(report, budget, beforeBudget, afterBudget, probe, signal, stateChange)
+    }
+
+    private fun validateProbeEvidence(
+        schema: VisibleSchema,
+        original: List<Observation>,
+        probe: ProbeTrace?,
+    ): Pair<Observation?, String?> {
+        if (probe == null) return null to null
+        if (probe.executionStatus != ProbeExecutionStatus.EXECUTED) return null to "probe_not_executed"
+        val added = probe.addedObservation
+        if (added == null) {
+            return if (probe.newObservationRecorded) null to "missing_added_observation" else null to null
+        }
+        if (probe.recordedObservationId != added.observationId) return null to "recorded_id_mismatch"
+        if (!probe.newObservationRecorded) return null to "not_marked_new"
+        if (original.any { it.observationId == added.observationId }) return null to "duplicate_evidence_id"
+        val validation = validateObservations(schema, original + added)
+        if (!validation.ok) return null to "invalid_added_observation:" + validation.errors.joinToString(",") { it.code }
+        return added to null
     }
 }

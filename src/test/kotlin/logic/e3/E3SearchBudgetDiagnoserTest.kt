@@ -99,13 +99,14 @@ class E3SearchBudgetDiagnoserTest {
                     consistentCandidateBodies = emptyList(),
                 ),
                 behaviorClasses = emptyList(),
+                candidateEvidenceState = CandidateEvidenceState.RUN_WITH_ZERO_SURVIVORS,
             )
         }
         val facts = BudgetFacts(
             budgetSensitive = false,
             multipleBehaviorClasses = false,
             noConsistentCandidate = true,
-            searchTruncated = true,
+            searchTruncated = false,
             reasonUndetermined = false,
             observationCollision = false,
         )
@@ -125,6 +126,26 @@ class E3SearchBudgetDiagnoserTest {
         val result = run(WorldFamily.SEARCH_LIMITED, 107L)
         assertEquals(CandidateEvidenceState.SEARCH_TRUNCATED, result.runs[0].candidateEvidenceState)
         assertFalse(result.facts.noConsistentCandidate)
+    }
+
+    @Test
+    fun `two truncated searches are not classified as no consistent candidate`() {
+        val base = run(WorldFamily.SEARCH_LIMITED, 107L)
+        val runs = base.runs.map { run ->
+            run.copy(
+                signal = run.signal.copy(
+                    status = DiagnosticSignalStatus.REFUSED,
+                    filter = FilterTrace("REFUSED", "no_consistent_candidate", 0, 0, 0, 0),
+                    survivorHashes = emptyList(),
+                    consistentCandidateHashes = emptyList(),
+                    consistentCandidateBodies = emptyList(),
+                ),
+                behaviorClasses = emptyList(),
+                candidateEvidenceState = CandidateEvidenceState.SEARCH_TRUNCATED,
+            )
+        }
+        val facts = BudgetFacts(false, false, false, true, false, false)
+        assertEquals(BudgetVerdict.SEARCH_TRUNCATED_UNDETERMINED, diagnoser.classifyVerdict(runs, facts))
     }
 
     @Test

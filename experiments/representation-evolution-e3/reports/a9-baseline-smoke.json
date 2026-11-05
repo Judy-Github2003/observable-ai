@@ -1,0 +1,191 @@
+[
+    {
+        "case": "solvable",
+        "baseline": "B0_ONLY",
+        "claim": "BOUNDED_IDENTIFIED",
+        "cost": 0,
+        "evidenceCount": 5,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "b0_filter_only",
+            "status=IDENTIFIED_WITHIN_BOUNDED_SPACE"
+        ]
+    },
+    {
+        "case": "solvable",
+        "baseline": "COLLISION_ONLY",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "no_collision_no_search_performed"
+        ]
+    },
+    {
+        "case": "solvable",
+        "baseline": "REPEAT_ONLY",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "no_collision_no_repeat"
+        ]
+    },
+    {
+        "case": "solvable",
+        "baseline": "E3_DIAGNOSTIC",
+        "claim": "BOUNDED_IDENTIFIED",
+        "cost": 0,
+        "evidenceCount": 5,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "integrated_report",
+            "strategy=designer_primitive"
+        ]
+    },
+    {
+        "case": "solvable",
+        "baseline": "ALWAYS_UNDETERMINED",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "always_abstain_control"
+        ]
+    },
+    {
+        "case": "latent",
+        "baseline": "B0_ONLY",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "b0_filter_only",
+            "status=OBSERVATION_COLLISION"
+        ]
+    },
+    {
+        "case": "latent",
+        "baseline": "COLLISION_ONLY",
+        "claim": "OBSERVATION_COLLISION",
+        "cost": 0,
+        "evidenceCount": 2,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "collision_detected_only",
+            "cause_not_determined"
+        ]
+    },
+    {
+        "case": "latent",
+        "baseline": "REPEAT_ONLY",
+        "claim": "REPEATED_MEASUREMENT",
+        "cost": 1,
+        "evidenceCount": 1,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "repeat_only",
+            "status=EXECUTED",
+            "independent=false"
+        ]
+    },
+    {
+        "case": "latent",
+        "baseline": "E3_DIAGNOSTIC",
+        "claim": "OBSERVATION_COLLISION",
+        "cost": 1,
+        "evidenceCount": 3,
+        "queryCount": 1,
+        "claimedGlobal": false,
+        "notes": [
+            "integrated_report",
+            "strategy=designer_primitive"
+        ]
+    },
+    {
+        "case": "latent",
+        "baseline": "ALWAYS_UNDETERMINED",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "always_abstain_control"
+        ]
+    },
+    {
+        "case": "ambiguous",
+        "baseline": "B0_ONLY",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 5,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "b0_filter_only",
+            "status=AMBIGUOUS_WITHIN_BOUNDED_SPACE"
+        ]
+    },
+    {
+        "case": "ambiguous",
+        "baseline": "COLLISION_ONLY",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "no_collision_no_search_performed"
+        ]
+    },
+    {
+        "case": "ambiguous",
+        "baseline": "REPEAT_ONLY",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "no_collision_no_repeat"
+        ]
+    },
+    {
+        "case": "ambiguous",
+        "baseline": "E3_DIAGNOSTIC",
+        "claim": "BOUNDED_IDENTIFIED",
+        "cost": 1,
+        "evidenceCount": 6,
+        "queryCount": 1,
+        "claimedGlobal": false,
+        "notes": [
+            "integrated_report",
+            "strategy=designer_primitive"
+        ]
+    },
+    {
+        "case": "ambiguous",
+        "baseline": "ALWAYS_UNDETERMINED",
+        "claim": "UNDETERMINED",
+        "cost": 0,
+        "evidenceCount": 0,
+        "queryCount": 0,
+        "claimedGlobal": false,
+        "notes": [
+            "always_abstain_control"
+        ]
+    }
+]
