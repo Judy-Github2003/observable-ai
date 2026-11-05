@@ -461,7 +461,7 @@ class Handler(BaseHTTPRequestHandler):
                                 "direction_count": len(directions["directions"])})
                 return
             if path == "/api/state":
-                self.send_json({"current_task_id": state.get("current_task_id"), "authorized_action": state.get("authorized_action"),
+                self.send_json({"current_task_id": state.get("current_task_id"), "authorized_action": state.get("authorized_action"), "active_pack": state.get("active_pack"),
                                 "independent_closed_book": state.get("independent_closed_book"),
                                 "directions": directions.get("directions", []), "tasks": state["tasks"]})
                 return
