@@ -125,3 +125,13 @@
 - 错误码：根撤销 `revoked`；依赖撤销 `dependency_revoked`；依赖未激活 `dependency_not_activated`；依赖哈希错配 `dependency_hash_mismatch`；依赖验证/正文损坏 `dependency_invalid`；根自身损坏保留 inspect 原始码。
 - 不缓存依赖健康；每次执行重新读库核对，重启一致。
 - 恢复只通过新版本 + 新调用方：旧 A/B 钉住旧 C，C 被撤销后不会因 C2 出现而自动恢复。
+
+## M3-1a 有界候选枚举（2026-11-05）
+
+- `CapabilityComposer.compose(ComposeRequest)`：叶子 = 输入参数、Record 顶层字段、公开常量；逐层生成 `not/and/or/eq/call`。
+- 类型安全：每个候选先算 canonical hash 去重，再用 `CapabilityTypeChecker` 以目标签名做完整检查；Call 锁定 `(id,version,contentHash)`。
+- 不做 `and/or/eq` 交换律归一化，不做 `if/let/ref` 生成，不做语义等价合并；只做“按类型重建”的安全构造。
+- 预算：`maxDepth`（组合层数）、`maxNodes`（单表达式节点）、`maxCandidates`（目标类型候选数）、`maxCallsPerCapability`（每能力实参组合上限）。
+- 结果：候选按 `(节点数, canonical)` 稳定排序；`reason` 为 `candidate_limit` / `depth_limit`；`nodeLimitSkipped` 记录被节点上限丢弃的数量。
+- `Registry.activeCapabilities()`：只返回已激活、验证 pass、未撤销、依赖链健康的快照；组合器不直接查库。
+- 来源只记 `composer_bounded_search`；M3-1c 注册时再按实际流程判定 `student_composed`，不得提前声称学生自主发现。

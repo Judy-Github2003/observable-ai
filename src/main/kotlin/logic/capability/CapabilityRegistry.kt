@@ -5,6 +5,7 @@
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-1c 增加 appendVerificationRun：验证记录与 verified 事件同事务追加。
 // 修改：DeepSeek Harness，2026-11-04，B0 M2b-2a 增加验证/激活读取与 appendActivation；激活不修改 capabilities.status。
 // 修改：DeepSeek Harness，2026-11-05，B0 M2c-1a 增加 schema v3 撤销表与撤销读写；旧四表、status 约束与历史记录不变。
+// 修改：DeepSeek Harness，2026-11-05，B0 M3-1a 增加 activeCapabilities()：只返回激活且依赖健康的能力快照。
 package logic.capability
 
 import kotlinx.serialization.json.*
@@ -518,6 +519,35 @@ internal class SqliteCapabilityRegistry(private val dbPath: Path) : CapabilityRe
             connection.autoCommit = true
         }
         return RegistryResult(true)
+    }
+
+    /**
+     * M3-1a：返回当前“逻辑上已激活且依赖链健康”的能力快照，供组合器使用。
+     * 只读；撤销、验证失效、依赖失效或正文损坏的能力不会出现在结果里。
+     */
+    internal fun activeCapabilities(): List<CapabilityDefinition> {
+        val keys = LinkedHashSet<Pair<String, Int>>()
+        connection.prepareStatement("SELECT capability_id,version FROM activations ORDER BY capability_id,version").use { statement ->
+            statement.executeQuery().use { rows ->
+                while (rows.next()) keys += rows.getString(1) to rows.getInt(2)
+            }
+        }
+        val result = ArrayList<CapabilityDefinition>(keys.size)
+        for ((id, version) in keys) {
+            if (readRevocation(id, version) != null) continue
+            val self = inspectSelf(id, version)
+            val contentHash = self.contentHash
+            val definition = self.definition
+            if (!self.ok || contentHash == null || definition == null) continue
+            val activation = readActivation(id, version) ?: continue
+            if (activation.contentHash != contentHash) continue
+            val run = readVerificationRun(activation.verificationRunId) ?: continue
+            if (run.verdict != "pass") continue
+            if (run.capabilityId != id || run.capabilityVersion != version || run.contentHash != contentHash) continue
+            if (ActivationGate(this).check(id, version) != null) continue
+            result += definition
+        }
+        return result
     }
 
     /** M2c-1a：读取某能力版本是否已被撤销；正式入口与激活门禁据此拒绝，历史审计仍可 inspect。 */

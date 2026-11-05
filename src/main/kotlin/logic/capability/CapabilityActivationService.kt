@@ -31,7 +31,7 @@ internal data class ActivationSnapshot(
     val verificationRunId: String,
 )
 
-internal data class DependencyPin(val id: String, val version: Int, val contentHash: String)
+data class DependencyPin(val id: String, val version: Int, val contentHash: String)
 
 internal data class ActivationRow(
     val activationId: String,
