@@ -119,7 +119,10 @@ actualClaim（动作执行状态）
 - `queryTruthAgreement`：单独检查候选在 queryDomain 上与 truth 的一致性；LATENT 同 visible 多标签时置 null 并记 truthConflictDetected。
 - 冻结记录：budget/constants/queryDomain/composed hashes/consistent candidates/reason/generated/stage；评测端重算核对。
 - 越权：`claimedGlobal` 或结构化 `A9CausalClaim`（GLOBAL_RULE/HIDDEN_ATTRIBUTE/NOISE/WORLD_CAUSE）；不只看单一布尔。
-- 无候选/无 evidenceIds/无 queryDomain/无 heldOut/哈希不匹配 → `NOT_EVALUATED`，不得补 0。
+- 探测后：从 `A9TrustedActionEvent` + `A9ExecutionContext` 重建观察；记录 evidence IDs/runId/stage 顺序，不信任学生自报新增记录。
+- 执行预算：候选执行使用冻结记录的 `EvalBudget(maxSteps)`；`evaluationMaxSteps` 记录。
+- 无候选/无 evidenceIds/无 queryDomain/无 heldOut/哈希不匹配/记录不一致 → `NOT_EVALUATED`，不得补 0。
+- 非辨识：OBSERVATION_COLLISION 独立证据正确性；UNDETERMINED 独立有效弃答；动作不增加 diagnostic coverage。
 - 评测端代码/隐藏真值不进入学生接口。
 
 ## 7. A10 建议增加第六基线（未实现）
@@ -155,6 +158,7 @@ actualClaim（动作执行状态）
 代码：`src/main/kotlin/logic/e3/E3A9Baselines.kt`、`E3UsageMeter.kt`
 真实 smoke：`reports/a9-baseline-smoke.json`
 测试：`E3A9BaselineTest`（15 行 smoke + 预算/指标/动作反例）。
+
 
 
 

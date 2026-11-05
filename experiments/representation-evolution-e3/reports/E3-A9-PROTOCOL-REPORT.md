@@ -3,9 +3,9 @@
 ```text
 阶段: E3-A（A9 协议与最小评分；A10 未运行）
 状态: complete for this handoff
-代码/测试提交: 3a7dc7a69a3f010d2466c2786124e015abe978b9
+代码/测试提交: 56d61474f6c0fae3f0e83dbed6dc78d128fef958
 B0 冻结 SHA: 0ca4561309aeb914df6e3f2c3877a50b080bf731
-测试: 269/269（B0 173 + E3 96），失败 0
+测试: 273/273（B0 173 + E3 100），失败 0
 独立闭卷: not_run
 ```
 
@@ -142,3 +142,13 @@ E3_DIAGNOSTIC 不再用 recordedObservationId 冒充 requestedSampleId；REPEAT 
 - 查询域工作量：observed 使用压缩前全部一致候选×domainSize；另记录 representative（survivors）工作量，暴露低估。
 - 反例测试：候选与 Oracle 一致但多行为类 → bounded false；LATENT 冲突保留；多 AST 同行为类工作量按全部一致候选计。
 - 当前仍不具备 A10 正式条件：`B0_ACTIVE_QUERY` 第六基线未实现、未多 seed/盲评/独立进程。
+## 11. 探测后独立评分与第六基线
+
+- 新增 `A9TrustedActionEvent`/`A9ExecutionContext`/`A9TrustedReplay`：评测端从可信行动事件重建观察集合，校验 runId、stage 顺序、请求 ID、重复对象、证据 ID；不信任学生自报新增记录。
+- 新增真实端到端测试：AMBIGUOUS_EVIDENCE → 合法查询 → 新观察 → 重诊断 → 冻结候选 → 独立评测端隐藏执行；记录通过。
+- 冻结记录增加 publicEvidenceIds/boundedScope；评测端核对 budget、candidateCount、reason、证据快照、冻结阶段早于 hidden scoring。
+- 评分解释器使用冻结记录的 `EvalBudget(maxSteps)`；`evaluationMaxSteps` 输出。
+- 非辨识评分：OBSERVATION_COLLISION 独立 `collisionEvidenceCorrect`；UNDETERMINED 独立 `validAbstention`；不增加 diagnostic coverage。
+- 新增第六基线 `B0_ACTIVE_QUERY`：B0_ONLY + Filter 区分查询，一次授权查询，成本/统计与 E3 对齐；固定小案例 smoke 已跑（18 行）。
+- A10 条件更新：第六基线已实现；仍缺多 seed/样本数/排列/盲评/独立进程，故仍不能启动正式 A10。
+
