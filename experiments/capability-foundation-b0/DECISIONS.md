@@ -183,3 +183,14 @@
 - 发布顺序：原程序 v1 → helper 提议/验证/激活 → 重写版本 v2 提议/验证/激活；激活门禁要求依赖已激活，因此不会出现“下游 active、helper 未 active”的半发布状态。
 - 本轮未新增跨能力批量事务；部分失败时下游保持未激活，helper 可撤销。
 - 旧版本、失败候选与拒绝原因保留；不用压缩结果冒充学习新事实。
+
+## M5-1a 基准协议冻结（2026-11-05）
+
+- 生成器版本 `b0-m5-v1`，种子 `20261105`，每族每场景 2 个任务，共 24 个；`*.0` 训练、`*.1` 开发，按结构族切分。
+- 三场景（item/access/device）各三字段二值，基础库各一个复合原语；四任务族 REUSE / SIMILAR / NO_STRUCTURE / BOUNDARY。
+- 预算冻结：`maxDepth=3`、`maxNodes=32`、`maxCandidates=3000`、`maxSteps=10000`。
+- 组 A 空库、B 基础库、C 在训练集已解决程序上做 M4 抽取；D=L3 `not_implemented`。
+- 基准在内存中运行，不写注册表；验证/激活/撤销门禁由 M2–M4 测试覆盖。
+- 公开样本 6 / 开发样本 2，目标 AST 不进入组合器；三类收益（静态成本、搜索耗时、新任务正确率）分开报告。
+- `EXHAUSTIVE` 只是调用方声明；声明域 8 点为全枚举，不等于全局语义等价；无法枚举必须标 `bounded_verified`。
+- 入口：Gradle `benchmark` 或 `BenchmarkCliKt`，支持 `--seed`、`--tasks-per-family`；无外部运行证据前 `independent_closed_book=not_run`。

@@ -2,6 +2,7 @@
 // 本次中文注释：DeepSeek Harness 补充，2026-11-04。
 // 局部注释审计：Codex，2026-11-04；明确 JavaExec 配置只作用于相应 Gradle 任务。
 // 本轮补充代码内部中文注释：DeepSeek Harness，2026-11-04；未改插件、依赖、任务或参数。
+// 2026-11-05 修改者：DeepSeek Harness；原因：B0 M5 增加 benchmark 任务，运行 A/B/C 公开开发对照，不影响 test/installDist。
 
 // Kotlin JVM 提供语言编译；application 生成可运行的安装包和启动脚本。
 plugins {
@@ -38,4 +39,14 @@ tasks.test {
 tasks.withType<JavaExec>().configureEach {
     standardInput = System.`in`
     defaultCharacterEncoding = "UTF-8"
+}
+
+// B0 M5 公开开发基准入口：写 JSON 结果到 experiments/.../benchmarks/results。
+// 不改变 test/installDist 的任务图，也不联网。
+tasks.register<JavaExec>("benchmark") {
+    group = "verification"
+    description = "Run B0 M5 A/B/C public-development benchmark"
+    mainClass.set("logic.capability.BenchmarkCliKt")
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf("--output", "experiments/capability-foundation-b0/benchmarks/results")
 }
