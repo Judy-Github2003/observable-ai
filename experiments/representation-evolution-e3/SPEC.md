@@ -92,8 +92,17 @@ ProbeRequest = RepeatLabel | RequestPublicInstance | NoAction
 - 高预算新候选不声称真实规则；高预算失败不声称表示不足；`depth_limit` 不等于规律不在假设空间。
 - 不 import evaluator；不读取 family/HiddenTruth/target AST/ruleDepth。
 - 真实输出：`reports/a6-budget-diagnosis.json`。
+- A6 修正：行为等价类使用对应 run 的 `EvalBudget(maxSteps)`；保留 Composer 生成/公开一致/行为等价类/Filter 代表四层；`BudgetFacts` 记录同时成立的事实；空 queryDomain 返回 `TRAINING_ONLY_CONSISTENCY`，不称独立辨识。
 
-## 9. A1 本身明确未做
+## 9. A7 重复观测与公开探测（已实现）
+
+- `E3ProbeSession` 支持 `RepeatLabel`、`RequestPublicInstance`、`NoAction`。
+- 冲突且原因不确定时只选择重复测量，不宣布噪声；多个假设可区分时选 Filter 建议且在 gateway 允许的公开查询；预算截断/无合法动作/已辨识时 NoAction。
+- 查询只经 `PublicProbeGateway`（测试由受控 `PublicQueryOracle` 包装）；不读取 HiddenTruth/family/target。
+- 记录动作、成本、结果、诊断前后状态、来源归因；重复测量与重复查询同一 ID 不算新独立证据。
+- 真实轨迹：`reports/a7-action-traces.json`。
+
+## 10. A1 本身明确未做
 
 - 没有诊断算法、碰撞检测、噪声判断或探测选择策略。
 - A1 没有世界生成器、oracle、隐藏数据或评分器（A2 才开始）。

@@ -80,3 +80,13 @@
 - A6 新增 E3SearchBudgetDiagnoser：低/高预算真实搜索对照，记录候选集、幸存者集、行为等价类和预算变化；verdict 覆盖冲突、预算敏感、多个候选、截断、无一致候选、UNDETERMINED。
 - 高预算新候选不当作真实规则；高预算失败不当作表示不足；A6 只诊断公开证据与预算。
 
+## A6 修正 / A7（2026-11-05）
+
+- 行为等价类重执行使用对应 BudgetRun 的 EvalBudget.maxSteps，而不是默认预算。
+- 保留四层候选统计：Composer 生成、公开一致（全部 evaluation.consistent）、行为等价类（全部一致候选）、Filter 代表；不把代表当全部程序。
+- 增加 BudgetFacts：预算敏感、多行为类、无一致候选、搜索截断、原因未定、观察冲突同时记录；主 verdict 保持兼容。
+- NO_CONSISTENT_CANDIDATE 分支通过独立分类器单元测试可达（合成 BudgetRun），不伪造真实数据。
+- 空 queryDomain → TRAINING_ONLY_CONSISTENCY；只声明训练观察一致性，不称独立查询域辨识。
+- A7 新增 E3ProbeSession：冲突选 RepeatLabel（不宣布噪声），歧义选合法公开区分查询，预算/无合法/已辨识选 NoAction。
+- 动作记录成本、观察、诊断前后状态、归因；RepeatLabel 与重复查询同一 ID 均不算新独立证据。
+
