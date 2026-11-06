@@ -1,0 +1,68 @@
+{
+  "experiment": "MRX-02",
+  "gate1": {
+    "status": "PASSED",
+    "tests": 9,
+    "checks": [
+      "zero_checks_not_pass",
+      "unknown_not_pass",
+      "pass_scope",
+      "reuse_source_index",
+      "counterexample",
+      "budget",
+      "duplicate_error",
+      "placeholder_rejected",
+      "cost_separation"
+    ]
+  },
+  "gate2": {
+    "status": "PASSED",
+    "pairs": [
+      {
+        "name": "W4",
+        "same_first": "VALIDATE_BASE",
+        "feedback_a": "COUNTEREXAMPLE",
+        "second_a": "DNF",
+        "feedback_b": "PASS_ON_CHALLENGE",
+        "second_b": "STOP",
+        "status_a": "REPAIRED",
+        "status_b": "IDENTIFIED",
+        "cost_a": {
+          "oracleNew": 16,
+          "oracleReuse": 16,
+          "generated": 42601,
+          "interpreterCalls": 48,
+          "wallMillis": 3230
+        },
+        "cost_b": {
+          "oracleNew": 16,
+          "oracleReuse": 0,
+          "generated": 13206,
+          "interpreterCalls": 16,
+          "wallMillis": 1302
+        }
+      },
+      {
+        "name": "MISSING",
+        "same_first": "VALIDATE_BASE",
+        "feedback_a": "COUNTEREXAMPLE",
+        "second_a": "DNF_OR_KNOWLEDGE",
+        "feedback_b": "PASS_ON_CHALLENGE",
+        "second_b": "STOP"
+      }
+    ]
+  },
+  "gate3": {
+    "status": "NOT_PASSED",
+    "reason": "A/B/C candidate search comparison and full G0-G4 audit not implemented",
+    "formal_runs": 0
+  },
+  "levels": {
+    "L1": "ACHIEVED",
+    "L2": "ACHIEVED",
+    "L3": "PARTIAL",
+    "L4": "NOT_RUN",
+    "L5": "NOT_RUN"
+  },
+  "independent_closed_book": "not_run"
+}
