@@ -1,0 +1,17 @@
+{
+    "rActive": true,
+    "s": {
+        "name": "S",
+        "status": "AMBIGUOUS",
+        "usesR": false,
+        "usesS": false,
+        "heldoutCorrect": 6,
+        "activated": false,
+        "failure": "ambiguous_selection",
+        "generated": 2385,
+        "consistent": 66
+    },
+    "t": null,
+    "sActivationId": null,
+    "tActivationId": null
+}

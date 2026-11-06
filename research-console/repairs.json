@@ -154,7 +154,32 @@
       "consumed_commit": "6853b50f156e529fb5870bdb8dfb88d67b2e0bf0",
       "consumed_test": "Kotlin 324/324; EVAL-02 isolation/diagnostics/C8/exam",
       "consumed_report": "PACK-02R-EVAL-02-REPORT.md"
+    },
+    {
+      "repair_id": "PACK-02R-C8-02",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "C8-02: experimental autonomous multi-layer reuse (R/S/T), examiner-side heldout and comparisons; no production platform.",
+      "approval_reference": "Research-owner message PACK-02R-C8-02, 2026-11-06.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "PACK-02R-C8-02",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/C8Study.kt",
+        "src/test/kotlin/logic/e3/pack02/C8StudyTest.kt",
+        "experiments/representation-evolution-e3/reports/pack02r-c8-02-*.json"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-06T09:08:11.404209+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1793956091404-f18bdd"
+      ],
+      "content_hash": "12b5f265692bf2ada4a837babb63e8fdb9b93810337745e99c228ab1816f4f88"
     }
   ],
-  "updated_at": "2026-11-06T08:59:30.200648+00:00"
+  "updated_at": "2026-11-06T09:08:11.417815+00:00"
 }
