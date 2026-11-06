@@ -1,0 +1,32 @@
+{
+  "event_id": "ev-1793961698101-281787",
+  "at": "2026-11-06T10:41:38.101696+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "MRX-01 authorized; metarepresentational diagnosis and upgrade study",
+  "before": null,
+  "after": {
+    "repair_id": "MRX-01",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX-01: frozen C8-03 baseline on new worlds; student-side failure diagnosis, structure-upgrade proposal/experiment (depth/If/Let/knowledge/budget), W4 and negative development worlds, four-condition formal comparison. No production platform, no PACK-03.",
+    "approval_reference": "Research-owner message MRX-01, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-01",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRX*.kt",
+      "src/test/kotlin/logic/e3/pack02/MRX*.kt",
+      "experiments/representation-evolution-e3/reports/mrx-01-*.json",
+      "MRX-01-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-06T10:41:38.101346+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "a5f9ce3e41c300ed8edbeef7be0c8f326c6d9f1ecfac6652dda69e838c07cfa0"
+  }
+}

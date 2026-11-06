@@ -1,0 +1,93 @@
+{
+    "experiment": "MRX-01",
+    "phase": "development_w4_and_negatives",
+    "outcomes": [
+        {
+            "world": "mrx-depth-w4",
+            "category": "depth",
+            "seed": 1449,
+            "baseStatus": "IDENTIFIED",
+            "baseMismatch": 1,
+            "chosenAction": "DNF",
+            "studentStatus": "REPAIRED",
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": null,
+            "diagnosis": [
+                "H1",
+                "H2",
+                "H4",
+                "H5"
+            ],
+            "trials": [
+                "DNF:IDENTIFIED:0"
+            ],
+            "queries": 15,
+            "generated": 42601
+        },
+        {
+            "world": "mrx-ambig-1",
+            "category": "ambiguous",
+            "seed": 1857,
+            "baseStatus": "IDENTIFIED",
+            "baseMismatch": 0,
+            "chosenAction": "NONE",
+            "studentStatus": "IDENTIFIED",
+            "heldoutCorrect": 26,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "diagnosis": [],
+            "trials": [],
+            "queries": 17,
+            "generated": 13206
+        },
+        {
+            "world": "mrx-miss-or-r-d1",
+            "category": "missing_knowledge",
+            "seed": 2020,
+            "baseStatus": "IDENTIFIED",
+            "baseMismatch": 1,
+            "chosenAction": "KNOWLEDGE",
+            "studentStatus": "REPAIRED",
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": null,
+            "diagnosis": [
+                "H1",
+                "H2",
+                "H4",
+                "H5",
+                "H3"
+            ],
+            "trials": [
+                "KNOWLEDGE:IDENTIFIED:0"
+            ],
+            "queries": 3,
+            "generated": 20520
+        },
+        {
+            "world": "mrx-noise-or-r-d1",
+            "category": "noisy",
+            "seed": 2227,
+            "baseStatus": "NO_CANDIDATE",
+            "baseMismatch": 0,
+            "chosenAction": "NO_ACTION",
+            "studentStatus": "NO_ACTION",
+            "heldoutCorrect": 0,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "training_conflict",
+            "diagnosis": [
+                "H6",
+                "H1",
+                "H2"
+            ],
+            "trials": [],
+            "queries": 0,
+            "generated": 13206
+        }
+    ]
+}
