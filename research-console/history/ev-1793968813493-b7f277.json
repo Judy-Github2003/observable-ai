@@ -1,0 +1,32 @@
+{
+  "event_id": "ev-1793968813493-b7f277",
+  "at": "2026-11-06T12:40:13.493406+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "MRX-02 authorized; dynamic experiment decision and cost accounting",
+  "before": null,
+  "after": {
+    "repair_id": "MRX-02",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX-02: evidence semantics and real cost accounting; dynamic re-planning after each experiment; paired feedback tests; candidate coverage/pruning attribution (G0-G4); FIXED/STATIC/DYNAMIC/ORACLE comparison if gates pass. Historical MRX-01/MRX-01R/C8-03 results preserved; no PACK-03.",
+    "approval_reference": "Research-owner message MRX-02, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-02",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRX2*.kt",
+      "src/test/kotlin/logic/e3/pack02/MRX2*.kt",
+      "experiments/representation-evolution-e3/reports/mrx-02-*.json",
+      "MRX-02-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-06T12:40:13.493137+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "51b6894edc67a111bb4fc08af06b53d54913f0482d18b0135d7146dc1c88a513"
+  }
+}
