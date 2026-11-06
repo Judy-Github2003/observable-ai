@@ -1,4 +1,4 @@
-﻿# Observable Learner / 可观测学习者
+# Observable Learner / 可观测学习者
 
 > 一个把“能力到底属于谁”当作第一问题的教学实验：一个 Kotlin 程序从外部教师那里逐步获得**可审计、可归因、可复验**的能力。
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 现在到哪一步（2026-11-05）
+## 现在到哪一步（2026-11-06）
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
@@ -16,8 +16,14 @@
 | 第 2 课 | 属性查询、分组、比较、补教 | 通过 |
 | 学前 24 课 | 23 条通用操作规则，8 批课程 | **训练 864/864，考试 960/960，24/24 课达标，教师调用 0** |
 | 独立抽查 | 冻结版本 + 新世界 + 隔离夹具 | **64/64** |
-| B0 类型化能力基底 | IR、能力库、验证/激活/撤销、组合、L1/L2 压缩、A/B/C 基准 | **M0–M6 完成；173/173 测试；独立闭卷 not_run** |
-| E3 开放表征与学习诊断 | A0–A8 契约/世界族/碰撞/适配/预算/探测/整合 + A9 协议与最小基线 | **进行中；全套 297/297 测试** |
+| B0 类型化能力基底 | IR、能力库、验证/激活/撤销、组合、L1/L2 压缩、A/B/C 基准 | **M0–M6 完成；173/173 B0 测试；独立闭卷 not_run** |
+| E3 开放表征与学习诊断 | A0–A8 契约/世界族/碰撞/适配/预算/探测/整合 + A9 协议与最小基线 | **A0–A9 阶段完成；后续 PACK-02R/MRX 见下** |
+| PACK-02R / C8-03 | 四属性三值世界、主动查询、冻结预测、反例淘汰、R→S→T | **6 世界 5 个完成 S→T；W4 因组合语法缺少 If 失败；C4/C8 仍 PAUSED** |
+| MRX-01 | 自主发现结构不足、提出升级并验证学习增益 | **冻结基线 27 世界；W4 开发修复；正式 7×4=28 次，LEVEL 1–3 部分，L4/5 未达成** |
+| MRX-01R | 证据账本、可辨识性、FIXED/EVIDENCE/VALUE 策略 | **20 世界×6 条件=120 次；LEVEL 1 达成，L2 部分，L4/5 未达成** |
+| MRX-02 | 证据正确性、真实成本、动态重规划 | **Gate 1/2 通过；Gate 3 未通过，按任务书停止，未跑 160 次正式考试** |
+
+**当前全量测试：367/367，0 failed（B0 173 + E3 194）。** 这是实现者自测，不等于外部独立闭卷；`independent_closed_book` 仍为 `not_run`。
 
 **这不是“毕业”。** 两套各 120 题的综合卷尚未生成；小学 72 单元未开始。形状、颜色、情绪等只是**文本标签查询**，不代表真实看图、听声或情绪体验。
 
@@ -70,10 +76,48 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 | A8 | 多 finding 诊断整合 | 完成；已修正探测证据合并/候选状态 |
 | A9 | 公平对照协议 + 累计预算/评分契约 | 协议/smoke/评分示例完成；A10 未运行 |
 
-- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`；全套 **297/297**（B0 173 + E3 124）。
+- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`。A0–A9 阶段为 **297/297**；引入 PACK-02R/MRX 后当前全量为 **367/367**（B0 173 + E3 194）。
 - 已实现最小生成器与独立 oracle；未实现 A9 对照基线、原因归因或评分器；E3-B/C 未授权。
 - `independent_closed_book=not_run`；E3 结果为 `implementer_run`。
 - 记录：[E3 SPEC](./experiments/representation-evolution-e3/SPEC.md)、[DECISIONS](./experiments/representation-evolution-e3/DECISIONS.md)、[WORKSTATE](./experiments/representation-evolution-e3/WORKSTATE.md)、[A0/A1 报告](./experiments/representation-evolution-e3/reports/E3-A0-A1-REPORT.md)、[A2 报告](./experiments/representation-evolution-e3/reports/E3-A2-REPORT.md)。
+
+### PACK-02R / C8-03：四属性主动学习（2026-11-06）
+
+在 C8-02 的被动候选筛选失败后，C8-03 把 ACTIVE 机制真正扩展到四属性三值世界：81 个输入，冻结 TRAIN/QUERY/HELDOUT，学生自己生成候选、统计行为等价类、选择查询、冻结预测、按反例淘汰，并把 S 激活后作为 T 的依赖。
+
+- 6 个正式世界，5 个完成 S→T；W4 因冻结的 B0 Composer 不枚举 `If`，S 验证 24/27 被拒。
+- 正式 29 阶段、19 次激活尝试、14 次激活成功、0 次错误激活；14 个能力全 81 输入审计 1,134/1,134。
+- 全量回归 **325/325**（当轮）；`independent_closed_book=not_run`。
+- 记录：[C8-03 报告](./PACK-02R-C8-03-REPORT.md)、[正式 JSON](./experiments/representation-evolution-e3/reports/pack02r-c8-03-formal.json)、[冻结清单](./experiments/representation-evolution-e3/reports/pack02r-c8-03-freeze.json)。
+
+### MRX-01：自主发现结构不足（2026-11-06）
+
+冻结 C8-03 学生在 27 个新世界 ×2 种子上建立未知任务基线；随后加入 H1–H6 诊断、DNF/CNF/IF/KNOWLEDGE/BUDGET 升级实验和 CHALLENGE 反馈池。
+
+- 基线 54 次：12 次激活、29 次错误识别被拒、9 次无候选、4 次搜索受限。
+- W4 开发案例：发现 CHALLENGE 反例后实际运行 DNF，修复到 27/27。
+- 正式 7 世界×4 条件=28 次：AUTONOMOUS 3/7 激活；结构世界仍受证据覆盖限制；0 错误激活。
+- 等级：LEVEL 1–3 部分，LEVEL 4/5 未达成。
+- 记录：[MRX-01 报告](./MRX-01-REPORT.md)、[基线 JSON](./experiments/representation-evolution-e3/reports/mrx-01-baseline.json)、[正式 JSON](./experiments/representation-evolution-e3/reports/mrx-01-formal.json)。
+
+### MRX-01R：证据账本与行动策略（2026-11-06）
+
+修复 MRX-01 的证据语义：每个 CHALLENGE 输入只付费一次、保留原始来源/查询序号/使用记录；严格区分未验证、部分、通过、反例、预算耗尽和错误；不允许 Unknown 或占位预测冒充通过。
+
+- 20 世界×6 条件=120 次：C8-03 5 激活，MRX-01 10，FIXED 10，EVIDENCE 10，VALUE 10，ORACLE 10；0 错误激活。
+- 证据驱动改变了行动（缺失知识世界 FIXED 选 KNOWLEDGE，EVIDENCE 选 DNF），但没有提高成功率，查询成本反而更高（309 → 353）。
+- 等级：LEVEL 1 达成，LEVEL 2 部分，LEVEL 3 部分，LEVEL 4/5 未达成。
+- 记录：[MRX-01R 报告](./MRX-01R-REPORT.md)、[正式 JSON](./experiments/representation-evolution-e3/reports/mrx-01r-formal.json)、[冻结清单](./experiments/representation-evolution-e3/reports/mrx-01r-freeze.json)。
+
+### MRX-02：动态实验决策（2026-11-06，停在第 3 关）
+
+把“启动时固定行动队列”改成逐行动循环：验证基础候选 → 记录真实反馈 → 更新假说/可辨识性 → 重新选择下一行动。
+
+- Gate 1 通过：9 个证据/成本测试；真实冻结预测、Unknown/预算/反例分离、PASS_ON_CHALLENGE 带范围。
+- Gate 2 通过：两个配对实验中，相同首轮 `VALIDATE_BASE` 在 `COUNTEREXAMPLE` 与 `PASS_ON_CHALLENGE` 反馈后分别选择 DNF 与 STOP。
+- Gate 3 未通过：未实现 A/B/C 候选搜索对照和完整 G0–G4 归因；按任务书停止，未运行 160 次正式考试。
+- 等级：LEVEL 1、2 达成，LEVEL 3 部分，LEVEL 4/5 未运行。
+- 记录：[MRX-02 报告](./MRX-02-REPORT.md)、[关卡证据](./experiments/representation-evolution-e3/reports/mrx-02-gates.json)。
 
 ---
 
@@ -189,11 +233,20 @@ src/main/kotlin/logic/
     StudentComposition.kt        student_composed 注册与留出集评估
     LibraryCost.kt / SubtreeExtraction.kt / SubtreeRewriting.kt   成本模型与 L1/L2 压缩
 
+  pack02/            PACK-02R / MRX 学习实验
+    ActiveLearning.kt / Pack02Knowledge.kt   ACTIVE 隔离、候选/查询/激活
+    C8ActiveStudent.kt / C8Exam.kt           C8-03 四属性 S/T 与六世界考试
+    C8Study.kt / Eval*.kt                    C8-02 / EVAL 对照与诊断
+    MRXWorlds.kt / MRXSpace.kt / MRXStudent.kt / MRXExam.kt   MRX-01 结构诊断/升级
+    MRXREvidence.kt / MRXRStudent.kt / MRXRSpace.kt / MRXRExam.kt   MRX-01R 证据账本/策略
+    MRX2Evidence.kt / MRX2Student.kt         MRX-02 证据语义、成本与动态重规划
+
 experiments/
   curriculum/       课程计划、规则目录 rules.json、批量教材 curriculum.json
   lessons/          第 1/2 课材料与说明
   reports/          各阶段验证与审计记录
   capability-foundation-b0/  B0 任务书、决策、报告与工作状态
+  representation-evolution-e3/  E3/PACK-02R/MRX 报告与 JSON 证据
 
 docs/
   RESEARCH-NORTH-STAR.md  长期研究目标与边界
@@ -212,8 +265,10 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - **考试不是毕业**：单课 40 题达标只说明本课过线；综合卷与跨领域迁移尚未完成。
 - **B0 已冻结**：M0–M6 完成；L3 参数化抽象与 D 组 `not_implemented`；独立闭卷 `not_run`。
 - **B0 成绩口径**：173/173 为实现者自测；独立闭卷 `not_run`，不能写成外部验证或“已学会自主学习”。
-- **E3 当前边界**：完成 A0–A8（契约 + 世界族 + 碰撞 + 适配器 + 预算诊断 + 探测 + 整合）；A9 评测基础设施已冻结（P0 完成），A10 未运行；没有原因归因或评分器；不能把“生成器存在”当成诊断能力。全套 297/297 是 B0+E3 的 `implementer_run`。
-- **成本指标**：`L_total` 是冻结的静态长度代理，不代表运行更快；压缩通过不等于获得新知识。
+- **E3 当前边界**：A0–A8 完成，A9 评测基础设施冻结（P0 完成），A10 未运行；没有完整的独立原因归因或评分器；不能把“生成器存在”当成诊断能力。A0–A9 阶段 297/297 是 `implementer_run`；引入 PACK-02R/MRX 后当前全量 367/367。
+- **PACK-02R / C8-03 边界**：6 个世界中 5 个完成 S→T；W4 因冻结的 B0 Composer 不枚举 `If` 而失败，不是学生能凭空修复的问题。C4/C8 仍 `PAUSED`，不能写成 PACK-02 整体通过。
+- **MRX 边界**：MRX-01 的 7 世界×4 条件、MRX-01R 的 20 世界×6 条件都是实现者冻结运行，不是外部独立闭卷；MRX-02 只通过 Gate 1/2，Gate 3 未通过，未运行 160 次正式考试。EVIDENCE/VALUE 在 MRX-01R 中没有超过 FIXED 的成功率，结构世界仍未修复。
+- **成本指标**：`L_total` 是冻结的静态长度代理，不代表运行更快；压缩通过不等于获得新知识。MRX-02 的 `MRX2Cost` 已区分 Oracle 新查询/复用、生成候选和解释器调用，但尚未跨全部实验统一核算。
 - **可复现性**：报告里的成绩来自真实进程执行；`runs/` 不随仓库分发，需按上面的命令自行生成。
 
 ## 开发约定
@@ -235,6 +290,7 @@ AGENTS.md           项目约定（注释、作者、日志、审计纪律）
 - 首考执行、抽查复验、报告校验、开源整理、V2：**本会话 DeepSeek Harness**。
 - `codex_spotcheck.py` 由 Codex 编写；本会话执行，并修正 1 处夹具前提（对象缺 `name` 不是非法世界）。
 - B0 M0–M4：**本会话 DeepSeek Harness** 实现；M1 参考骨架由云端 ChatGPT 提供；外部独立审查尚未进行。
+- PACK-02R/C8-03、MRX-01、MRX-01R、MRX-02：**本会话 DeepSeek Harness** 实现并运行；MRX-01R 曾因跨会话误发被另一会话撤销，研究负责人确认后保留审计并重新激活；以上均为实现者冻结运行，不是外部独立闭卷。
 
 **独立闭卷尚未执行。** 同模型、不同会话不构成第三方验证；闭卷状态在报告中固定为 `not_run`，等待外部审查者。
 
