@@ -1,0 +1,118 @@
+{
+    "experiment": "MRX-02D",
+    "phase": "G1_G5_W4_XOR",
+    "records": [
+        {
+            "world": "mrx-depth-w4",
+            "seed": 1449,
+            "retained": 335,
+            "status": "SINGLE_BEHAVIOR_CLASS_PROVISIONAL",
+            "initialClasses": 107,
+            "remainingClasses": 1,
+            "replayEliminated": 0,
+            "newQueries": 6,
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "g0": "WITNESS_FOUND",
+            "g1": true,
+            "g2": true,
+            "g3": "WRONG_CANDIDATES_SEPARABLE",
+            "g4": true,
+            "g5": "DECLARED_INSUFFICIENT",
+            "observations": [
+                {
+                    "channel": "QUERY",
+                    "input": "1,2,0,1",
+                    "label": false,
+                    "queryIndex": 0,
+                    "replayed": false,
+                    "eliminated": 168
+                },
+                {
+                    "channel": "QUERY",
+                    "input": "2,1,1,0",
+                    "label": true,
+                    "queryIndex": 1,
+                    "replayed": false,
+                    "eliminated": 56
+                },
+                {
+                    "channel": "QUERY",
+                    "input": "1,1,1,2",
+                    "label": false,
+                    "queryIndex": 2,
+                    "replayed": false,
+                    "eliminated": 75
+                },
+                {
+                    "channel": "QUERY",
+                    "input": "1,1,1,1",
+                    "label": true,
+                    "queryIndex": 3,
+                    "replayed": false,
+                    "eliminated": 18
+                },
+                {
+                    "channel": "QUERY",
+                    "input": "1,0,1,0",
+                    "label": false,
+                    "queryIndex": 4,
+                    "replayed": false,
+                    "eliminated": 14
+                },
+                {
+                    "channel": "QUERY",
+                    "input": "0,0,2,0",
+                    "label": true,
+                    "queryIndex": 5,
+                    "replayed": false,
+                    "eliminated": 1
+                }
+            ]
+        },
+        {
+            "world": "mrx2c-xor-a-d",
+            "seed": 1449,
+            "retained": 112,
+            "status": "SINGLE_BEHAVIOR_CLASS_PROVISIONAL",
+            "initialClasses": 18,
+            "remainingClasses": 1,
+            "replayEliminated": 0,
+            "newQueries": 3,
+            "heldoutCorrect": 12,
+            "heldoutTotal": 27,
+            "g0": "UNDETERMINED",
+            "g1": false,
+            "g2": false,
+            "g3": "NOT_APPLICABLE",
+            "g4": false,
+            "g5": "DECLARED_INSUFFICIENT",
+            "observations": [
+                {
+                    "channel": "QUERY",
+                    "input": "2,2,2,2",
+                    "label": true,
+                    "queryIndex": 0,
+                    "replayed": false,
+                    "eliminated": 69
+                },
+                {
+                    "channel": "QUERY",
+                    "input": "0,2,0,0",
+                    "label": false,
+                    "queryIndex": 1,
+                    "replayed": false,
+                    "eliminated": 3
+                },
+                {
+                    "channel": "QUERY",
+                    "input": "1,1,1,2",
+                    "label": false,
+                    "queryIndex": 2,
+                    "replayed": false,
+                    "eliminated": 38
+                }
+            ]
+        }
+    ]
+}

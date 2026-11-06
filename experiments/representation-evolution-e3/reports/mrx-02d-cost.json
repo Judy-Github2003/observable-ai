@@ -1,0 +1,25 @@
+{
+  "experiment": "MRX-02D",
+  "phase": "cost",
+  "records": [
+    {
+      "world": "mrx-depth-w4",
+      "newOracleQueries": 6,
+      "reusedLabels": 0,
+      "generatedCandidates": 0,
+      "interpreterCalls": 75600,
+      "status": "SINGLE_BEHAVIOR_CLASS_PROVISIONAL",
+      "heldout": "27/27"
+    },
+    {
+      "world": "mrx2c-xor-a-d",
+      "newOracleQueries": 3,
+      "reusedLabels": 0,
+      "generatedCandidates": 0,
+      "interpreterCalls": 22680,
+      "status": "SINGLE_BEHAVIOR_CLASS_PROVISIONAL",
+      "heldout": "12/27"
+    }
+  ],
+  "note": "generatedCandidates is tracked by MRX2BSpace separately; identifier cost only"
+}
