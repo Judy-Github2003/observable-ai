@@ -88,7 +88,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 21032,
-            "wallMillis": 1420
+            "wallMillis": 1249
         },
         {
             "world": "mrxr-base-p-b2",
@@ -112,7 +112,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 21032,
-            "wallMillis": 1381
+            "wallMillis": 1267
         },
         {
             "world": "mrxr-base-p-b2",
@@ -136,7 +136,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 21032,
-            "wallMillis": 1361
+            "wallMillis": 1254
         },
         {
             "world": "mrxr-base-p-b2",
@@ -160,7 +160,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 21032,
-            "wallMillis": 1331
+            "wallMillis": 1252
         },
         {
             "world": "mrxr-base-p-b2",
@@ -184,7 +184,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 21032,
-            "wallMillis": 1366
+            "wallMillis": 1260
         },
         {
             "world": "mrxr-base-p-b2",
@@ -208,7 +208,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 21032,
-            "wallMillis": 1335
+            "wallMillis": 1248
         },
         {
             "world": "mrxr-depth-p-xor-b2",
@@ -234,7 +234,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 24020,
-            "wallMillis": 1452
+            "wallMillis": 1359
         },
         {
             "world": "mrxr-depth-p-xor-b2",
@@ -263,7 +263,7 @@
             ],
             "identifiability": "n/a",
             "calls": 65511,
-            "wallMillis": 1465
+            "wallMillis": 1365
         },
         {
             "world": "mrxr-depth-p-xor-b2",
@@ -292,7 +292,7 @@
             ],
             "identifiability": "[H1]/false/[DNF, IF, CNF]",
             "calls": 24021,
-            "wallMillis": 1458
+            "wallMillis": 6790
         },
         {
             "world": "mrxr-depth-p-xor-b2",
@@ -321,7 +321,7 @@
             ],
             "identifiability": "[H2]/false/[DNF, CNF]",
             "calls": 24023,
-            "wallMillis": 1477
+            "wallMillis": 6122
         },
         {
             "world": "mrxr-depth-p-xor-b2",
@@ -350,7 +350,7 @@
             ],
             "identifiability": "[H2]/false/[DNF, CNF]",
             "calls": 24023,
-            "wallMillis": 1469
+            "wallMillis": 7253
         },
         {
             "world": "mrxr-depth-p-xor-b2",
@@ -379,7 +379,7 @@
             ],
             "identifiability": "[H1, H2]",
             "calls": 24021,
-            "wallMillis": 1446
+            "wallMillis": 7295
         },
         {
             "world": "mrxr-depth-q-xor-d2",
@@ -405,7 +405,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 30290,
-            "wallMillis": 1666
+            "wallMillis": 8356
         },
         {
             "world": "mrxr-depth-q-xor-d2",
@@ -436,7 +436,7 @@
             ],
             "identifiability": "n/a",
             "calls": 59685,
-            "wallMillis": 1689
+            "wallMillis": 8485
         },
         {
             "world": "mrxr-depth-q-xor-d2",
@@ -467,7 +467,7 @@
             ],
             "identifiability": "[H1, H5]/false/[CNF]",
             "calls": 30310,
-            "wallMillis": 1667
+            "wallMillis": 7892
         },
         {
             "world": "mrxr-depth-q-xor-d2",
@@ -498,7 +498,7 @@
             ],
             "identifiability": "[H1, H2, H5]/false/[KNOWLEDGE, IF, CNF]",
             "calls": 30310,
-            "wallMillis": 1676
+            "wallMillis": 8421
         },
         {
             "world": "mrxr-depth-q-xor-d2",
@@ -529,7 +529,7 @@
             ],
             "identifiability": "[H1, H2, H5]/false/[KNOWLEDGE, IF, CNF]",
             "calls": 30310,
-            "wallMillis": 1662
+            "wallMillis": 8285
         },
         {
             "world": "mrxr-depth-q-xor-d2",
@@ -560,7 +560,7 @@
             ],
             "identifiability": "[H1, H2, H5]",
             "calls": 30310,
-            "wallMillis": 1653
+            "wallMillis": 8421
         },
         {
             "world": "mrxr-if-nested-4",
@@ -587,7 +587,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 30092,
-            "wallMillis": 1731
+            "wallMillis": 9037
         },
         {
             "world": "mrxr-if-nested-4",
@@ -619,7 +619,7 @@
             ],
             "identifiability": "n/a",
             "calls": 98378,
-            "wallMillis": 1765
+            "wallMillis": 9091
         },
         {
             "world": "mrxr-if-nested-4",
@@ -651,7 +651,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 30092,
-            "wallMillis": 1824
+            "wallMillis": 8526
         },
         {
             "world": "mrxr-if-nested-4",
@@ -683,7 +683,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 30092,
-            "wallMillis": 1782
+            "wallMillis": 7785
         },
         {
             "world": "mrxr-if-nested-4",
@@ -715,7 +715,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 30092,
-            "wallMillis": 1787
+            "wallMillis": 7227
         },
         {
             "world": "mrxr-if-nested-4",
@@ -747,7 +747,7 @@
             ],
             "identifiability": "[H2, H4]",
             "calls": 30092,
-            "wallMillis": 1788
+            "wallMillis": 7722
         },
         {
             "world": "mrxr-ambig-5",
@@ -773,7 +773,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 32093,
-            "wallMillis": 1790
+            "wallMillis": 7767
         },
         {
             "world": "mrxr-ambig-5",
@@ -799,7 +799,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 32093,
-            "wallMillis": 1783
+            "wallMillis": 8049
         },
         {
             "world": "mrxr-ambig-5",
@@ -825,7 +825,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 32093,
-            "wallMillis": 1774
+            "wallMillis": 8694
         },
         {
             "world": "mrxr-ambig-5",
@@ -851,7 +851,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 32093,
-            "wallMillis": 1774
+            "wallMillis": 8588
         },
         {
             "world": "mrxr-ambig-5",
@@ -877,7 +877,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 32093,
-            "wallMillis": 1764
+            "wallMillis": 8618
         },
         {
             "world": "mrxr-ambig-5",
@@ -903,7 +903,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 32093,
-            "wallMillis": 1782
+            "wallMillis": 8456
         },
         {
             "world": "mrxr-miss-or-r-b2",
@@ -930,7 +930,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 18073,
-            "wallMillis": 654
+            "wallMillis": 3150
         },
         {
             "world": "mrxr-miss-or-r-b2",
@@ -965,7 +965,7 @@
             ],
             "identifiability": "n/a",
             "calls": 31279,
-            "wallMillis": 662
+            "wallMillis": 3097
         },
         {
             "world": "mrxr-miss-or-r-b2",
@@ -1000,7 +1000,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 18076,
-            "wallMillis": 644
+            "wallMillis": 2755
         },
         {
             "world": "mrxr-miss-or-r-b2",
@@ -1035,7 +1035,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 18094,
-            "wallMillis": 638
+            "wallMillis": 3426
         },
         {
             "world": "mrxr-miss-or-r-b2",
@@ -1070,7 +1070,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 18094,
-            "wallMillis": 638
+            "wallMillis": 3297
         },
         {
             "world": "mrxr-miss-or-r-b2",
@@ -1105,7 +1105,7 @@
             ],
             "identifiability": "[H3]",
             "calls": 18076,
-            "wallMillis": 641
+            "wallMillis": 3253
         },
         {
             "world": "mrxr-search-q-xnor-d1",
@@ -1131,7 +1131,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 0,
-            "wallMillis": 13
+            "wallMillis": 71
         },
         {
             "world": "mrxr-search-q-xnor-d1",
@@ -1161,7 +1161,7 @@
             ],
             "identifiability": "n/a",
             "calls": 13206,
-            "wallMillis": 14
+            "wallMillis": 69
         },
         {
             "world": "mrxr-search-q-xnor-d1",
@@ -1189,7 +1189,7 @@
             ],
             "identifiability": "[H2b]/false/[BUDGET]",
             "calls": 2,
-            "wallMillis": 16
+            "wallMillis": 75
         },
         {
             "world": "mrxr-search-q-xnor-d1",
@@ -1217,7 +1217,7 @@
             ],
             "identifiability": "[H2b]/false/[BUDGET]",
             "calls": 2,
-            "wallMillis": 13
+            "wallMillis": 68
         },
         {
             "world": "mrxr-search-q-xnor-d1",
@@ -1245,7 +1245,7 @@
             ],
             "identifiability": "[H2b]/false/[BUDGET]",
             "calls": 2,
-            "wallMillis": 14
+            "wallMillis": 72
         },
         {
             "world": "mrxr-search-q-xnor-d1",
@@ -1273,7 +1273,7 @@
             ],
             "identifiability": "[H2b]",
             "calls": 2,
-            "wallMillis": 13
+            "wallMillis": 56
         },
         {
             "world": "mrxr-noise-p-or-d2",
@@ -1299,7 +1299,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 19971,
-            "wallMillis": 1311
+            "wallMillis": 1066
         },
         {
             "world": "mrxr-noise-p-or-d2",
@@ -1329,7 +1329,7 @@
             ],
             "identifiability": "n/a",
             "calls": 19971,
-            "wallMillis": 1300
+            "wallMillis": 1045
         },
         {
             "world": "mrxr-noise-p-or-d2",
@@ -1359,7 +1359,7 @@
             ],
             "identifiability": "[H6]/false/[]",
             "calls": 19971,
-            "wallMillis": 1299
+            "wallMillis": 1034
         },
         {
             "world": "mrxr-noise-p-or-d2",
@@ -1389,7 +1389,7 @@
             ],
             "identifiability": "[H6]/false/[]",
             "calls": 19971,
-            "wallMillis": 1293
+            "wallMillis": 1047
         },
         {
             "world": "mrxr-noise-p-or-d2",
@@ -1419,7 +1419,7 @@
             ],
             "identifiability": "[H6]/false/[]",
             "calls": 19971,
-            "wallMillis": 1297
+            "wallMillis": 1079
         },
         {
             "world": "mrxr-noise-p-or-d2",
@@ -1445,7 +1445,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 19971,
-            "wallMillis": 1296
+            "wallMillis": 1064
         },
         {
             "world": "mrxr-base-or-r-d1",
@@ -1471,7 +1471,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 39107,
-            "wallMillis": 1987
+            "wallMillis": 1627
         },
         {
             "world": "mrxr-base-or-r-d1",
@@ -1497,7 +1497,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 39107,
-            "wallMillis": 1992
+            "wallMillis": 1646
         },
         {
             "world": "mrxr-base-or-r-d1",
@@ -1523,7 +1523,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 39107,
-            "wallMillis": 1983
+            "wallMillis": 1681
         },
         {
             "world": "mrxr-base-or-r-d1",
@@ -1549,7 +1549,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 39107,
-            "wallMillis": 1998
+            "wallMillis": 1657
         },
         {
             "world": "mrxr-base-or-r-d1",
@@ -1575,7 +1575,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 39107,
-            "wallMillis": 2022
+            "wallMillis": 1652
         },
         {
             "world": "mrxr-base-or-r-d1",
@@ -1601,7 +1601,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 39107,
-            "wallMillis": 2008
+            "wallMillis": 1679
         },
         {
             "world": "mrxr-base-or-q-a2",
@@ -1625,7 +1625,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 28795,
-            "wallMillis": 1685
+            "wallMillis": 1405
         },
         {
             "world": "mrxr-base-or-q-a2",
@@ -1649,7 +1649,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 28795,
-            "wallMillis": 1678
+            "wallMillis": 1402
         },
         {
             "world": "mrxr-base-or-q-a2",
@@ -1673,7 +1673,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 28795,
-            "wallMillis": 1703
+            "wallMillis": 1423
         },
         {
             "world": "mrxr-base-or-q-a2",
@@ -1697,7 +1697,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 28795,
-            "wallMillis": 1668
+            "wallMillis": 1422
         },
         {
             "world": "mrxr-base-or-q-a2",
@@ -1721,7 +1721,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 28795,
-            "wallMillis": 1726
+            "wallMillis": 1405
         },
         {
             "world": "mrxr-base-or-q-a2",
@@ -1745,7 +1745,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 28795,
-            "wallMillis": 1694
+            "wallMillis": 1419
         },
         {
             "world": "mrxr-base-xnor-p-d2",
@@ -1769,7 +1769,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 25059,
-            "wallMillis": 1534
+            "wallMillis": 1307
         },
         {
             "world": "mrxr-base-xnor-p-d2",
@@ -1793,7 +1793,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 25059,
-            "wallMillis": 1544
+            "wallMillis": 1318
         },
         {
             "world": "mrxr-base-xnor-p-d2",
@@ -1817,7 +1817,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 25059,
-            "wallMillis": 1581
+            "wallMillis": 1319
         },
         {
             "world": "mrxr-base-xnor-p-d2",
@@ -1841,7 +1841,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 25059,
-            "wallMillis": 1562
+            "wallMillis": 1306
         },
         {
             "world": "mrxr-base-xnor-p-d2",
@@ -1865,7 +1865,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 25059,
-            "wallMillis": 1585
+            "wallMillis": 1318
         },
         {
             "world": "mrxr-base-xnor-p-d2",
@@ -1889,7 +1889,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 25059,
-            "wallMillis": 1550
+            "wallMillis": 1316
         },
         {
             "world": "mrxr-depth-w4",
@@ -1918,7 +1918,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 28639,
-            "wallMillis": 1810
+            "wallMillis": 1512
         },
         {
             "world": "mrxr-depth-w4",
@@ -1950,7 +1950,7 @@
             ],
             "identifiability": "n/a",
             "calls": 58034,
-            "wallMillis": 1773
+            "wallMillis": 1521
         },
         {
             "world": "mrxr-depth-w4",
@@ -1982,7 +1982,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 28647,
-            "wallMillis": 1771
+            "wallMillis": 1507
         },
         {
             "world": "mrxr-depth-w4",
@@ -2014,7 +2014,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 28648,
-            "wallMillis": 1834
+            "wallMillis": 1518
         },
         {
             "world": "mrxr-depth-w4",
@@ -2046,7 +2046,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 28648,
-            "wallMillis": 1778
+            "wallMillis": 1518
         },
         {
             "world": "mrxr-depth-w4",
@@ -2078,7 +2078,7 @@
             ],
             "identifiability": "[H4]",
             "calls": 28643,
-            "wallMillis": 1791
+            "wallMillis": 1525
         },
         {
             "world": "mrxr-depth-r-xor-b2",
@@ -2106,7 +2106,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 36647,
-            "wallMillis": 2016
+            "wallMillis": 1750
         },
         {
             "world": "mrxr-depth-r-xor-b2",
@@ -2134,7 +2134,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 36647,
-            "wallMillis": 2018
+            "wallMillis": 1762
         },
         {
             "world": "mrxr-depth-r-xor-b2",
@@ -2162,7 +2162,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 36647,
-            "wallMillis": 2045
+            "wallMillis": 1761
         },
         {
             "world": "mrxr-depth-r-xor-b2",
@@ -2190,7 +2190,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 36647,
-            "wallMillis": 2031
+            "wallMillis": 1759
         },
         {
             "world": "mrxr-depth-r-xor-b2",
@@ -2218,7 +2218,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 36647,
-            "wallMillis": 2044
+            "wallMillis": 1783
         },
         {
             "world": "mrxr-depth-r-xor-b2",
@@ -2244,7 +2244,7 @@
             "diagnosis": [],
             "identifiability": "[]",
             "calls": 36670,
-            "wallMillis": 2018
+            "wallMillis": 1751
         },
         {
             "world": "mrxr-if-nested-2",
@@ -2272,7 +2272,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 28949,
-            "wallMillis": 1654
+            "wallMillis": 1440
         },
         {
             "world": "mrxr-if-nested-2",
@@ -2303,7 +2303,7 @@
             ],
             "identifiability": "n/a",
             "calls": 58344,
-            "wallMillis": 1656
+            "wallMillis": 1436
         },
         {
             "world": "mrxr-if-nested-2",
@@ -2334,7 +2334,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 28958,
-            "wallMillis": 1665
+            "wallMillis": 1443
         },
         {
             "world": "mrxr-if-nested-2",
@@ -2365,7 +2365,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 28963,
-            "wallMillis": 1650
+            "wallMillis": 1448
         },
         {
             "world": "mrxr-if-nested-2",
@@ -2396,7 +2396,7 @@
             ],
             "identifiability": "[H4]/false/[]",
             "calls": 28963,
-            "wallMillis": 1641
+            "wallMillis": 1437
         },
         {
             "world": "mrxr-if-nested-2",
@@ -2427,7 +2427,7 @@
             ],
             "identifiability": "[H2, H4]",
             "calls": 28953,
-            "wallMillis": 1656
+            "wallMillis": 1470
         },
         {
             "world": "mrxr-ambig-2",
@@ -2453,7 +2453,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 40757,
-            "wallMillis": 2029
+            "wallMillis": 1781
         },
         {
             "world": "mrxr-ambig-2",
@@ -2479,7 +2479,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 40757,
-            "wallMillis": 2052
+            "wallMillis": 1776
         },
         {
             "world": "mrxr-ambig-2",
@@ -2505,7 +2505,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 40757,
-            "wallMillis": 2057
+            "wallMillis": 1791
         },
         {
             "world": "mrxr-ambig-2",
@@ -2531,7 +2531,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 40757,
-            "wallMillis": 2042
+            "wallMillis": 1786
         },
         {
             "world": "mrxr-ambig-2",
@@ -2557,7 +2557,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 40757,
-            "wallMillis": 2019
+            "wallMillis": 1811
         },
         {
             "world": "mrxr-ambig-2",
@@ -2583,7 +2583,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 40757,
-            "wallMillis": 2011
+            "wallMillis": 1796
         },
         {
             "world": "mrxr-ambig-4",
@@ -2611,7 +2611,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 32398,
-            "wallMillis": 1820
+            "wallMillis": 1603
         },
         {
             "world": "mrxr-ambig-4",
@@ -2639,7 +2639,7 @@
             "diagnosis": [],
             "identifiability": "n/a",
             "calls": 32398,
-            "wallMillis": 1817
+            "wallMillis": 1615
         },
         {
             "world": "mrxr-ambig-4",
@@ -2667,7 +2667,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 32398,
-            "wallMillis": 1815
+            "wallMillis": 1611
         },
         {
             "world": "mrxr-ambig-4",
@@ -2695,7 +2695,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 32398,
-            "wallMillis": 1817
+            "wallMillis": 1610
         },
         {
             "world": "mrxr-ambig-4",
@@ -2723,7 +2723,7 @@
             "diagnosis": [],
             "identifiability": "[]/true/[]",
             "calls": 32398,
-            "wallMillis": 1816
+            "wallMillis": 1634
         },
         {
             "world": "mrxr-ambig-4",
@@ -2751,7 +2751,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 32398,
-            "wallMillis": 1812
+            "wallMillis": 1599
         },
         {
             "world": "mrxr-miss-or-r-d1",
@@ -2778,7 +2778,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 27273,
-            "wallMillis": 879
+            "wallMillis": 795
         },
         {
             "world": "mrxr-miss-or-r-d1",
@@ -2813,7 +2813,7 @@
             ],
             "identifiability": "n/a",
             "calls": 40479,
-            "wallMillis": 882
+            "wallMillis": 804
         },
         {
             "world": "mrxr-miss-or-r-d1",
@@ -2848,7 +2848,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 27277,
-            "wallMillis": 902
+            "wallMillis": 787
         },
         {
             "world": "mrxr-miss-or-r-d1",
@@ -2881,7 +2881,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 27294,
-            "wallMillis": 885
+            "wallMillis": 779
         },
         {
             "world": "mrxr-miss-or-r-d1",
@@ -2914,7 +2914,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 27294,
-            "wallMillis": 893
+            "wallMillis": 814
         },
         {
             "world": "mrxr-miss-or-r-d1",
@@ -2949,7 +2949,7 @@
             ],
             "identifiability": "[H3]",
             "calls": 27277,
-            "wallMillis": 883
+            "wallMillis": 797
         },
         {
             "world": "mrxr-miss-xnor-r-d1",
@@ -2976,7 +2976,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 14784,
-            "wallMillis": 546
+            "wallMillis": 493
         },
         {
             "world": "mrxr-miss-xnor-r-d1",
@@ -3009,7 +3009,7 @@
             ],
             "identifiability": "n/a",
             "calls": 27990,
-            "wallMillis": 550
+            "wallMillis": 498
         },
         {
             "world": "mrxr-miss-xnor-r-d1",
@@ -3042,7 +3042,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 14784,
-            "wallMillis": 563
+            "wallMillis": 495
         },
         {
             "world": "mrxr-miss-xnor-r-d1",
@@ -3075,7 +3075,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 14784,
-            "wallMillis": 551
+            "wallMillis": 490
         },
         {
             "world": "mrxr-miss-xnor-r-d1",
@@ -3108,7 +3108,7 @@
             ],
             "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
             "calls": 14784,
-            "wallMillis": 557
+            "wallMillis": 504
         },
         {
             "world": "mrxr-miss-xnor-r-d1",
@@ -3141,7 +3141,7 @@
             ],
             "identifiability": "[H3]",
             "calls": 14784,
-            "wallMillis": 559
+            "wallMillis": 518
         },
         {
             "world": "mrxr-search-or-r-d1",
@@ -3167,7 +3167,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 0,
-            "wallMillis": 12
+            "wallMillis": 11
         },
         {
             "world": "mrxr-search-or-r-d1",
@@ -3199,7 +3199,7 @@
             ],
             "identifiability": "n/a",
             "calls": 13206,
-            "wallMillis": 13
+            "wallMillis": 12
         },
         {
             "world": "mrxr-search-or-r-d1",
@@ -3259,7 +3259,7 @@
             ],
             "identifiability": "[H2b]/false/[BUDGET]",
             "calls": 3,
-            "wallMillis": 13
+            "wallMillis": 15
         },
         {
             "world": "mrxr-search-or-r-d1",
@@ -3289,7 +3289,7 @@
             ],
             "identifiability": "[H2b]/false/[BUDGET]",
             "calls": 3,
-            "wallMillis": 16
+            "wallMillis": 13
         },
         {
             "world": "mrxr-search-or-r-d1",
@@ -3319,7 +3319,7 @@
             ],
             "identifiability": "[H2b]",
             "calls": 3,
-            "wallMillis": 15
+            "wallMillis": 17
         },
         {
             "world": "mrxr-noise-q-a2",
@@ -3345,7 +3345,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 23874,
-            "wallMillis": 1434
+            "wallMillis": 1281
         },
         {
             "world": "mrxr-noise-q-a2",
@@ -3375,7 +3375,7 @@
             ],
             "identifiability": "n/a",
             "calls": 23874,
-            "wallMillis": 1424
+            "wallMillis": 1287
         },
         {
             "world": "mrxr-noise-q-a2",
@@ -3405,7 +3405,7 @@
             ],
             "identifiability": "[H6]/false/[]",
             "calls": 23874,
-            "wallMillis": 1434
+            "wallMillis": 1295
         },
         {
             "world": "mrxr-noise-q-a2",
@@ -3435,7 +3435,7 @@
             ],
             "identifiability": "[H6]/false/[]",
             "calls": 23874,
-            "wallMillis": 1426
+            "wallMillis": 1284
         },
         {
             "world": "mrxr-noise-q-a2",
@@ -3465,7 +3465,7 @@
             ],
             "identifiability": "[H6]/false/[]",
             "calls": 23874,
-            "wallMillis": 1442
+            "wallMillis": 1288
         },
         {
             "world": "mrxr-noise-q-a2",
@@ -3491,7 +3491,7 @@
             "diagnosis": [],
             "identifiability": "",
             "calls": 23874,
-            "wallMillis": 1484
+            "wallMillis": 1301
         }
     ]
 }
