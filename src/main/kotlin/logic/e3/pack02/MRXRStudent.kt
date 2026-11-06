@@ -165,9 +165,9 @@ class MRXRStudent(
         return when (action) {
             "KNOWLEDGE" -> runFrozen("KNOWLEDGE", allRefs, allLibrary, baseView.maxCandidates)
             "BUDGET" -> runFrozen("BUDGET", baseView.refs, baseLibrary, 200_000)
-            "DNF" -> runSpace("DNF", MRXOperator.DNF)
-            "IF" -> runSpace("IF", MRXOperator.IF)
-            "CNF" -> runSpace("CNF", MRXOperator.CNF)
+            "DNF" -> runSpace("DNF", MRXROperator.DNF)
+            "IF" -> runSpace("IF", MRXROperator.IF)
+            "CNF" -> runSpace("CNF", MRXROperator.CNF)
             else -> MRXRTrial(action, "NO_ACTION", null, "UNVERIFIED", 0, 0, 0, 0, 0, "explicit_no_action")
         }
     }
@@ -191,10 +191,10 @@ class MRXRStudent(
         )
     }
 
-    private fun runSpace(action: String, operator: MRXOperator): MRXRTrial {
-        val space = MRXSpace(baseView.inputNames, baseLibrary, baseView.training)
+    private fun runSpace(action: String, operator: MRXROperator): MRXRTrial {
+        val space = MRXRSpace(baseView.inputNames, baseLibrary, baseView.training)
             .withQuery(baseView.queryPool, querySource.newController())
-        val attempt = space.generate(MRXSpaceConfig(operator, maxCandidates = 30_000, literalLimit = 10))
+        val attempt = space.generate(MRXRSpaceConfig(operator, maxCandidates = 30_000, literalLimit = 10))
         if (attempt.survivors.isEmpty()) {
             return MRXRTrial(
                 action, "UNVERIFIED", null, "UNVERIFIED", 0, 0,

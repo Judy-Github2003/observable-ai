@@ -47,7 +47,6 @@ data class MRXAttempt(
     val challengeQueries: Int,
     val failure: String?,
     val cost: MRXCost,
-    val survivors: List<StudyCandidate> = emptyList(),
 )
 
 /**
@@ -187,7 +186,6 @@ class MRXSpace(
                         selected.nodeCount, selected.estimatedSteps, rounds.size + challengeUsed,
                         (System.nanoTime() - started) / 1_000_000,
                     ),
-                    survivors = current,
                 )
             }
             if (rounds.size >= 12) {

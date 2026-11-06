@@ -94,7 +94,7 @@ class MRXREvidenceTest {
             StudyCandidate(Expr.Const(CapValue.Bool(false)), "false", 1, 1, emptyList(), 0, 0),
         )
         val (filtered, validation) = ledger.filter(
-            candidates, { candidate, _ -> candidate.canonical == "true" }, "trial", maxNew = 1,
+            candidates, { candidate, _ -> candidate.canonical == "true" }, "trial", maxNew = 0,
         )
         assertTrue(filtered.isNotEmpty())
         assertTrue(validation.checks > 0)
