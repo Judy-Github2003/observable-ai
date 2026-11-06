@@ -112,14 +112,18 @@
         "src/test/kotlin/logic/e3/pack02/EvalExamTest.kt",
         "experiments/representation-evolution-e3/reports/pack02r-eval-*.json"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-06T08:37:08.041495+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-06T08:45:25.702904+00:00",
       "audit_event_ids": [
-        "ev-1793954228042-9dbaaa"
+        "ev-1793954228042-9dbaaa",
+        "ev-1793954725702-4ebd7f"
       ],
-      "content_hash": "b41290c4df908c88ce27ac0178e476b2d9b2368bb8149c236bcc128c1994fb3d"
+      "content_hash": "b41290c4df908c88ce27ac0178e476b2d9b2368bb8149c236bcc128c1994fb3d",
+      "consumed_commit": "e979a0717145e561b07eb2792c8933264ca8a657",
+      "consumed_test": "Kotlin 322/322; PACK-02 13/13; isolation+eval tests; gate tests",
+      "consumed_report": "PACK-02R-EVAL-01-REPORT.md"
     }
   ],
-  "updated_at": "2026-11-06T08:37:08.047027+00:00"
+  "updated_at": "2026-11-06T08:45:25.717330+00:00"
 }
