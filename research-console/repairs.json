@@ -298,14 +298,18 @@
         "experiments/representation-evolution-e3/reports/mrx-02-*.json",
         "MRX-02-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-06T12:40:13.493137+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-06T12:58:52.170544+00:00",
       "audit_event_ids": [
-        "ev-1793968813493-b7f277"
+        "ev-1793968813493-b7f277",
+        "ev-1793969932170-8164a7"
       ],
-      "content_hash": "51b6894edc67a111bb4fc08af06b53d54913f0482d18b0135d7146dc1c88a513"
+      "content_hash": "51b6894edc67a111bb4fc08af06b53d54913f0482d18b0135d7146dc1c88a513",
+      "consumed_commit": "403b17379565fc08985636e23786b64eac63d9d3",
+      "consumed_test": "367/367 passed, 0 failed (B0 173 + E3 194)",
+      "consumed_report": "MRX-02-REPORT.md"
     }
   ],
-  "updated_at": "2026-11-06T12:40:13.506712+00:00"
+  "updated_at": "2026-11-06T12:58:52.184739+00:00"
 }
