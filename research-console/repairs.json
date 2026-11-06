@@ -143,14 +143,18 @@
         "src/test/kotlin/logic/e3/pack02/EvalC8Test.kt",
         "experiments/representation-evolution-e3/reports/pack02r-eval-*.json"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-06T08:53:06.738703+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-06T08:59:30.186920+00:00",
       "audit_event_ids": [
-        "ev-1793955186739-6928c0"
+        "ev-1793955186739-6928c0",
+        "ev-1793955570186-28a79f"
       ],
-      "content_hash": "729d2dfbe739067884b55a232e6c42033be7fc2a024ed334d58c3832006aabb9"
+      "content_hash": "729d2dfbe739067884b55a232e6c42033be7fc2a024ed334d58c3832006aabb9",
+      "consumed_commit": "6853b50f156e529fb5870bdb8dfb88d67b2e0bf0",
+      "consumed_test": "Kotlin 324/324; EVAL-02 isolation/diagnostics/C8/exam",
+      "consumed_report": "PACK-02R-EVAL-02-REPORT.md"
     }
   ],
-  "updated_at": "2026-11-06T08:53:06.747074+00:00"
+  "updated_at": "2026-11-06T08:59:30.200648+00:00"
 }
