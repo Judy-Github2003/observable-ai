@@ -1,0 +1,64 @@
+{
+  "experiment": "MRX-01R",
+  "frozen_at": "2026-11-06T11:34:02.993042+00:00",
+  "git_head": "96f2914cd705befbc6d2d031d099a56a3d2bc27c",
+  "sources": {
+    "space": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXSpace.kt",
+      "sha256": "da226712139e2b137936a3bb218e949dc3206aace1c4d4b9dcbe315b0a5435be"
+    },
+    "ledger": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXREvidence.kt",
+      "sha256": "597780d6f9afc1a16eb5764e6d51998ab366b47d7465e09b254e81e590441e28"
+    },
+    "student": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXRStudent.kt",
+      "sha256": "17e3540502138a5d527d5d4019fc6e5faedf7da3d4451282096c2ada668a7ae9"
+    },
+    "worlds": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXRWorlds.kt",
+      "sha256": "1ac00a155b492c1c2a06976b94af1ce743e2c7b6965bf4d979b2a9ae6db7d1c3"
+    },
+    "harness": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXRExam.kt",
+      "sha256": "1593cf9f1b3aeef9ff42915aec16690d0c02cbb61d9fcbc650ed2eb96c575564"
+    }
+  },
+  "protocol": {
+    "worlds": 20,
+    "conditions": [
+      "C8-03",
+      "MRX-01",
+      "FIXED",
+      "EVIDENCE",
+      "VALUE",
+      "ORACLE-OPERATOR"
+    ],
+    "data": {
+      "train": 9,
+      "query": 29,
+      "challenge": 16,
+      "heldout": 27,
+      "disjoint": true
+    },
+    "seed_rule": "findSeed(from=8100+index*151); coverage and ambiguous exception in heldout; no student score used",
+    "budgets": {
+      "main_query": 20,
+      "challenge_query": 24,
+      "base_maxDepth": 3,
+      "base_maxCandidates": 50000,
+      "space_maxCandidates": 30000,
+      "space_literal_limit": 10
+    },
+    "ledger": {
+      "zero_checks_is_not_pass": true,
+      "reuse_existing_labels": true,
+      "heldout_excluded": true
+    },
+    "strategies": [
+      "FIXED",
+      "EVIDENCE",
+      "VALUE"
+    ]
+  }
+}
