@@ -34,6 +34,32 @@ tasks.test {
     }
 }
 
+// EH-002：快速工程测试入口。
+// 默认只运行明确列出的两个契约测试；-PquickTests=... 可覆盖，但空值必须 fail-fast，
+// 不能因为参数为空而退化成无筛选的全量 test。
+val quickTestsProperty = providers.gradleProperty("quickTests").orNull
+val quickPatterns = quickTestsProperty
+    ?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }
+    ?: listOf(
+        "logic.e3.pack02.EH001ReplayReuseContractTest",
+        "logic.e3.pack02.MRX2DEvidenceReplayTest",
+    )
+if (quickTestsProperty != null) {
+    require(quickPatterns.isNotEmpty()) { "quickTests must not be empty" }
+}
+
+tasks.register<Test>("quickTest") {
+    group = "verification"
+    description = "Run explicitly selected fast engineering contract tests only"
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["test"].runtimeClasspath
+    dependsOn(tasks.named("testClasses"))
+    filter { quickPatterns.forEach { includeTestsMatching(it) } }
+    doFirst {
+        systemProperty("test.runtime.classpath", sourceSets["test"].runtimeClasspath.asPath)
+    }
+}
+
 // Gradle run 等 JavaExec 任务保持标准输入可用，并统一 UTF-8 读写中文问题。
 // 教师适配器依赖 stdin 传问题，CLI 也需要同一编码避免中文乱码。
 tasks.withType<JavaExec>().configureEach {
