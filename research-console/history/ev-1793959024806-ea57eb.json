@@ -1,0 +1,68 @@
+{
+  "event_id": "ev-1793959024806-ea57eb",
+  "at": "2026-11-06T09:57:04.806559+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "PACK-02R-C8-03 consumed",
+  "before": {
+    "repair_id": "PACK-02R-C8-03",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "C8-03: four-attribute active learning over a frozen 3-valued 81-input world; student-side candidate generation/scoring/querying, R->S->T chain, FULL/NO-R/BASE/NO-S and active/fixed/random comparisons, formal multi-world exam. No production platform.",
+    "approval_reference": "Research-owner message PACK-02R-C8-03, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "PACK-02R-C8-03",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/C8ActiveStudent.kt",
+      "src/main/kotlin/logic/e3/pack02/C8Exam.kt",
+      "src/test/kotlin/logic/e3/pack02/C8ActiveTest.kt",
+      "src/test/kotlin/logic/e3/pack02/C8ExamTest.kt",
+      "src/test/kotlin/logic/e3/pack02/C8FormalExamTest.kt",
+      "experiments/representation-evolution-e3/reports/pack02r-c8-03-*.json",
+      "PACK-02R-C8-03-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-06T09:22:16.319317+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1793956936319-7bf513"
+    ],
+    "content_hash": "7b29fa96d600aff95ea713b327412caf45397e166159e13303a89fef45ac77a9"
+  },
+  "after": {
+    "repair_id": "PACK-02R-C8-03",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "C8-03: four-attribute active learning over a frozen 3-valued 81-input world; student-side candidate generation/scoring/querying, R->S->T chain, FULL/NO-R/BASE/NO-S and active/fixed/random comparisons, formal multi-world exam. No production platform.",
+    "approval_reference": "Research-owner message PACK-02R-C8-03, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "PACK-02R-C8-03",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/C8ActiveStudent.kt",
+      "src/main/kotlin/logic/e3/pack02/C8Exam.kt",
+      "src/test/kotlin/logic/e3/pack02/C8ActiveTest.kt",
+      "src/test/kotlin/logic/e3/pack02/C8ExamTest.kt",
+      "src/test/kotlin/logic/e3/pack02/C8FormalExamTest.kt",
+      "experiments/representation-evolution-e3/reports/pack02r-c8-03-*.json",
+      "PACK-02R-C8-03-REPORT.md"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-06T09:22:16.319317+00:00",
+    "consumed_at": "2026-11-06T09:57:04.806308+00:00",
+    "audit_event_ids": [
+      "ev-1793956936319-7bf513"
+    ],
+    "content_hash": "7b29fa96d600aff95ea713b327412caf45397e166159e13303a89fef45ac77a9",
+    "consumed_commit": "d571285fcc38fde14a620a4ed9096e0686e9388e",
+    "consumed_test": "335/335 passed, 0 failed (B0 173 + E3 162)",
+    "consumed_report": "PACK-02R-C8-03-REPORT.md"
+  }
+}
