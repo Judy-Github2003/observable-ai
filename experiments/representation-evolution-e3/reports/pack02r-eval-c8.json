@@ -1,0 +1,11 @@
+{
+    "fullActivated": true,
+    "fullUsesR": false,
+    "fullHeldout": 0,
+    "controlUsesR": false,
+    "controlHeldout": 6,
+    "fullStatus": "AMBIGUOUS",
+    "controlStatus": "AMBIGUOUS",
+    "fullFailure": "no_candidate",
+    "controlFailure": "ambiguous_selection"
+}
