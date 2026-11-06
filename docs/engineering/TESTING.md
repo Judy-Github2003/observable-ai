@@ -16,6 +16,7 @@
 默认只运行：
 
 - `logic.e3.pack02.EH001ReplayReuseContractTest`（3 项）
+- `logic.e3.pack02.EH003EvidenceProvenanceContractTest`（7 项）
 - `logic.e3.pack02.MRX2DEvidenceReplayTest`（4 项）
 
 指定测试类：

@@ -42,6 +42,7 @@ val quickPatterns = quickTestsProperty
     ?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }
     ?: listOf(
         "logic.e3.pack02.EH001ReplayReuseContractTest",
+        "logic.e3.pack02.EH003EvidenceProvenanceContractTest",
         "logic.e3.pack02.MRX2DEvidenceReplayTest",
     )
 if (quickTestsProperty != null) {

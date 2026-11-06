@@ -55,6 +55,7 @@ class MRX2DActiveIdentifier(
         var replayEliminated = 0
         var reused = 0
         var newQueries = 0
+        val confirmedCandidateIds = HashSet<String>()
 
         // 1) 证据回放：已有标签先淘汰；Unknown 单独保留。
         for (channel in channels) {
@@ -68,19 +69,22 @@ class MRX2DActiveIdentifier(
                     if (prediction == null) {
                         unknown += candidate.canonical
                         true
+                    } else if (prediction == entry.rawLabel) {
+                        // 该候选自己被这条 Known 标签确认；不继承给其他候选。
+                        confirmedCandidateIds += candidate.canonical
+                        true
                     } else {
-                        prediction == entry.rawLabel
+                        false
                     }
                 }
                 // EH-001: 复用计数按“已购买的 (channel, entry)”计，而不是按被淘汰候选数计。
                 reused += 1
                 replayEliminated += before - candidates.size
-                if (before != candidates.size) {
-                    observations += MRX2DObservation(
-                        channel.name, entry.inputKey, entry.rawLabel, entry.queryIndex, true,
-                        before - candidates.size,
-                    )
-                }
+                // EH-003: 回放事实独立于是否淘汰；zero-prune 也记录证据来源。
+                observations += MRX2DObservation(
+                    channel.name, entry.inputKey, entry.rawLabel, entry.queryIndex, true,
+                    before - candidates.size,
+                )
                 if (unknown.isNotEmpty()) {
                     // Unknown 不淘汰，但记录为待调查；不影响仍然 Known 的候选。
                 }
@@ -97,12 +101,16 @@ class MRX2DActiveIdentifier(
             val currentClasses = classes(candidates)
             if (currentClasses == 1) {
                 val selected = candidates.minWithOrNull(compareBy({ it.estimatedSteps }, { it.nodeCount }, { it.canonical }))
+                val selectedHasOwnEvidence = selected != null && selected.canonical in confirmedCandidateIds
+                val oneSurvivorWithEvidence = candidates.size == 1 && selectedHasOwnEvidence
                 return result(
-                    if (candidates.size == 1 && observations.isNotEmpty()) "ONE_SURVIVOR_WITH_EVIDENCE"
+                    if (oneSurvivorWithEvidence) "ONE_SURVIVOR_WITH_EVIDENCE"
                     else "SINGLE_BEHAVIOR_CLASS_PROVISIONAL",
                     selected, candidatesIn.size, initialClasses, candidates.size, 1,
                     replayEliminated, reused, newQueries, observations,
-                    if (candidates.size == 1) "single_candidate_with_evidence" else "behaviorally_equivalent_on_legal_channels",
+                    if (oneSurvivorWithEvidence) "single_candidate_with_known_matching_evidence"
+                    else if (candidates.size == 1) "single_candidate_without_known_matching_evidence"
+                    else "behaviorally_equivalent_on_legal_channels",
                 )
             }
             // 2) 选中一个查询；预测只从快照读，不重新执行、不使用 ?: false。
@@ -163,6 +171,8 @@ class MRX2DActiveIdentifier(
             newQueries++
             val before = candidates.size
             candidates = candidates.filter { predictions[it.canonical] == label }
+            // 新揭示的可信标签也确认了当前留下的 Known 匹配候选；仍不继承给已淘汰候选。
+            confirmedCandidateIds += candidates.map { it.canonical }
             observations += MRX2DObservation(
                 bestChannel.name, key, label, entry.queryIndex, false, before - candidates.size,
             )
