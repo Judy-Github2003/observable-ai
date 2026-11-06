@@ -1,0 +1,70 @@
+{
+  "experiment": "MRX-02C",
+  "phase": "active_identification_development",
+  "protocol": {
+    "train": 9,
+    "query": 29,
+    "challenge": 16,
+    "heldout": 27,
+    "legal_pool": "query+challenge"
+  },
+  "records": [
+    {
+      "world": "mrx-depth-w4",
+      "strategy": "PAIRWISE",
+      "retained": 335,
+      "classes_before": 107,
+      "classes_after": 1,
+      "queries": 6,
+      "status": "IDENTIFIED_ON_OBSERVABLE_POOL",
+      "heldout": "27/27",
+      "g4": true,
+      "deps": [
+        "pack02r.active.r"
+      ]
+    },
+    {
+      "world": "mrx2c-xor-a-d",
+      "strategy": "PAIRWISE",
+      "retained": 112,
+      "classes_before": 18,
+      "classes_after": 1,
+      "queries": 3,
+      "status": "IDENTIFIED_ON_OBSERVABLE_POOL",
+      "heldout": "12/27",
+      "g4": false,
+      "note": "observable pool insufficient; heldout counterexample remains"
+    }
+  ],
+  "exact_cover_tests": [
+    {
+      "case": "budget1",
+      "status": "PROVED_IMPOSSIBLE_WITHIN_BUDGET"
+    },
+    {
+      "case": "budget2",
+      "status": "FEASIBLE_WITHIN_BUDGET"
+    },
+    {
+      "case": "same-behavior",
+      "status": "OBSERVATIONALLY_INDISTINGUISHABLE"
+    },
+    {
+      "case": "node-limit",
+      "status": "UNKNOWN_SEARCH_LIMIT"
+    }
+  ],
+  "gates": {
+    "gate1": "PARTIAL",
+    "gate2": "PARTIAL",
+    "gate3": "NOT_COMPLETED",
+    "formal_runs": 0
+  },
+  "levels": {
+    "L1": "PARTIAL",
+    "L2": "PARTIAL",
+    "L3": "PARTIAL",
+    "L4": "NOT_ACHIEVED",
+    "L5": "NOT_RUN"
+  }
+}

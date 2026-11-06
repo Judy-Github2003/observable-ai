@@ -1,0 +1,32 @@
+{
+  "event_id": "ev-1793973716294-0f82ba",
+  "at": "2026-11-06T14:01:56.294035+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "MRX-02C authorized; active identification and exact-cover audit",
+  "before": null,
+  "after": {
+    "repair_id": "MRX-02C",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX-02C: active identification of retained candidates from legal QUERY/CHALLENGE; exact-cover G3 audit with UNKNOWN on search limit; independent XOR/If worlds; multi-round dynamic feedback. Historical MRX-02B and earlier results preserved; no PACK-03.",
+    "approval_reference": "Research-owner MRX-02C pack, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-02C",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRX2C*.kt",
+      "src/test/kotlin/logic/e3/pack02/MRX2C*.kt",
+      "experiments/representation-evolution-e3/reports/mrx-02c-*.json",
+      "MRX-02C-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-06T14:01:56.293713+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "ed400b7d78f5050eda4a6042f4f0721ba4f0dc0dd47304414cfc28720de6bd64"
+  }
+}
