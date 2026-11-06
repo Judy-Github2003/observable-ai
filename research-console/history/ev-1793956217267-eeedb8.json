@@ -1,0 +1,60 @@
+{
+  "event_id": "ev-1793956217267-eeedb8",
+  "at": "2026-11-06T09:10:17.267603+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "PACK-02R-C8-02 consumed",
+  "before": {
+    "repair_id": "PACK-02R-C8-02",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "C8-02: experimental autonomous multi-layer reuse (R/S/T), examiner-side heldout and comparisons; no production platform.",
+    "approval_reference": "Research-owner message PACK-02R-C8-02, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "PACK-02R-C8-02",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/C8Study.kt",
+      "src/test/kotlin/logic/e3/pack02/C8StudyTest.kt",
+      "experiments/representation-evolution-e3/reports/pack02r-c8-02-*.json"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-06T09:08:11.404209+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1793956091404-f18bdd"
+    ],
+    "content_hash": "12b5f265692bf2ada4a837babb63e8fdb9b93810337745e99c228ab1816f4f88"
+  },
+  "after": {
+    "repair_id": "PACK-02R-C8-02",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "C8-02: experimental autonomous multi-layer reuse (R/S/T), examiner-side heldout and comparisons; no production platform.",
+    "approval_reference": "Research-owner message PACK-02R-C8-02, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "PACK-02R-C8-02",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/C8Study.kt",
+      "src/test/kotlin/logic/e3/pack02/C8StudyTest.kt",
+      "experiments/representation-evolution-e3/reports/pack02r-c8-02-*.json"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-06T09:08:11.404209+00:00",
+    "consumed_at": "2026-11-06T09:10:17.266609+00:00",
+    "audit_event_ids": [
+      "ev-1793956091404-f18bdd"
+    ],
+    "content_hash": "12b5f265692bf2ada4a837babb63e8fdb9b93810337745e99c228ab1816f4f88",
+    "consumed_commit": "f4a423b78c04ee1e1e143789b6fa5c7073545724",
+    "consumed_test": "Kotlin 325/325; C8-02 study",
+    "consumed_report": "PACK-02R-C8-02-REPORT.md"
+  }
+}
