@@ -246,7 +246,36 @@
       "consumed_commit": "ce760541e6826526974891e86d8f7d7cc8d8283d",
       "consumed_test": "343/343 passed, 0 failed (B0 173 + E3 170)",
       "consumed_report": "MRX-01-REPORT.md"
+    },
+    {
+      "repair_id": "MRX-01R",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "MRX-01R: evidence correctness repair (ledger, no UNVERIFIED-as-PASS), competing-hypothesis diagnosis with discriminators, identifiability analysis before experiment choice, FIXED/EVIDENCE/VALUE policy comparison, two-class structure-failure worlds, reliable new task set, 20-30 world multi-seed evaluation. No production platform, no PACK-03.",
+      "approval_reference": "Research-owner message MRX-01R, 2026-11-06; owner confirmed the directive belongs to this session after a mistaken cross-session send.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "MRX-01R",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/MRX*.kt",
+        "src/test/kotlin/logic/e3/pack02/MRX*.kt",
+        "experiments/representation-evolution-e3/reports/mrx-01r-*.json",
+        "MRX-01R-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-06T11:22:20.570130+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1793964140570-9642b3",
+        "ev-1793964151565-9790d9",
+        "ev-1793964284170-d6bd77",
+        "ev-1793964367386-8807d7"
+      ],
+      "content_hash": "30d80415622271958a3e92f13294b44983fb695e115a987ad2c055d4d384169c"
     }
   ],
-  "updated_at": "2026-11-06T11:08:19.204584+00:00"
+  "updated_at": "2026-11-06T11:26:07.401028+00:00"
 }

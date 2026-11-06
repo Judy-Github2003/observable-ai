@@ -1,0 +1,807 @@
+{
+    "experiment": "MRX-01R",
+    "phase": "six_condition",
+    "summary": {
+        "runs": 24,
+        "C8-03": {
+            "runs": 4,
+            "activated": 0,
+            "heldoutFull": 0,
+            "queries": 2,
+            "generated": 46932,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "calls": 112093
+        },
+        "MRX-01": {
+            "runs": 4,
+            "activated": 2,
+            "heldoutFull": 2,
+            "queries": 35,
+            "generated": 89533,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "calls": 154694
+        },
+        "FIXED": {
+            "runs": 4,
+            "activated": 2,
+            "heldoutFull": 2,
+            "queries": 75,
+            "generated": 171752,
+            "evidenceEntries": 48,
+            "evidenceReused": 74,
+            "calls": 112118
+        },
+        "EVIDENCE": {
+            "runs": 4,
+            "activated": 2,
+            "heldoutFull": 2,
+            "queries": 92,
+            "generated": 174008,
+            "evidenceEntries": 48,
+            "evidenceReused": 58,
+            "calls": 112135
+        },
+        "VALUE": {
+            "runs": 4,
+            "activated": 2,
+            "heldoutFull": 2,
+            "queries": 92,
+            "generated": 174008,
+            "evidenceEntries": 48,
+            "evidenceReused": 58,
+            "calls": 112135
+        },
+        "ORACLE-OPERATOR": {
+            "runs": 4,
+            "activated": 2,
+            "heldoutFull": 2,
+            "queries": 57,
+            "generated": 89533,
+            "evidenceEntries": 32,
+            "evidenceReused": 42,
+            "calls": 112116
+        },
+        "wrongActivations": 0
+    },
+    "runs": [
+        {
+            "world": "mrx-depth-w4",
+            "category": "depth",
+            "condition": "C8-03",
+            "seed": 1449,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "DNF",
+                "IF"
+            ],
+            "heldoutCorrect": 25,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 1,
+            "generated": 13206,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [],
+            "identifiability": "",
+            "calls": 27903,
+            "wallMillis": 1834
+        },
+        {
+            "world": "mrx-depth-w4",
+            "category": "depth",
+            "condition": "MRX-01",
+            "seed": 1449,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "DNF",
+            "expected": [
+                "DNF",
+                "IF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": null,
+            "queries": 15,
+            "generated": 42601,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 18,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H1",
+                "H2",
+                "H4",
+                "H5"
+            ],
+            "identifiability": "n/a",
+            "calls": 57298,
+            "wallMillis": 1882
+        },
+        {
+            "world": "mrx-depth-w4",
+            "category": "depth",
+            "condition": "FIXED",
+            "seed": 1449,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "DNF",
+            "expected": [
+                "DNF",
+                "IF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 41,
+            "generated": 69013,
+            "evidenceEntries": 16,
+            "evidenceReused": 40,
+            "selectedNodes": 18,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H1",
+                "H5",
+                "H2",
+                "H4"
+            ],
+            "identifiability": "[H1, H5]/false/[CNF]",
+            "calls": 27927,
+            "wallMillis": 1912
+        },
+        {
+            "world": "mrx-depth-w4",
+            "category": "depth",
+            "condition": "EVIDENCE",
+            "seed": 1449,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "DNF",
+            "expected": [
+                "DNF",
+                "IF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 39,
+            "generated": 42601,
+            "evidenceEntries": 16,
+            "evidenceReused": 24,
+            "selectedNodes": 18,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H1",
+                "H2",
+                "H5",
+                "H4"
+            ],
+            "identifiability": "[H1, H2, H5]/false/[KNOWLEDGE, IF, CNF]",
+            "calls": 27925,
+            "wallMillis": 1856
+        },
+        {
+            "world": "mrx-depth-w4",
+            "category": "depth",
+            "condition": "VALUE",
+            "seed": 1449,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "DNF",
+            "expected": [
+                "DNF",
+                "IF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 39,
+            "generated": 42601,
+            "evidenceEntries": 16,
+            "evidenceReused": 24,
+            "selectedNodes": 18,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H1",
+                "H2",
+                "H5",
+                "H4"
+            ],
+            "identifiability": "[H1, H2, H5]/false/[KNOWLEDGE, IF, CNF]",
+            "calls": 27925,
+            "wallMillis": 1821
+        },
+        {
+            "world": "mrx-depth-w4",
+            "category": "depth",
+            "condition": "ORACLE-OPERATOR",
+            "seed": 1449,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "DNF",
+            "expected": [
+                "DNF",
+                "IF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 39,
+            "generated": 42601,
+            "evidenceEntries": 16,
+            "evidenceReused": 24,
+            "selectedNodes": 18,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H1",
+                "H2",
+                "H5",
+                "H4"
+            ],
+            "identifiability": "[H1, H2, H5]",
+            "calls": 27925,
+            "wallMillis": 1791
+        },
+        {
+            "world": "mrx-ambig-1",
+            "category": "ambiguous",
+            "condition": "C8-03",
+            "seed": 1857,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 26,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 1,
+            "generated": 13206,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [],
+            "identifiability": "",
+            "calls": 32142,
+            "wallMillis": 2162
+        },
+        {
+            "world": "mrx-ambig-1",
+            "category": "ambiguous",
+            "condition": "MRX-01",
+            "seed": 1857,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 26,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 17,
+            "generated": 13206,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [],
+            "identifiability": "n/a",
+            "calls": 32142,
+            "wallMillis": 2099
+        },
+        {
+            "world": "mrx-ambig-1",
+            "category": "ambiguous",
+            "condition": "FIXED",
+            "seed": 1857,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 26,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 17,
+            "generated": 13206,
+            "evidenceEntries": 16,
+            "evidenceReused": 16,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [],
+            "identifiability": "[]/true/[]",
+            "calls": 32142,
+            "wallMillis": 2179
+        },
+        {
+            "world": "mrx-ambig-1",
+            "category": "ambiguous",
+            "condition": "EVIDENCE",
+            "seed": 1857,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 26,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 17,
+            "generated": 13206,
+            "evidenceEntries": 16,
+            "evidenceReused": 16,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [],
+            "identifiability": "[]/true/[]",
+            "calls": 32142,
+            "wallMillis": 2049
+        },
+        {
+            "world": "mrx-ambig-1",
+            "category": "ambiguous",
+            "condition": "VALUE",
+            "seed": 1857,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 26,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 17,
+            "generated": 13206,
+            "evidenceEntries": 16,
+            "evidenceReused": 16,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [],
+            "identifiability": "[]/true/[]",
+            "calls": 32142,
+            "wallMillis": 2024
+        },
+        {
+            "world": "mrx-ambig-1",
+            "category": "ambiguous",
+            "condition": "ORACLE-OPERATOR",
+            "seed": 1857,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 26,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 1,
+            "generated": 13206,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [],
+            "identifiability": "",
+            "calls": 32142,
+            "wallMillis": 2024
+        },
+        {
+            "world": "mrx-miss-or-r-d1",
+            "category": "missing_knowledge",
+            "condition": "C8-03",
+            "seed": 2020,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "KNOWLEDGE",
+                "DNF"
+            ],
+            "heldoutCorrect": 23,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "verification_failed",
+            "queries": 0,
+            "generated": 7314,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 7,
+            "selectedDeps": [],
+            "diagnosis": [],
+            "identifiability": "",
+            "calls": 19352,
+            "wallMillis": 735
+        },
+        {
+            "world": "mrx-miss-or-r-d1",
+            "category": "missing_knowledge",
+            "condition": "MRX-01",
+            "seed": 2020,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "KNOWLEDGE",
+            "expected": [
+                "KNOWLEDGE",
+                "DNF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": null,
+            "queries": 3,
+            "generated": 20520,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H1",
+                "H2",
+                "H4",
+                "H5",
+                "H3"
+            ],
+            "identifiability": "n/a",
+            "calls": 32558,
+            "wallMillis": 730
+        },
+        {
+            "world": "mrx-miss-or-r-d1",
+            "category": "missing_knowledge",
+            "condition": "FIXED",
+            "seed": 2020,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "KNOWLEDGE",
+            "expected": [
+                "KNOWLEDGE",
+                "DNF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 17,
+            "generated": 20520,
+            "evidenceEntries": 16,
+            "evidenceReused": 18,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H3",
+                "H2",
+                "H4",
+                "H1",
+                "H5"
+            ],
+            "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
+            "calls": 19353,
+            "wallMillis": 738
+        },
+        {
+            "world": "mrx-miss-or-r-d1",
+            "category": "missing_knowledge",
+            "condition": "EVIDENCE",
+            "seed": 2020,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "DNF",
+            "expected": [
+                "KNOWLEDGE",
+                "DNF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 36,
+            "generated": 36709,
+            "evidenceEntries": 16,
+            "evidenceReused": 18,
+            "selectedNodes": 11,
+            "selectedDeps": [],
+            "diagnosis": [
+                "H3",
+                "H1",
+                "H2",
+                "H5",
+                "H4"
+            ],
+            "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
+            "calls": 19372,
+            "wallMillis": 753
+        },
+        {
+            "world": "mrx-miss-or-r-d1",
+            "category": "missing_knowledge",
+            "condition": "VALUE",
+            "seed": 2020,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "DNF",
+            "expected": [
+                "KNOWLEDGE",
+                "DNF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 36,
+            "generated": 36709,
+            "evidenceEntries": 16,
+            "evidenceReused": 18,
+            "selectedNodes": 11,
+            "selectedDeps": [],
+            "diagnosis": [
+                "H3",
+                "H1",
+                "H2",
+                "H5",
+                "H4"
+            ],
+            "identifiability": "[H3]/false/[KNOWLEDGE, DNF]",
+            "calls": 19372,
+            "wallMillis": 731
+        },
+        {
+            "world": "mrx-miss-or-r-d1",
+            "category": "missing_knowledge",
+            "condition": "ORACLE-OPERATOR",
+            "seed": 2020,
+            "baseStatus": "IDENTIFIED",
+            "baseValidation": "n/a",
+            "chosenAction": "KNOWLEDGE",
+            "expected": [
+                "KNOWLEDGE",
+                "DNF"
+            ],
+            "heldoutCorrect": 27,
+            "heldoutTotal": 27,
+            "activation": true,
+            "failure": "all_challenge_inputs_checked",
+            "queries": 17,
+            "generated": 20520,
+            "evidenceEntries": 16,
+            "evidenceReused": 18,
+            "selectedNodes": 8,
+            "selectedDeps": [
+                "pack02r.active.r"
+            ],
+            "diagnosis": [
+                "H3",
+                "H2",
+                "H4",
+                "H1",
+                "H5"
+            ],
+            "identifiability": "[H3]",
+            "calls": 19353,
+            "wallMillis": 740
+        },
+        {
+            "world": "mrx-noise-or-r-d1",
+            "category": "noisy",
+            "condition": "C8-03",
+            "seed": 2227,
+            "baseStatus": "NO_CANDIDATE",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 0,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "no_consistent_candidate",
+            "queries": 0,
+            "generated": 13206,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 0,
+            "selectedDeps": [],
+            "diagnosis": [],
+            "identifiability": "",
+            "calls": 32696,
+            "wallMillis": 2040
+        },
+        {
+            "world": "mrx-noise-or-r-d1",
+            "category": "noisy",
+            "condition": "MRX-01",
+            "seed": 2227,
+            "baseStatus": "NO_CANDIDATE",
+            "baseValidation": "n/a",
+            "chosenAction": "NO_ACTION",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 0,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "training_conflict",
+            "queries": 0,
+            "generated": 13206,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 0,
+            "selectedDeps": [],
+            "diagnosis": [
+                "H6",
+                "H1",
+                "H2"
+            ],
+            "identifiability": "n/a",
+            "calls": 32696,
+            "wallMillis": 2033
+        },
+        {
+            "world": "mrx-noise-or-r-d1",
+            "category": "noisy",
+            "condition": "FIXED",
+            "seed": 2227,
+            "baseStatus": "NO_CANDIDATE",
+            "baseValidation": "n/a",
+            "chosenAction": "NO_ACTION",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 0,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "no_consistent_candidate",
+            "queries": 0,
+            "generated": 69013,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 0,
+            "selectedDeps": [],
+            "diagnosis": [
+                "H6",
+                "H1",
+                "H2"
+            ],
+            "identifiability": "[H6]/false/[]",
+            "calls": 32696,
+            "wallMillis": 2062
+        },
+        {
+            "world": "mrx-noise-or-r-d1",
+            "category": "noisy",
+            "condition": "EVIDENCE",
+            "seed": 2227,
+            "baseStatus": "NO_CANDIDATE",
+            "baseValidation": "n/a",
+            "chosenAction": "NO_ACTION",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 0,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "no_consistent_candidate",
+            "queries": 0,
+            "generated": 81492,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 0,
+            "selectedDeps": [],
+            "diagnosis": [
+                "H6",
+                "H2",
+                "H1"
+            ],
+            "identifiability": "[H6]/false/[]",
+            "calls": 32696,
+            "wallMillis": 2237
+        },
+        {
+            "world": "mrx-noise-or-r-d1",
+            "category": "noisy",
+            "condition": "VALUE",
+            "seed": 2227,
+            "baseStatus": "NO_CANDIDATE",
+            "baseValidation": "n/a",
+            "chosenAction": "NO_ACTION",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 0,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "no_consistent_candidate",
+            "queries": 0,
+            "generated": 81492,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 0,
+            "selectedDeps": [],
+            "diagnosis": [
+                "H6",
+                "H2",
+                "H1"
+            ],
+            "identifiability": "[H6]/false/[]",
+            "calls": 32696,
+            "wallMillis": 1958
+        },
+        {
+            "world": "mrx-noise-or-r-d1",
+            "category": "noisy",
+            "condition": "ORACLE-OPERATOR",
+            "seed": 2227,
+            "baseStatus": "NO_CANDIDATE",
+            "baseValidation": "n/a",
+            "chosenAction": "NONE",
+            "expected": [
+                "NONE"
+            ],
+            "heldoutCorrect": 0,
+            "heldoutTotal": 27,
+            "activation": false,
+            "failure": "no_consistent_candidate",
+            "queries": 0,
+            "generated": 13206,
+            "evidenceEntries": 0,
+            "evidenceReused": 0,
+            "selectedNodes": 0,
+            "selectedDeps": [],
+            "diagnosis": [],
+            "identifiability": "",
+            "calls": 32696,
+            "wallMillis": 1960
+        }
+    ]
+}

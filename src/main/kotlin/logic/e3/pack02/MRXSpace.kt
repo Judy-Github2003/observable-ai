@@ -1,4 +1,4 @@
-﻿// 本文件实现：DeepSeek Harness（本会话），2026-11-06。
+// 本文件实现：DeepSeek Harness（本会话），2026-11-06。
 // 原因：MRX-01 学生的结构升级候选空间；在冻结 C8-03 学生之外，显式提供
 // DNF/CNF/If 形态的有界枚举，用于诊断实验。基础学习仍由 C8-03 学生完成。
 package logic.e3.pack02
@@ -47,6 +47,7 @@ data class MRXAttempt(
     val challengeQueries: Int,
     val failure: String?,
     val cost: MRXCost,
+    val survivors: List<StudyCandidate> = emptyList(),
 )
 
 /**
@@ -186,6 +187,7 @@ class MRXSpace(
                         selected.nodeCount, selected.estimatedSteps, rounds.size + challengeUsed,
                         (System.nanoTime() - started) / 1_000_000,
                     ),
+                    survivors = current,
                 )
             }
             if (rounds.size >= 12) {

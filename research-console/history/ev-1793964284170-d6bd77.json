@@ -1,0 +1,12 @@
+{
+  "event_id": "ev-1793964284170-d6bd77",
+  "at": "2026-11-06T11:24:44.170197+00:00",
+  "kind": "repair_revoked",
+  "actor": "execution",
+  "note": "MRX-01R revoked: research directive was sent to the wrong session; not a real立项",
+  "before": null,
+  "after": {
+    "repair_id": "MRX-01R",
+    "reason": "wrong_recipient_session"
+  }
+}

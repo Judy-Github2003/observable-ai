@@ -1,0 +1,16 @@
+{
+  "event_id": "ev-1793964151565-9790d9",
+  "at": "2026-11-06T11:22:31.565135+00:00",
+  "kind": "repair_authorization_corrected",
+  "actor": "execution",
+  "note": "MRX-01R parent_task_ids reduced to real tasks (MRX-01 is a repair grant)",
+  "before": null,
+  "after": {
+    "repair_id": "MRX-01R",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ]
+  }
+}
