@@ -1,0 +1,32 @@
+{
+  "event_id": "ev-1793971403666-f870ea",
+  "at": "2026-11-06T13:23:23.666505+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "MRX-02B authorized; candidate search audit and pairwise strategies",
+  "before": null,
+  "after": {
+    "repair_id": "MRX-02B",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX-02B: candidate lifecycle audit; A/B/C atom search strategies (baseline/diversity/pairwise); G0-G4 attribution after exam; multi-round dynamic feedback tests. Historical MRX-01/01R/02 and C8-03 results preserved; no PACK-03.",
+    "approval_reference": "Research-owner MRX-02B pack, 2026-11-06.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-02B",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRX2B*.kt",
+      "src/test/kotlin/logic/e3/pack02/MRX2B*.kt",
+      "experiments/representation-evolution-e3/reports/mrx-02b-*.json",
+      "MRX-02B-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-06T13:23:23.666195+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "8add262f3bc3cbe53e40142e2c75d962267276bd35fb38e9a37ab7a572c6d5e9"
+  }
+}
