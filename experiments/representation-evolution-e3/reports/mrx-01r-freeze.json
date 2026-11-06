@@ -1,11 +1,11 @@
 {
   "experiment": "MRX-01R",
   "frozen_at": "2026-11-06T11:34:02.993042+00:00",
-  "git_head": "96f2914cd705befbc6d2d031d099a56a3d2bc27c",
+  "git_head": "5c8568a1f9155f4651c2788c0c9ee3ffde411b71",
   "sources": {
     "space": {
-      "path": "src/main/kotlin/logic/e3/pack02/MRXSpace.kt",
-      "sha256": "da226712139e2b137936a3bb218e949dc3206aace1c4d4b9dcbe315b0a5435be"
+      "path": "src/main/kotlin/logic/e3/pack02/MRXRSpace.kt",
+      "sha256": "f24593917b2e62229d92308b516a2daf004114dc3111afac4ddb4122cdb752bd"
     },
     "ledger": {
       "path": "src/main/kotlin/logic/e3/pack02/MRXREvidence.kt",
@@ -13,7 +13,7 @@
     },
     "student": {
       "path": "src/main/kotlin/logic/e3/pack02/MRXRStudent.kt",
-      "sha256": "17e3540502138a5d527d5d4019fc6e5faedf7da3d4451282096c2ada668a7ae9"
+      "sha256": "8ebfb76f1027bdbb83d2bcab4634dd6b9660ecb912fafbae38f6997bce1a8342"
     },
     "worlds": {
       "path": "src/main/kotlin/logic/e3/pack02/MRXRWorlds.kt",
@@ -60,5 +60,6 @@
       "EVIDENCE",
       "VALUE"
     ]
-  }
+  },
+  "separation_note": "MRX-01 的 MRXSpace.kt 保持冻结；MRXR 使用独立 MRXRSpace.kt 副本。"
 }
