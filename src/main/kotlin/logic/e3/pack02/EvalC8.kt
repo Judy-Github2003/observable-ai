@@ -15,6 +15,9 @@ data class C8Run(
     val controlStatus: String,
     val fullFailure: String?,
     val controlFailure: String?,
+    val fullGenerated: Int,
+    val fullConsistent: Int,
+    val rHeldoutAccuracy: Int,
 )
 
 object EvalC8 {
@@ -33,20 +36,22 @@ object EvalC8 {
             for (a in listOf("0", "1")) for (b in listOf("0", "1")) for (c in listOf("0", "1")) for (d in listOf("0", "1")) {
                 all += mapOf("a" to a, "b" to b, "c" to c, "d" to d)
             }
-            val rTruth = { m: Map<String, String> ->
-                Pack02Knowledge.predict(rDef.body, mapOf("a" to m["a"]!!, "b" to m["b"]!!, "c" to m["c"]!!), listOf(pDef, qDef)) == true
+            val expectedR = { m: Map<String, String> -> m["a"] == "1" && m["c"] == "1" }
+            val target = { m: Map<String, String> -> expectedR(m) || m["d"] == "1" }
+            val shuffled = all.shuffled(java.util.Random(2026))
+            val train = shuffled.take(8).mapIndexed { i, m -> Pack02Sample("c8-tr-$i", m, target(m)) }
+            val held = shuffled.drop(8).mapIndexed { i, m -> Pack02Sample("c8-ho-$i", m, target(m)) }
+            val rAccuracy = held.count { m ->
+                Pack02Knowledge.predict(rDef.body, mapOf("a" to m.values["a"]!!, "b" to m.values["b"]!!, "c" to m.values["c"]!!), listOf(pDef, qDef)) == expectedR(m.values)
             }
-            val target = { m: Map<String, String> -> rTruth(m) || m["d"] == "1" }
-            val train = all.take(8).mapIndexed { i, m -> Pack02Sample("c8-tr-$i", m, target(m)) }
-            val held = all.drop(8).mapIndexed { i, m -> Pack02Sample("c8-ho-$i", m, target(m)) }
             val full = Pack02Knowledge.reuse(
                 "c8.full", listOf("a", "b", "c", "d"), train, held, path,
-                listOf(KnowledgeRef(rDef.id, rDef.version, activation.contentHash!!)),
-                maxDepth = 3, maxCandidates = 100000, preferredId = rDef.id,
+                listOf(p, q, KnowledgeRef(rDef.id, rDef.version, activation.contentHash!!)),
+                maxDepth = 3, maxCandidates = 20000, preferredId = rDef.id,
             )
             val control = Pack02Knowledge.reuse(
                 "c8.control", listOf("a", "b", "c", "d"), train, held, path,
-                listOf(p, q), maxDepth = 3, maxCandidates = 100000,
+                listOf(p, q), maxDepth = 3, maxCandidates = 20000,
             )
             return C8Run(
                 fullActivated = true,
@@ -58,6 +63,9 @@ object EvalC8 {
                 controlStatus = control.filterStatus,
                 fullFailure = full.failureCode,
                 controlFailure = control.failureCode,
+                fullGenerated = full.generated,
+                fullConsistent = full.consistent,
+                rHeldoutAccuracy = rAccuracy,
             )
         } finally {
             Files.deleteIfExists(path)

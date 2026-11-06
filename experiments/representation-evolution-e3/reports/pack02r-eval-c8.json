@@ -1,11 +1,14 @@
 {
     "fullActivated": true,
-    "fullUsesR": false,
-    "fullHeldout": 0,
+    "fullUsesR": true,
+    "fullHeldout": 6,
     "controlUsesR": false,
     "controlHeldout": 6,
     "fullStatus": "AMBIGUOUS",
     "controlStatus": "AMBIGUOUS",
-    "fullFailure": "no_candidate",
-    "controlFailure": "ambiguous_selection"
+    "fullFailure": "ambiguous_selection",
+    "controlFailure": "ambiguous_selection",
+    "fullGenerated": 2385,
+    "fullConsistent": 66,
+    "rHeldoutAccuracy": 8
 }

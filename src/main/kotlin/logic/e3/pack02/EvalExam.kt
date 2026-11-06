@@ -43,7 +43,7 @@ object EvalExam {
         return out
     }
 
-    private fun runOne(spec: ExamSpec, strategy: String, seed: Int): EvalRun {
+    internal fun runOne(spec: ExamSpec, strategy: String, seed: Int): EvalRun {
         val path = Files.createTempFile("eval-", ".sqlite")
         return try {
             val (p, q) = base(path)

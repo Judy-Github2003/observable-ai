@@ -14,7 +14,7 @@ class EvalC8Test {
     fun `development C8 reuse comparison runs`() {
         val r = EvalC8.run()
         assertTrue(r.fullActivated, "r=$r")
-        assertFalse(r.fullUsesR, "C8 full unexpectedly used R: $r")
+        assertTrue(r.fullUsesR, "C8 full did not use R: $r")
         val obj = buildJsonObject {
             put("fullActivated", r.fullActivated)
             put("fullUsesR", r.fullUsesR)
@@ -25,6 +25,9 @@ class EvalC8Test {
             put("controlStatus", r.controlStatus)
             put("fullFailure", r.fullFailure)
             put("controlFailure", r.controlFailure)
+            put("fullGenerated", r.fullGenerated)
+            put("fullConsistent", r.fullConsistent)
+            put("rHeldoutAccuracy", r.rHeldoutAccuracy)
         }
         Files.writeString(
             Path.of("experiments/representation-evolution-e3/reports/pack02r-eval-c8.json"),

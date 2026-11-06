@@ -1,0 +1,12 @@
+{
+    "status": "IDENTIFIED",
+    "selected": true,
+    "outcomeCode": "suite_inadequate",
+    "verdict": "FAIL",
+    "caseCount": 6,
+    "passedCount": 6,
+    "definiteCount": 6,
+    "trueCount": 0,
+    "falseCount": 6,
+    "recorded": true
+}
