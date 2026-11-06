@@ -1,0 +1,67 @@
+{
+  "experiment": "MRX-01",
+  "frozen_at": "2026-11-06T10:59:57.685639+00:00",
+  "git_head": "8c4399d6cad28d40cf431653104e32ec19b87b1a",
+  "sources": {
+    "student_space": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXSpace.kt",
+      "sha256": "b1a24f4a2d9e35c99b87fdfff56d9ef655f9662985af95c65d4ac34152c86e8a"
+    },
+    "student_diagnosis": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXStudent.kt",
+      "sha256": "4a3fee4d5a2b8f94211f3a9752bb9c9c56591c6924535ec74669646481e11811"
+    },
+    "worlds": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXWorlds.kt",
+      "sha256": "e669f802d6843887432471bafff581246d9267d7067c7eb4855a91ac73fdb42b"
+    },
+    "formal_harness": {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXExam.kt",
+      "sha256": "521375557130668979879ebd4407b7d4e158ad2b5e101c5488d4f03025d4d10d"
+    }
+  },
+  "protocol": {
+    "data": {
+      "train": 9,
+      "query": 29,
+      "challenge": 16,
+      "heldout": 27,
+      "splits_disjoint": true,
+      "seed_rule": "findSeed(from=7100+index*137); coverage and ambiguous exception in heldout; no student score used"
+    },
+    "budgets": {
+      "main_query": 20,
+      "challenge_query": 24,
+      "base_maxDepth": 3,
+      "base_maxCandidates": 50000,
+      "depth_control_maxDepth": 4,
+      "depth_control_maxCandidates": 50000,
+      "space_maxCandidates": 30000,
+      "space_literal_limit": 10
+    },
+    "conditions": [
+      "BASELINE",
+      "DEPTH",
+      "ORACLE-OPERATOR",
+      "AUTONOMOUS"
+    ],
+    "formal_worlds": [
+      "mrx-f-expr",
+      "mrx-f-depth",
+      "mrx-f-if",
+      "mrx-f-ambig",
+      "mrx-f-miss",
+      "mrx-f-search",
+      "mrx-f-noise"
+    ],
+    "candidate_operators": [
+      "DNF",
+      "CNF",
+      "IF",
+      "KNOWLEDGE",
+      "BUDGET",
+      "NO_ACTION"
+    ],
+    "challenge_note": "CHALLENGE labels are diagnostic only; never used as final HELDOUT score"
+  }
+}
