@@ -92,7 +92,34 @@
       "consumed_commit": "bedc1486834377d2ef83a65a57971cb8886d7788",
       "consumed_test": "Kotlin 320/320; PACK-02 13/13; repair gate 7/7; old gate 5/5",
       "consumed_report": "PACK-02R-ACTIVE-01-REPORT.md"
+    },
+    {
+      "repair_id": "PACK-02R-EVAL-01",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "EVAL-A isolation and student freeze; EVAL-B multi-world exam and development C8 reuse. No PACK-03.",
+      "approval_reference": "Research-owner message PACK-02R-EVAL-01, 2026-11-06: authorize EVAL-A and EVAL-B in one task.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "PACK-02R-EVAL-01",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/ActiveLearning.kt",
+        "src/test/kotlin/logic/e3/pack02/ActiveLearningTest.kt",
+        "src/main/kotlin/logic/e3/pack02/EvalExam.kt",
+        "src/test/kotlin/logic/e3/pack02/EvalExamTest.kt",
+        "experiments/representation-evolution-e3/reports/pack02r-eval-*.json"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-06T08:37:08.041495+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1793954228042-9dbaaa"
+      ],
+      "content_hash": "b41290c4df908c88ce27ac0178e476b2d9b2368bb8149c236bcc128c1994fb3d"
     }
   ],
-  "updated_at": "2026-11-05T16:36:35.876539+00:00"
+  "updated_at": "2026-11-06T08:37:08.047027+00:00"
 }
