@@ -399,7 +399,34 @@
       "consumed_commit": "73407f8b50f4ec9de40265c972613078354e2dcf",
       "consumed_test": "384/384 passed, 0 failed (B0 173 + E3 211)",
       "consumed_report": "MRX-02D-REPORT.md"
+    },
+    {
+      "repair_id": "MRX-02E",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "MRX-02E: real feedback snapshots and third-step dynamic re-planning after two failures; FIXED/STATIC/DYNAMIC planner contract and real MRX2Student execution where feasible. No 160-run formal exam; historical MRX results preserved.",
+      "approval_reference": "Research-owner MRX-02E pack, 2026-11-07.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "MRX-02E",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/MRX2E*.kt",
+        "src/main/kotlin/logic/e3/pack02/MRX2Student.kt",
+        "src/test/kotlin/logic/e3/pack02/MRX2E*.kt",
+        "experiments/representation-evolution-e3/reports/mrx-02e-*.json",
+        "MRX-02E-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-06T16:53:20.674668+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1793984000675-141707"
+      ],
+      "content_hash": "f28eef3d2a7781c9e2cd2d0c83c64ba3b7be718266a8f675c75bd1608b1077d3"
     }
   ],
-  "updated_at": "2026-11-06T15:11:32.909392+00:00"
+  "updated_at": "2026-11-06T16:53:20.680185+00:00"
 }

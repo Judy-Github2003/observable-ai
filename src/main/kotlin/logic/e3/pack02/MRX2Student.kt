@@ -1,4 +1,4 @@
-﻿// 本文件实现：DeepSeek Harness（本会话），2026-11-06。
+// 本文件实现：DeepSeek Harness（本会话），2026-11-06。
 // 原因：MRX-02 第二关：真正动态重规划。每执行一个实验后重新生成假说/可辨识性/行动价值，
 // 不再预先固定一个行动队列。
 package logic.e3.pack02
@@ -110,7 +110,11 @@ class MRX2Student(
                 status = "REPAIRED"
                 next = "STOP"
             } else {
-                next = chooseNext(diagnosis, ident, step = index + 1)
+                next = if (strategy == MRX2Strategy.DYNAMIC && index < 3) {
+                    planDynamicNext(steps, index, currentSelected)
+                } else {
+                    chooseNext(diagnosis, ident, step = index + 1)
+                }
             }
             steps[index] = steps[index].copy(nextAction = next)
             index++
@@ -127,6 +131,41 @@ class MRX2Student(
         val oracleNew: Int, val oracleReused: Int, val interpreterCalls: Int,
         val selected: StudyCandidate?, val note: String,
     )
+
+    private fun planDynamicNext(
+        steps: List<MRX2Step>,
+        currentIndex: Int,
+        selected: StudyCandidate?,
+    ): String {
+        val catalog = listOf("KNOWLEDGE", "BUDGET", "DNF", "IF", "CNF")
+        val history = steps.filter { it.index in 1..currentIndex }.map { step ->
+            MRX2EActionFeedback(
+                action = step.action,
+                status = step.feedback,
+                evidenceVersionBefore = step.index - 1,
+                evidenceVersionAfter = step.index,
+                candidateCountBefore = null,
+                candidateCountAfter = null,
+                oracleNew = step.oracleNew,
+                oracleReused = step.oracleReused,
+                source = "REAL_MRX2STUDENT",
+            )
+        }
+        val input = MRX2EPlannerInput(
+            strategy = strategy.wire,
+            actionHistory = history,
+            allowedNextActions = catalog,
+            frozenInitialQueue = catalog,
+            remainingOracleBudget = ledger.remaining(),
+            oracleRequiredActions = catalog.toSet(),
+            evidenceVersion = currentIndex,
+            evidenceDigest = "ledger-${ledger.entries().size}-v${ledger.newQueries()}",
+            candidateDigest = selected?.canonical ?: "none",
+            trainingConflict = trainingConflict(baseView.training),
+            hasLegalExperiment = catalog.isNotEmpty(),
+        )
+        return MRX2EPlanner().choose(input).action
+    }
 
     private fun chooseNext(diagnosis: List<MRXRHypothesis>, ident: MRXRIdentifiability, step: Int): String {
         if (diagnosis.isEmpty() || (ident.indistinguishable && ident.distinguishingActions.isEmpty())) return "STOP"
