@@ -72,7 +72,8 @@ class MRX2DActiveIdentifier(
                         prediction == entry.rawLabel
                     }
                 }
-                reused += before - candidates.size
+                // EH-001: 复用计数按“已购买的 (channel, entry)”计，而不是按被淘汰候选数计。
+                reused += 1
                 replayEliminated += before - candidates.size
                 if (before != candidates.size) {
                     observations += MRX2DObservation(
