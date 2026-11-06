@@ -1,0 +1,70 @@
+{
+  "experiment": "PACK-02R-C8-03",
+  "frozen_at": "2026-11-06T09:49:57.836577+00:00",
+  "git_head": "a6ab1a51f1beefcb0e1a1cd9d0c3180c2d01f76e",
+  "student_source": "src/main/kotlin/logic/e3/pack02/C8ActiveStudent.kt",
+  "student_sha256": "f37d234298263cbc56e40724ed6e840b30135a0d7b340b031f8b7e1bb14ee0e5",
+  "exam_source": "src/main/kotlin/logic/e3/pack02/C8Exam.kt",
+  "exam_sha256": "1eaa018024164939ff85ae1537ab6c000abfd1ff82dc8d68fbe18cf33645ce2f",
+  "split_seed": 6941,
+  "split_digest": "4d16e01793ae7d4b24a2218e382b7ed120beb4d151a7424a009ef059795a99af",
+  "split_sizes": {
+    "train": 18,
+    "sTrain": 9,
+    "tTrain": 18,
+    "query": 36,
+    "heldout": 27
+  },
+  "budget": {
+    "maxDepth": 3,
+    "maxNodes": 40,
+    "maxCandidates": 50000,
+    "maxCallsPerCapability": 24,
+    "queryBudget": 20
+  },
+  "worlds": [
+    {
+      "id": "w1-or-r-d1",
+      "title": "R OR d==1",
+      "s": "R OR d==1",
+      "t": "(R OR d==1) AND b==1"
+    },
+    {
+      "id": "w2-or-r-d2",
+      "title": "R OR d==2",
+      "s": "R OR d==2",
+      "t": "(R OR d==2) AND b==1"
+    },
+    {
+      "id": "w3-xnor-r-d1",
+      "title": "R XNOR d==1",
+      "s": "R XNOR d==1",
+      "t": "(R XNOR d==1) AND b==1"
+    },
+    {
+      "id": "w4-if-r-d1-d0",
+      "title": "if R then d==1 else d==0",
+      "s": "if R then d==1 else d==0",
+      "t": "(if R then d==1 else d==0) AND b==1"
+    },
+    {
+      "id": "w5-xnor-p-d2",
+      "title": "P XNOR d==2",
+      "s": "P XNOR d==2",
+      "t": "(P XNOR d==2) AND b==1"
+    },
+    {
+      "id": "w6-or-q-a2",
+      "title": "Q OR a==2",
+      "s": "Q OR a==2",
+      "t": "(Q OR a==2) AND b==1"
+    }
+  ],
+  "formal_exam": {
+    "strategy": "utility",
+    "full": "6 worlds S->T",
+    "no_s": "6 T controls",
+    "no_r": "6 S-only controls",
+    "base": "6 S-only controls"
+  }
+}
