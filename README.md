@@ -42,6 +42,7 @@
 | SD-03 Sequential R3 2026-11-07 | 第一次探针失败后的第二决策 | **2 开发任务；edb6 第二次改选 AUDIT_GENERATION_CAP；0 来源/capHit；G3 仅诊断；G4 NO_BENEFIT** |
 | SD-03 R3.1 2026-11-07 | 30k 预算下 IF/OR 枚举因果 | **LEGACY IF 0/1728 全被 cap 拒；QUOTA_IF12/24 IF 接纳但 TRAIN consistent=0；nestedIf=0；NO_BENEFIT** |
 | SD-03 R3.2 2026-11-07 | 枚举公平、角色覆盖、受限嵌套 | **LEX whenTrue 仅 10/24；ROTATING 24/24；NESTED 接纳 2860；三组 TRAIN consistent=0；NO_BENEFIT** |
+| SD-03 E1 2026-11-07 | TRAIN 证据驱动递归条件组合 | **nested 任务 E1_DEPTH_4 1 pass/HELDOUT 20/21，两基线 0；总体 3 pass vs 11/9；MIXED** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -289,6 +290,14 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - ROTATING_NESTED24 实际接纳 2,860 个嵌套 If；但这是语法+配额再分配的联合干预。
 - 三组 generated≈29,044、TRAIN consistent=0、Challenge=0、无 HELDOUT；`NO_BENEFIT`。
 - 记录：[预注册](./docs/research/sd03-r32-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-r32-development-2026-11-07/RESULT.md)、[FROZEN](./docs/research/sd03-r32-development-2026-11-07/FROZEN-BEFORE-GRADING.jsonl)。
+
+### SD-03 E1 2026-11-07：证据驱动递归条件组合
+
+- 4 个公开开发任务×4 arms：E1_DEPTH_4 在 `mrx-if-nested-3` 首次产生 1 个 Challenge-pass，HELDOUT 20/21；LEGACY/R32 均为 0。
+- 冻结程序 19 节点、深度 4、独立解释器 TRAIN 40/40、typecheck=true；6 个条件分裂有证据 ID。
+- E1_DEPTH_1 全 0，说明递归深度必要；但 E1 总体 3 pass vs LEGACY 11/R32 9，总 HELDOUT 62/63 vs 63/63，**总体无优势**。
+- 开发任务公开，非独立闭卷；未注册/激活能力。
+- 记录：[预注册](./docs/research/sd03-e1-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-e1-development-2026-11-07/RESULT.md)、[EXAMINER](./docs/research/sd03-e1-development-2026-11-07/EXAMINER-AFTER-FREEZE.jsonl)。
 
 ### Research Console（本地）
 

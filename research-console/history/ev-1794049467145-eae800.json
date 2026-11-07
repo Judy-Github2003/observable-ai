@@ -1,0 +1,32 @@
+{
+  "event_id": "ev-1794049467145-eae800",
+  "at": "2026-11-07T11:04:27.145060+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "SD-03 E1 authorized",
+  "before": null,
+  "after": {
+    "repair_id": "SD-03-E1-EVIDENCE-COMPOSITION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 E1: evidence-driven conditional composition; LEGACY_10/R32_NESTED_12/EVIDENCE_DEPTH_1/EVIDENCE_DEPTH_4; real TRAIN/Challenge/HELDOUT. No SD-04, no full regression, no 160 formal exam.",
+    "approval_reference": "Research-owner request 2026-11-07",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-E1-EVIDENCE-COMPOSITION-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD03EvidenceCompositionE1.kt",
+      "src/test/kotlin/logic/e3/pack02/SD03E1*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD03EvidenceCompositionE1ContractTest.kt",
+      "docs/research/sd03-e1-development-2026-11-07/"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T11:04:27.144736+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "03aea0ecbf9da924becf2054f23cec457fa903c85d5f5e3dfb3912efc5e9f38f"
+  }
+}

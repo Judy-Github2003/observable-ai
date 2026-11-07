@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-07T11:06:10.626Z" hostname="ADMIN" time="0.052">
+  <properties/>
+  <testcase name="hard split budget is visible and does not certify success" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.044"/>
+  <testcase name="literal test prediction stays local to selected path" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.0"/>
+  <testcase name="shallow model does not falsely claim full fit" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.002"/>
+  <testcase name="XOR can be learned with zero gain at root" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.001"/>
+  <testcase name="learn nested two branch composition without supplied program" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.001"/>
+  <testcase name="contradictory labels for identical inputs stop proposal" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.0"/>
+  <testcase name="missing atom coverage is rejected before search" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.001"/>
+  <testcase name="Unknown is never coerced to false" classname="logic.e3.pack02.SD03EvidenceCompositionE1ContractTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
