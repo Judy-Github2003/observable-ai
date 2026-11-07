@@ -1001,14 +1001,18 @@
         "docs/research/sd03-e22-development-2026-11-07/",
         "tools/audit_e22_results.py"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T12:51:32.668073+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T12:54:27.324611+00:00",
       "audit_event_ids": [
-        "ev-1794055892668-01c07c"
+        "ev-1794055892668-01c07c",
+        "ev-1794056067324-ff8fb2"
       ],
-      "content_hash": "ca801ac380cbeab83da020aaec4311d1dc1d57c2746112ed4e2ea50441119f0a"
+      "content_hash": "ca801ac380cbeab83da020aaec4311d1dc1d57c2746112ed4e2ea50441119f0a",
+      "consumed_commit": "b250bc9e55362b9b966bc0b27f01cf190e3ece41",
+      "consumed_test": "E2.2 11/11; 8 task-seeds x5 arms; E22 2/5 counterexample hits; 5 pass/103 vs STATIC 6/119; negative side effect; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd03-e22-development-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T12:51:32.681871+00:00"
+  "updated_at": "2026-11-07T12:54:27.337330+00:00"
 }
