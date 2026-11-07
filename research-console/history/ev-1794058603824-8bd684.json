@@ -1,0 +1,64 @@
+{
+  "event_id": "ev-1794058603824-8bd684",
+  "at": "2026-11-07T13:36:43.824234+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "SD-03-E221-AUDIT-CORRECTIONS-REGRESSION-2026-11-07 consumed",
+  "before": {
+    "repair_id": "SD-03-E221-AUDIT-CORRECTIONS-REGRESSION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 E2.2.1: historical correction audit, report errata, regression preflight/timing. No E2.3, no strategy change, no formal 160-exam.",
+    "approval_reference": "Research-owner request 2026-11-07",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-E221-AUDIT-CORRECTIONS-REGRESSION-2026-11-07",
+    "allowed_files_or_modules": [
+      "tools/e221/",
+      "docs/research/sd03-e22-development-2026-11-07/E22.1-ERRATA.md",
+      "docs/research/sd03-e22-development-2026-11-07/RESULT.md",
+      "build/e221/",
+      "build/e221-regression-logs/"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T13:35:15.616604+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794058515616-63d689"
+    ],
+    "content_hash": "62eeaa41e9194a41d35440adfcae7aa036e4ad84624d4041f3a2af41aebc762c"
+  },
+  "after": {
+    "repair_id": "SD-03-E221-AUDIT-CORRECTIONS-REGRESSION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 E2.2.1: historical correction audit, report errata, regression preflight/timing. No E2.3, no strategy change, no formal 160-exam.",
+    "approval_reference": "Research-owner request 2026-11-07",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-E221-AUDIT-CORRECTIONS-REGRESSION-2026-11-07",
+    "allowed_files_or_modules": [
+      "tools/e221/",
+      "docs/research/sd03-e22-development-2026-11-07/E22.1-ERRATA.md",
+      "docs/research/sd03-e22-development-2026-11-07/RESULT.md",
+      "build/e221/",
+      "build/e221-regression-logs/"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-07T13:35:15.616604+00:00",
+    "consumed_at": "2026-11-07T13:36:43.824069+00:00",
+    "audit_event_ids": [
+      "ev-1794058515616-63d689"
+    ],
+    "content_hash": "62eeaa41e9194a41d35440adfcae7aa036e4ad84624d4041f3a2af41aebc762c",
+    "consumed_commit": "a87778872bb41306ca25006607276235cbd36d61",
+    "consumed_test": "E221 4 unit tests; raw JSONL identity pass; corrected q-2/q-11, q-2/q-1, 119/126 and 103/105; compile 6.227s PASS; targeted 6.751s PASS; full BLOCKED_NOT_RUN",
+    "consumed_report": "docs/research/sd03-e22-development-2026-11-07/E22.1-ERRATA.md"
+  }
+}
