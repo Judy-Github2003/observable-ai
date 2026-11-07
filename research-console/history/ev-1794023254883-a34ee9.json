@@ -1,0 +1,64 @@
+{
+  "event_id": "ev-1794023254883-a34ee9",
+  "at": "2026-11-07T03:47:34.883791+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "MRX-CAUSAL-ABLATION-2026-11-07 consumed",
+  "before": {
+    "repair_id": "MRX-CAUSAL-ABLATION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX causal ablation: LIVE vs LIVE_FROZEN_BELIEF vs LIVE_NO_HYP decision sensitivity, scoped hypothesis semantics, real-prefix pair search where feasible, and honest L1/L2/L3 reporting. No 160-run formal exam, no full regression, no historical result changes.",
+    "approval_reference": "Research-owner message 2026-11-07: '后续一律默认授权' and this package's execution request.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-CAUSAL-ABLATION-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "src/main/kotlin/logic/e3/pack02/MRX2Student.kt",
+      "src/test/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "docs/research/mrx-causal-ablation-2026-11-07/",
+      "MRX-CAUSAL-ABLATION-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T03:43:55.390709+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794023035391-d8b271"
+    ],
+    "content_hash": "0359491bb293202427a3383c94463a304eb716a16bc89463d820bd7a4dd84579"
+  },
+  "after": {
+    "repair_id": "MRX-CAUSAL-ABLATION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX causal ablation: LIVE vs LIVE_FROZEN_BELIEF vs LIVE_NO_HYP decision sensitivity, scoped hypothesis semantics, real-prefix pair search where feasible, and honest L1/L2/L3 reporting. No 160-run formal exam, no full regression, no historical result changes.",
+    "approval_reference": "Research-owner message 2026-11-07: '后续一律默认授权' and this package's execution request.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-CAUSAL-ABLATION-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "src/main/kotlin/logic/e3/pack02/MRX2Student.kt",
+      "src/test/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "docs/research/mrx-causal-ablation-2026-11-07/",
+      "MRX-CAUSAL-ABLATION-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-07T03:43:55.390709+00:00",
+    "consumed_at": "2026-11-07T03:47:34.883643+00:00",
+    "audit_event_ids": [
+      "ev-1794023035391-d8b271"
+    ],
+    "content_hash": "0359491bb293202427a3383c94463a304eb716a16bc89463d820bd7a4dd84579",
+    "consumed_commit": "c0af964d264c0e93c3aac0bbf4ca3724670376cd",
+    "consumed_test": "Causal ablation 11/11; L1=MECHANISM_ONLY_PASS; L2=NOT_DEMONSTRATED; L3=INCONCLUSIVE; fullRegression=NOT_RUN; formal_runs=0",
+    "consumed_report": "docs/research/mrx-causal-ablation-2026-11-07/CAUSAL-ABLATION-RESULT.md"
+  }
+}

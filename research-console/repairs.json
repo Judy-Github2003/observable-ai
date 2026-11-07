@@ -520,14 +520,18 @@
         "docs/research/mrx-causal-ablation-2026-11-07/",
         "MRX-CAUSAL-ABLATION-2026-11-07-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T03:43:55.390709+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T03:47:34.883643+00:00",
       "audit_event_ids": [
-        "ev-1794023035391-d8b271"
+        "ev-1794023035391-d8b271",
+        "ev-1794023254883-a34ee9"
       ],
-      "content_hash": "0359491bb293202427a3383c94463a304eb716a16bc89463d820bd7a4dd84579"
+      "content_hash": "0359491bb293202427a3383c94463a304eb716a16bc89463d820bd7a4dd84579",
+      "consumed_commit": "c0af964d264c0e93c3aac0bbf4ca3724670376cd",
+      "consumed_test": "Causal ablation 11/11; L1=MECHANISM_ONLY_PASS; L2=NOT_DEMONSTRATED; L3=INCONCLUSIVE; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/mrx-causal-ablation-2026-11-07/CAUSAL-ABLATION-RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T03:43:55.404414+00:00"
+  "updated_at": "2026-11-07T03:47:34.897990+00:00"
 }
