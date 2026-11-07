@@ -731,14 +731,18 @@
         "docs/research/sd03-root-cause-2026-11-07/",
         "build/reports/sd03-root-cause/"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T05:45:51.190887+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T05:51:16.998713+00:00",
       "audit_event_ids": [
-        "ev-1794030351191-80a2c3"
+        "ev-1794030351191-80a2c3",
+        "ev-1794030676998-4c9a9a"
       ],
-      "content_hash": "30500dd753c0ca88c3063079573257ecb1cd14f37bcb924f292748bb381b5654"
+      "content_hash": "30500dd753c0ca88c3063079573257ecb1cd14f37bcb924f292748bb381b5654",
+      "consumed_commit": "e426c180e45a914968b8dd4ad134d3f88377490a",
+      "consumed_test": "Root-cause 2/2; A0=0 sources rhs atom missing; A1=4 but cap hit; GOLD 40/20/21; macro binding RED->GREEN; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd03-root-cause-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T05:45:51.207047+00:00"
+  "updated_at": "2026-11-07T05:51:17.005954+00:00"
 }
