@@ -610,14 +610,18 @@
         "docs/research/sd-03-2026-11-07/",
         "SD-03-STUDENT-ABSTRACTION-LOOP-2026-11-07-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T04:28:40.563242+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T04:32:28.986824+00:00",
       "audit_event_ids": [
-        "ev-1794025720563-4446c1"
+        "ev-1794025720563-4446c1",
+        "ev-1794025948986-48fab6"
       ],
-      "content_hash": "ee80296780dd3bee31e67c82f7b83c789e3edb2d0149d398bb8636aec24174af"
+      "content_hash": "ee80296780dd3bee31e67c82f7b83c789e3edb2d0149d398bb8636aec24174af",
+      "consumed_commit": "00ffe2336b7b96d154c89c8543cf1a2ec4486276",
+      "consumed_test": "SD03 negative loop 1/1; G0=PASS_LIMITED; G1=NOT_DEMONSTRATED; G2-G4=NOT_RUN; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd-03-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T04:28:40.577119+00:00"
+  "updated_at": "2026-11-07T04:32:29.000132+00:00"
 }
