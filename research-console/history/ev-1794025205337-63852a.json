@@ -1,0 +1,62 @@
+{
+  "event_id": "ev-1794025205337-63852a",
+  "at": "2026-11-07T04:20:05.337650+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07 consumed",
+  "before": {
+    "repair_id": "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-02 parametric abstraction: typed anti-unification of verified source programs, typed holes, reconstruction, executable macro type-check/interpreter call, and honest G0-G3 evidence. No full regression, no 160-run formal exam, no historical changes.",
+    "approval_reference": "Research-owner default authorization for subsequent tasks, 2026-11-07.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD02*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD02*.kt",
+      "docs/research/sd-02-2026-11-07/",
+      "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T04:18:07.132698+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794025087132-ecd4d1"
+    ],
+    "content_hash": "9769c361265d922bf46755d877349b6e494d6ba2c94e2c8389875d6d42cecd97"
+  },
+  "after": {
+    "repair_id": "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-02 parametric abstraction: typed anti-unification of verified source programs, typed holes, reconstruction, executable macro type-check/interpreter call, and honest G0-G3 evidence. No full regression, no 160-run formal exam, no historical changes.",
+    "approval_reference": "Research-owner default authorization for subsequent tasks, 2026-11-07.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD02*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD02*.kt",
+      "docs/research/sd-02-2026-11-07/",
+      "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-07T04:18:07.132698+00:00",
+    "consumed_at": "2026-11-07T04:20:05.337483+00:00",
+    "audit_event_ids": [
+      "ev-1794025087132-ecd4d1"
+    ],
+    "content_hash": "9769c361265d922bf46755d877349b6e494d6ba2c94e2c8389875d6d42cecd97",
+    "consumed_commit": "e72fdb28615caa8111738c1d171716aa287814fe",
+    "consumed_test": "SD02 anti-unification 3/3; G1=MECHANISM_ONLY_PASS; G2=NOT_DEMONSTRATED; G3=NOT_DEMONSTRATED; fullRegression=NOT_RUN; formal_runs=0",
+    "consumed_report": "docs/research/sd-02-2026-11-07/RESULT.md"
+  }
+}

@@ -580,14 +580,18 @@
         "docs/research/sd-02-2026-11-07/",
         "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T04:18:07.132698+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T04:20:05.337483+00:00",
       "audit_event_ids": [
-        "ev-1794025087132-ecd4d1"
+        "ev-1794025087132-ecd4d1",
+        "ev-1794025205337-63852a"
       ],
-      "content_hash": "9769c361265d922bf46755d877349b6e494d6ba2c94e2c8389875d6d42cecd97"
+      "content_hash": "9769c361265d922bf46755d877349b6e494d6ba2c94e2c8389875d6d42cecd97",
+      "consumed_commit": "e72fdb28615caa8111738c1d171716aa287814fe",
+      "consumed_test": "SD02 anti-unification 3/3; G1=MECHANISM_ONLY_PASS; G2=NOT_DEMONSTRATED; G3=NOT_DEMONSTRATED; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd-02-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T04:18:07.140893+00:00"
+  "updated_at": "2026-11-07T04:20:05.351018+00:00"
 }
