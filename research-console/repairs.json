@@ -772,7 +772,33 @@
       "consumed_commit": "e676570cc7bb58444b86607736f48c526e021543",
       "consumed_test": "Blind 36 runs; ATTRIBUTION 12/12 ABSTAIN; C=38 G=32 A=38; G3/G4/G5 NOT_DEMONSTRATED/NO_BENEFIT; fullRegression=NOT_RUN; formal_runs=0",
       "consumed_report": "docs/research/sd03-blind-attribution-2026-11-07/RESULT.md"
+    },
+    {
+      "repair_id": "SD-03-BLIND-ATTRIBUTION-R2-2026-11-07",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "SD-03 blind attribution R2: prediction-signature identifiability, real 12-task x 3-arm integration, bounded evidence-based probe, honest G0-G5 status. No SD-04, no full regression, no 160 formal exam, no historical changes.",
+      "approval_reference": "Research-owner request 2026-11-07 and default authorization.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "SD-03-BLIND-ATTRIBUTION-R2-2026-11-07",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/SD03*.kt",
+        "src/test/kotlin/logic/e3/pack02/SD03*.kt",
+        "docs/research/sd03-blind-r2-2026-11-07/",
+        "SD-03-BLIND-ATTRIBUTION-R2-2026-11-07-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-07T06:43:43.499142+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794033823499-62789e"
+      ],
+      "content_hash": "6f11477aac983138bfeaba7f724acafdd6cb8b8ca09f88ff5a521809d6adc194"
     }
   ],
-  "updated_at": "2026-11-07T06:12:07.502332+00:00"
+  "updated_at": "2026-11-07T06:43:43.513023+00:00"
 }

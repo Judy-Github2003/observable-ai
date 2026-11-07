@@ -38,6 +38,7 @@
 | SD-03 Data Closure 2026-11-07 | 修复恒假 B、40/20/21 分割、自由变量封闭 | **旧 B 0/81 True；新 B 9/72；A 来源池 0，B 4；NO_VERIFIED_SOURCE_POOL；G0 NOT_DEMONSTRATED** |
 | SD-03 Root Cause 2026-11-07 | A0–A3/B0 原子排序消融、GOLD、宏绑定 | **H1 支持（A0 漏 d=1，0 来源）；A1 恢复但撞 30k；GOLD 40/20/21 通过；宏 caller key RED→GREEN** |
 | SD-03 Blind Attribution 2026-11-07 | 12 盲任务×3 arms，外部归因 | **36 runs；ATTRIBUTION 12/12 ABSTAIN；C=38/G=32/A=38；G3/G4/G5 NOT_DEMONSTRATED/NO_BENEFIT** |
+| SD-03 Blind Attribution R2 2026-11-07 | 预测签名可辨识性、1 次真实探针 | **36 runs；11 ABSTAIN + 1 PAIRWISE_12；探针 0 来源且撞 30k；G2/G3 PASS_LIMITED；G4 NO_BENEFIT** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -253,6 +254,13 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - Challenge pass 总数：CONTROL 38，GENERIC 32，ATTRIBUTION 38；**相对 CONTROL 收益 0**。
 - G0/G1 PASS_LIMITED；G2/G3/G5 NOT_DEMONSTRATED；G4 NO_BENEFIT。
 - 记录：[预注册](./docs/research/sd03-blind-attribution-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-blind-attribution-2026-11-07/RESULT.md)、[TRACE](./docs/research/sd03-blind-attribution-2026-11-07/TRACE-BLIND.jsonl)。
+
+### SD-03 Blind Attribution R2 2026-11-07：签名可辨识性修复
+
+- 用相反标签 TRAIN 对在保留原子上的真实预测签名判断不可区分，不再把“属性存在”当信息足够。
+- 12 task-seeds：11 ABSTAIN，1 个真实 witness 触发 `PAIRWISE_12` 探针。
+- 探针仍 0 来源、generated=30,000 capHit；ATTRIBUTION/Control 均 38 pass、HELDOUT 210；G4 NO_BENEFIT。
+- 记录：[预注册](./docs/research/sd03-blind-r2-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-blind-r2-2026-11-07/RESULT.md)、[DECISIONS](./docs/research/sd03-blind-r2-2026-11-07/DECISIONS-R2.jsonl)。
 
 ### Research Console（本地）
 

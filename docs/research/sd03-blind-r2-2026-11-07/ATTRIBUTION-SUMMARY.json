@@ -1,0 +1,37 @@
+{
+  "tasks": 12,
+  "task_seeds": 12,
+  "arms": 36,
+  "actions": {
+    "ABSTAIN": 11,
+    "PAIRWISE_12": 1
+  },
+  "decisions": {
+    "NO_OBSERVED_SIGNATURE_OBSTRUCTION_ABSTAIN": 11,
+    "BOUNDED_TRAIN_ONLY_DISCRIMINATION_PROBE_NOT_CAUSAL_PROOF": 1
+  },
+  "CONTROL": {
+    "sourcePass": 38,
+    "heldoutCorrect": 210,
+    "oracleNew": 200,
+    "oracleReuse": 580,
+    "validationCalls": 780,
+    "generationWall": 22788
+  },
+  "GENERIC": {
+    "sourcePass": 24,
+    "heldoutCorrect": 126,
+    "oracleNew": 120,
+    "oracleReuse": 400,
+    "validationCalls": 520,
+    "generationWall": 23998
+  },
+  "ATTRIBUTION": {
+    "sourcePass": 38,
+    "heldoutCorrect": 210,
+    "oracleNew": 200,
+    "oracleReuse": 580,
+    "validationCalls": 780,
+    "generationWall": 22617
+  }
+}
