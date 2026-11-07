@@ -913,14 +913,18 @@
         "src/test/kotlin/logic/e3/pack02/SD03EvidenceCompositionE1ContractTest.kt",
         "docs/research/sd03-e1-development-2026-11-07/"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T11:04:27.144736+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T11:07:07.245129+00:00",
       "audit_event_ids": [
-        "ev-1794049467145-eae800"
+        "ev-1794049467145-eae800",
+        "ev-1794049627245-406869"
       ],
-      "content_hash": "03aea0ecbf9da924becf2054f23cec457fa903c85d5f5e3dfb3912efc5e9f38f"
+      "content_hash": "03aea0ecbf9da924becf2054f23cec457fa903c85d5f5e3dfb3912efc5e9f38f",
+      "consumed_commit": "3ddf14258d669e4c6764d0cb82de38961fea0a15",
+      "consumed_test": "E1 9/9; nested E1_DEPTH_4 1 pass/HELDOUT 20/21 vs baselines 0; overall 3 vs 11/9; MIXED; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd03-e1-development-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T11:04:27.159035+00:00"
+  "updated_at": "2026-11-07T11:07:07.251811+00:00"
 }
