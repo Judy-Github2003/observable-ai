@@ -43,6 +43,7 @@
 | SD-03 R3.1 2026-11-07 | 30k 预算下 IF/OR 枚举因果 | **LEGACY IF 0/1728 全被 cap 拒；QUOTA_IF12/24 IF 接纳但 TRAIN consistent=0；nestedIf=0；NO_BENEFIT** |
 | SD-03 R3.2 2026-11-07 | 枚举公平、角色覆盖、受限嵌套 | **LEX whenTrue 仅 10/24；ROTATING 24/24；NESTED 接纳 2860；三组 TRAIN consistent=0；NO_BENEFIT** |
 | SD-03 E1 2026-11-07 | TRAIN 证据驱动递归条件组合 | **nested 任务 E1_DEPTH_4 1 pass/HELDOUT 20/21，两基线 0；总体 3 pass vs 11/9；MIXED** |
+| SD-03 E2 2026-11-07 | 主动查询 + 局部修复 | **16 runs；ACTIVE_FULL 7 QUERY；四臂均 2 pass/42 heldout；local repairs=0；NO_BENEFIT** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -298,6 +299,14 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - E1_DEPTH_1 全 0，说明递归深度必要；但 E1 总体 3 pass vs LEGACY 11/R32 9，总 HELDOUT 62/63 vs 63/63，**总体无优势**。
 - 开发任务公开，非独立闭卷；未注册/激活能力。
 - 记录：[预注册](./docs/research/sd03-e1-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-e1-development-2026-11-07/RESULT.md)、[EXAMINER](./docs/research/sd03-e1-development-2026-11-07/EXAMINER-AFTER-FREEZE.jsonl)。
+
+### SD-03 E2 2026-11-07：主动查询与局部修复
+
+- 4 任务×4 arms：STATIC/RANDOM/ACTIVE_FULL/ACTIVE_LOCAL 均 2 pass、HELDOUT 42/42（仅初始成功任务）。
+- ACTIVE_FULL 有 7 个真实预测分歧 QUERY，决策先冻结再 reveal；但 refit 未改变 Challenge。
+- ACTIVE_LOCAL 的 local repairs=0；没有非根局部替换，不能把整体 refit 当局部修复。
+- ACTIVE_FULL preview 30,240 vs 其他 1,920/5,490，成本更高无收益；`NO_BENEFIT`。
+- 记录：[预注册](./docs/research/sd03-e2-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-e2-development-2026-11-07/RESULT.md)、[EXAMINER](./docs/research/sd03-e2-development-2026-11-07/EXAMINER-AFTER-FREEZE.jsonl)。
 
 ### Research Console（本地）
 
