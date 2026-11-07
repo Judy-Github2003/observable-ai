@@ -32,6 +32,7 @@
 | MRX Causal 2026-11-07 | LIVE / FROZEN / NO_HYP 消融、历史反例语义、成本审计 | **L1 MECHANISM_ONLY_PASS；L2 REAL_PAIR_NOT_FOUND；L3 INCONCLUSIVE；建议暂停 MRX 假说线路** |
 | SD-01 2026-11-07 | 通用组合候选、CHALLENGE 验证、结构固化/迁移 | **SD0_PASS_LIMITED；SD1 NOT_DEMONSTRATED（仅 PROGRAM_INSTANCE）；XOR 无结构；无成本收益** |
 | SD-02 2026-11-07 | typed anti-unification、holes、可执行宏、注册/迁移 | **G1 MECHANISM_ONLY_PASS（fixture 来源）；G2 可执行但未注册；G3 NOT_DEMONSTRATED** |
+| SD-03 2026-11-07 | 真实学生来源→LGG→可执行宏闭环 | **G0 PASS_LIMITED；G1 NOT_DEMONSTRATED（IRRELEVANT_SOURCE_DIFFERENCE）；G2–G4 NOT_RUN** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -201,6 +202,13 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 来源不是学生账本验证程序；迁移/ENABLED-DISABLED 真实对照未做，**G3 NOT_DEMONSTRATED**。
 - 记录：[预注册](./docs/research/sd-02-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd-02-2026-11-07/RESULT.md)。
 
+### SD-03 2026-11-07：真实来源结构闭环
+
+- 两个匿名开发任务经 `MRX2BSpace` + `MRX2Ledger.validate` 找到两个不同 challenge-pass 来源；无 truth lambda 进入学生侧。
+- 现有 `SD02AntiUnify` 对两个来源返回 `IRRELEVANT_SOURCE_DIFFERENCE`，未形成非退化参数化宏；**G1 NOT_DEMONSTRATED**。
+- 无注册/激活、无真实迁移/禁用重跑；`formal_runs=0`、`fullRegression=NOT_RUN`。
+- 记录：[预注册](./docs/research/sd-03-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd-03-2026-11-07/RESULT.md)、[TRACE](./docs/research/sd-03-2026-11-07/TRACE-SD03.jsonl)。
+
 ### Research Console（本地）
 
 研究门禁、任务状态和证据记录在 `research-console/`。网页控制台只绑定本机：
@@ -358,6 +366,7 @@ src/main/kotlin/logic/
     MRXLive.kt                               MRX Live 行动前假说/真实 observation 适配器
     SD01.kt                                  SD-01 结构发现/候选验证/迁移骨架
     SD02.kt                                  SD-02 typed anti-unification/宏执行契约
+    SD03.kt                                  SD-03 真实学生来源/反统一闭环
 
 experiments/
   curriculum/       课程计划、规则目录 rules.json、批量教材 curriculum.json

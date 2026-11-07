@@ -1,0 +1,1 @@
+﻿No valid business RED was captured for SD-03: first attempts failed at custom-world coverage/type import, then the two-source path produced a negative LGG result. The negative path is recorded in RESULT.md; not reported as G1/G2/G3 success.
