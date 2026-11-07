@@ -29,6 +29,7 @@
 | EH-001/002/003 | 证据来源计量、`quickTest` 分层、零淘汰 observation | **完成；默认 quickTest 14 项；全量回归仍只在授权时运行** |
 | MRX Next 2026-11-07 | 可见证据→竞争失败假说→下一步真实实验 | **真实 W4/XOR 轨迹与 trace 完成；C1/C2 部分，C3 未证明，C4 INCONCLUSIVE** |
 | MRX Live 2026-11-07 | 行动前假说快照、真实 observation 更新、可区分行动选择 | **真实 A/B 轨迹完成；C1/C2 PASS_LIMITED，C3 NOT_DEMONSTRATED，C4 NO_BENEFIT** |
+| MRX Causal 2026-11-07 | LIVE / FROZEN / NO_HYP 消融、历史反例语义、成本审计 | **L1 MECHANISM_ONLY_PASS；L2 REAL_PAIR_NOT_FOUND；L3 INCONCLUSIVE；建议暂停 MRX 假说线路** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -171,9 +172,18 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - **C3 严格配对：NOT_DEMONSTRATED**：A/B 首个真实反馈已不同，A 只有 1 个 action；未找到同前缀、第二反馈不同的配对。
 - **C4 收益：INCONCLUSIVE / NO_BENEFIT**：A 成功但仅 1 action；B 失败；无同轮 STATIC/RULE 配对。
 - 匿名 session id 为 `session-a/b`，不含 W4/XOR 等家族名；HELDOUT/目标真值不进入学生。
-- 未实现 `LIVE_FROZEN_BELIEF`/`LIVE_NO_HYP` 消融；`formal_runs=0`。
+- `LIVE_FROZEN_BELIEF`/`LIVE_NO_HYP` 仅在决策器消融层实现；未接入真实同轮执行。`formal_runs=0`。
 
 记录：[RESULT](./docs/research/mrx-live-2026-11-07/RESULT.md)、[RED](./docs/research/mrx-live-2026-11-07/RED.log)、[GREEN](./docs/research/mrx-live-2026-11-07/GREEN.log)、[TRACE A](./docs/research/mrx-live-2026-11-07/TRACE-session-a.jsonl)、[TRACE B](./docs/research/mrx-live-2026-11-07/TRACE-session-b.jsonl)。
+
+### MRX Causal Ablation 2026-11-07：信念是否真的影响选择
+
+- **L1 机制敏感性：MECHANISM_ONLY_PASS**：同一决策器在“反例”与“预算耗尽”两个语义快照上选择不同；FROZEN/NO_HYP 不产生同样的信念依赖。合成 fixture，不等于真实学习因果。
+- **L2 严格配对：REAL_PAIR_NOT_FOUND / NOT_DEMONSTRATED**：只检查 2 个匿名 session；首步真实反馈已不同，A 只有 1 个 action；未做 24×8 有界搜索。
+- **L3 收益：INCONCLUSIVE**：无同轮 LIVE/FROZEN/NO_HYP 真实执行；`newQueries=0` 与 ledger 条数不一致，成本标 `UNRELIABLE`。
+- 语义修正：后续 PASS 不再把历史反例标为 REFUTED；但假说仍缺 candidate/scope 结构化字段。
+- 研究决策：建议暂停 MRX 实时假说线路，转向候选结构/表达空间扩展。
+- 记录：[预注册](./docs/research/mrx-causal-ablation-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/mrx-causal-ablation-2026-11-07/CAUSAL-ABLATION-RESULT.md)。
 
 ### Research Console（本地）
 

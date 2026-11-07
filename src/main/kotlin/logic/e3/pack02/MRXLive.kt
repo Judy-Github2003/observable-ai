@@ -73,6 +73,32 @@ object MRXLiveActionModel {
     )
 }
 
+/** 预注册消融：LIVE 读实时快照；FROZEN 只读首次基线后冻结的快照；NO_HYP 走固定中性队列。 */
+object MRXLiveAblation {
+    private val neutralOrder = listOf("DNF", "IF", "CNF", "KNOWLEDGE", "BUDGET")
+
+    fun decide(
+        strategy: String,
+        live: MRXLiveSnapshot,
+        frozen: MRXLiveSnapshot,
+        actions: List<MRXLiveActionEvaluation>,
+        remainingBudget: Int,
+        tried: Set<String>,
+    ): MRXLiveDecision = when (strategy) {
+        "LIVE_FROZEN_BELIEF" -> MRXLiveEngine.evaluate(frozen, actions, remainingBudget, tried)
+            .copy(rationale = "FROZEN_BELIEF_V${frozen.version}; " + MRXLiveEngine.evaluate(frozen, actions, remainingBudget, tried).rationale)
+        "LIVE_NO_HYP" -> {
+            val action = neutralOrder.firstOrNull { it !in tried } ?: "STOP"
+            MRXLiveDecision(
+                live.version, action,
+                "NO_HYP_FIXED_NEUTRAL_ORDER; no belief/hypothesis/teacher-prior mapping read",
+                emptyList(),
+            )
+        }
+        else -> MRXLiveEngine.evaluate(live, actions, remainingBudget, tried)
+    }
+}
+
 object MRXLiveTraceWriter {
     fun write(path: java.nio.file.Path, sessionId: String, result: MRX2Result) {
         java.nio.file.Files.createDirectories(path.parent)
@@ -170,25 +196,27 @@ object MRXLiveEngine {
                     observation.feedback.contains("NO_CANDIDATE") ||
                         observation.feedback.contains("ALL_REFUTED") ||
                         observation.feedback.contains("UNVERIFIED") -> support += evidenceId
-                    observation.feedback == "PASS_ON_CHALLENGE" -> refute += evidenceId
+                    // PASS_ON_CHALLENGE 只限定当前候选/范围，不能撤销历史结构不足。
+                    observation.feedback == "PASS_ON_CHALLENGE" -> unknown += evidenceId
                     else -> unknown += evidenceId
                 }
                 "H_COUNTEREXAMPLE_PRESSURE" -> when {
                     observation.counterexamples > 0 ||
                         observation.feedback.contains("COUNTEREXAMPLE") -> support += evidenceId
-                    observation.feedback == "PASS_ON_CHALLENGE" -> refute += evidenceId
+                    // 历史反例事实保留；新候选 PASS 不等于历史反例未发生。
+                    observation.feedback == "PASS_ON_CHALLENGE" -> unknown += evidenceId
                     else -> unknown += evidenceId
                 }
                 "H_BUDGET_LIMIT" -> when {
                     observation.budgetRemaining <= 0 ||
                         observation.feedback.contains("BUDGET_EXHAUSTED") -> support += evidenceId
-                    observation.feedback == "PASS_ON_CHALLENGE" -> refute += evidenceId
+                    observation.feedback == "PASS_ON_CHALLENGE" -> unknown += evidenceId
                     else -> unknown += evidenceId
                 }
                 "H_UNKNOWN_EXECUTION" -> when {
                     observation.feedback.contains("UNKNOWN") ||
                         observation.feedback.contains("ERROR") -> support += evidenceId
-                    observation.feedback == "PASS_ON_CHALLENGE" -> refute += evidenceId
+                    observation.feedback == "PASS_ON_CHALLENGE" -> unknown += evidenceId
                     else -> unknown += evidenceId
                 }
             }

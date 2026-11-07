@@ -500,7 +500,34 @@
       "consumed_commit": "0e0dddce4debf39287f719d1e39e52699cb0411b",
       "consumed_test": "MRXLive 8/8; quickTest 14/14; C3=NOT_DEMONSTRATED; formal_runs=0; fullRegression=NOT_RUN",
       "consumed_report": "docs/research/mrx-live-2026-11-07/RESULT.md"
+    },
+    {
+      "repair_id": "MRX-CAUSAL-ABLATION-2026-11-07",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "MRX causal ablation: LIVE vs LIVE_FROZEN_BELIEF vs LIVE_NO_HYP decision sensitivity, scoped hypothesis semantics, real-prefix pair search where feasible, and honest L1/L2/L3 reporting. No 160-run formal exam, no full regression, no historical result changes.",
+      "approval_reference": "Research-owner message 2026-11-07: '后续一律默认授权' and this package's execution request.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "MRX-CAUSAL-ABLATION-2026-11-07",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/MRXLive*.kt",
+        "src/main/kotlin/logic/e3/pack02/MRX2Student.kt",
+        "src/test/kotlin/logic/e3/pack02/MRXLive*.kt",
+        "docs/research/mrx-causal-ablation-2026-11-07/",
+        "MRX-CAUSAL-ABLATION-2026-11-07-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-07T03:43:55.390709+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794023035391-d8b271"
+      ],
+      "content_hash": "0359491bb293202427a3383c94463a304eb716a16bc89463d820bd7a4dd84579"
     }
   ],
-  "updated_at": "2026-11-07T03:26:16.628049+00:00"
+  "updated_at": "2026-11-07T03:43:55.404414+00:00"
 }

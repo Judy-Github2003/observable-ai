@@ -1,4 +1,4 @@
-// 本文件实现：DeepSeek Harness（本会话），2026-11-07。
+﻿// 本文件实现：DeepSeek Harness（本会话），2026-11-07。
 // 原因：MRX 实时假说契约：先观察业务 RED，再实现 update/evaluate。
 package logic.e3.pack02
 
@@ -77,6 +77,45 @@ class MRXLiveHypothesisContractTest {
         val decision = MRXLiveEngine.evaluate(initial, listOf(a, b), 10)
         assertTrue(decision.chosenAction in setOf("STOP", "REQUEST_TEACHER", "INSUFFICIENT_INFORMATION"))
         assertTrue(decision.rationale.contains("UNKNOWN") || decision.rationale.contains("unknown"))
+    }
+
+    @Test
+    fun `live frozen and no-hyp ablations have different causal inputs`() {
+        val counter = MRXLiveEngine.update(MRXLiveEngine.initial(), obs("obs-counter", "COUNTEREXAMPLE", 1))
+        val budget = MRXLiveEngine.update(MRXLiveEngine.initial(), obs("obs-budget", "BUDGET_EXHAUSTED", 0, remaining = 0))
+        val actions = MRXLiveActionModel.evaluations()
+        val liveA = MRXLiveAblation.decide("LIVE_HYPOTHESIS", counter, MRXLiveEngine.initial(), actions, 10, emptySet())
+        val liveB = MRXLiveAblation.decide("LIVE_HYPOTHESIS", budget, MRXLiveEngine.initial(), actions, 10, emptySet())
+        assertNotEquals(liveA.chosenAction, liveB.chosenAction)
+        val frozenA = MRXLiveAblation.decide("LIVE_FROZEN_BELIEF", counter, MRXLiveEngine.initial(), actions, 10, emptySet())
+        val frozenB = MRXLiveAblation.decide("LIVE_FROZEN_BELIEF", budget, MRXLiveEngine.initial(), actions, 10, emptySet())
+        assertEquals(frozenA.chosenAction, frozenB.chosenAction)
+        val noHypA = MRXLiveAblation.decide("LIVE_NO_HYP", counter, MRXLiveEngine.initial(), actions, 10, emptySet())
+        val noHypB = MRXLiveAblation.decide("LIVE_NO_HYP", budget, MRXLiveEngine.initial(), actions, 10, emptySet())
+        assertEquals(noHypA.chosenAction, noHypB.chosenAction)
+        assertEquals("DNF", noHypA.chosenAction)
+        assertTrue(noHypA.evaluations.isEmpty())
+        assertTrue(noHypA.rationale.contains("NO_HYP"))
+    }
+
+    @Test
+    fun `changing only evidence id does not change content decision`() {
+        val a = MRXLiveEngine.update(MRXLiveEngine.initial(), obs("obs-a", "COUNTEREXAMPLE", 1))
+        val b = MRXLiveEngine.update(MRXLiveEngine.initial(), obs("obs-b", "COUNTEREXAMPLE", 1))
+        val actions = MRXLiveActionModel.evaluations()
+        val da = MRXLiveAblation.decide("LIVE_HYPOTHESIS", a, MRXLiveEngine.initial(), actions, 10, emptySet())
+        val db = MRXLiveAblation.decide("LIVE_HYPOTHESIS", b, MRXLiveEngine.initial(), actions, 10, emptySet())
+        assertEquals(da.chosenAction, db.chosenAction)
+    }
+
+    @Test
+    fun `historical counterexample survives later pass`() {
+        val counter = MRXLiveEngine.update(MRXLiveEngine.initial(), obs("obs-counter", "COUNTEREXAMPLE", 1))
+        val afterPass = MRXLiveEngine.update(counter, obs("obs-pass", "PASS_ON_CHALLENGE", 0))
+        val h = afterPass.hypotheses.single { it.id == "H_COUNTEREXAMPLE_PRESSURE" }
+        assertTrue("obs-counter" in h.supportIds)
+        assertNotEquals(MRXLiveHypothesisStatus.REFUTED, h.status)
+        assertTrue(h.refuteIds.isEmpty())
     }
 
     @Test
