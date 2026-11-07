@@ -821,14 +821,18 @@
         "docs/research/sd03-r3-development-2026-11-07/",
         "SD-03-SEQUENTIAL-ATTRIBUTION-R3-2026-11-07-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T09:34:17.654543+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T09:40:39.943696+00:00",
       "audit_event_ids": [
-        "ev-1794044057654-20b08a"
+        "ev-1794044057654-20b08a",
+        "ev-1794044439943-ca6fb2"
       ],
-      "content_hash": "c78e8ac8e802f32f3d5d93b35a5c4a9dd47bfc00482ebc2802a9c12a376355d3"
+      "content_hash": "c78e8ac8e802f32f3d5d93b35a5c4a9dd47bfc00482ebc2802a9c12a376355d3",
+      "consumed_commit": "065c5ebb3c886afd6c853f0c47f180b0dd566f7b",
+      "consumed_test": "R3 10/10; 2 dev tasks; edb6 probe->AUDIT_GENERATION_CAP 0 sources capHit; CONTROL=ATTRIBUTION 3/21; G3 diagnostic only; G4 NO_BENEFIT; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd03-r3-development-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T09:34:17.660670+00:00"
+  "updated_at": "2026-11-07T09:40:39.949253+00:00"
 }
