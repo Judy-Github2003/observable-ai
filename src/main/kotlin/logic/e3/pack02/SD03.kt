@@ -154,7 +154,9 @@ object SD03StudentLoop {
         )
         val resolver = InMemoryResolver(definitions + macro)
         val result = if (CapabilityTypeChecker(resolver).check(caller).ok) {
-            val values = params.mapValues { (_, type) -> EvalResult.Known(defaultValue(type)) }
+            val values: Map<String, EvalResult> = params.map { (id, type) ->
+                "call_$id" to EvalResult.Known(defaultValue(type))
+            }.toMap()
             CapabilityInterpreter(resolver).execute(caller, values, EvalBudget(maxSteps = 1000))
         } else null
         return SD03Run(sources, pattern, macro, result, "MECHANISM_CALL_ONLY_NOT_REGISTERED")
