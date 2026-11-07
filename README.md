@@ -41,6 +41,7 @@
 | SD-03 Blind Attribution R2 2026-11-07 | 预测签名可辨识性、1 次真实探针 | **36 runs；11 ABSTAIN + 1 PAIRWISE_12；探针 0 来源且撞 30k；G2/G3 PASS_LIMITED；G4 NO_BENEFIT** |
 | SD-03 Sequential R3 2026-11-07 | 第一次探针失败后的第二决策 | **2 开发任务；edb6 第二次改选 AUDIT_GENERATION_CAP；0 来源/capHit；G3 仅诊断；G4 NO_BENEFIT** |
 | SD-03 R3.1 2026-11-07 | 30k 预算下 IF/OR 枚举因果 | **LEGACY IF 0/1728 全被 cap 拒；QUOTA_IF12/24 IF 接纳但 TRAIN consistent=0；nestedIf=0；NO_BENEFIT** |
+| SD-03 R3.2 2026-11-07 | 枚举公平、角色覆盖、受限嵌套 | **LEX whenTrue 仅 10/24；ROTATING 24/24；NESTED 接纳 2860；三组 TRAIN consistent=0；NO_BENEFIT** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -281,6 +282,13 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 直接证据：IF 不是不可表达，而是被 OR 先耗尽预算；但恢复 IF 不等于任务可解。
 - Challenge/HELDOUT 三组均 0；`NO_BENEFIT`；未声称学生自主修复。
 - 记录：[预注册](./docs/research/sd03-r31-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-r31-development-2026-11-07/RESULT.md)、[FROZEN](./docs/research/sd03-r31-development-2026-11-07/FROZEN-BEFORE-GRADING.jsonl)。
+
+### SD-03 R3.2 2026-11-07：枚举顺序与受限嵌套
+
+- LEX_DIRECT24 的 `whenTrue` 角色只覆盖 10/24；ROTATING_DIRECT24 覆盖 24/24，证明覆盖差异来自顺序。
+- ROTATING_NESTED24 实际接纳 2,860 个嵌套 If；但这是语法+配额再分配的联合干预。
+- 三组 generated≈29,044、TRAIN consistent=0、Challenge=0、无 HELDOUT；`NO_BENEFIT`。
+- 记录：[预注册](./docs/research/sd03-r32-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-r32-development-2026-11-07/RESULT.md)、[FROZEN](./docs/research/sd03-r32-development-2026-11-07/FROZEN-BEFORE-GRADING.jsonl)。
 
 ### Research Console（本地）
 

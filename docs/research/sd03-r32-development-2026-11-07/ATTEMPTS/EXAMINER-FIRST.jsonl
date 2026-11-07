@@ -1,0 +1,3 @@
+{"arm":"LEX_DIRECT24","freezeHash":"b772e48ffa2285cbd861a5e8cbc06062f80ce88e87eae5753038c03766f6d136","challengePass":0,"selected":null,"heldoutCorrect":null,"heldoutTotal":21,"oracleNew":0,"oracleReuse":0,"gradeInterpreterCalls":0}
+{"arm":"ROTATING_DIRECT24","freezeHash":"d7798aca31dc7de5787ad0482c94b09ba8b5974d138aa08dee629c34191cc049","challengePass":0,"selected":null,"heldoutCorrect":null,"heldoutTotal":21,"oracleNew":0,"oracleReuse":0,"gradeInterpreterCalls":0}
+{"arm":"ROTATING_NESTED24","freezeHash":"03548705912b90bd479f64083d2f36e672d2cb5c56f5636b31a6059614b36bf8","challengePass":0,"selected":null,"heldoutCorrect":null,"heldoutTotal":21,"oracleNew":0,"oracleReuse":0,"gradeInterpreterCalls":0}

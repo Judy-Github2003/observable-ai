@@ -74,6 +74,7 @@ class MRX2BSpace(
     private val r31Schedule: MRX2BR31Schedule = MRX2BR31Schedule.LEGACY,
     private val r31Quotas: MRX2BR31Quotas = MRX2BR31Quotas(),
     private val r31IfLiteralLimit: Int = 12,
+    private val r32IfPolicy: MRX2BR32IfPolicy = MRX2BR32IfPolicy.R31_LEXICOGRAPHIC,
 ) {
     private val inputTypes = inputNames.associateWith { CapType.Str }
     private val resolver = InMemoryResolver(library)
@@ -147,10 +148,35 @@ class MRX2BSpace(
         } else {
             terms.forEach { admit(it, if (it is Expr.And) MRX2BR31Family.AND else MRX2BR31Family.LITERAL) }
             val simple = literals.take(r31IfLiteralLimit)
-            // Condition is innermost: rotate it over the entire visible literal
-            // space before exhausting the reserved If quota.
-            for (a in simple) for (b in simple) for (c in simple)
-                admit(Expr.If(c, a, b), MRX2BR31Family.IF)
+            when (r32IfPolicy) {
+                MRX2BR32IfPolicy.R31_LEXICOGRAPHIC, MRX2BR32IfPolicy.ROTATING_DIRECT -> {
+                    for (t in MRX2BR32Enumeration.direct(simple.size, r32IfPolicy)) {
+                        admit(Expr.If(simple[t.condition], simple[t.whenTrue], simple[t.whenFalse]),
+                            MRX2BR31Family.IF)
+                    }
+                }
+                MRX2BR32IfPolicy.ROTATING_WITH_NESTED -> {
+                    // Same 5,720 IF-family admission ceiling, replacing its second
+                    // half with a restricted double-nested grammar. This is a
+                    // budget-allocation intervention, NOT a pure grammar-only test.
+                    val half = r31Quotas.ifTerms / 2
+                    for (t in MRX2BR32Enumeration.direct(simple.size,
+                        MRX2BR32IfPolicy.ROTATING_DIRECT).take(half)) {
+                        admit(Expr.If(simple[t.condition], simple[t.whenTrue], simple[t.whenFalse]),
+                            MRX2BR31Family.IF)
+                    }
+                    for (t in MRX2BR32Enumeration.nested(simple.size)) {
+                        val nested = Expr.If(
+                            simple[t.outerCondition],
+                            Expr.If(simple[t.trueCondition],
+                                simple[t.trueWhenTrue], simple[t.trueWhenFalse]),
+                            Expr.If(simple[t.falseCondition],
+                                simple[t.falseWhenTrue], simple[t.falseWhenFalse]),
+                        )
+                        admit(nested, MRX2BR31Family.IF)
+                    }
+                }
+            }
             for (i in terms.indices) for (j in i until terms.size)
                 admit(Expr.Or(terms[i], terms[j]), MRX2BR31Family.OR)
         }
