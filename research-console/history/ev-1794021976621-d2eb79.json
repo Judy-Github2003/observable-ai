@@ -1,0 +1,68 @@
+{
+  "event_id": "ev-1794021976621-d2eb79",
+  "at": "2026-11-07T03:26:16.621455+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "MRX-LIVE-HYP-2026-11-07 consumed",
+  "before": {
+    "repair_id": "MRX-LIVE-HYP-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX live hypothesis experiment: optional LIVE_HYPOTHESIS mode with before-action immutable hypothesis snapshots, real observation updates, generic action-discrimination evaluation, and development traces. Preserve FIXED/STATIC/DYNAMIC and historical JSON; no unfiltered test/build/check; no 160-run formal exam.",
+    "approval_reference": "Research-owner message 2026-11-07: '后续一律默认授权' in response to the MRX-LIVE-HYP-2026-11-07 Console-gate authorization request.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-LIVE-HYP-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "src/main/kotlin/logic/e3/pack02/MRX2Student.kt",
+      "src/test/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "docs/research/mrx-live-hyp-2026-11-07/",
+      "experiments/representation-evolution-e3/reports/mrx-live-*.json",
+      "experiments/representation-evolution-e3/reports/mrx-live-*.jsonl",
+      "MRX-LIVE-HYP-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T03:20:36.024170+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794021636024-83c923"
+    ],
+    "content_hash": "f2f533eec538be3ff7c0e3b62037245981552ab1f165b73f838cde62cec9e4ab"
+  },
+  "after": {
+    "repair_id": "MRX-LIVE-HYP-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "MRX live hypothesis experiment: optional LIVE_HYPOTHESIS mode with before-action immutable hypothesis snapshots, real observation updates, generic action-discrimination evaluation, and development traces. Preserve FIXED/STATIC/DYNAMIC and historical JSON; no unfiltered test/build/check; no 160-run formal exam.",
+    "approval_reference": "Research-owner message 2026-11-07: '后续一律默认授权' in response to the MRX-LIVE-HYP-2026-11-07 Console-gate authorization request.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "MRX-LIVE-HYP-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "src/main/kotlin/logic/e3/pack02/MRX2Student.kt",
+      "src/test/kotlin/logic/e3/pack02/MRXLive*.kt",
+      "docs/research/mrx-live-hyp-2026-11-07/",
+      "experiments/representation-evolution-e3/reports/mrx-live-*.json",
+      "experiments/representation-evolution-e3/reports/mrx-live-*.jsonl",
+      "MRX-LIVE-HYP-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-07T03:20:36.024170+00:00",
+    "consumed_at": "2026-11-07T03:26:16.621250+00:00",
+    "audit_event_ids": [
+      "ev-1794021636024-83c923"
+    ],
+    "content_hash": "f2f533eec538be3ff7c0e3b62037245981552ab1f165b73f838cde62cec9e4ab",
+    "consumed_commit": "0e0dddce4debf39287f719d1e39e52699cb0411b",
+    "consumed_test": "MRXLive 8/8; quickTest 14/14; C3=NOT_DEMONSTRATED; formal_runs=0; fullRegression=NOT_RUN",
+    "consumed_report": "docs/research/mrx-live-2026-11-07/RESULT.md"
+  }
+}

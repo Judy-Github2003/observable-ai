@@ -489,14 +489,18 @@
         "experiments/representation-evolution-e3/reports/mrx-live-*.jsonl",
         "MRX-LIVE-HYP-2026-11-07-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T03:20:36.024170+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T03:26:16.621250+00:00",
       "audit_event_ids": [
-        "ev-1794021636024-83c923"
+        "ev-1794021636024-83c923",
+        "ev-1794021976621-d2eb79"
       ],
-      "content_hash": "f2f533eec538be3ff7c0e3b62037245981552ab1f165b73f838cde62cec9e4ab"
+      "content_hash": "f2f533eec538be3ff7c0e3b62037245981552ab1f165b73f838cde62cec9e4ab",
+      "consumed_commit": "0e0dddce4debf39287f719d1e39e52699cb0411b",
+      "consumed_test": "MRXLive 8/8; quickTest 14/14; C3=NOT_DEMONSTRATED; formal_runs=0; fullRegression=NOT_RUN",
+      "consumed_report": "docs/research/mrx-live-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T03:20:36.037760+00:00"
+  "updated_at": "2026-11-07T03:26:16.628049+00:00"
 }
