@@ -1,0 +1,19 @@
+{
+  "runs": 36,
+  "tasks": 6,
+  "arms": {
+    "CONTROL": 12,
+    "GENERIC": 12,
+    "ATTRIBUTION": 12
+  },
+  "actions": {
+    "KEEP": 12,
+    "DIVERSITY_10": 12,
+    "ABSTAIN": 12
+  },
+  "control_passes": 38,
+  "generic_passes": 32,
+  "attribution_passes": 38,
+  "benefit_vs_control": 0,
+  "benefit_vs_generic": 6
+}

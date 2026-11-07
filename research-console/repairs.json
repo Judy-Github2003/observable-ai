@@ -742,7 +742,33 @@
       "consumed_commit": "e426c180e45a914968b8dd4ad134d3f88377490a",
       "consumed_test": "Root-cause 2/2; A0=0 sources rhs atom missing; A1=4 but cap hit; GOLD 40/20/21; macro binding RED->GREEN; fullRegression=NOT_RUN; formal_runs=0",
       "consumed_report": "docs/research/sd03-root-cause-2026-11-07/RESULT.md"
+    },
+    {
+      "repair_id": "SD-03-BLIND-ATTRIBUTION-2026-11-07",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "SD-03 blind attribution: examiner-blind hypothesis/decision kernel, real search trace snapshot integration, bounded arms, honest G0-G5 status. No SD-04, no full regression, no 160 formal exam, no historical changes.",
+      "approval_reference": "Research-owner request 2026-11-07 and default authorization.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "SD-03-BLIND-ATTRIBUTION-2026-11-07",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/SD03*.kt",
+        "src/test/kotlin/logic/e3/pack02/SD03*.kt",
+        "docs/research/sd03-blind-attribution-2026-11-07/",
+        "SD-03-BLIND-ATTRIBUTION-2026-11-07-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-07T06:07:41.696311+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794031661696-659610"
+      ],
+      "content_hash": "b4675827644f97c894bc141045fe532067702d01379395e3b1c3d1620099bb83"
     }
   ],
-  "updated_at": "2026-11-07T05:51:17.005954+00:00"
+  "updated_at": "2026-11-07T06:07:41.710450+00:00"
 }

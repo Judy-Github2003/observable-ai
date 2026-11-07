@@ -1,0 +1,1 @@
+﻿No new business RED: the contract and integration tests passed on first run; no old RED was reused. Do not claim a new RED.
