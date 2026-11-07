@@ -971,14 +971,18 @@
         "src/test/kotlin/logic/e3/pack02/SD03E21*.kt",
         "docs/research/sd03-e21-development-2026-11-07/"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T12:02:53.945626+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T12:09:50.044173+00:00",
       "audit_event_ids": [
-        "ev-1794052973945-1b5e25"
+        "ev-1794052973945-1b5e25",
+        "ev-1794053390044-b47e1d"
       ],
-      "content_hash": "29cc4a6aa32d66059b07e6667318d15c781beb53dc894656a07df3e099cef63f"
+      "content_hash": "29cc4a6aa32d66059b07e6667318d15c781beb53dc894656a07df3e099cef63f",
+      "consumed_commit": "c02c06852b3730d5c7e941122fe18087e48291da",
+      "consumed_test": "E2.1 8/8; 1 pool counterexample q-2 missed by E2; LOCAL_REPAIRED TF but all B arms Challenge fail; NO_BENEFIT; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd03-e21-development-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T12:02:53.959375+00:00"
+  "updated_at": "2026-11-07T12:09:50.053132+00:00"
 }
