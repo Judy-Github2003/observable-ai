@@ -35,6 +35,7 @@
 | SD-03 2026-11-07 | 真实学生来源→LGG→可执行宏闭环 | **G0 PASS_LIMITED；G1 NOT_DEMONSTRATED（IRRELEVANT_SOURCE_DIFFERENCE）；G2–G4 NOT_RUN** |
 | SD-03 Continuation 2026-11-07 | 8 个真实来源、16 对 AST 取证 | **G0 PASS_LIMITED；G1 NOT_DEMONSTRATED（ROOT/ARG 分歧）；G2–G4 NOT_RUN；无新 RED** |
 | SD-03 16-pair 2026-11-07 | 16 对真实来源逐对 LGG | **16/16 调用；14 退化；2 非退化但自由变量 typecheck 失败；E1_NO_VALID_PATTERN；E2–E4 NOT_RUN** |
+| SD-03 Data Closure 2026-11-07 | 修复恒假 B、40/20/21 分割、自由变量封闭 | **旧 B 0/81 True；新 B 9/72；A 来源池 0，B 4；NO_VERIFIED_SOURCE_POOL；G0 NOT_DEMONSTRATED** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -225,6 +226,14 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 14 对 `IRRELEVANT_SOURCE_DIFFERENCE`；2 对非退化/可重建，但 pattern 含自由 `Arg(a/b)`，宏 typecheck 失败。
 - 无合法可激活宏：`E1_NO_VALID_PATTERN`；E2–E4 NOT_RUN。
 - 记录：[预注册](./docs/research/sd03-16pair-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-16pair-2026-11-07/RESULT.md)、[PAIR-LGG](./docs/research/sd03-16pair-2026-11-07/PAIR-LGG.jsonl)。
+
+### SD-03 Data Closure 2026-11-07：有效世界与自由变量
+
+- 旧 B `b=3&&c=3` 在 81 输入上 0 True/81 False；新 B `b=1&&c=1` 为 9/72。
+- seed 1449 的 40/20/21 split 通过正负质量门禁；A 仅 5 个 TRAIN 正例。
+- 真实来源池：A=0，B=4；按预注册停止为 `NO_VERIFIED_SOURCE_POOL`，未换 seed/补来源。
+- 已实现通用 `freeArgs` 收集与 holes+freeArgs 宏输入，但无真实跨任务 pair 可验证；G0 NOT_DEMONSTRATED。
+- 记录：[预注册](./docs/research/sd03-data-closure-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-data-closure-2026-11-07/RESULT.md)、[世界审计](./docs/research/sd03-data-closure-2026-11-07/WORLD-AUDIT.json)。
 
 ### Research Console（本地）
 

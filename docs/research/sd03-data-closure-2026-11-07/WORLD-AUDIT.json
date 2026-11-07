@@ -1,0 +1,2 @@
+{"type":"world_audit","oldB_true":0,"oldB_false":81,"newB_true":9,"newB_false":72}
+{"type":"split","seed":1449,"train":40,"challenge":20,"heldout":21,"trainTrueA":5,"trainFalseA":35,"trainTrueB":6,"trainFalseB":34}

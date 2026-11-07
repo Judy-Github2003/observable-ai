@@ -1,0 +1,1 @@
+﻿No new business RED: SD03DataClosureTest is an audit/negative-result test; first failures were Kotlin type/audit-order corrections, not a valid RED. Not reusing old RED.

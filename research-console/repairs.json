@@ -681,7 +681,34 @@
       "consumed_commit": "84302e86d827d4e0f271db264accca4529b5151f",
       "consumed_test": "16/16 LGG invoked; 14 degenerate; 2 nondegenerate typecheck fail; E1_NO_VALID_PATTERN; E2-E4 NOT_RUN; fullRegression=NOT_RUN; formal_runs=0",
       "consumed_report": "docs/research/sd03-16pair-2026-11-07/RESULT.md"
+    },
+    {
+      "repair_id": "SD-03-DATA-CLOSURE-2026-11-07",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "SD-03 data closure: audit invalid B world, valid 40/20/21 split, real source pools, free-variable closure in typed LGG, honest G0-G4 status. No SD-04, no full regression, no 160 formal exam, no historical changes.",
+      "approval_reference": "Research-owner request 2026-11-07 and default authorization.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "SD-03-DATA-CLOSURE-2026-11-07",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/SD02*.kt",
+        "src/main/kotlin/logic/e3/pack02/SD03*.kt",
+        "src/test/kotlin/logic/e3/pack02/SD03*.kt",
+        "docs/research/sd03-data-closure-2026-11-07/",
+        "SD-03-DATA-CLOSURE-2026-11-07-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-07T05:24:43.614471+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794029083614-78f711"
+      ],
+      "content_hash": "7b15ad07853d91c0b36f6e3fe91d22c30daa43b03f464b08a958be9da4fb501d"
     }
   ],
-  "updated_at": "2026-11-07T05:05:40.631321+00:00"
+  "updated_at": "2026-11-07T05:24:43.621473+00:00"
 }

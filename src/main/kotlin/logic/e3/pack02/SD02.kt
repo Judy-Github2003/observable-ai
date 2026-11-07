@@ -25,6 +25,8 @@ data class SD02GeneralizedPattern(
     val reconstructionOk: Boolean,
     val degenerate: Boolean,
     val rejectReason: String?,
+    /** 两个来源共同出现、且未被 holes 替代的自由变量；必须显式成为宏参数。 */
+    val freeArgs: List<SD02TypedHole> = emptyList(),
 )
 
 object SD02AntiUnify {
@@ -89,6 +91,8 @@ object SD02AntiUnify {
                 val map = subs.getValue(source.sourceId)
                 reconstruct(pattern, map) == source.body
             }
+            val holeIds = holes.values.map { it.id }.toSet()
+            val free = collectFreeArgs(pattern, holeIds)
             SD02GeneralizedPattern(
                 patternId = "sd02-${pattern.hashCode().toUInt().toString(16)}",
                 sourceIds = sources.map { it.sourceId },
@@ -98,6 +102,7 @@ object SD02AntiUnify {
                 reconstructionOk = reconOk,
                 degenerate = !nonTrivial,
                 rejectReason = if (nonTrivial) null else "DEGENERATE_PATTERN",
+                freeArgs = free,
             )
         } catch (e: Reject) {
             rejected(sources, e.code)
@@ -108,6 +113,29 @@ object SD02AntiUnify {
         "none", sources.map { it.sourceId }, emptyList(), Expr.Const(CapValue.Bool(false)),
         emptyMap(), false, true, reason,
     )
+
+    private fun collectFreeArgs(pattern: Expr, holeIds: Set<String>): List<SD02TypedHole> {
+        val out = LinkedHashMap<String, SD02TypedHole>()
+        fun walk(e: Expr, bound: Set<String>) {
+            when (e) {
+                is Expr.Arg -> if (e.name !in holeIds && e.name !in bound) {
+                    out.putIfAbsent(e.name, SD02TypedHole(e.name, e.type, "SHARED_FREE_ARG"))
+                }
+                is Expr.Const -> Unit
+                is Expr.Field -> walk(e.record, bound)
+                is Expr.Eq -> { walk(e.left, bound); walk(e.right, bound) }
+                is Expr.And -> { walk(e.left, bound); walk(e.right, bound) }
+                is Expr.Or -> { walk(e.left, bound); walk(e.right, bound) }
+                is Expr.Not -> walk(e.value, bound)
+                is Expr.If -> { walk(e.condition, bound); walk(e.whenTrue, bound); walk(e.whenFalse, bound) }
+                is Expr.Let -> { walk(e.value, bound); walk(e.body, bound + e.name) }
+                is Expr.Ref -> Unit // local refs are not macro inputs; unresolved refs are rejected by typecheck
+                is Expr.Call -> e.args.values.forEach { walk(it, bound) }
+            }
+        }
+        walk(pattern, emptySet())
+        return out.values.toList()
+    }
 
     fun reconstruct(pattern: Expr, substitutions: Map<String, Expr>): Expr = when (pattern) {
         is Expr.Arg -> substitutions[pattern.name] ?: pattern

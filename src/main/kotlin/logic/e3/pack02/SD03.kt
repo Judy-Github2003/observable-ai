@@ -114,6 +114,15 @@ object SD03StudentLoop {
         }
     }
 
+    private fun sha256(s: String): String = java.security.MessageDigest.getInstance("SHA-256").digest(s.toByteArray()).joinToString("") { "%02x".format(it) }
+
+    private fun defaultValue(type: CapType): CapValue = when (type) {
+        CapType.Str -> CapValue.Str("x")
+        CapType.Bool3 -> CapValue.Bool(true)
+        CapType.Int64 -> CapValue.I64(0)
+        is CapType.Record -> CapValue.Rec(type.fields.mapValues { defaultValue(it.value) })
+    }
+
     fun buildMacroAndCall(
         sources: List<SD03StudentSource>,
         definitions: List<CapabilityDefinition>,
@@ -121,36 +130,31 @@ object SD03StudentLoop {
         if (sources.size != 2) return SD03Run(sources, null, null, null, "REQUIRES_EXACTLY_TWO_SOURCES")
         val verified = sources.map {
             SD02VerifiedSource(
-                it.sourceId, 1, it.canonical.hashCode().toString(),
-                it.body, emptyMap(), it.validationScope, it.evidenceIds,
+                it.sourceId, 1, sha256(it.canonical),
+                it.body, C8Domain.attributes.associateWith { CapType.Str }, it.validationScope, it.evidenceIds,
             )
         }
         val pattern = SD02AntiUnify.generalize(verified)
         if (pattern.degenerate) return SD03Run(sources, pattern, null, null, "DEGENERATE_PATTERN:${pattern.rejectReason}")
+        val params = (pattern.holes + pattern.freeArgs).associate { it.id to it.expectedType }
         val macro = CapabilityDefinition(
-            "sd03.macro", 1,
-            pattern.holes.associate { it.id to it.expectedType },
-            CapType.Bool3, pattern.pattern,
+            "sd03.macro", 1, params, CapType.Bool3, pattern.pattern,
         )
-        val checker = CapabilityTypeChecker(InMemoryResolver(listOf(macro)))
-        if (!checker.check(macro).ok) return SD03Run(sources, pattern, macro, null, "MACRO_TYPE_REJECTED")
+        val checker = CapabilityTypeChecker(InMemoryResolver(definitions + macro))
+        if (!checker.check(macro).ok) return SD03Run(sources, pattern, macro, null, "MACRO_CLOSURE_OR_TYPE_FAIL")
         // 机制验证：真实 Expr.Call，但尚未走持久化注册/激活（G2 不由本函数声称）。
         val call = Expr.Call(
             macro.id, macro.version, macro.contentHash(),
-            pattern.holes.associate { h ->
-                h.id to Expr.Arg("call_${h.id}", h.expectedType)
-            },
+            params.keys.associate { id -> id to Expr.Arg("call_$id", params.getValue(id)) },
         )
         val caller = CapabilityDefinition(
             "sd03.caller", 1,
-            pattern.holes.associate { "call_${it.id}" to it.expectedType },
+            params.keys.associate { "call_$it" to params.getValue(it) },
             CapType.Bool3, call,
         )
-        val resolver = InMemoryResolver(listOf(macro))
+        val resolver = InMemoryResolver(definitions + macro)
         val result = if (CapabilityTypeChecker(resolver).check(caller).ok) {
-            val values = pattern.holes.associate { h ->
-                "call_${h.id}" to EvalResult.Known(CapValue.Str("x"))
-            }
+            val values = params.mapValues { (_, type) -> EvalResult.Known(defaultValue(type)) }
             CapabilityInterpreter(resolver).execute(caller, values, EvalBudget(maxSteps = 1000))
         } else null
         return SD03Run(sources, pattern, macro, result, "MECHANISM_CALL_ONLY_NOT_REGISTERED")
