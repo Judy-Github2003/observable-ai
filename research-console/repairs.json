@@ -561,7 +561,33 @@
       "consumed_commit": "8e2c7e68ce26d28021e81744b08d29bf40049f3d",
       "consumed_test": "SD01 4/4; SD0_PASS_LIMITED; SD1_NOT_DEMONSTRATED; fullRegression=NOT_RUN; formal_runs=0",
       "consumed_report": "docs/research/sd-01-2026-11-07/RESULT.md"
+    },
+    {
+      "repair_id": "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "SD-02 parametric abstraction: typed anti-unification of verified source programs, typed holes, reconstruction, executable macro type-check/interpreter call, and honest G0-G3 evidence. No full regression, no 160-run formal exam, no historical changes.",
+      "approval_reference": "Research-owner default authorization for subsequent tasks, 2026-11-07.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/SD02*.kt",
+        "src/test/kotlin/logic/e3/pack02/SD02*.kt",
+        "docs/research/sd-02-2026-11-07/",
+        "SD-02-PARAMETRIC-ABSTRACTION-2026-11-07-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-07T04:18:07.132698+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794025087132-ecd4d1"
+      ],
+      "content_hash": "9769c361265d922bf46755d877349b6e494d6ba2c94e2c8389875d6d42cecd97"
     }
   ],
-  "updated_at": "2026-11-07T04:09:00.039730+00:00"
+  "updated_at": "2026-11-07T04:18:07.140893+00:00"
 }
