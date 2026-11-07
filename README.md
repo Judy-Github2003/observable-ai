@@ -40,6 +40,7 @@
 | SD-03 Blind Attribution 2026-11-07 | 12 盲任务×3 arms，外部归因 | **36 runs；ATTRIBUTION 12/12 ABSTAIN；C=38/G=32/A=38；G3/G4/G5 NOT_DEMONSTRATED/NO_BENEFIT** |
 | SD-03 Blind Attribution R2 2026-11-07 | 预测签名可辨识性、1 次真实探针 | **36 runs；11 ABSTAIN + 1 PAIRWISE_12；探针 0 来源且撞 30k；G2/G3 PASS_LIMITED；G4 NO_BENEFIT** |
 | SD-03 Sequential R3 2026-11-07 | 第一次探针失败后的第二决策 | **2 开发任务；edb6 第二次改选 AUDIT_GENERATION_CAP；0 来源/capHit；G3 仅诊断；G4 NO_BENEFIT** |
+| SD-03 R3.1 2026-11-07 | 30k 预算下 IF/OR 枚举因果 | **LEGACY IF 0/1728 全被 cap 拒；QUOTA_IF12/24 IF 接纳但 TRAIN consistent=0；nestedIf=0；NO_BENEFIT** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -271,6 +272,15 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 三臂：CONTROL 3/21、GENERIC 0/0、ATTRIBUTION 3/21；无收益。
 - G3 仅 `PASS_LIMITED（diagnostic）`；G4 NO_BENEFIT；G5 NOT_DEMONSTRATED。
 - 记录：[预注册](./docs/research/sd03-r3-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-r3-development-2026-11-07/RESULT.md)、[CHRONOLOGY](./docs/research/sd03-r3-development-2026-11-07/CHRONOLOGY.jsonl)。
+
+### SD-03 R3.1 2026-11-07：枚举预算竞争拆解
+
+- LEGACY_12：generated 30,000；IF attempted 1,728，admitted 0，全部 globalCapRejected；OR 先接纳 29,676。
+- QUOTA_IF12：IF admitted 1,728；但 TRAIN consistent=0；generated 25,052（空配额不借用）。
+- QUOTA_IF24：IF admitted 5,720；仍 0 consistent；三组 nestedIfAstCount=0。
+- 直接证据：IF 不是不可表达，而是被 OR 先耗尽预算；但恢复 IF 不等于任务可解。
+- Challenge/HELDOUT 三组均 0；`NO_BENEFIT`；未声称学生自主修复。
+- 记录：[预注册](./docs/research/sd03-r31-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-r31-development-2026-11-07/RESULT.md)、[FROZEN](./docs/research/sd03-r31-development-2026-11-07/FROZEN-BEFORE-GRADING.jsonl)。
 
 ### Research Console（本地）
 

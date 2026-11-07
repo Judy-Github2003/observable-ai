@@ -1,0 +1,3 @@
+{"arm":"LEGACY_12","frozenDigest":"e9aff0a596164b01cb83c6574644967c18691884d5c8db2df45de3f3bd4d01bb","challengePassCount":0,"chosen":null,"heldoutCorrect":null,"heldoutTotal":21,"oracleNew":0,"oracleReuse":0,"validationInterpreterCalls":0}
+{"arm":"QUOTA_IF12","frozenDigest":"02a33f9584379d57a3d1c3b7df998fffc29113d78ad6b50f06d4c8feb7315b73","challengePassCount":0,"chosen":null,"heldoutCorrect":null,"heldoutTotal":21,"oracleNew":0,"oracleReuse":0,"validationInterpreterCalls":0}
+{"arm":"QUOTA_IF24","frozenDigest":"a7f9363ee0f7ee61dcc8982d6a62462c25d2bd7754f8bbfe1ea88d00e1db4668","challengePassCount":0,"chosen":null,"heldoutCorrect":null,"heldoutTotal":21,"oracleNew":0,"oracleReuse":0,"validationInterpreterCalls":0}

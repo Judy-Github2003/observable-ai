@@ -33,6 +33,7 @@ class MRX2BTrace {
     val prunes = ArrayList<MRX2BPrune>()
     val atoms = ArrayList<String>()
     val pairGains = ArrayList<MRX2BPairGain>()
+    val r31 = MRX2BR31Counters()
 
     fun record(stage: MRX2BStage, candidate: StudyCandidate) {
         stages.getOrPut(stage) { LinkedHashMap() }[candidate.canonical] = candidate
@@ -70,6 +71,9 @@ class MRX2BSpace(
     private val atomLimit: Int = 10,
     private val maxCandidates: Int = 30_000,
     private val consistentLimit: Int = 2_000,
+    private val r31Schedule: MRX2BR31Schedule = MRX2BR31Schedule.LEGACY,
+    private val r31Quotas: MRX2BR31Quotas = MRX2BR31Quotas(),
+    private val r31IfLiteralLimit: Int = 12,
 ) {
     private val inputTypes = inputNames.associateWith { CapType.Str }
     private val resolver = InMemoryResolver(library)
@@ -77,10 +81,16 @@ class MRX2BSpace(
     private val interpreter = CapabilityInterpreter(resolver)
     private val byId = library.associateBy { it.id to it.version }
     private val labels = training.map { it.label }
+    private var r31InterpreterCalls: Long = 0
 
     private data class Atom(val expr: Expr, val family: String, val canonical: String, val predictions: List<Boolean?>)
 
     fun generate(): MRX2BSpaceResult {
+        if (r31Schedule == MRX2BR31Schedule.QUOTA_IF_FIRST) {
+            require(r31IfLiteralLimit in 1..(atomLimit * 2)) { "invalid R3.1 If literal limit" }
+            require(r31Quotas.total == maxCandidates) { "R3.1 family quotas must sum to maxCandidates" }
+        }
+        r31InterpreterCalls = 0
         val started = System.nanoTime()
         val trace = MRX2BTrace()
         val atoms = buildAtoms()
@@ -92,27 +102,58 @@ class MRX2BSpace(
         for (i in literals.indices) for (j in i until literals.size) terms += Expr.And(literals[i], literals[j])
         val candidates = ArrayList<StudyCandidate>()
         val seen = HashSet<String>()
+        val r31 = trace.r31
 
-        fun admit(body: Expr) {
-            if (candidates.size >= maxCandidates) return
-            if (countNodes(body) > 40) return
-            val canonical = try { CanonicalJson.expr(body) } catch (_: Exception) { return }
-            if (!seen.add(canonical)) return
+        /** Instrument all enumerated attempts, not only accepted candidates.
+         * LEGACY keeps previous admission order and outcomes unchanged.
+         */
+        fun admit(body: Expr, family: MRX2BR31Family) {
+            val metrics = r31.forFamily(family)
+            metrics.attempted++
+            if (candidates.size >= maxCandidates) {
+                metrics.globalCapRejected++
+                return
+            }
+            if (r31Schedule == MRX2BR31Schedule.QUOTA_IF_FIRST &&
+                metrics.admitted >= r31Quotas.limit(family)) {
+                metrics.familyQuotaRejected++
+                return
+            }
+            if (countNodes(body) > 40) { metrics.nodeRejected++; return }
+            val canonical = try { CanonicalJson.expr(body) }
+                catch (_: Exception) { metrics.canonicalRejected++; return }
+            if (!seen.add(canonical)) { metrics.duplicateRejected++; return }
             val definition = CapabilityDefinition("__mrx2b", 1, inputTypes, CapType.Bool3, body)
-            if (!checker.check(definition).ok) return
+            if (!checker.check(definition).ok) { metrics.typeRejected++; return }
             val candidate = StudyCandidate(
                 body, canonical, countNodes(body), exprDepth(body), collectDependencies(body),
                 estimatedSteps(body), countNodes(body) - collectDependencies(body).map { it.id }.distinct().size,
             )
             candidates += candidate
+            metrics.admitted++
             trace.record(MRX2BStage.GENERATED, candidate)
         }
 
-        terms.forEach { admit(it) }
-        for (i in terms.indices) for (j in i until terms.size) admit(Expr.Or(terms[i], terms[j]))
-        // 一层 If：条件/分支来自原子字面量，保留条件结构。
-        val simple = literals.take(12)
-        for (c in simple) for (a in simple) for (b in simple) admit(Expr.If(c, a, b))
+        // The same ranked atoms, literals, two-way AND terms and OR templates are
+        // used in both arms. Only enumeration order and bounded If visibility differ.
+        if (r31Schedule == MRX2BR31Schedule.LEGACY) {
+            terms.forEach { admit(it, if (it is Expr.And) MRX2BR31Family.AND else MRX2BR31Family.LITERAL) }
+            for (i in terms.indices) for (j in i until terms.size)
+                admit(Expr.Or(terms[i], terms[j]), MRX2BR31Family.OR)
+            // Preserve original exact order and first-12 visibility.
+            val simple = literals.take(12)
+            for (c in simple) for (a in simple) for (b in simple)
+                admit(Expr.If(c, a, b), MRX2BR31Family.IF)
+        } else {
+            terms.forEach { admit(it, if (it is Expr.And) MRX2BR31Family.AND else MRX2BR31Family.LITERAL) }
+            val simple = literals.take(r31IfLiteralLimit)
+            // Condition is innermost: rotate it over the entire visible literal
+            // space before exhausting the reserved If quota.
+            for (a in simple) for (b in simple) for (c in simple)
+                admit(Expr.If(c, a, b), MRX2BR31Family.IF)
+            for (i in terms.indices) for (j in i until terms.size)
+                admit(Expr.Or(terms[i], terms[j]), MRX2BR31Family.OR)
+        }
 
         val consistent = ArrayList<StudyCandidate>()
         for (candidate in candidates) {
@@ -135,6 +176,7 @@ class MRX2BSpace(
         }
         val selected = retained.minWithOrNull(compareBy({ it.estimatedSteps }, { it.nodeCount }, { it.canonical }))
         selected?.let { trace.record(MRX2BStage.SELECTED, it) }
+        trace.r31.interpreterCalls = r31InterpreterCalls
         return MRX2BSpaceResult(
             strategy.wire, candidates.size, consistent.size, retained.size, selected, trace,
             (System.nanoTime() - started) / 1_000_000,
@@ -212,6 +254,7 @@ class MRX2BSpace(
     private fun predictions(expr: Expr): List<Boolean?> = training.map { evaluate(expr, it.values) }
 
     private fun evaluate(body: Expr, values: Map<String, String>): Boolean? {
+        r31InterpreterCalls++
         val definition = CapabilityDefinition("__mrx2b_eval", 1, inputTypes, CapType.Bool3, body)
         val result = try {
             interpreter.execute(definition, values.mapValues { (_, v) -> EvalResult.Known(CapValue.Str(v)) }, EvalBudget(10000))
