@@ -44,6 +44,7 @@
 | SD-03 R3.2 2026-11-07 | 枚举公平、角色覆盖、受限嵌套 | **LEX whenTrue 仅 10/24；ROTATING 24/24；NESTED 接纳 2860；三组 TRAIN consistent=0；NO_BENEFIT** |
 | SD-03 E1 2026-11-07 | TRAIN 证据驱动递归条件组合 | **nested 任务 E1_DEPTH_4 1 pass/HELDOUT 20/21，两基线 0；总体 3 pass vs 11/9；MIXED** |
 | SD-03 E2 2026-11-07 | 主动查询 + 局部修复 | **16 runs；ACTIVE_FULL 7 QUERY；四臂均 2 pass/42 heldout；local repairs=0；NO_BENEFIT** |
+| SD-03 E2.1 2026-11-07 | 反例机会审计 + 单标签局部修复 | **QUERY 池 1 反例 q-2；E2 4 查询 0 命中；LOCAL_ONLY 真替换 TF 但三臂仍 Challenge 失败** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -307,6 +308,13 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - ACTIVE_LOCAL 的 local repairs=0；没有非根局部替换，不能把整体 refit 当局部修复。
 - ACTIVE_FULL preview 30,240 vs 其他 1,920/5,490，成本更高无收益；`NO_BENEFIT`。
 - 记录：[预注册](./docs/research/sd03-e2-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-e2-development-2026-11-07/RESULT.md)、[EXAMINER](./docs/research/sd03-e2-development-2026-11-07/EXAMINER-AFTER-FREEZE.jsonl)。
+
+### SD-03 E2.1 2026-11-07：反例机会与局部修复
+
+- 4 任务 QUERY 池仅 `if-nested-3` 有 1 个真实反例 q-2；E2_DISAGREEMENT 4 次查询未命中，STRICT 0 查询。
+- B 只揭示 q-2 一条标签：LOCAL_ONLY 真实替换非根 `TF`，兄弟不变、旧证据正确；但 NO_UPDATE/FULL_REFIT/LOCAL 三臂 Challenge 均失败。
+- 局部修复机制有限成立；反例命中与任务收益未证明；无 HELDOUT。
+- 记录：[预注册](./docs/research/sd03-e21-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-e21-development-2026-11-07/RESULT.md)、[AUDIT](./docs/research/sd03-e21-development-2026-11-07/AUDIT-OUTPUT.txt)。
 
 ### Research Console（本地）
 

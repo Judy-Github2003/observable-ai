@@ -953,7 +953,32 @@
       "consumed_commit": "781d79d4d9fdb55f7432f128904fad38d49263e2",
       "consumed_test": "E2 9/9; 16 runs; ACTIVE_FULL 7 query; all arms 2 pass/42 heldout; local repairs=0; NO_BENEFIT; fullRegression=NOT_RUN; formal_runs=0",
       "consumed_report": "docs/research/sd03-e2-development-2026-11-07/RESULT.md"
+    },
+    {
+      "repair_id": "SD-03-E21-COUNTEREXAMPLE-OPPORTUNITY-2026-11-07",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "SD-03 E2.1: counterexample opportunity audit + one-label local repair; four public dev tasks; no SD-04, no full regression, no 160 exam.",
+      "approval_reference": "Research-owner request 2026-11-07",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "SD-03-E21-COUNTEREXAMPLE-OPPORTUNITY-2026-11-07",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/SD03E21EvidenceQuery.kt",
+        "src/test/kotlin/logic/e3/pack02/SD03E21*.kt",
+        "docs/research/sd03-e21-development-2026-11-07/"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-07T12:02:53.945626+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794052973945-1b5e25"
+      ],
+      "content_hash": "29cc4a6aa32d66059b07e6667318d15c781beb53dc894656a07df3e099cef63f"
     }
   ],
-  "updated_at": "2026-11-07T11:38:24.056346+00:00"
+  "updated_at": "2026-11-07T12:02:53.959375+00:00"
 }

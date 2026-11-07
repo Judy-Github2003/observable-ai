@@ -1,0 +1,4 @@
+{"task":"6894c295a0615971","status":"NOT_ELIGIBLE_OR_NO_POOL_COUNTEREXAMPLE","initialCertified":true,"available":0}
+{"task":"83a0a07d602718a9","status":"NOT_ELIGIBLE_OR_NO_POOL_COUNTEREXAMPLE","initialCertified":true,"available":0}
+{"task":"e0734e453d890dbd","status":"NOT_ELIGIBLE_OR_NO_POOL_COUNTEREXAMPLE","initialCertified":true,"available":0}
+{"task":"0d3daf2627021276","queryId":"q-2","status":"LOCAL_REPAIRED","changedPath":"TF","nonRootSiblingInvariant":true,"ancestorAttempts":3,"oldEvidenceCorrect":true,"allPublicCorrect":true,"fullRefitUsed":false,"localPartitionAttempts":100,"localPredictionReads":473}
