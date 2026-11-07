@@ -1,0 +1,42 @@
+{"type":"run","runId":"mrx-next-mrx-next-xor-a-d-FIXED","taskId":"MRX-NEXT-2026-11-07","world":"mrx-next-xor-a-d","studentCommit":"7f18114","phase":"DEVELOPMENT","strategy":"FIXED","status":"INSUFFICIENT_EVIDENCE","selected":"{\"op\":\"or\",\"left\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"a\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"1\"}},\"right\":{\"op\":\"eq\",\"left\":{\"op\":\"arg\",\"name\":\"d\",\"type\":\"String\"},\"right\":{\"op\":\"const\",\"type\":\"String\",\"value\":\"2\"}}}","diagnosisBefore":["H4","H1","H2","H5"],"diagnosisAfter":["H4","H1","H2","H5"],"ledgerEntries":29,"newQueries":29,"remainingBudget":11,"generatedCandidates":69013,"interpreterCalls":119,"oracleNewQueriesTotal":0,"actionWallMillis":4984,"totalWallMillis":6455,"note":"student-visible fields only; no examiner truth or holdout labels"}
+{"type":"step","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":0,"action":"VALIDATE_BASE","feedback":"COUNTEREXAMPLE","counterexamples":2,"oracleNew":0,"oracleReused":16,"nextAction":"","wallMillis":1469,"note":"at_least_one_counterexample"}
+{"type":"step","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":1,"action":"KNOWLEDGE","feedback":"COUNTEREXAMPLE","counterexamples":2,"oracleNew":13,"oracleReused":29,"nextAction":"BUDGET","wallMillis":1472,"note":"at_least_one_counterexample"}
+{"type":"step","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":2,"action":"BUDGET","feedback":"COUNTEREXAMPLE","counterexamples":2,"oracleNew":0,"oracleReused":0,"nextAction":"DNF","wallMillis":1457,"note":"at_least_one_counterexample"}
+{"type":"step","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":3,"action":"DNF","feedback":"COUNTEREXAMPLE","counterexamples":0,"oracleNew":0,"oracleReused":0,"nextAction":"IF","wallMillis":2055,"note":"all_survivors_refuted"}
+{"type":"hypothesis","runId":"mrx-next-mrx-next-xor-a-d-FIXED","id":"H_STRUCTURAL_COVERAGE","title":"候选生成/表达空间可能不足","source":"BUILTIN_BASELINE","status":"UNKNOWN","support":[],"refute":[],"unknown":["ledger:remaining"],"note":"空/无候选只支持搜索覆盖不足的猜想，不能证明全域不可表达"}
+{"type":"hypothesis","runId":"mrx-next-mrx-next-xor-a-d-FIXED","id":"H_COUNTEREXAMPLE_PRESSURE","title":"当前候选被真实反例推翻","source":"BUILTIN_BASELINE","status":"SUPPORTED","support":["step:0:VALIDATE_BASE:COUNTEREXAMPLE","step:1:KNOWLEDGE:COUNTEREXAMPLE","step:2:BUDGET:COUNTEREXAMPLE","step:3:DNF:COUNTEREXAMPLE"],"refute":[],"unknown":[],"note":"反例是候选被淘汰的证据，不等同于搜索空间不足"}
+{"type":"hypothesis","runId":"mrx-next-mrx-next-xor-a-d-FIXED","id":"H_BUDGET_LIMIT","title":"合法查询预算可能限制辨识","source":"BUILTIN_BASELINE","status":"UNKNOWN","support":[],"refute":[],"unknown":["ledger:entries:29"],"note":"只有账本剩余为 0 才支持；不能把任何失败都归因预算"}
+{"type":"hypothesis","runId":"mrx-next-mrx-next-xor-a-d-FIXED","id":"H_UNKNOWN_EXECUTION","title":"Unknown/执行异常导致证据不可用","source":"BUILTIN_BASELINE","status":"UNKNOWN","support":[],"refute":[],"unknown":[],"note":"Unknown 不等于 False，也不等于候选被反驳"}
+{"type":"decision","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":0,"observedAction":"VALIDATE_BASE","feedback":"COUNTEREXAMPLE","evidenceIds":["step:0:VALIDATE_BASE:COUNTEREXAMPLE"],"hypothesisIds":["H_COUNTEREXAMPLE_PRESSURE"],"note":"observed action only; no counterfactual action claim"}
+{"type":"decision","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":1,"observedAction":"KNOWLEDGE","feedback":"COUNTEREXAMPLE","evidenceIds":["step:1:KNOWLEDGE:COUNTEREXAMPLE"],"hypothesisIds":["H_COUNTEREXAMPLE_PRESSURE"],"note":"observed action only; no counterfactual action claim"}
+{"type":"decision","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":2,"observedAction":"BUDGET","feedback":"COUNTEREXAMPLE","evidenceIds":["step:2:BUDGET:COUNTEREXAMPLE"],"hypothesisIds":["H_COUNTEREXAMPLE_PRESSURE"],"note":"observed action only; no counterfactual action claim"}
+{"type":"decision","runId":"mrx-next-mrx-next-xor-a-d-FIXED","step":3,"observedAction":"DNF","feedback":"COUNTEREXAMPLE","evidenceIds":["step:3:DNF:COUNTEREXAMPLE"],"hypothesisIds":["H_COUNTEREXAMPLE_PRESSURE"],"note":"observed action only; no counterfactual action claim"}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,2,0,0","label":false,"queryIndex":0,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"1,0,0,2","label":false,"queryIndex":1,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,0,2,0","label":false,"queryIndex":2,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,2,1,1","label":false,"queryIndex":3,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,2,0,1","label":false,"queryIndex":4,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"1,2,0,1","label":true,"queryIndex":5,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"1,0,1,0","label":true,"queryIndex":6,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,1,1,2","label":true,"queryIndex":7,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,2,1,0","label":false,"queryIndex":8,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,0,0,2","label":true,"queryIndex":9,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,0,0,1","label":false,"queryIndex":10,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,0,0,2","label":true,"queryIndex":11,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,2,2,2","label":true,"queryIndex":12,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,1,1,1","label":false,"queryIndex":13,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"1,1,1,2","label":false,"queryIndex":14,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,1,1,0","label":false,"queryIndex":15,"tag":"trusted_oracle","usedBy":2}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,0,0,0","label":false,"queryIndex":16,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,2,2,1","label":false,"queryIndex":17,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,2,1,1","label":false,"queryIndex":18,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"1,0,1,1","label":true,"queryIndex":19,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,0,2,1","label":false,"queryIndex":20,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,0,1,2","label":true,"queryIndex":21,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,1,0,2","label":true,"queryIndex":22,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,0,1,0","label":false,"queryIndex":23,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,2,0,2","label":true,"queryIndex":24,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"1,1,1,1","label":true,"queryIndex":25,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,2,1,0","label":false,"queryIndex":26,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"2,1,2,0","label":false,"queryIndex":27,"tag":"trusted_oracle","usedBy":1}
+{"type":"ledger","runId":"mrx-next-mrx-next-xor-a-d-FIXED","input":"0,0,1,1","label":false,"queryIndex":28,"tag":"trusted_oracle","usedBy":1}

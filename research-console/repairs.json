@@ -430,7 +430,40 @@
       "consumed_commit": "44d36c931cb54c7f66ca22402080c668999da998",
       "consumed_test": "MRX2E 7/7; quickTest 14/14; fullRegression=NOT_RUN; formal_runs=0",
       "consumed_report": "MRX-02E-REPORT.md"
+    },
+    {
+      "repair_id": "MRX-NEXT-2026-11-07",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "MRX next open exploration 2026-11-07: student-visible evidence, competing failure hypotheses with provenance, and evidence-driven next action in real MRX2Student runs; W4 and independent XOR development cases; STATIC/RULE/EVIDENCE comparison. No 160-run formal exam; no old frozen JSON or Research Console score changes.",
+      "approval_reference": "Research-owner message 2026-11-07: '授权，特殊研究不用受限', in response to MRX-NEXT-2026-11-07 Gate-0 authorization request.",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "MRX-NEXT-2026-11-07",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/pack02/MRXNext*.kt",
+        "src/main/kotlin/logic/e3/pack02/MRX2Student.kt",
+        "src/test/kotlin/logic/e3/pack02/MRXNext*.kt",
+        "docs/research/mrx-next-2026-11-07/",
+        "experiments/representation-evolution-e3/reports/mrx-next-*.json",
+        "experiments/representation-evolution-e3/reports/mrx-next-*.jsonl",
+        "RESEARCH-QUESTION.md",
+        "COMPARISON.md",
+        "RESULT.md",
+        "TRACE-*.jsonl",
+        "MRX-NEXT-2026-11-07-REPORT.md"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-07T03:03:30.046964+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794020610047-b07d53"
+      ],
+      "content_hash": "a1b262fd3479c86a3fffe479efe2af747a4b546b16c7bdd582d343958529c2d6"
     }
   ],
-  "updated_at": "2026-11-06T17:05:44.899932+00:00"
+  "updated_at": "2026-11-07T03:03:30.060863+00:00"
 }
