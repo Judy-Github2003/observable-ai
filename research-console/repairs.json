@@ -791,14 +791,18 @@
         "docs/research/sd03-blind-r2-2026-11-07/",
         "SD-03-BLIND-ATTRIBUTION-R2-2026-11-07-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T06:43:43.499142+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T06:43:53.173485+00:00",
       "audit_event_ids": [
-        "ev-1794033823499-62789e"
+        "ev-1794033823499-62789e",
+        "ev-1794033833173-fe6ce2"
       ],
-      "content_hash": "6f11477aac983138bfeaba7f724acafdd6cb8b8ca09f88ff5a521809d6adc194"
+      "content_hash": "6f11477aac983138bfeaba7f724acafdd6cb8b8ca09f88ff5a521809d6adc194",
+      "consumed_commit": "fc260225fdafce29bb2ad2fad37d9ac40e0538f7",
+      "consumed_test": "R2 9/9; 12 task-seeds x3 arms; 11 ABSTAIN +1 PAIRWISE_12; probe 0 sources capHit; G4 NO_BENEFIT; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd03-blind-r2-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T06:43:43.513023+00:00"
+  "updated_at": "2026-11-07T06:43:53.179999+00:00"
 }
