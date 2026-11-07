@@ -1,0 +1,8 @@
+E221 HISTORICAL CORRECTION AUDIT PASS (not independent replay)
+STATIC: query=0, initialHits=0, currentHits=0, pass=6/8, HELDOUT=119/126, confirmRebuilds=0
+RANDOM_FIXED_4: query=32, initialHits=1, currentHits=1, pass=6/8, HELDOUT=119/126, confirmRebuilds=0
+E2_LEGACY: query=13, initialHits=0, currentHits=0, pass=5/8, HELDOUT=103/105, confirmRebuilds=3
+E21_STRICT: query=0, initialHits=0, currentHits=0, pass=6/8, HELDOUT=119/126, confirmRebuilds=0
+E22_CONJECTURE: query=11, initialHits=2, currentHits=2, pass=5/8, HELDOUT=103/105, confirmRebuilds=5
+E22 initial: [{'task': '0d3daf2627021276', 'queryId': 'q-2'}, {'task': '4b1f104a970d9e8f', 'queryId': 'q-11'}]
+E22 current: [{'task': '0d3daf2627021276', 'queryId': 'q-2'}, {'task': '4b1f104a970d9e8f', 'queryId': 'q-1'}]

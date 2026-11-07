@@ -45,7 +45,8 @@
 | SD-03 E1 2026-11-07 | TRAIN 证据驱动递归条件组合 | **nested 任务 E1_DEPTH_4 1 pass/HELDOUT 20/21，两基线 0；总体 3 pass vs 11/9；MIXED** |
 | SD-03 E2 2026-11-07 | 主动查询 + 局部修复 | **16 runs；ACTIVE_FULL 7 QUERY；四臂均 2 pass/42 heldout；local repairs=0；NO_BENEFIT** |
 | SD-03 E2.1 2026-11-07 | 反例机会审计 + 单标签局部修复 | **QUERY 池 1 反例 q-2；E2 4 查询 0 命中；LOCAL_ONLY 真替换 TF 但三臂仍 Challenge 失败** |
-| SD-03 E2.2 2026-11-07 | 一致猜想查询矩阵与命中 | **8 task-seeds×5 arms；5 反例中 E22 命中 2；5 pass/103 vs STATIC 6/119；有负作用** |
+| SD-03 E2.2 2026-11-07 | 一致猜想查询矩阵与命中 | **8 task-seeds×5 arms；5 反例中 E22 命中 q-2/q-11；5/8 pass，HELDOUT 103/105；有负作用** |
+| SD-03 E2.2.1 2026-11-07 | 历史勘误 + 回归预检 | **原始 JSONL 10 文件 0 改动；q-2/q-11、q-2/q-1 口径修正；compile 6.227s、targeted 6.751s PASS；full BLOCKED_NOT_RUN** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -320,10 +321,18 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 ### SD-03 E2.2 2026-11-07：一致猜想与查询命中
 
 - 8 task-seed×5 arms，40 个最终冻结；76 个完整查询矩阵快照；56 个 QUERY 标签。
-- 3 个 task-seed 有 5 个初始反例；E22 命中 2（q-2、q-6），E2_LEGACY 0，RANDOM 1。
-- 但 E22 最终 5 pass/103 HELDOUT，低于 STATIC 6/119；4b1f 从 PASS 变 COUNTEREXAMPLE。
+- 3 个 task-seed 有 5 个初始反例；E22 命中初始反例 q-2、q-11；E2_LEGACY 0，RANDOM 1。
+- 但 E22 最终 5/8 pass、HELDOUT 103/105；STATIC 6/8、119/126；4b1f 从 PASS 变 COUNTEREXAMPLE。
 - 命中反例≠学习收益；严格 E21_STRICT 0 查询，等同 STATIC。
 - 记录：[预注册](./docs/research/sd03-e22-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-e22-development-2026-11-07/RESULT.md)、[AUDIT](./docs/research/sd03-e22-development-2026-11-07/AUDIT-OUTPUT.txt)。
+
+### SD-03 E2.2.1 2026-11-07：统计勘误与回归预检
+
+- 原始 10 个 JSONL SHA-256 身份校验通过，证据 0 改动。
+- 修正：E22 初始反例命中是 q-2/q-11，不是 q-6；当前程序命中是 q-2/q-1。
+- HELDOUT 分母改为仅 Challenge-pass：STATIC 119/126，E22 103/105；共同通过的 5 个任务配对均为 103/105。
+- 回归：compile 6.227s PASS；targeted 6.751s PASS；full `BLOCKED_NOT_RUN`（历史一次性输出门禁，未删除/移动证据）。
+- 记录：[ERRATA](./docs/research/sd03-e22-development-2026-11-07/E22.1-ERRATA.md)、[修正报告](./docs/research/sd03-e22-development-2026-11-07/RESULT.md)、[审计](./docs/research/sd03-e22-development-2026-11-07/E221/CORRECTION-AUDIT.txt)。
 
 ### Research Console（本地）
 

@@ -1,0 +1,17 @@
+{
+  "mode": "compile",
+  "command": [
+    "C:\\自研逻辑模型\\gradlew.bat",
+    "--offline",
+    "--console=plain",
+    "--no-daemon",
+    "testClasses"
+  ],
+  "startedUtc": "20261107T133555Z",
+  "timeoutSeconds": 300,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "stdoutLog": "build\\e221-regression-logs\\20261107T133555Z-compile.log",
+  "exitCode": 9009,
+  "status": "FAIL",
+  "elapsedSeconds": 0.074
+}

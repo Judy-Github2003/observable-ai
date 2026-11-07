@@ -1,0 +1,18 @@
+{
+  "mode": "targeted",
+  "command": [
+    "C:\\自研逻辑模型\\gradlew.bat",
+    "--offline",
+    "--console=plain",
+    "--no-daemon",
+    "quickTest",
+    "-PquickTests=logic.e3.pack02.SD03E22ContractTest,logic.e3.pack02.SD03E21ContractTest,logic.e3.pack02.SD03E2ContractTest,logic.e3.pack02.SD03EvidenceCompositionE1ContractTest"
+  ],
+  "startedUtc": "20261107T133611Z",
+  "timeoutSeconds": 600,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "stdoutLog": "build\\e221-regression-logs\\20261107T133611Z-targeted.log",
+  "exitCode": 0,
+  "status": "PASS",
+  "elapsedSeconds": 6.751
+}

@@ -1,0 +1,609 @@
+{
+  "disclaimer": "Historical E2.2 record reaggregation only; NOT a fresh experiment or independent truth replay.",
+  "tasks": 8,
+  "totalInitialCounterexamples": 5,
+  "arms": {
+    "STATIC": {
+      "challengePassedTasks": 6,
+      "totalTasks": 8,
+      "heldoutCorrectAmongPass": 119,
+      "heldoutTotalAmongPass": 126,
+      "queriesRevealed": 0,
+      "initialCounterexampleHits": 0,
+      "currentCounterexampleHits": 0,
+      "programChangesAfterReveal": 0,
+      "programChangesAfterConfirmingEvidence": 0,
+      "fullMatrixSnapshots": 0
+    },
+    "RANDOM_FIXED_4": {
+      "challengePassedTasks": 6,
+      "totalTasks": 8,
+      "heldoutCorrectAmongPass": 119,
+      "heldoutTotalAmongPass": 126,
+      "queriesRevealed": 32,
+      "initialCounterexampleHits": 1,
+      "currentCounterexampleHits": 1,
+      "programChangesAfterReveal": 1,
+      "programChangesAfterConfirmingEvidence": 0,
+      "fullMatrixSnapshots": 32
+    },
+    "E2_LEGACY": {
+      "challengePassedTasks": 5,
+      "totalTasks": 8,
+      "heldoutCorrectAmongPass": 103,
+      "heldoutTotalAmongPass": 105,
+      "queriesRevealed": 13,
+      "initialCounterexampleHits": 0,
+      "currentCounterexampleHits": 0,
+      "programChangesAfterReveal": 3,
+      "programChangesAfterConfirmingEvidence": 3,
+      "fullMatrixSnapshots": 19
+    },
+    "E21_STRICT": {
+      "challengePassedTasks": 6,
+      "totalTasks": 8,
+      "heldoutCorrectAmongPass": 119,
+      "heldoutTotalAmongPass": 126,
+      "queriesRevealed": 0,
+      "initialCounterexampleHits": 0,
+      "currentCounterexampleHits": 0,
+      "programChangesAfterReveal": 0,
+      "programChangesAfterConfirmingEvidence": 0,
+      "fullMatrixSnapshots": 8
+    },
+    "E22_CONJECTURE": {
+      "challengePassedTasks": 5,
+      "totalTasks": 8,
+      "heldoutCorrectAmongPass": 103,
+      "heldoutTotalAmongPass": 105,
+      "queriesRevealed": 11,
+      "initialCounterexampleHits": 2,
+      "currentCounterexampleHits": 2,
+      "programChangesAfterReveal": 7,
+      "programChangesAfterConfirmingEvidence": 5,
+      "fullMatrixSnapshots": 17
+    }
+  },
+  "initialHitsByArm": {
+    "STATIC": [],
+    "RANDOM_FIXED_4": [
+      {
+        "task": "0d3daf2627021276",
+        "queryId": "q-2"
+      }
+    ],
+    "E2_LEGACY": [],
+    "E21_STRICT": [],
+    "E22_CONJECTURE": [
+      {
+        "task": "0d3daf2627021276",
+        "queryId": "q-2"
+      },
+      {
+        "task": "4b1f104a970d9e8f",
+        "queryId": "q-11"
+      }
+    ]
+  },
+  "currentHitsByArm": {
+    "STATIC": [],
+    "RANDOM_FIXED_4": [
+      {
+        "task": "0d3daf2627021276",
+        "queryId": "q-2"
+      }
+    ],
+    "E2_LEGACY": [],
+    "E21_STRICT": [],
+    "E22_CONJECTURE": [
+      {
+        "task": "0d3daf2627021276",
+        "queryId": "q-2"
+      },
+      {
+        "task": "4b1f104a970d9e8f",
+        "queryId": "q-1"
+      }
+    ]
+  },
+  "pairedCommonPassedTasks": 5,
+  "pairedHeldout": {
+    "STATIC": {
+      "correct": 103,
+      "total": 105
+    },
+    "E22_CONJECTURE": {
+      "correct": 103,
+      "total": 105
+    }
+  },
+  "taskArms": [
+    {
+      "task": "0d3daf2627021276",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [
+        "q-2"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "0d3daf2627021276",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-2",
+        "q-0",
+        "q-10",
+        "q-5"
+      ],
+      "initialCounterexampleIds": [
+        "q-2"
+      ],
+      "initialCounterexampleHits": [
+        "q-2"
+      ],
+      "currentCounterexampleHits": [
+        "q-2"
+      ],
+      "programChanges": 1
+    },
+    {
+      "task": "0d3daf2627021276",
+      "arm": "E2_LEGACY",
+      "queryIds": [
+        "q-9",
+        "q-4",
+        "q-11",
+        "q-5"
+      ],
+      "initialCounterexampleIds": [
+        "q-2"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 2
+    },
+    {
+      "task": "0d3daf2627021276",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [
+        "q-2"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "0d3daf2627021276",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [
+        "q-4",
+        "q-1",
+        "q-2",
+        "q-3"
+      ],
+      "initialCounterexampleIds": [
+        "q-2"
+      ],
+      "initialCounterexampleHits": [
+        "q-2"
+      ],
+      "currentCounterexampleHits": [
+        "q-2"
+      ],
+      "programChanges": 3
+    },
+    {
+      "task": "4254cfe428af73ca",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4254cfe428af73ca",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-11",
+        "q-5",
+        "q-0",
+        "q-10"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4254cfe428af73ca",
+      "arm": "E2_LEGACY",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4254cfe428af73ca",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4254cfe428af73ca",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [
+        "q-0"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "426249206c4fbdf8",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [
+        "q-4"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "426249206c4fbdf8",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-6",
+        "q-3",
+        "q-0",
+        "q-11"
+      ],
+      "initialCounterexampleIds": [
+        "q-4"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "426249206c4fbdf8",
+      "arm": "E2_LEGACY",
+      "queryIds": [
+        "q-10"
+      ],
+      "initialCounterexampleIds": [
+        "q-4"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "426249206c4fbdf8",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [
+        "q-4"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "426249206c4fbdf8",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [],
+      "initialCounterexampleIds": [
+        "q-4"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4b1f104a970d9e8f",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [
+        "q-10",
+        "q-11",
+        "q-6"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4b1f104a970d9e8f",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-1",
+        "q-5",
+        "q-9",
+        "q-7"
+      ],
+      "initialCounterexampleIds": [
+        "q-10",
+        "q-11",
+        "q-6"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4b1f104a970d9e8f",
+      "arm": "E2_LEGACY",
+      "queryIds": [
+        "q-9",
+        "q-2",
+        "q-3",
+        "q-8"
+      ],
+      "initialCounterexampleIds": [
+        "q-10",
+        "q-11",
+        "q-6"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 1
+    },
+    {
+      "task": "4b1f104a970d9e8f",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [
+        "q-10",
+        "q-11",
+        "q-6"
+      ],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "4b1f104a970d9e8f",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [
+        "q-4",
+        "q-2",
+        "q-11",
+        "q-1"
+      ],
+      "initialCounterexampleIds": [
+        "q-10",
+        "q-11",
+        "q-6"
+      ],
+      "initialCounterexampleHits": [
+        "q-11"
+      ],
+      "currentCounterexampleHits": [
+        "q-1"
+      ],
+      "programChanges": 4
+    },
+    {
+      "task": "6894c295a0615971",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "6894c295a0615971",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-0",
+        "q-10",
+        "q-2",
+        "q-4"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "6894c295a0615971",
+      "arm": "E2_LEGACY",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "6894c295a0615971",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "6894c295a0615971",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "83a0a07d602718a9",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "83a0a07d602718a9",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-7",
+        "q-3",
+        "q-11",
+        "q-0"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "83a0a07d602718a9",
+      "arm": "E2_LEGACY",
+      "queryIds": [
+        "q-1"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "83a0a07d602718a9",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "83a0a07d602718a9",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [
+        "q-3"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "bea6135b21ee6c49",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "bea6135b21ee6c49",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-9",
+        "q-6",
+        "q-5",
+        "q-8"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "bea6135b21ee6c49",
+      "arm": "E2_LEGACY",
+      "queryIds": [
+        "q-4"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "bea6135b21ee6c49",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "bea6135b21ee6c49",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "e0734e453d890dbd",
+      "arm": "STATIC",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "e0734e453d890dbd",
+      "arm": "RANDOM_FIXED_4",
+      "queryIds": [
+        "q-6",
+        "q-4",
+        "q-5",
+        "q-11"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "e0734e453d890dbd",
+      "arm": "E2_LEGACY",
+      "queryIds": [
+        "q-9",
+        "q-11"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "e0734e453d890dbd",
+      "arm": "E21_STRICT",
+      "queryIds": [],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    },
+    {
+      "task": "e0734e453d890dbd",
+      "arm": "E22_CONJECTURE",
+      "queryIds": [
+        "q-9"
+      ],
+      "initialCounterexampleIds": [],
+      "initialCounterexampleHits": [],
+      "currentCounterexampleHits": [],
+      "programChanges": 0
+    }
+  ]
+}

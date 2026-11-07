@@ -1,0 +1,15 @@
+{
+  "source": "E2.2 submitted result ZIP; raw SHA-256 of JSONL files; line-ending sensitive",
+  "files": {
+    "docs/research/sd03-e22-development-2026-11-07/EXAMINER-OPPORTUNITY-AFTER-FREEZE.jsonl": "f7d30de9d3568deb92ade9452540f5d755745bc1aba06a6e4c84bcfe6a80d57c",
+    "docs/research/sd03-e22-development-2026-11-07/EXAMINER-SCORES-AFTER-FREEZE.jsonl": "957c047274461e12ca380bf356f705c4d26c91258ca5e7f5b17518b6a139d178",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-0d3daf2627021276.jsonl": "6c3388cd38aa856c265c3c137ac1c2af4b3065d2b5b86d000c2138d93e809500",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-4254cfe428af73ca.jsonl": "e3331b0b2a6ba997148e22bf9914ae50fc11ea6069ab6837b779b8ac7ba42337",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-426249206c4fbdf8.jsonl": "29c21e63a553d5d921ff3a5fd6923320b8d6ebb9a491dd4af1121ab0d5e332cf",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-4b1f104a970d9e8f.jsonl": "5d9a6c0566138dae3497bac8eac096911a78054f453dc42479eaf91aa07a0ce4",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-6894c295a0615971.jsonl": "80e65ad24204ee8ee2157c19bc06640c941ae98e3992fe037598fccca68e3d26",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-83a0a07d602718a9.jsonl": "779cf16fc749a7178ae6148ad7a35dd9c29f7a509f6729002c732483203f27cc",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-bea6135b21ee6c49.jsonl": "bf72f643845c364cfdc12c7fae77c259b211ec1776c36502e91fa8e89d3f0c29",
+    "docs/research/sd03-e22-development-2026-11-07/STUDENT-EVENTS-e0734e453d890dbd.jsonl": "83f713f1652d39bffd3cfffdc37beeeb9a9614016068b76214571f27fb7d1aa3"
+  }
+}
