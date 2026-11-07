@@ -1,0 +1,62 @@
+{
+  "event_id": "ev-1794027404703-bcdbe5",
+  "at": "2026-11-07T04:56:44.703421+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "SD-03-CONTINUATION-2026-11-07 consumed",
+  "before": {
+    "repair_id": "SD-03-CONTINUATION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 continuation: multi-source student pool, forensic AST mismatch classification, honest G0-G4 gates. No SD-04, no full regression, no 160 formal exam, no historical changes.",
+    "approval_reference": "Research-owner default authorization for subsequent tasks, 2026-11-07.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-CONTINUATION-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD03*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD03*.kt",
+      "docs/research/sd03-continuation-2026-11-07/",
+      "SD-03-CONTINUATION-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T04:56:37.184485+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794027397184-0f36f4"
+    ],
+    "content_hash": "54007e7dc653344ffe592db408bd46b961ed7b8373db5117eafc4a7cf5c18298"
+  },
+  "after": {
+    "repair_id": "SD-03-CONTINUATION-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 continuation: multi-source student pool, forensic AST mismatch classification, honest G0-G4 gates. No SD-04, no full regression, no 160 formal exam, no historical changes.",
+    "approval_reference": "Research-owner default authorization for subsequent tasks, 2026-11-07.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-CONTINUATION-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD03*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD03*.kt",
+      "docs/research/sd03-continuation-2026-11-07/",
+      "SD-03-CONTINUATION-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-07T04:56:37.184485+00:00",
+    "consumed_at": "2026-11-07T04:56:44.703264+00:00",
+    "audit_event_ids": [
+      "ev-1794027397184-0f36f4"
+    ],
+    "content_hash": "54007e7dc653344ffe592db408bd46b961ed7b8373db5117eafc4a7cf5c18298",
+    "consumed_commit": "7e96d6faaad63a7607fa22bad26b86956a3571da",
+    "consumed_test": "SD03 continuation 2/2; G0=PASS_LIMITED; G1=NOT_DEMONSTRATED; G2-G4=NOT_RUN; fullRegression=NOT_RUN; formal_runs=0",
+    "consumed_report": "docs/research/sd03-continuation-2026-11-07/RESULT.md"
+  }
+}
