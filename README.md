@@ -34,6 +34,7 @@
 | SD-02 2026-11-07 | typed anti-unification、holes、可执行宏、注册/迁移 | **G1 MECHANISM_ONLY_PASS（fixture 来源）；G2 可执行但未注册；G3 NOT_DEMONSTRATED** |
 | SD-03 2026-11-07 | 真实学生来源→LGG→可执行宏闭环 | **G0 PASS_LIMITED；G1 NOT_DEMONSTRATED（IRRELEVANT_SOURCE_DIFFERENCE）；G2–G4 NOT_RUN** |
 | SD-03 Continuation 2026-11-07 | 8 个真实来源、16 对 AST 取证 | **G0 PASS_LIMITED；G1 NOT_DEMONSTRATED（ROOT/ARG 分歧）；G2–G4 NOT_RUN；无新 RED** |
+| SD-03 16-pair 2026-11-07 | 16 对真实来源逐对 LGG | **16/16 调用；14 退化；2 非退化但自由变量 typecheck 失败；E1_NO_VALID_PATTERN；E2–E4 NOT_RUN** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -217,6 +218,13 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 没有 pair 形成非退化 typed pattern；G1 `NOT_DEMONSTRATED`，未进入注册/迁移/消融。
 - 本轮新增取证测试首跑通过，没有新业务 RED；未伪造 RED。
 - 记录：[预注册](./docs/research/sd03-continuation-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-continuation-2026-11-07/RESULT.md)、[取证 trace](./docs/research/sd03-continuation-2026-11-07/FORENSIC-SD03.jsonl)。
+
+### SD-03 16-pair 2026-11-07：逐对真实归纳
+
+- A/B 各 4 个真实来源，4×4=16 对，全部实际调用 `SD02AntiUnify.generalize`。
+- 14 对 `IRRELEVANT_SOURCE_DIFFERENCE`；2 对非退化/可重建，但 pattern 含自由 `Arg(a/b)`，宏 typecheck 失败。
+- 无合法可激活宏：`E1_NO_VALID_PATTERN`；E2–E4 NOT_RUN。
+- 记录：[预注册](./docs/research/sd03-16pair-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-16pair-2026-11-07/RESULT.md)、[PAIR-LGG](./docs/research/sd03-16pair-2026-11-07/PAIR-LGG.jsonl)。
 
 ### Research Console（本地）
 
