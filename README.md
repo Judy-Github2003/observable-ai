@@ -30,6 +30,7 @@
 | MRX Next 2026-11-07 | 可见证据→竞争失败假说→下一步真实实验 | **真实 W4/XOR 轨迹与 trace 完成；C1/C2 部分，C3 未证明，C4 INCONCLUSIVE** |
 | MRX Live 2026-11-07 | 行动前假说快照、真实 observation 更新、可区分行动选择 | **真实 A/B 轨迹完成；C1/C2 PASS_LIMITED，C3 NOT_DEMONSTRATED，C4 NO_BENEFIT** |
 | MRX Causal 2026-11-07 | LIVE / FROZEN / NO_HYP 消融、历史反例语义、成本审计 | **L1 MECHANISM_ONLY_PASS；L2 REAL_PAIR_NOT_FOUND；L3 INCONCLUSIVE；建议暂停 MRX 假说线路** |
+| SD-01 2026-11-07 | 通用组合候选、CHALLENGE 验证、结构固化/迁移 | **SD0_PASS_LIMITED；SD1 NOT_DEMONSTRATED（仅 PROGRAM_INSTANCE）；XOR 无结构；无成本收益** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -184,6 +185,13 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 语义修正：后续 PASS 不再把历史反例标为 REFUTED；但假说仍缺 candidate/scope 结构化字段。
 - 研究决策：建议暂停 MRX 实时假说线路，转向候选结构/表达空间扩展。
 - 记录：[预注册](./docs/research/mrx-causal-ablation-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/mrx-causal-ablation-2026-11-07/CAUSAL-ABLATION-RESULT.md)。
+
+### SD-01 2026-11-07：结构发现与迁移
+
+- 用现有 `MRX2BSpace` 生成候选：W4 28,523 generated / 335 retained，1 个 CHALLENGE 16/16 通过；XOR 112 retained 但无通过候选。
+- 仅形成 `PROGRAM_INSTANCE`（无参数），不是可复用宏；迁移到 XOR 5/9，禁用对照无真实调用；**SD1 NOT_DEMONSTRATED**。
+- 固定枚举器也找到 W4 答案，因此不宣称新搜索算法或“自主扩展表达语法”。
+- 记录：[预注册](./docs/research/sd-01-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd-01-2026-11-07/RESULT.md)、[TRACE](./docs/research/sd-01-2026-11-07/TRACE-SD01.jsonl)。
 
 ### Research Console（本地）
 
@@ -340,6 +348,7 @@ src/main/kotlin/logic/
     MRX2E.kt / MRX2Student.kt                MRX-02E 真实双失败后的第三步重规划
     MRXNext.kt                               MRX Next 可见证据/竞争假说 trace
     MRXLive.kt                               MRX Live 行动前假说/真实 observation 适配器
+    SD01.kt                                  SD-01 结构发现/候选验证/迁移骨架
 
 experiments/
   curriculum/       课程计划、规则目录 rules.json、批量教材 curriculum.json
