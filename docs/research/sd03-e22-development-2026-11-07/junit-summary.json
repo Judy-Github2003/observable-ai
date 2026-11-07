@@ -1,0 +1,27 @@
+{
+  "suites": [
+    {
+      "name": "logic.e3.pack02.SD03E22ContractTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.051
+    },
+    {
+      "name": "logic.e3.pack02.SD03E22DevelopmentIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.442
+    }
+  ],
+  "total": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 3.4930000000000003
+  }
+}

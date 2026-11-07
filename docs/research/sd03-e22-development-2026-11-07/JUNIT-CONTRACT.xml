@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03E22ContractTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-07T12:53:53.875Z" hostname="ADMIN" time="0.051">
+  <properties/>
+  <testcase name="revealed input stays in audit matrix but cannot be selected again" classname="logic.e3.pack02.SD03E22ContractTest" time="0.044"/>
+  <testcase name="TRAIN inconsistent original cannot generate certificate" classname="logic.e3.pack02.SD03E22ContractTest" time="0.0"/>
+  <testcase name="duplicate query or missing atom coverage fails closed" classname="logic.e3.pack02.SD03E22ContractTest" time="0.001"/>
+  <testcase name="unknown TRAIN atom prediction remains unknown and does not justify split" classname="logic.e3.pack02.SD03E22ContractTest" time="0.0"/>
+  <testcase name="complete query matrix retains every row with explicit ranks and reasons" classname="logic.e3.pack02.SD03E22ContractTest" time="0.001"/>
+  <testcase name="no opposite query branch gives honest no divergence" classname="logic.e3.pack02.SD03E22ContractTest" time="0.001"/>
+  <testcase name="depth budget prevents hidden expansion of tree grammar" classname="logic.e3.pack02.SD03E22ContractTest" time="0.0"/>
+  <testcase name="find TRAIN consistent counterfactuals without reading query labels" classname="logic.e3.pack02.SD03E22ContractTest" time="0.0"/>
+  <testcase name="unverified external competitor cannot cast a vote" classname="logic.e3.pack02.SD03E22ContractTest" time="0.001"/>
+  <testcase name="query rankings are deterministic under public example permutation" classname="logic.e3.pack02.SD03E22ContractTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
