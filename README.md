@@ -1,4 +1,4 @@
-# Observable Learner / 可观测学习者
+﻿# Observable Learner / 可观测学习者
 
 > 一个把“能力到底属于谁”当作第一问题的教学实验：一个 Kotlin 程序从外部教师那里逐步获得**可审计、可归因、可复验**的能力。
 
@@ -28,6 +28,7 @@
 | MRX-02E | 真实两次失败后的第三步重规划 | **真实 DNF→IF→CNF；配对第二反馈不同→第三步不同未证明；LEVEL4_PARTIAL** |
 | EH-001/002/003 | 证据来源计量、`quickTest` 分层、零淘汰 observation | **完成；默认 quickTest 14 项；全量回归仍只在授权时运行** |
 | MRX Next 2026-11-07 | 可见证据→竞争失败假说→下一步真实实验 | **真实 W4/XOR 轨迹与 trace 完成；C1/C2 部分，C3 未证明，C4 INCONCLUSIVE** |
+| MRX Live 2026-11-07 | 行动前假说快照、真实 observation 更新、可区分行动选择 | **真实 A/B 轨迹完成；C1/C2 PASS_LIMITED，C3 NOT_DEMONSTRATED，C4 NO_BENEFIT** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -160,6 +161,19 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 共 6 条真实轨迹；无 mock 反馈、无 HELDOUT 进入学生侧；教师贡献仅内置假说模板与分析器，不能称“学生自主发现”。
 
 记录：[RESEARCH-QUESTION](./docs/research/mrx-next-2026-11-07/RESEARCH-QUESTION.md)、[COMPARISON](./docs/research/mrx-next-2026-11-07/COMPARISON.md)、[RESULT](./docs/research/mrx-next-2026-11-07/RESULT.md)。
+
+### MRX Live 2026-11-07：行动前的实时假说
+
+新增可选 `LIVE_HYPOTHESIS`：每一步动作前冻结 `HypothesisSnapshot_before`；真实执行后用 observation 更新为 `after`；决策读取假说状态与动作预测，而不是 `feedbackCode → action` 查表。
+
+- **C1 时间真实：PASS_LIMITED**：before 不含未来 observation，after 版本递增；旧 `diagnosisBefore/After` 仍有限。
+- **C2 在线归因：PASS_LIMITED**：4 个教师先验假说可分化，决策记录 `DISCRIMINATE=...`；但动作-假说模型是 teacher-prior。
+- **C3 严格配对：NOT_DEMONSTRATED**：A/B 首个真实反馈已不同，A 只有 1 个 action；未找到同前缀、第二反馈不同的配对。
+- **C4 收益：INCONCLUSIVE / NO_BENEFIT**：A 成功但仅 1 action；B 失败；无同轮 STATIC/RULE 配对。
+- 匿名 session id 为 `session-a/b`，不含 W4/XOR 等家族名；HELDOUT/目标真值不进入学生。
+- 未实现 `LIVE_FROZEN_BELIEF`/`LIVE_NO_HYP` 消融；`formal_runs=0`。
+
+记录：[RESULT](./docs/research/mrx-live-2026-11-07/RESULT.md)、[RED](./docs/research/mrx-live-2026-11-07/RED.log)、[GREEN](./docs/research/mrx-live-2026-11-07/GREEN.log)、[TRACE A](./docs/research/mrx-live-2026-11-07/TRACE-session-a.jsonl)、[TRACE B](./docs/research/mrx-live-2026-11-07/TRACE-session-b.jsonl)。
 
 ### Research Console（本地）
 
@@ -315,6 +329,7 @@ src/main/kotlin/logic/
     MRX2D.kt                                 MRX-02D 证据回放与保守确认
     MRX2E.kt / MRX2Student.kt                MRX-02E 真实双失败后的第三步重规划
     MRXNext.kt                               MRX Next 可见证据/竞争假说 trace
+    MRXLive.kt                               MRX Live 行动前假说/真实 observation 适配器
 
 experiments/
   curriculum/       课程计划、规则目录 rules.json、批量教材 curriculum.json

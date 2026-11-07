@@ -1,4 +1,4 @@
-// 本文件实现：DeepSeek Harness（本会话），2026-11-06。
+﻿// 本文件实现：DeepSeek Harness（本会话），2026-11-06。
 // 原因：MRX-02 第二关：真正动态重规划。每执行一个实验后重新生成假说/可辨识性/行动价值，
 // 不再预先固定一个行动队列。
 package logic.e3.pack02
@@ -10,6 +10,7 @@ enum class MRX2Strategy(val wire: String) {
     FIXED("FIXED"),
     STATIC("STATIC"),
     DYNAMIC("DYNAMIC"),
+    LIVE_HYPOTHESIS("LIVE_HYPOTHESIS"),
 }
 
 data class MRX2Step(
@@ -39,6 +40,7 @@ data class MRX2Result(
     val diagnosisAfter: List<String>,
     val identifiability: String,
     val cost: MRX2Cost,
+    val liveTrace: List<MRXLiveStepRecord> = emptyList(),
 )
 
 /**
@@ -79,15 +81,26 @@ class MRX2Student(
         var secondAction = "STOP"
         var currentSelected = selectedBase
         var status = if (baseValidation?.status == MRX2ValidationStatus.PASS_ON_CHALLENGE) "IDENTIFIED" else "INSUFFICIENT_EVIDENCE"
+        val liveTrace = ArrayList<MRXLiveStepRecord>()
+        val liveTried = HashSet<String>()
+        var liveSnapshot = MRXLiveEngine.initial()
         steps += MRX2Step(
             0, firstAction, firstFeedback, baseValidation?.checks ?: 0,
             baseValidation?.counterexamples ?: 0, 0, ledger.entries().sumOf { it.usedBy.size },
             meter.interpreterCalls, selectedBase?.nodeCount ?: 0, "", baseValidation?.note ?: "no_candidate",
             (System.nanoTime() - started) / 1_000_000,
         )
+        if (strategy == MRX2Strategy.LIVE_HYPOTHESIS) {
+            liveSnapshot = MRXLiveEngine.update(liveSnapshot, liveObservation(steps[0]))
+        }
+        var liveDecision: MRXLiveDecision? = if (strategy == MRX2Strategy.LIVE_HYPOTHESIS) {
+            MRXLiveEngine.evaluate(liveSnapshot, MRXLiveActionModel.evaluations(), ledger.remaining())
+        } else null
 
         var next = if (baseValidation?.status == MRX2ValidationStatus.PASS_ON_CHALLENGE && strategy != MRX2Strategy.FIXED) {
             "STOP"
+        } else if (strategy == MRX2Strategy.LIVE_HYPOTHESIS) {
+            executableLiveAction(liveDecision)
         } else {
             chooseNext(diagnosis, ident, step = 1)
         }
@@ -95,6 +108,8 @@ class MRX2Student(
         var index = 1
         while (next != "STOP" && index <= 3) {
             val actionStarted = System.nanoTime()
+            val snapshotBefore = liveSnapshot
+            val decisionBefore = liveDecision
             val outcome = execute(next)
             val wall = (System.nanoTime() - actionStarted) / 1_000_000
             meter.actionWallMillis += wall
@@ -104,16 +119,26 @@ class MRX2Student(
                 outcome.selected?.nodeCount ?: 0, "", outcome.note, wall,
             )
             if (outcome.selected != null) currentSelected = outcome.selected
+            if (strategy == MRX2Strategy.LIVE_HYPOTHESIS) {
+                val observation = liveObservation(steps[index])
+                val after = MRXLiveEngine.update(snapshotBefore, observation)
+                liveTrace += MRXLiveStepRecord(index, snapshotBefore, decisionBefore ?: MRXLiveEngine.evaluate(snapshotBefore, MRXLiveActionModel.evaluations(), ledger.remaining()), observation, after)
+                liveSnapshot = after
+                liveTried += next
+                liveDecision = if (index < 3) {
+                    MRXLiveEngine.evaluate(liveSnapshot, MRXLiveActionModel.evaluations(), ledger.remaining(), liveTried)
+                } else null
+            }
             diagnosis = update(diagnosis, next, outcome.status == MRX2ValidationStatus.PASS_ON_CHALLENGE.name)
             ident = analyze(diagnosis)
             if (outcome.status == MRX2ValidationStatus.PASS_ON_CHALLENGE.name && outcome.selected != null) {
                 status = "REPAIRED"
                 next = "STOP"
             } else {
-                next = if (strategy == MRX2Strategy.DYNAMIC && index < 3) {
-                    planDynamicNext(steps, index, currentSelected)
-                } else {
-                    chooseNext(diagnosis, ident, step = index + 1)
+                next = when {
+                    strategy == MRX2Strategy.LIVE_HYPOTHESIS -> executableLiveAction(liveDecision)
+                    strategy == MRX2Strategy.DYNAMIC && index < 3 -> planDynamicNext(steps, index, currentSelected)
+                    else -> chooseNext(diagnosis, ident, step = index + 1)
                 }
             }
             steps[index] = steps[index].copy(nextAction = next)
@@ -122,8 +147,24 @@ class MRX2Student(
         meter.totalWallMillis = (System.nanoTime() - started) / 1_000_000
         return MRX2Result(
             strategy.wire, firstAction, firstFeedback, secondAction, status, steps, currentSelected,
-            diagnosis.map { it.id }, diagnosis.map { it.id }, ident.toString(), meter,
+            diagnosis.map { it.id }, diagnosis.map { it.id }, ident.toString(), meter, liveTrace,
         )
+    }
+
+    private fun liveObservation(step: MRX2Step): MRXLiveObservation = MRXLiveObservation(
+        id = "real-step-${step.index}",
+        stepIndex = step.index,
+        source = "REAL_MRX2STUDENT",
+        feedback = step.feedback,
+        counterexamples = step.counterexamples,
+        budgetRemaining = ledger.remaining(),
+        ledgerRefs = ledger.entries().map { "ledger:${it.inputKey}:${it.queryIndex}:${it.source}" },
+        candidateCount = null,
+    )
+
+    private fun executableLiveAction(decision: MRXLiveDecision?): String {
+        val catalog = setOf("KNOWLEDGE", "BUDGET", "DNF", "IF", "CNF")
+        return if (decision != null && decision.chosenAction in catalog) decision.chosenAction else "STOP"
     }
 
     private data class Outcome(
