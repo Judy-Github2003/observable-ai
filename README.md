@@ -39,6 +39,7 @@
 | SD-03 Root Cause 2026-11-07 | A0–A3/B0 原子排序消融、GOLD、宏绑定 | **H1 支持（A0 漏 d=1，0 来源）；A1 恢复但撞 30k；GOLD 40/20/21 通过；宏 caller key RED→GREEN** |
 | SD-03 Blind Attribution 2026-11-07 | 12 盲任务×3 arms，外部归因 | **36 runs；ATTRIBUTION 12/12 ABSTAIN；C=38/G=32/A=38；G3/G4/G5 NOT_DEMONSTRATED/NO_BENEFIT** |
 | SD-03 Blind Attribution R2 2026-11-07 | 预测签名可辨识性、1 次真实探针 | **36 runs；11 ABSTAIN + 1 PAIRWISE_12；探针 0 来源且撞 30k；G2/G3 PASS_LIMITED；G4 NO_BENEFIT** |
+| SD-03 Sequential R3 2026-11-07 | 第一次探针失败后的第二决策 | **2 开发任务；edb6 第二次改选 AUDIT_GENERATION_CAP；0 来源/capHit；G3 仅诊断；G4 NO_BENEFIT** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -261,6 +262,15 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 12 task-seeds：11 ABSTAIN，1 个真实 witness 触发 `PAIRWISE_12` 探针。
 - 探针仍 0 来源、generated=30,000 capHit；ATTRIBUTION/Control 均 38 pass、HELDOUT 210；G4 NO_BENEFIT。
 - 记录：[预注册](./docs/research/sd03-blind-r2-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-blind-r2-2026-11-07/RESULT.md)、[DECISIONS](./docs/research/sd03-blind-r2-2026-11-07/DECISIONS-R2.jsonl)。
+
+### SD-03 Sequential Attribution R3 2026-11-07：失败探针后的第二决策
+
+- 两个公开开发任务：`edb6ed` 首次 `PROBE_PAIRWISE_12` → 第二次 `AUDIT_GENERATION_CAP`；`068096` 首次 ABSTAIN。
+- 决策先封存再评分；第二次快照为真实 MRX2BSpace 重跑，TRAIN/atom universe 不变。
+- `edb6ed` 的 signature 阻塞已移除，但 train-consistent 仍为 0、generated 30,000 capHit；第二次动作是诊断请求，不是修复。
+- 三臂：CONTROL 3/21、GENERIC 0/0、ATTRIBUTION 3/21；无收益。
+- G3 仅 `PASS_LIMITED（diagnostic）`；G4 NO_BENEFIT；G5 NOT_DEMONSTRATED。
+- 记录：[预注册](./docs/research/sd03-r3-development-2026-11-07/PREREGISTRATION.md)、[结果](./docs/research/sd03-r3-development-2026-11-07/RESULT.md)、[CHRONOLOGY](./docs/research/sd03-r3-development-2026-11-07/CHRONOLOGY.jsonl)。
 
 ### Research Console（本地）
 
