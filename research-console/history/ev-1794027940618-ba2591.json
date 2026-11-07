@@ -1,0 +1,62 @@
+{
+  "event_id": "ev-1794027940618-ba2591",
+  "at": "2026-11-07T05:05:40.618420+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "SD-03-16PAIR-AUDIT-2026-11-07 consumed",
+  "before": {
+    "repair_id": "SD-03-16PAIR-AUDIT-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 16-pair audit: execute SD02AntiUnify.generalize on all 4x4 real source pairs, record AST/reject/reconstruction/typecheck, and honest E1+ gate status. No SD-04, no full regression, no 160 formal exam, no historical changes.",
+    "approval_reference": "Research-owner request 2026-11-07 and default authorization.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-16PAIR-AUDIT-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD03*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD03*.kt",
+      "docs/research/sd03-16pair-2026-11-07/",
+      "SD-03-16PAIR-AUDIT-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T05:04:24.895778+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794027864896-f70d67"
+    ],
+    "content_hash": "a163dab6d5228714a9e3bb3f5fbb1b94d5a9c78d12a561f9a350f0cf1795815f"
+  },
+  "after": {
+    "repair_id": "SD-03-16PAIR-AUDIT-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 16-pair audit: execute SD02AntiUnify.generalize on all 4x4 real source pairs, record AST/reject/reconstruction/typecheck, and honest E1+ gate status. No SD-04, no full regression, no 160 formal exam, no historical changes.",
+    "approval_reference": "Research-owner request 2026-11-07 and default authorization.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-16PAIR-AUDIT-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD03*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD03*.kt",
+      "docs/research/sd03-16pair-2026-11-07/",
+      "SD-03-16PAIR-AUDIT-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-07T05:04:24.895778+00:00",
+    "consumed_at": "2026-11-07T05:05:40.618258+00:00",
+    "audit_event_ids": [
+      "ev-1794027864896-f70d67"
+    ],
+    "content_hash": "a163dab6d5228714a9e3bb3f5fbb1b94d5a9c78d12a561f9a350f0cf1795815f",
+    "consumed_commit": "84302e86d827d4e0f271db264accca4529b5151f",
+    "consumed_test": "16/16 LGG invoked; 14 degenerate; 2 nondegenerate typecheck fail; E1_NO_VALID_PATTERN; E2-E4 NOT_RUN; fullRegression=NOT_RUN; formal_runs=0",
+    "consumed_report": "docs/research/sd03-16pair-2026-11-07/RESULT.md"
+  }
+}
