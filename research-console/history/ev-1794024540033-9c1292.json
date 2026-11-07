@@ -1,0 +1,62 @@
+{
+  "event_id": "ev-1794024540033-9c1292",
+  "at": "2026-11-07T04:09:00.033023+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "SD-01-STRUCTURE-DISCOVERY-2026-11-07 consumed",
+  "before": {
+    "repair_id": "SD-01-STRUCTURE-DISCOVERY-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-01 structure discovery development: generic typed candidate composition, TRAIN/QUERY/CHALLENGE validation, isolated structure record, transfer/ablation checks, honest SD0/SD1 evidence. No 160 formal exam, no full regression, no historical changes.",
+    "approval_reference": "Research-owner default authorization for subsequent tasks, 2026-11-07.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-01-STRUCTURE-DISCOVERY-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD01*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD01*.kt",
+      "docs/research/sd-01-2026-11-07/",
+      "SD-01-STRUCTURE-DISCOVERY-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-07T04:05:51.878404+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794024351878-8a2a85"
+    ],
+    "content_hash": "69e80f49f62a56302896b4ba6986524b35b451c638b20a97124faefd51b18854"
+  },
+  "after": {
+    "repair_id": "SD-01-STRUCTURE-DISCOVERY-2026-11-07",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-01 structure discovery development: generic typed candidate composition, TRAIN/QUERY/CHALLENGE validation, isolated structure record, transfer/ablation checks, honest SD0/SD1 evidence. No 160 formal exam, no full regression, no historical changes.",
+    "approval_reference": "Research-owner default authorization for subsequent tasks, 2026-11-07.",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-01-STRUCTURE-DISCOVERY-2026-11-07",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/pack02/SD01*.kt",
+      "src/test/kotlin/logic/e3/pack02/SD01*.kt",
+      "docs/research/sd-01-2026-11-07/",
+      "SD-01-STRUCTURE-DISCOVERY-2026-11-07-REPORT.md"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-07T04:05:51.878404+00:00",
+    "consumed_at": "2026-11-07T04:09:00.032860+00:00",
+    "audit_event_ids": [
+      "ev-1794024351878-8a2a85"
+    ],
+    "content_hash": "69e80f49f62a56302896b4ba6986524b35b451c638b20a97124faefd51b18854",
+    "consumed_commit": "8e2c7e68ce26d28021e81744b08d29bf40049f3d",
+    "consumed_test": "SD01 4/4; SD0_PASS_LIMITED; SD1_NOT_DEMONSTRATED; fullRegression=NOT_RUN; formal_runs=0",
+    "consumed_report": "docs/research/sd-01-2026-11-07/RESULT.md"
+  }
+}

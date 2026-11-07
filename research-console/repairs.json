@@ -550,14 +550,18 @@
         "docs/research/sd-01-2026-11-07/",
         "SD-01-STRUCTURE-DISCOVERY-2026-11-07-REPORT.md"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-07T04:05:51.878404+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-07T04:09:00.032860+00:00",
       "audit_event_ids": [
-        "ev-1794024351878-8a2a85"
+        "ev-1794024351878-8a2a85",
+        "ev-1794024540033-9c1292"
       ],
-      "content_hash": "69e80f49f62a56302896b4ba6986524b35b451c638b20a97124faefd51b18854"
+      "content_hash": "69e80f49f62a56302896b4ba6986524b35b451c638b20a97124faefd51b18854",
+      "consumed_commit": "8e2c7e68ce26d28021e81744b08d29bf40049f3d",
+      "consumed_test": "SD01 4/4; SD0_PASS_LIMITED; SD1_NOT_DEMONSTRATED; fullRegression=NOT_RUN; formal_runs=0",
+      "consumed_report": "docs/research/sd-01-2026-11-07/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-07T04:05:51.891696+00:00"
+  "updated_at": "2026-11-07T04:09:00.039730+00:00"
 }
