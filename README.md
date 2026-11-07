@@ -6,7 +6,7 @@
 
 ---
 
-## 现在到哪一步（2026-11-06）
+## 现在到哪一步（2026-11-07）
 
 | 阶段 | 内容 | 状态 |
 |---|---|---|
@@ -22,9 +22,16 @@
 | MRX-01 | 自主发现结构不足、提出升级并验证学习增益 | **冻结基线 27 世界；W4 开发修复；正式 7×4=28 次，LEVEL 1–3 部分，L4/5 未达成** |
 | MRX-01R | 证据账本、可辨识性、FIXED/EVIDENCE/VALUE 策略 | **20 世界×6 条件=120 次；LEVEL 1 达成，L2 部分，L4/5 未达成** |
 | MRX-02 | 证据正确性、真实成本、动态重规划 | **Gate 1/2 通过；Gate 3 未通过，按任务书停止，未跑 160 次正式考试** |
+| MRX-02B | 候选生命周期、A/B/C 搜索、G0–G4 归因 | **生命周期/G0–G4 完成；PAIRWISE 在 W4 补足 G1/G2，但 G4 仍 false；未跑 160** |
+| MRX-02C | 主动辨识、精确覆盖、W4/XOR | **W4 主动查询 27/27；独立 XOR HELDOUT 12/27；精确覆盖与 UNKNOWN 边界已实现** |
+| MRX-02D | 证据回放、不可变预测、G1–G5 归因 | **W4 G1/G2/G3/G4 true（仍 provisional）；XOR G1/G2 false，定位为候选未生成/未保留** |
+| MRX-02E | 真实两次失败后的第三步重规划 | **真实 DNF→IF→CNF；配对第二反馈不同→第三步不同未证明；LEVEL4_PARTIAL** |
+| EH-001/002/003 | 证据来源计量、`quickTest` 分层、零淘汰 observation | **完成；默认 quickTest 14 项；全量回归仍只在授权时运行** |
+| MRX Next 2026-11-07 | 可见证据→竞争失败假说→下一步真实实验 | **真实 W4/XOR 轨迹与 trace 完成；C1/C2 部分，C3 未证明，C4 INCONCLUSIVE** |
 
-**当前全量测试：367/367，0 failed（B0 173 + E3 194）。** 这是实现者自测，不等于外部独立闭卷；`independent_closed_book` 仍为 `not_run`。
-
+**最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
+EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
+**当前默认 `quickTest` 执行 14 项：** EH-001 3 + EH-003 7 + MRX2DEvidence 4；MRX-02E/MRX Next 需要显式 `-PquickTests`。
 **这不是“毕业”。** 两套各 120 题的综合卷尚未生成；小学 72 单元未开始。形状、颜色、情绪等只是**文本标签查询**，不代表真实看图、听声或情绪体验。
 
 ### V2：规则自主发现（2026-11-04 新增）
@@ -76,7 +83,7 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 | A8 | 多 finding 诊断整合 | 完成；已修正探测证据合并/候选状态 |
 | A9 | 公平对照协议 + 累计预算/评分契约 | 协议/smoke/评分示例完成；A10 未运行 |
 
-- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`。A0–A9 阶段为 **297/297**；引入 PACK-02R/MRX 后当前全量为 **367/367**（B0 173 + E3 194）。
+- 契约实现：`src/main/kotlin/logic/e3/`；生成器：`src/main/kotlin/logic/e3/evaluator/`。A0–A9 阶段为 **297/297**；引入 PACK-02R/MRX 后最近一次全量为 **387/387**（B0 173 + E3 214，EH-001 时点；之后只跑专项，未重跑全量）。
 - 已实现最小生成器与独立 oracle；未实现 A9 对照基线、原因归因或评分器；E3-B/C 未授权。
 - `independent_closed_book=not_run`；E3 结果为 `implementer_run`。
 - 记录：[E3 SPEC](./experiments/representation-evolution-e3/SPEC.md)、[DECISIONS](./experiments/representation-evolution-e3/DECISIONS.md)、[WORKSTATE](./experiments/representation-evolution-e3/WORKSTATE.md)、[A0/A1 报告](./experiments/representation-evolution-e3/reports/E3-A0-A1-REPORT.md)、[A2 报告](./experiments/representation-evolution-e3/reports/E3-A2-REPORT.md)。
@@ -119,6 +126,58 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 等级：LEVEL 1、2 达成，LEVEL 3 部分，LEVEL 4/5 未运行。
 - 记录：[MRX-02 报告](./MRX-02-REPORT.md)、[关卡证据](./experiments/representation-evolution-e3/reports/mrx-02-gates.json)。
 
+### MRX-02B–02E：候选生命周期、主动辨识与真实双失败（2026-11-06/07）
+
+这一段把“候选是否生成/保留/选错”和“证据是否改变行动”拆开：
+
+- **MRX-02B**：候选生命周期 `GENERATED → TRAIN_CONSISTENT → RETAINED → SELECTED`；A/B/C 搜索对照。PAIRWISE 在 W4 补足 G1/G2，但最终选择仍错（G4 false）。
+- **MRX-02C**：把 RETAINED 候选接到真实 QUERY/CHALLENGE 上，按预测分歧主动查询。W4 6 次查询后 HELDOUT 27/27；独立 XOR 18→1 类但 HELDOUT 12/27。新增精确覆盖审计。
+- **MRX-02D**：先回放已付费证据再查询；不可变预测快照；Unknown 不转 False；`ERROR` 与 `BUDGET_EXHAUSTED` 分离。W4 G1/G2/G3/G4 true，但状态仍是 `SINGLE_BEHAVIOR_CLASS_PROVISIONAL`；XOR 的 12/27 被归因为 G1/G2 false（正确候选未生成/保留），不是查询不足。
+- **MRX-02E**：真实 `MRX2Student` 在公开合成 parity 世界产生两次真实失败，第三步从 DNF→IF→CNF；STATIC 与 DYNAMIC 第三步相同，**配对第二反馈不同→第三步不同未证明**，结论 `LEVEL4_PARTIAL`。
+- 正式 160 次考试仍未运行；`independent_closed_book=not_run`。
+
+记录：[MRX-02B](./MRX-02B-REPORT.md)、[MRX-02C](./MRX-02C-REPORT.md)、[MRX-02D](./MRX-02D-REPORT.md)、[MRX-02E](./MRX-02E-REPORT.md)。
+
+### Engineering Harness EH-001–003（2026-11-07）
+
+为小修改建立可重复的工程检查，不把工程通过冒充科研能力：
+
+- **EH-001**：`reusedLabels` 按已付费 `(channel, entry)` 计，不再按淘汰候选数计。
+- **EH-002**：独立 `quickTest` task；默认只跑明确列出的快速测试；空 `-PquickTests=` fail-fast；原 `test` 语义不变。
+- **EH-003**：零淘汰的回放标签也写入 observation；`ONE_SURVIVOR_WITH_EVIDENCE` 必须由最终幸存者自己拥有 Known 匹配证据，Unknown 不确认。
+- 当前默认 `quickTest`：EH-001 3 + EH-003 7 + MRX2DEvidence 4 = **14 项**；MRX-02E/MRX Next 用显式测试类运行。
+- 全量回归仍只在研究负责人授权时运行；EH-001 时点为 387/387。
+
+记录：[EH-001](./EH-001-REPORT.md)、[EH-002](./EH-002-REPORT.md)、[EH-003](./EH-003-REPORT.md)、[测试分层](./docs/engineering/TESTING.md)。
+
+### MRX Next 2026-11-07：可见证据与竞争假说
+
+小规模开放探索：在真实 `MRX2Student` 运行后，用学生可见的 step/账本证据生成四个竞争失败假说，并记录支持/反驳/未知 evidence ID；W4 与独立 XOR 各跑 STATIC/RULE/EVIDENCE 三条真实轨迹。
+
+- **C1 证据真实性：PASS_LIMITED**；**C2 区分性归因：PASS_LIMITED**。
+- **C3 证据改变决策：NOT_DEMONSTRATED**：没有“同初始、同第一失败、第二反馈不同”的真实配对；XOR 的第三步差异来自策略/队列，不是证据。
+- **C4 学习收益：INCONCLUSIVE**：W4 三策略都成功，EVIDENCE 与 STATIC 相同；XOR 三策略都失败，瓶颈仍是候选空间覆盖。
+- 共 6 条真实轨迹；无 mock 反馈、无 HELDOUT 进入学生侧；教师贡献仅内置假说模板与分析器，不能称“学生自主发现”。
+
+记录：[RESEARCH-QUESTION](./docs/research/mrx-next-2026-11-07/RESEARCH-QUESTION.md)、[COMPARISON](./docs/research/mrx-next-2026-11-07/COMPARISON.md)、[RESULT](./docs/research/mrx-next-2026-11-07/RESULT.md)。
+
+### Research Console（本地）
+
+研究门禁、任务状态和证据记录在 `research-console/`。网页控制台只绑定本机：
+
+```powershell
+$env:RESEARCH_CONSOLE_TOKEN = "local-console-token-2026"
+python tools/research-console/server.py --port 8765
+# http://127.0.0.1:8765/
+```
+
+启动后访问 `http://127.0.0.1:8765/`；服务只绑定本机。CLI 入口：
+
+```powershell
+python tools/research-console/console_cli.py preflight --task <任务ID>
+python tools/research-console/console_cli.py finish --task <任务ID> --commit <SHA> --test "<结果>" --report <路径>
+```
+
 ---
 
 ## 这是什么
@@ -141,12 +200,23 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 需要 **JDK 21**。Gradle 用仓库自带 Wrapper，首次构建需联网下载依赖。
 
 ```powershell
-# Windows
-./gradlew.bat --no-daemon test installDist
+# 只构建，不触发历史科研测试
+./gradlew.bat --no-daemon installDist
 
-# Linux / macOS
-./gradlew --no-daemon test installDist
+# 日常工程验证：默认 14 项，不跑 MRXRFormal/MRXFormal/MRXBaseline
+./gradlew.bat quickTest --offline --console=plain
+
+# 指定测试类（示例）
+./gradlew.bat quickTest --offline --console=plain `
+  "-PquickTests=logic.e3.pack02.MRX2EPlannerContractTest,logic.e3.pack02.MRXNextTraceTest"
+
+# 全量回归：只在研究负责人明确授权时运行
+# ./gradlew.bat test --offline
 ```
+
+**不要**在日常修改后直接执行无筛选 `test`、`check` 或 `build`：它们会重新运行历史科研实验。完整说明见 [工程测试分层](./docs/engineering/TESTING.md)。
+
+Linux/macOS 将 `./gradlew.bat` 换成 `./gradlew`。
 
 构建产物：`build/install/logic-learner/bin/logic-learner`（Windows 为 `.bat`）。
 
@@ -240,6 +310,11 @@ src/main/kotlin/logic/
     MRXWorlds.kt / MRXSpace.kt / MRXStudent.kt / MRXExam.kt   MRX-01 结构诊断/升级
     MRXREvidence.kt / MRXRStudent.kt / MRXRSpace.kt / MRXRExam.kt   MRX-01R 证据账本/策略
     MRX2Evidence.kt / MRX2Student.kt         MRX-02 证据语义、成本与动态重规划
+    MRX2BSpace.kt / MRX2BAudit.kt            MRX-02B 候选生命周期与 G0–G4 审计
+    MRX2C.kt                                 MRX-02C 主动辨识与精确覆盖
+    MRX2D.kt                                 MRX-02D 证据回放与保守确认
+    MRX2E.kt / MRX2Student.kt                MRX-02E 真实双失败后的第三步重规划
+    MRXNext.kt                               MRX Next 可见证据/竞争假说 trace
 
 experiments/
   curriculum/       课程计划、规则目录 rules.json、批量教材 curriculum.json
