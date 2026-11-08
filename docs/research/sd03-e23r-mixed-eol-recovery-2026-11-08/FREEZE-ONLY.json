@@ -1,0 +1,279 @@
+{
+  "head": "bdf9d8106d3e10ea973ec0b528c9d4d00b272c62",
+  "sourceHasUncommittedChanges": false,
+  "suspiciousExternalPathIndicators": [],
+  "unfilteredCommand": "gradlew --offline --console=plain --no-daemon test",
+  "timeoutSeconds": 1800,
+  "runAuthorized": false,
+  "freezeOnly": true,
+  "checkoutCoreAutocrlf": "false",
+  "checkoutCoreEol": "lf",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "cpuCount": 24,
+  "warning": "Git worktree isolates relative writes, not absolute paths or network side effects.",
+  "freezeSourcePreflightBeforeRestoration": {
+    "status": "FAIL",
+    "manifestCount": 3,
+    "sourceCount": 11,
+    "matchedSources": 9,
+    "errors": [
+      "mrx-01r-freeze.json:space: src/main/kotlin/logic/e3/pack02/MRXRSpace.kt: byte hash mismatch",
+      "mrx-01r-freeze.json:student: src/main/kotlin/logic/e3/pack02/MRXRStudent.kt: byte hash mismatch"
+    ],
+    "sources": [
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/pack02r-c8-03-freeze.json",
+        "sourceKey": "student",
+        "path": "src/main/kotlin/logic/e3/pack02/C8ActiveStudent.kt",
+        "expectedSha256": "f37d234298263cbc56e40724ed6e840b30135a0d7b340b031f8b7e1bb14ee0e5",
+        "actualSha256": "f37d234298263cbc56e40724ed6e840b30135a0d7b340b031f8b7e1bb14ee0e5",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 644
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/pack02r-c8-03-freeze.json",
+        "sourceKey": "exam",
+        "path": "src/main/kotlin/logic/e3/pack02/C8Exam.kt",
+        "expectedSha256": "1eaa018024164939ff85ae1537ab6c000abfd1ff82dc8d68fbe18cf33645ce2f",
+        "actualSha256": "1eaa018024164939ff85ae1537ab6c000abfd1ff82dc8d68fbe18cf33645ce2f",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 689
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "formal_harness",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXExam.kt",
+        "expectedSha256": "521375557130668979879ebd4407b7d4e158ad2b5e101c5488d4f03025d4d10d",
+        "actualSha256": "521375557130668979879ebd4407b7d4e158ad2b5e101c5488d4f03025d4d10d",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 192
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "student_diagnosis",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXStudent.kt",
+        "expectedSha256": "4a3fee4d5a2b8f94211f3a9752bb9c9c56591c6924535ec74669646481e11811",
+        "actualSha256": "4a3fee4d5a2b8f94211f3a9752bb9c9c56591c6924535ec74669646481e11811",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 311
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "student_space",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXSpace.kt",
+        "expectedSha256": "b1a24f4a2d9e35c99b87fdfff56d9ef655f9662985af95c65d4ac34152c86e8a",
+        "actualSha256": "b1a24f4a2d9e35c99b87fdfff56d9ef655f9662985af95c65d4ac34152c86e8a",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 421
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "worlds",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXWorlds.kt",
+        "expectedSha256": "e669f802d6843887432471bafff581246d9267d7067c7eb4855a91ac73fdb42b",
+        "actualSha256": "e669f802d6843887432471bafff581246d9267d7067c7eb4855a91ac73fdb42b",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 186
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "harness",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRExam.kt",
+        "expectedSha256": "1593cf9f1b3aeef9ff42915aec16690d0c02cbb61d9fcbc650ed2eb96c575564",
+        "actualSha256": "1593cf9f1b3aeef9ff42915aec16690d0c02cbb61d9fcbc650ed2eb96c575564",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 225
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "ledger",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXREvidence.kt",
+        "expectedSha256": "597780d6f9afc1a16eb5764e6d51998ab366b47d7465e09b254e81e590441e28",
+        "actualSha256": "597780d6f9afc1a16eb5764e6d51998ab366b47d7465e09b254e81e590441e28",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 212
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "space",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRSpace.kt",
+        "expectedSha256": "f24593917b2e62229d92308b516a2daf004114dc3111afac4ddb4122cdb752bd",
+        "actualSha256": "61bed6532f4c549026396065ada32c251f5b15a155dc5dc3a86d1202124520f5",
+        "matched": false,
+        "rawCRLFCount": 0,
+        "rawLFCount": 423
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "student",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRStudent.kt",
+        "expectedSha256": "8ebfb76f1027bdbb83d2bcab4634dd6b9660ecb912fafbae38f6997bce1a8342",
+        "actualSha256": "9708efd5d6e60dbdd098d63c00ed4122dda1ef693f13cd9509d5af3cd71c714b",
+        "matched": false,
+        "rawCRLFCount": 0,
+        "rawLFCount": 337
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "worlds",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRWorlds.kt",
+        "expectedSha256": "1ac00a155b492c1c2a06976b94af1ce743e2c7b6965bf4d979b2a9ae6db7d1c3",
+        "actualSha256": "1ac00a155b492c1c2a06976b94af1ce743e2c7b6965bf4d979b2a9ae6db7d1c3",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 66
+      }
+    ],
+    "disclaimer": "Only byte-level historical-source check; not a research replay or an independent truth audit"
+  },
+  "restoredArchivalCRLF": [
+    {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXRSpace.kt",
+      "fromSha256": "61bed6532f4c549026396065ada32c251f5b15a155dc5dc3a86d1202124520f5",
+      "toSha256": "f24593917b2e62229d92308b516a2daf004114dc3111afac4ddb4122cdb752bd",
+      "method": "LF_TO_CRLF_IN_SANDBOX_ONLY"
+    },
+    {
+      "path": "src/main/kotlin/logic/e3/pack02/MRXRStudent.kt",
+      "fromSha256": "9708efd5d6e60dbdd098d63c00ed4122dda1ef693f13cd9509d5af3cd71c714b",
+      "toSha256": "8ebfb76f1027bdbb83d2bcab4634dd6b9660ecb912fafbae38f6997bce1a8342",
+      "method": "LF_TO_CRLF_IN_SANDBOX_ONLY"
+    }
+  ],
+  "freezeSourcePreflight": {
+    "status": "PASS",
+    "manifestCount": 3,
+    "sourceCount": 11,
+    "matchedSources": 11,
+    "errors": [],
+    "sources": [
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/pack02r-c8-03-freeze.json",
+        "sourceKey": "student",
+        "path": "src/main/kotlin/logic/e3/pack02/C8ActiveStudent.kt",
+        "expectedSha256": "f37d234298263cbc56e40724ed6e840b30135a0d7b340b031f8b7e1bb14ee0e5",
+        "actualSha256": "f37d234298263cbc56e40724ed6e840b30135a0d7b340b031f8b7e1bb14ee0e5",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 644
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/pack02r-c8-03-freeze.json",
+        "sourceKey": "exam",
+        "path": "src/main/kotlin/logic/e3/pack02/C8Exam.kt",
+        "expectedSha256": "1eaa018024164939ff85ae1537ab6c000abfd1ff82dc8d68fbe18cf33645ce2f",
+        "actualSha256": "1eaa018024164939ff85ae1537ab6c000abfd1ff82dc8d68fbe18cf33645ce2f",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 689
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "formal_harness",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXExam.kt",
+        "expectedSha256": "521375557130668979879ebd4407b7d4e158ad2b5e101c5488d4f03025d4d10d",
+        "actualSha256": "521375557130668979879ebd4407b7d4e158ad2b5e101c5488d4f03025d4d10d",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 192
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "student_diagnosis",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXStudent.kt",
+        "expectedSha256": "4a3fee4d5a2b8f94211f3a9752bb9c9c56591c6924535ec74669646481e11811",
+        "actualSha256": "4a3fee4d5a2b8f94211f3a9752bb9c9c56591c6924535ec74669646481e11811",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 311
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "student_space",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXSpace.kt",
+        "expectedSha256": "b1a24f4a2d9e35c99b87fdfff56d9ef655f9662985af95c65d4ac34152c86e8a",
+        "actualSha256": "b1a24f4a2d9e35c99b87fdfff56d9ef655f9662985af95c65d4ac34152c86e8a",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 421
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01-freeze.json",
+        "sourceKey": "worlds",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXWorlds.kt",
+        "expectedSha256": "e669f802d6843887432471bafff581246d9267d7067c7eb4855a91ac73fdb42b",
+        "actualSha256": "e669f802d6843887432471bafff581246d9267d7067c7eb4855a91ac73fdb42b",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 186
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "harness",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRExam.kt",
+        "expectedSha256": "1593cf9f1b3aeef9ff42915aec16690d0c02cbb61d9fcbc650ed2eb96c575564",
+        "actualSha256": "1593cf9f1b3aeef9ff42915aec16690d0c02cbb61d9fcbc650ed2eb96c575564",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 225
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "ledger",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXREvidence.kt",
+        "expectedSha256": "597780d6f9afc1a16eb5764e6d51998ab366b47d7465e09b254e81e590441e28",
+        "actualSha256": "597780d6f9afc1a16eb5764e6d51998ab366b47d7465e09b254e81e590441e28",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 212
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "space",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRSpace.kt",
+        "expectedSha256": "f24593917b2e62229d92308b516a2daf004114dc3111afac4ddb4122cdb752bd",
+        "actualSha256": "f24593917b2e62229d92308b516a2daf004114dc3111afac4ddb4122cdb752bd",
+        "matched": true,
+        "rawCRLFCount": 423,
+        "rawLFCount": 423
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "student",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRStudent.kt",
+        "expectedSha256": "8ebfb76f1027bdbb83d2bcab4634dd6b9660ecb912fafbae38f6997bce1a8342",
+        "actualSha256": "8ebfb76f1027bdbb83d2bcab4634dd6b9660ecb912fafbae38f6997bce1a8342",
+        "matched": true,
+        "rawCRLFCount": 337,
+        "rawLFCount": 337
+      },
+      {
+        "manifest": "experiments/representation-evolution-e3/reports/mrx-01r-freeze.json",
+        "sourceKey": "worlds",
+        "path": "src/main/kotlin/logic/e3/pack02/MRXRWorlds.kt",
+        "expectedSha256": "1ac00a155b492c1c2a06976b94af1ce743e2c7b6965bf4d979b2a9ae6db7d1c3",
+        "actualSha256": "1ac00a155b492c1c2a06976b94af1ce743e2c7b6965bf4d979b2a9ae6db7d1c3",
+        "matched": true,
+        "rawCRLFCount": 0,
+        "rawLFCount": 66
+      }
+    ],
+    "disclaimer": "Only byte-level historical-source check; not a research replay or an independent truth audit"
+  },
+  "status": "FROZEN_PREFLIGHT_PASS",
+  "exitCode": 0,
+  "sandbox": "C:\\Users\\j1437\\AppData\\Local\\Temp\\observable-e222-b3jzktct",
+  "gradleStarted": false,
+  "historicalTrackedDigestBefore": "017d14502967a440bb36c217421bf6ea6dac9f3f179f423c0d7ba1e7cb522c80",
+  "historicalTrackedDigestAfter": "017d14502967a440bb36c217421bf6ea6dac9f3f179f423c0d7ba1e7cb522c80",
+  "historicalTrackedFileCount": 594,
+  "historicalTrackedUnchanged": true
+}

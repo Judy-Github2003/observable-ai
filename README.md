@@ -50,6 +50,7 @@
 | SD-03 E2.2.2/E2.3 2026-11-08 | 隔离全量回归 + 更新策略 | **FULL 507 tests/5 fail/669s；E1 清理遗漏 .json；E2.3 token 错位 REPLAY_FIDELITY_FAILED；四组 NOT_RUN** |
 | SD-03 E2.3R 2026-11-08 | 冻结重放恢复 | **计划 8/11 重建；E23 重放 PASS；FULL 507/3 fail/665s（3 个 CRLF formal 冲突）；四组 NOT_RUN** |
 | SD-03 E2.3R-CRLF 2026-11-08 | 冻结预检 9/11；混合 EOL | **FROZEN_SOURCE_MISMATCH；2 个 manifest 期望 CRLF；未运行 full；NOT_RUN** |
+| SD-03 E2.3R-MIXED-EOL 2026-11-08 | sandbox 恢复两个 CRLF 源 | **freeze 11/11 PASS；Python 7/7；full 1800.811s TIMEOUT，0 JUnit；未达成 PASS** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -358,6 +359,14 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 历史 manifest 混合换行符，统一 LF 或 CRLF 都无法满足 11/11；未改 manifest/源文件。
 - `--freeze-only` FAIL，`gradleStarted=false`，全量回归 NOT_RUN；未用旧结果冒充 PASS。
 - 记录：[结果](./docs/research/sd03-e23r-crlf-fix-2026-11-08/RESULT.md)、[FREEZE](./docs/research/sd03-e23r-crlf-fix-2026-11-08/FREEZE-ONLY.json)。
+
+### SD-03 E2.3R-MIXED-EOL 2026-11-08：冻结恢复，但全量超时
+
+- `MRXRSpace.kt`、`MRXRStudent.kt` 仅在隔离 worktree 中恢复为 CRLF；freeze 11/11 PASS。
+- Python 工程测试 7/7；历史 tracked digest 前后一致。
+- 无筛选 `gradlew test` 在 1800.811s 超时，未见 JUnit；`FULL_REGRESSION=TIMEOUT`，不能称 PASS。
+- 上轮 665s 是 formal hash 早期失败，不是完整功能回归时间。
+- 记录：[结果](./docs/research/sd03-e23r-mixed-eol-recovery-2026-11-08/RESULT.md)、[FREEZE](./docs/research/sd03-e23r-mixed-eol-recovery-2026-11-08/FREEZE-ONLY.json)。
 
 ### Research Console（本地）
 

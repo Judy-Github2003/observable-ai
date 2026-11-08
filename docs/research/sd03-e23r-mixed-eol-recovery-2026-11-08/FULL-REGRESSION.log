@@ -1,0 +1,19 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.6/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :processResources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :compileKotlin
+> Task :compileJava NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :compileTestKotlin
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-l3h9n635/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:142:87 Unchecked cast of 'Any' to 'List<Observation>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-l3h9n635/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:142:145 Unchecked cast of 'Any' to 'List<Map<String, String>>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-l3h9n635/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:143:93 Unchecked cast of 'Any' to 'List<Observation>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-l3h9n635/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:143:151 Unchecked cast of 'Any' to 'List<Map<String, String>>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-l3h9n635/src/test/kotlin/logic/e3/pack02/SD03StudentLoopTest.kt:54:19 Check for instance is always 'true'.
+
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test
