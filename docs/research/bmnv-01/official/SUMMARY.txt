@@ -1,0 +1,8 @@
+BMNV-01 visible-examiner development experiment; NOT independent closed-book
+Worlds: 48; arms: 4; student rows: 192
+Student SHA256: 03c86b6f995967687c3f9229678aa772a87ad5f7f8ff3026f9813ddee0494aa8
+FULL: B correct=3072/3072, measurements=14336
+NO_MEMORY: B correct=3072/3072, measurements=15360
+NO_OBSERVATION: B correct=0/3072, measurements=0
+NO_COMPOSE: B correct=0/3072, measurements=2304
+No significance claims from repeated seeds; human-authored student grammar.

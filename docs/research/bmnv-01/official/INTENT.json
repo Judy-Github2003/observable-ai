@@ -1,0 +1,16 @@
+{
+  "protocol": "BMNV01-SINGLE-PACK-v1",
+  "createdUtc": "2026-11-08T16:56:12.676603+00:00",
+  "sourceHashes": {
+    "src/main/kotlin/logic/e3/bmnv/BMNV01Kernel.kt": "031cfb64d9c3b8f166a263c0e500da09de1958ebd95970d1ddd0432bbe45a129",
+    "src/test/kotlin/logic/e3/bmnv/BMNV01PublicContract.kt": "239179fa5acd5584d8ea753ee6a17e53960573b8c7e75ff8ce552c2d1c959c92",
+    "src/test/kotlin/logic/e3/bmnv/BMNV01Examiner.kt": "651afc8dfeed8ec90981cdd2303232840edba86a99dacab830b8346d1286d198"
+  },
+  "freezeSha256": "d6506f0637c52b0170e8b56758285a427ac47b1ea0530dd6349730d646606aea",
+  "jarSha256": "0b7a9de75782f0e231dcb627533387830047878ac0aa3997eceb81d6571654ee",
+  "salt": 2013042127567488547,
+  "out": "C:\\\u81ea\u7814\u903b\u8f91\u6a21\u578b\\build\\bmnv-01-official-once",
+  "status": "STARTED_BEFORE_EXAM",
+  "compiler": "kotlin-compiler-embeddable 2.2.21 (host has no kotlinc)",
+  "java": "C:\\Users\\j1437\\.jdks\\jbr-21.0.11\\bin\\java.exe"
+}

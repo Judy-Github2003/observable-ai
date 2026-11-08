@@ -1,0 +1,43 @@
+{
+  "audit": "PASS_STRUCTURAL",
+  "scope": "visible-examiner development evaluation; NOT independent closed-book",
+  "studentSha256": "03c86b6f995967687c3f9229678aa772a87ad5f7f8ff3026f9813ddee0494aa8",
+  "scenarios": 48,
+  "studentRecords": 192,
+  "armSummary": {
+    "FULL": {
+      "correct": 3072,
+      "coverage": 3072,
+      "outOf": 3072,
+      "reads": 14336,
+      "aConceptCorrectCount": 48
+    },
+    "NO_COMPOSE": {
+      "correct": 0,
+      "coverage": 0,
+      "outOf": 3072,
+      "reads": 2304,
+      "aConceptCorrectCount": 0
+    },
+    "NO_MEMORY": {
+      "correct": 3072,
+      "coverage": 3072,
+      "outOf": 3072,
+      "reads": 15360,
+      "aConceptCorrectCount": 0
+    },
+    "NO_OBSERVATION": {
+      "correct": 0,
+      "coverage": 0,
+      "outOf": 3072,
+      "reads": 0,
+      "aConceptCorrectCount": 0
+    }
+  },
+  "pairedFullVsNoMemory": {
+    "fullBetterThanNoMemory": 0,
+    "fullWorseThanNoMemory": 0,
+    "tied": 48
+  },
+  "caution": "Semantically audited published rows; cannot prove one-shot execution or absence of answer leakage from logs alone."
+}
