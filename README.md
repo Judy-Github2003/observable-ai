@@ -51,6 +51,7 @@
 | SD-03 E2.3R 2026-11-08 | 冻结重放恢复 | **计划 8/11 重建；E23 重放 PASS；FULL 507/3 fail/665s（3 个 CRLF formal 冲突）；四组 NOT_RUN** |
 | SD-03 E2.3R-CRLF 2026-11-08 | 冻结预检 9/11；混合 EOL | **FROZEN_SOURCE_MISMATCH；2 个 manifest 期望 CRLF；未运行 full；NOT_RUN** |
 | SD-03 E2.3R-MIXED-EOL 2026-11-08 | sandbox 恢复两个 CRLF 源 | **freeze 11/11 PASS；Python 7/7；full 1800.811s TIMEOUT，0 JUnit；未达成 PASS** |
+| SD-03 E2.3V Phase B 2026-11-08 | 32 新任务×4 臂 | **128 冻结；LOCAL 13/32 vs FULL 12/32；paired +1/-0；PROMISING（非独立闭卷）** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
