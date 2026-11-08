@@ -1,0 +1,58 @@
+{
+  "event_id": "ev-1794153638728-62f1be",
+  "at": "2026-11-08T16:00:38.728690+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "GNJV-01-PHASE-B-SEALED-EXAM-2026-11-08 consumed",
+  "before": {
+    "repair_id": "GNJV-01-PHASE-B-SEALED-EXAM-2026-11-08",
+    "parent_pack_id": "",
+    "parent_task_ids": [],
+    "approved_scope": "GNJV-01 Phase B（独立 G+N+J+V 研究线，不隶属 PACK-02）：集成封存考官源码，独立 Kotlin 编译入口执行一次 12 任务 × 4 臂正式考试，冻结 48 条学生输出后再评分，运行 audit_gnjv.py，保存原始证据与结果包并提交。不含历史全量回归、不含 SD-04/GNJV-02、不修改冻结学生源码或 FREEZE.json。",
+    "approval_reference": "Research-owner Phase-B execution instruction 2026-11-08 with sealed examiner ZIP sha256 aa6838728aac4c3c4c3cfd35170b6961ce6b4809abc0bd69f13f39789761c57c",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "GNJV-01-PHASE-B-SEALED-EXAM-2026-11-08",
+    "allowed_files_or_modules": [
+      "src/test/kotlin/logic/e3/gnjv/GNJV01SealedExaminer.kt",
+      "tools/gnjv/audit_gnjv.py",
+      "tools/gnjv/verify_freeze.py",
+      "docs/research/gnjv-01/",
+      "build/gnjv01-phaseb-*",
+      "tools/research-console/register_gnjv_01_phaseb.py"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-08T15:56:38.132488+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794153398132-ca4061"
+    ],
+    "content_hash": "4625c95a37871e7597cc8a66e067ee412c6a00788e4955be7182ff18894722bf"
+  },
+  "after": {
+    "repair_id": "GNJV-01-PHASE-B-SEALED-EXAM-2026-11-08",
+    "parent_pack_id": "",
+    "parent_task_ids": [],
+    "approved_scope": "GNJV-01 Phase B（独立 G+N+J+V 研究线，不隶属 PACK-02）：集成封存考官源码，独立 Kotlin 编译入口执行一次 12 任务 × 4 臂正式考试，冻结 48 条学生输出后再评分，运行 audit_gnjv.py，保存原始证据与结果包并提交。不含历史全量回归、不含 SD-04/GNJV-02、不修改冻结学生源码或 FREEZE.json。",
+    "approval_reference": "Research-owner Phase-B execution instruction 2026-11-08 with sealed examiner ZIP sha256 aa6838728aac4c3c4c3cfd35170b6961ce6b4809abc0bd69f13f39789761c57c",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "GNJV-01-PHASE-B-SEALED-EXAM-2026-11-08",
+    "allowed_files_or_modules": [
+      "src/test/kotlin/logic/e3/gnjv/GNJV01SealedExaminer.kt",
+      "tools/gnjv/audit_gnjv.py",
+      "tools/gnjv/verify_freeze.py",
+      "docs/research/gnjv-01/",
+      "build/gnjv01-phaseb-*",
+      "tools/research-console/register_gnjv_01_phaseb.py"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-08T15:56:38.132488+00:00",
+    "consumed_at": "2026-11-08T16:00:38.728559+00:00",
+    "audit_event_ids": [
+      "ev-1794153398132-ca4061"
+    ],
+    "content_hash": "4625c95a37871e7597cc8a66e067ee412c6a00788e4955be7182ff18894722bf",
+    "consumed_commit": "ea579573f7f783f611333128caec48de71902394",
+    "consumed_test": "sealed examiner run once: 12 tasks x 4 arms = 48 frozen; ACTIVE 12/12 FIXED 12/12 RANDOM 7/12 OBS 0/12; audit PASS; NO_ACTIVE_ADVANTAGE; independent recheck 0 mismatches",
+    "consumed_report": "docs/research/gnjv-01/phase-b/RESULT.md"
+  }
+}
