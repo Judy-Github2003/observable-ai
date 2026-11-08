@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03E23VFreshExaminerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T14:23:48.268Z" hostname="ADMIN" time="8.406">
+  <properties/>
+  <testcase name="E23V thirty two new targets four matched frozen policies" classname="logic.e3.pack02.SD03E23VFreshExaminerTest" time="8.406"/>
+  <system-out><![CDATA[E23V_FROZEN_LEARNER_VERIFIED 5
+E23V_OUTPUT_DIR=C:\自研逻辑模型\build\sd03-e23v-14200231780113485732
+E23V_EXAMINER_DONE tasks=32 armGrades=128 output=C:\自研逻辑模型\build\sd03-e23v-14200231780113485732
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

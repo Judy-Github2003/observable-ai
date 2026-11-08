@@ -1,0 +1,85 @@
+{
+  "status": "E23V_RAW_AUDIT_PASS",
+  "tasks": 32,
+  "studentArms": 128,
+  "gradeRows": 128,
+  "queryBudgetPerEligibleTask": 4,
+  "independentClosedBook": "NOT_CLAIMED",
+  "arms": {
+    "STATIC": {
+      "tasks": 32,
+      "passed": 12,
+      "eligible": 32,
+      "heldoutCorrect": 244,
+      "heldoutTotalOnPass": 252,
+      "queries": 0,
+      "fullRefitCalls": 0,
+      "localRepairs": 0,
+      "programChanges": 0,
+      "lostCorrectChallenge": 0,
+      "gainedCorrectChallenge": 0,
+      "atomInterpreterCalls": 15360,
+      "wallMillis": 325
+    },
+    "FULL_REFIT": {
+      "tasks": 32,
+      "passed": 12,
+      "eligible": 32,
+      "heldoutCorrect": 244,
+      "heldoutTotalOnPass": 252,
+      "queries": 128,
+      "fullRefitCalls": 128,
+      "localRepairs": 0,
+      "programChanges": 30,
+      "lostCorrectChallenge": 13,
+      "gainedCorrectChallenge": 10,
+      "atomInterpreterCalls": 83520,
+      "wallMillis": 2087
+    },
+    "KEEP_IF_AGREE": {
+      "tasks": 32,
+      "passed": 12,
+      "eligible": 32,
+      "heldoutCorrect": 244,
+      "heldoutTotalOnPass": 252,
+      "queries": 128,
+      "fullRefitCalls": 10,
+      "localRepairs": 0,
+      "programChanges": 10,
+      "lostCorrectChallenge": 13,
+      "gainedCorrectChallenge": 11,
+      "atomInterpreterCalls": 83520,
+      "wallMillis": 1853
+    },
+    "LOCAL_FIRST": {
+      "tasks": 32,
+      "passed": 13,
+      "eligible": 32,
+      "heldoutCorrect": 264,
+      "heldoutTotalOnPass": 273,
+      "queries": 128,
+      "fullRefitCalls": 1,
+      "localRepairs": 10,
+      "programChanges": 11,
+      "lostCorrectChallenge": 6,
+      "gainedCorrectChallenge": 4,
+      "atomInterpreterCalls": 83520,
+      "wallMillis": 1848
+    }
+  },
+  "pairedVsFullRefit": {
+    "KEEP_IF_AGREE": {
+      "winOverFull": 0,
+      "loseToFull": 0,
+      "samePass": 12,
+      "sameFail": 20
+    },
+    "LOCAL_FIRST": {
+      "winOverFull": 1,
+      "loseToFull": 0,
+      "samePass": 12,
+      "sameFail": 19
+    }
+  },
+  "disclaimer": "Frozen code, new examiner families; no after-test tuning. Data consistency, not independent truth audit."
+}

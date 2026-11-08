@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "exitCode": 0,
+  "elapsedSeconds": 16.875,
+  "outputDirectory": null,
+  "studentCoreFrozen": true,
+  "fullRegression": "NOT_RUN",
+  "JUnit": "C:\\自研逻辑模型\\build\\test-results\\quickTest",
+  "log": "C:\\自研逻辑模型\\build\\e23v-run-logs\\first-run.log",
+  "warning": "Do not rerun or tune learner after seeing examiner results"
+}
