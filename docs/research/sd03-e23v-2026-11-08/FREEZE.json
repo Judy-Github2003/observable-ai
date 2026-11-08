@@ -1,0 +1,23 @@
+{
+  "schema": "E23V-FREEZE-v1",
+  "baseHead": "9ae266ef56ff50d2e70a4f0bf4070d3d2858b4b7",
+  "sourceSha256": {
+    "src/main/kotlin/logic/e3/pack02/SD03EvidenceCompositionE1.kt": "1b7936973ede0bc141110eba7b8f2ded0c4cea7e182681c877040c09b122d55c",
+    "src/main/kotlin/logic/e3/pack02/SD03ActiveQueryLocalRepairE2.kt": "c77d0e668a95bb00cf4cb8b793e2473ba4053922c114b81bd438f792d17cafae",
+    "src/main/kotlin/logic/e3/pack02/SD03E23EvidenceUpdates.kt": "eceb6d0bbe0e2b0f6bf0385a6beb5d8ce2b8d1d33400f1c03be511b93ab8be2d",
+    "src/test/kotlin/logic/e3/pack02/SD03E2RepoAdapter.kt": "72724ddf1e4186efbe4be5622c093cef7177bb892918ebe4cb570a69bf33d3c4",
+    "build.gradle.kts": "6c42ee0b11b520079a062da760ebceafc25f92a934f5ad252e6a41840e1cb470"
+  },
+  "examinerArchiveSha256": "603d7fa3b1ebd55929d4c3aa3f076825ad37b92d181b3c4eefc819abe4d15ef7",
+  "examinerFamilies": 8,
+  "taskInstances": 32,
+  "queryBudget": 4,
+  "arms": [
+    "STATIC",
+    "FULL_REFIT",
+    "KEEP_IF_AGREE",
+    "LOCAL_FIRST"
+  ],
+  "independentClosedBook": "NOT_CLAIMED",
+  "notes": "New targets will be revealed only after this manifest is committed; no full regression required."
+}
