@@ -1,0 +1,58 @@
+{
+  "event_id": "ev-1794147332443-4308f3",
+  "at": "2026-11-08T14:15:32.443356+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "SD-03-E23V-PHASE-A-FREEZE-2026-11-08 consumed",
+  "before": {
+    "repair_id": "SD-03-E23V-PHASE-A-FREEZE-2026-11-08",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 E2.3V Phase A: learner source freeze, three targeted quick tests, FREEZE.json commit. No Phase B, no full regression, no science scoring, no SD-04.",
+    "approval_reference": "Research-owner request 2026-11-08",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-E23V-PHASE-A-FREEZE-2026-11-08",
+    "allowed_files_or_modules": [
+      "docs/research/sd03-e23v-2026-11-08/FREEZE.json",
+      "tools/research-console/register_sd03_e23v.py"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-08T14:14:19.499187+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794147259499-d0faa6"
+    ],
+    "content_hash": "5ea082c887151cc7be3c4e9605d380744cfc2e22c77175caad63729b3ed764d2"
+  },
+  "after": {
+    "repair_id": "SD-03-E23V-PHASE-A-FREEZE-2026-11-08",
+    "parent_pack_id": "PACK-02",
+    "parent_task_ids": [
+      "C4",
+      "C8",
+      "RES-H01"
+    ],
+    "approved_scope": "SD-03 E2.3V Phase A: learner source freeze, three targeted quick tests, FREEZE.json commit. No Phase B, no full regression, no science scoring, no SD-04.",
+    "approval_reference": "Research-owner request 2026-11-08",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "SD-03-E23V-PHASE-A-FREEZE-2026-11-08",
+    "allowed_files_or_modules": [
+      "docs/research/sd03-e23v-2026-11-08/FREEZE.json",
+      "tools/research-console/register_sd03_e23v.py"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-08T14:14:19.499187+00:00",
+    "consumed_at": "2026-11-08T14:15:32.443151+00:00",
+    "audit_event_ids": [
+      "ev-1794147259499-d0faa6"
+    ],
+    "content_hash": "5ea082c887151cc7be3c4e9605d380744cfc2e22c77175caad63729b3ed764d2",
+    "consumed_commit": "1b5907147e92a0376ccb52c631b49c27ec7d374b",
+    "consumed_test": "25/25 quick contracts PASS (7.7s); FREEZE.json sha256 f14e6102...; 5 sources frozen; examiner SHA registered only; Phase B NOT_READ",
+    "consumed_report": "docs/research/sd03-e23v-2026-11-08/PHASE-A-RESULT.md"
+  }
+}
