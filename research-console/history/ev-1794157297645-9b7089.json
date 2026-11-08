@@ -1,0 +1,86 @@
+{
+  "event_id": "ev-1794157297645-9b7089",
+  "at": "2026-11-08T17:01:37.645729+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "BMNV-01-SINGLE-2026-11-09 consumed",
+  "before": {
+    "repair_id": "BMNV-01-SINGLE-2026-11-09",
+    "parent_pack_id": "",
+    "parent_task_ids": [
+      "B2",
+      "B7",
+      "B8",
+      "RES-M01",
+      "RES-M05",
+      "RES-M06",
+      "RES-N01",
+      "RES-N02",
+      "RES-N03",
+      "RES-V01",
+      "RES-V02",
+      "RES-V03",
+      "RES-V05"
+    ],
+    "approved_scope": "BMNV-01（B+M+N+V 独立组合，不隶属 PACK-02）：整合 ChatGPT 参考学习器与可见考官，公开合同 11 项，学生+考官一次冻结，正式考试只运行一次（48 场景 × 4 臂 = 192 条），Python 审计与独立复核，结果包与提交。不含历史全量回归、不含 BMNV-02、不修改 GNJV-01/SD-03/PACK-02 历史冻结文件。",
+    "approval_reference": "Research-owner delivery of Observable-AI-BMNV-01-SINGLE-2026-11-09.zip (sha256 d95152aa46cf3ab262c8a1b004e67b04bf15543d938575d0d7c16753326980a8)",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "BMNV-01-SINGLE-2026-11-09",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/bmnv/",
+      "src/test/kotlin/logic/e3/bmnv/",
+      "tools/bmnv/",
+      "docs/research/bmnv-01/",
+      "build/bmnv-01-*",
+      "tools/research-console/register_bmnv_01.py"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-08T16:48:22.369360+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794156502370-a081a9"
+    ],
+    "content_hash": "3d03838a7ae3775a4d91bdf9ea4b022df045c066becff71d99913c3be81698b3"
+  },
+  "after": {
+    "repair_id": "BMNV-01-SINGLE-2026-11-09",
+    "parent_pack_id": "",
+    "parent_task_ids": [
+      "B2",
+      "B7",
+      "B8",
+      "RES-M01",
+      "RES-M05",
+      "RES-M06",
+      "RES-N01",
+      "RES-N02",
+      "RES-N03",
+      "RES-V01",
+      "RES-V02",
+      "RES-V03",
+      "RES-V05"
+    ],
+    "approved_scope": "BMNV-01（B+M+N+V 独立组合，不隶属 PACK-02）：整合 ChatGPT 参考学习器与可见考官，公开合同 11 项，学生+考官一次冻结，正式考试只运行一次（48 场景 × 4 臂 = 192 条），Python 审计与独立复核，结果包与提交。不含历史全量回归、不含 BMNV-02、不修改 GNJV-01/SD-03/PACK-02 历史冻结文件。",
+    "approval_reference": "Research-owner delivery of Observable-AI-BMNV-01-SINGLE-2026-11-09.zip (sha256 d95152aa46cf3ab262c8a1b004e67b04bf15543d938575d0d7c16753326980a8)",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "BMNV-01-SINGLE-2026-11-09",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/e3/bmnv/",
+      "src/test/kotlin/logic/e3/bmnv/",
+      "tools/bmnv/",
+      "docs/research/bmnv-01/",
+      "build/bmnv-01-*",
+      "tools/research-console/register_bmnv_01.py"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-08T16:48:22.369360+00:00",
+    "consumed_at": "2026-11-08T17:01:37.644799+00:00",
+    "audit_event_ids": [
+      "ev-1794156502370-a081a9"
+    ],
+    "content_hash": "3d03838a7ae3775a4d91bdf9ea4b022df045c066becff71d99913c3be81698b3",
+    "consumed_commit": "91d4156e02040c89ab904bacdb04e045277bddd5",
+    "consumed_test": "public contract 11/11; official run once: 192 frozen rows, FULL/NO_MEMORY 3072/3072, audit PASS_STRUCTURAL; FULL 14336 vs NO_MEMORY 15360 reads; N NOT_DEMONSTRATED",
+    "consumed_report": "docs/research/bmnv-01/RESULT.md"
+  }
+}
