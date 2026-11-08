@@ -1,0 +1,27 @@
+{
+  "protocol": "GNJV01-PHASE-A-v1",
+  "researchPackage": "GNJV-01",
+  "createdUtc": "2026-11-08T15:31:25.092011+00:00",
+  "gitHeadBeforeFreezeCommit": "b7da2cb8ad828c5853ebcda17dd0ddc64519957e",
+  "workingTreeStatusBeforeFreeze": [
+    "M research-console/events.jsonl",
+    " M research-console/repairs.json",
+    "?? \"Observable_AI_B0_\\345\\247\\224\\346\\211\\230\\347\\233\\221\\350\\200\\203\\351\\227\\255\\345\\215\\267\\350\\257\\225\\345\\215\\267_v1.md\"",
+    "?? \"Observable_AI_E3_\\345\\210\\206\\351\\230\\266\\346\\256\\265\\345\\256\\236\\346\\226\\275\\344\\273\\273\\345\\212\\241\\344\\271\\246_v1.md\"",
+    "?? PACK-02R-DIAG-01.md",
+    "?? PACK-02R-PRE-01.md",
+    "?? research-console/history/ev-1794151822937-1ef4d9.json",
+    "?? src/main/kotlin/logic/e3/gnjv/",
+    "?? src/test/kotlin/logic/e3/gnjv/",
+    "?? tools/gnjv/",
+    "?? tools/research-console/register_gnjv_01.py"
+  ],
+  "examinerZipSha256": "aa6838728aac4c3c4c3cfd35170b6961ce6b4809abc0bd69f13f39789761c57c",
+  "sources": {
+    "src/main/kotlin/logic/e3/gnjv/GNJV01Kernel.kt": "0380f3300f503ecc42c171a2a4be45821864e9b07a17d2e6815d3d8c756af3d3",
+    "src/test/kotlin/logic/e3/gnjv/GNJV01PublicContractTest.kt": "4228f76043a5c9a8ee3c7e844e47cc79111acb6ad88fb7a7c24f8bef7f3a20c0"
+  },
+  "independentClosedBook": "NOT_RUN",
+  "historicalFullRegression": "NOT_CLAIMED",
+  "scientificExam": "NOT_RUN"
+}
