@@ -1246,14 +1246,18 @@
         "docs/research/gnjv-01/",
         "tools/research-console/register_gnjv_01.py"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-08T15:30:22.937268+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-08T15:33:03.412658+00:00",
       "audit_event_ids": [
-        "ev-1794151822937-1ef4d9"
+        "ev-1794151822937-1ef4d9",
+        "ev-1794151983412-8e0323"
       ],
-      "content_hash": "7d2c36a668b3b40073782b0d5ffe753e4b92569403f17a4b42026f37ff1a6168"
+      "content_hash": "7d2c36a668b3b40073782b0d5ffe753e4b92569403f17a4b42026f37ff1a6168",
+      "consumed_commit": "9af8333b23928b94eb146eb3d34f49cd895e041c",
+      "consumed_test": "public contract 5/5 PASS (quickTest, 30s, offline, JDK21); freeze 2/2 sources LF sha256 verified; examiner ZIP sha256 recorded; Phase B NOT_RUN",
+      "consumed_report": "docs/research/gnjv-01/PHASE-A-RESULT.md"
     }
   ],
-  "updated_at": "2026-11-08T15:30:22.950758+00:00"
+  "updated_at": "2026-11-08T15:33:03.426863+00:00"
 }
