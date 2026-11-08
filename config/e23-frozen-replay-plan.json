@@ -1,15 +1,19 @@
 {
-  "source": "E22_CONJECTURE pre-frozen query IDs from 2026-11-07; all 8 development task-seeds, no label supplied",
-  "repositoryCommit": "19960fe7bd619ec9241ac4fcd5cf64a7510f8902",
+  "schemaVersion": 2,
+  "purpose": "E23-R: restore accidental token/query/hash association drift; not a new experiment",
+  "source": "docs/research/sd03-e22-development-2026-11-07",
+  "sourceCommit": "b250bc9e55362b9b966bc0b27f01cf190e3ece41",
+  "formalRuns": 0,
+  "independentClosedBook": "NOT_RUN",
+  "replayQueryCount": 11,
   "tasks": [
     {
       "world": "mrx-base-or-r-d1",
       "seed": 20261111,
-      "taskToken": "e0734e453d890dbd",
-      "queryIds": [
-        "q-9"
-      ],
-      "expectedE22FullRefitHash": "65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683"
+      "taskToken": "6894c295a0615971",
+      "queryIds": [],
+      "expectedE22FullRefitHash": "c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426",
+      "sourceEventSha256": "80e65ad24204ee8ee2157c19bc06640c941ae98e3992fe037598fccca68e3d26"
     },
     {
       "world": "mrx-depth-w4",
@@ -18,16 +22,18 @@
       "queryIds": [
         "q-3"
       ],
-      "expectedE22FullRefitHash": "d17dc94877c12d769348c89da4b6b844b91955a5ea65e829937106a63ae33380"
+      "expectedE22FullRefitHash": "d17dc94877c12d769348c89da4b6b844b91955a5ea65e829937106a63ae33380",
+      "sourceEventSha256": "779cf16fc749a7178ae6148ad7a35dd9c29f7a509f6729002c732483203f27cc"
     },
     {
       "world": "mrx-depth-r-xor-b2",
       "seed": 20261112,
-      "taskToken": "4254cfe428af73ca",
+      "taskToken": "e0734e453d890dbd",
       "queryIds": [
-        "q-0"
+        "q-9"
       ],
-      "expectedE22FullRefitHash": "c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426"
+      "expectedE22FullRefitHash": "65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683",
+      "sourceEventSha256": "83f713f1652d39bffd3cfffdc37beeeb9a9614016068b76214571f27fb7d1aa3"
     },
     {
       "world": "mrx-if-nested-3",
@@ -39,28 +45,34 @@
         "q-2",
         "q-3"
       ],
-      "expectedE22FullRefitHash": "7de442deecc0e234f133bc5015a7099576b5e27b3a768520ffca6820eda733f9"
+      "expectedE22FullRefitHash": "7de442deecc0e234f133bc5015a7099576b5e27b3a768520ffca6820eda733f9",
+      "sourceEventSha256": "6c3388cd38aa856c265c3c137ac1c2af4b3065d2b5b86d000c2138d93e809500"
     },
     {
       "world": "mrx-base-or-r-d1",
       "seed": 20261121,
-      "taskToken": "6894c295a0615971",
-      "queryIds": [],
-      "expectedE22FullRefitHash": "c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426"
+      "taskToken": "4254cfe428af73ca",
+      "queryIds": [
+        "q-0"
+      ],
+      "expectedE22FullRefitHash": "c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426",
+      "sourceEventSha256": "e3331b0b2a6ba997148e22bf9914ae50fc11ea6069ab6837b779b8ac7ba42337"
     },
     {
       "world": "mrx-depth-w4",
       "seed": 20261122,
       "taskToken": "426249206c4fbdf8",
       "queryIds": [],
-      "expectedE22FullRefitHash": "bf6236f85c9aadabf97c270e48a0c311c5ae8da945feef3ad002a36204f106b0"
+      "expectedE22FullRefitHash": "bf6236f85c9aadabf97c270e48a0c311c5ae8da945feef3ad002a36204f106b0",
+      "sourceEventSha256": "29c21e63a553d5d921ff3a5fd6923320b8d6ebb9a491dd4af1121ab0d5e332cf"
     },
     {
       "world": "mrx-depth-r-xor-b2",
       "seed": 20261123,
       "taskToken": "bea6135b21ee6c49",
       "queryIds": [],
-      "expectedE22FullRefitHash": "65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683"
+      "expectedE22FullRefitHash": "65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683",
+      "sourceEventSha256": "bf72f643845c364cfdc12c7fae77c259b211ec1776c36502e91fa8e89d3f0c29"
     },
     {
       "world": "mrx-if-nested-3",
@@ -72,7 +84,8 @@
         "q-11",
         "q-1"
       ],
-      "expectedE22FullRefitHash": "38fc410d539957c69b51e7c383dfceabf41816ca022e8bd3a1b26d0525113a2f"
+      "expectedE22FullRefitHash": "38fc410d539957c69b51e7c383dfceabf41816ca022e8bd3a1b26d0525113a2f",
+      "sourceEventSha256": "5d9a6c0566138dae3497bac8eac096911a78054f453dc42479eaf91aa07a0ce4"
     }
   ]
 }

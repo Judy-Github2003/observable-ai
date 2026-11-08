@@ -23,6 +23,17 @@ RESEARCH_OUTPUTS=(
 GENERATED_SUFFIX={'.jsonl','.log','.xml','.csv'}
 GENERATED_NAMES={'E1-RUN-STARTED.txt','E2-RUN-STARTED.txt','E21-RUN-STARTED.txt',
  'E22-RUN-STARTED.txt','FROZEN-BEFORE-GRADING.jsonl','EXAMINER-AFTER-FREEZE.jsonl'}
+# E23-R repair: E1 emits many one-shot FROZEN-*.json files via CREATE_NEW.
+# Delete ONLY these exact-name generated files INSIDE the detached worktree.
+# Never broadly delete *.json: preregistrations, source manifests and reports
+# can be JSON and may be needed by historical audit tests.
+E1_ONESHOT_DIR='docs/research/sd03-e1-development-2026-11-07'
+
+def is_sandbox_generated(relative: str, name: str, suffix: str) -> bool:
+    if suffix in GENERATED_SUFFIX or name in GENERATED_NAMES:
+        return True
+    return (relative.startswith(E1_ONESHOT_DIR + '/') and
+            name.startswith('FROZEN-') and name.endswith('.json'))
 
 def git(repo,*args,check=True):
  return subprocess.run(['git','-C',str(repo),*args],check=check,capture_output=True,text=True)
@@ -42,7 +53,8 @@ def prepare(sandbox):
   d=sandbox/relative
   if not d.is_dir(): continue
   for f in d.rglob('*'):
-   if f.is_file() and (f.suffix in GENERATED_SUFFIX or f.name in GENERATED_NAMES):
+   if f.is_file() and is_sandbox_generated(
+       f.relative_to(sandbox).as_posix(), f.name, f.suffix):
     removed.append(str(f.relative_to(sandbox)))
     f.unlink()
  return removed

@@ -1,6 +1,7 @@
 package logic.e3.pack02
 
 import logic.capability.*
+import kotlinx.serialization.json.*
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.Files
@@ -26,16 +27,49 @@ class SD03E23DevelopmentIntegrationTest {
     private data class Outcome(val arm:String,val tree:E1Program?,val public:List<E1Example>,
         val adapter:SD03E2RepoAdapter,val ids:List<String>,val outcomes:List<E23UpdateResult>,
         val initialHash:String?,val finalHash:String?,val queryNew:Int)
-    private val tasks=listOf(
-        Task("mrx-base-or-r-d1",20261111,"e0734e453d890dbd",listOf("q-9"),"65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683"),
-        Task("mrx-depth-w4",20261110,"83a0a07d602718a9",listOf("q-3"),"d17dc94877c12d769348c89da4b6b844b91955a5ea65e829937106a63ae33380"),
-        Task("mrx-depth-r-xor-b2",20261112,"4254cfe428af73ca",listOf("q-0"),"c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426"),
-        Task("mrx-if-nested-3",20261109,"0d3daf2627021276",listOf("q-4","q-1","q-2","q-3"),"7de442deecc0e234f133bc5015a7099576b5e27b3a768520ffca6820eda733f9"),
-        Task("mrx-base-or-r-d1",20261121,"6894c295a0615971",listOf(),"c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426"),
-        Task("mrx-depth-w4",20261122,"426249206c4fbdf8",listOf(),"bf6236f85c9aadabf97c270e48a0c311c5ae8da945feef3ad002a36204f106b0"),
-        Task("mrx-depth-r-xor-b2",20261123,"bea6135b21ee6c49",listOf(),"65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683"),
-        Task("mrx-if-nested-3",20261124,"4b1f104a970d9e8f",listOf("q-4","q-2","q-11","q-1"),"38fc410d539957c69b51e7c383dfceabf41816ca022e8bd3a1b26d0525113a2f"),
-    )
+    // A single immutable-source-derived manifest replaces the previous duplicated
+    // hard-coded task/token/query/hash table. It is validated BEFORE any Oracle call.
+    private fun loadFrozenTasks(): List<Task> {
+        val planPath = Path.of("config/e23-frozen-replay-plan.json")
+        val root = Json.parseToJsonElement(Files.readString(planPath)).jsonObject
+        require(root["schemaVersion"]!!.jsonPrimitive.int == 2) { "E23-R plan schema mismatch" }
+        require(root["replayQueryCount"]!!.jsonPrimitive.int == 11)
+        require(root["independentClosedBook"]!!.jsonPrimitive.content == "NOT_RUN")
+        val rows = root["tasks"]!!.jsonArray
+        require(rows.size == 8) { "Eight previously committed task-seeds required" }
+        val loaded = rows.map { entry ->
+            val o = entry.jsonObject
+            val world = o["world"]!!.jsonPrimitive.content
+            val seed = o["seed"]!!.jsonPrimitive.int
+            val token = o["taskToken"]!!.jsonPrimitive.content
+            val ids = o["queryIds"]!!.jsonArray.map { it.jsonPrimitive.content }
+            val finalHash = o["expectedE22FullRefitHash"]!!.jsonPrimitive.content
+            val sourceHash = o["sourceEventSha256"]!!.jsonPrimitive.content
+            require(token == hash("$world|$seed").take(16)) { "Token mismatched world+seed" }
+            require(ids.size <= 4 && ids.distinct() == ids)
+            require(ids.all { it in (0..11).map { i -> "q-$i" } })
+            require(Regex("[0-9a-f]{64}").matches(finalHash))
+            require(Regex("[0-9a-f]{64}").matches(sourceHash))
+            Task(world, seed, token, ids, finalHash)
+        }
+        val expected = listOf(
+            "mrx-base-or-r-d1" to 20261111,
+            "mrx-depth-w4" to 20261110,
+            "mrx-depth-r-xor-b2" to 20261112,
+            "mrx-if-nested-3" to 20261109,
+            "mrx-base-or-r-d1" to 20261121,
+            "mrx-depth-w4" to 20261122,
+            "mrx-depth-r-xor-b2" to 20261123,
+            "mrx-if-nested-3" to 20261124,
+        )
+        require(loaded.map { it.world to it.seed } == expected) {
+            "Frozen task list changed; no after-the-fact task substitution permitted"
+        }
+        require(loaded.map { it.token }.distinct().size == 8)
+        require(loaded.sumOf { it.replay.size } == 11)
+        return loaded
+    }
+    private val tasks by lazy { loadFrozenTasks() }
     private val cfg=E1Config(maxDepth=4,beamWidthPerNode=5,maxTreeNodes=63,
         maxPartitionAttempts=30_000,minExamplesPerChild=1)
     private fun hash(s:String)=MessageDigest.getInstance("SHA-256")
@@ -137,6 +171,15 @@ class SD03E23DevelopmentIntegrationTest {
         val library=C8TestBases.bases.library("FULL").definitions
         val output=Files.createTempDirectory(Path.of("build").also{Files.createDirectories(it)},"sd03-e23-")
         println("E23_OUTPUT_DIR="+output.toAbsolutePath())
+        data class PendingGrade(
+            val runs: List<Outcome>,
+            val truth: (Map<String,String>) -> Boolean,
+            val challenge: List<Map<String,String>>,
+            val heldout: List<Map<String,String>>,
+            val library: List<CapabilityDefinition>,
+            val token: String,
+        )
+        val pendingGrades = ArrayList<PendingGrade>()
         for (spec in tasks) {
             val world=MRXWorlds.baseline.single{it.id==spec.world}
             val all=C8Domain.all().shuffled(Random(spec.seed))
@@ -160,8 +203,15 @@ class SD03E23DevelopmentIntegrationTest {
                 assertEquals(spec.replay,r.ids)
                 assertEquals(spec.replay.size,r.queryNew)
             }
-            val grades=output.resolve("EXAMINER-AFTER-ALL-FREEZE.jsonl")
-            for (r in runs) grade(r,world.truth,challenge,heldout,library,token,grades)
+            pendingGrades += PendingGrade(runs, world.truth, challenge, heldout, library, token)
+        }
+        // NO hidden-label grading until EVERY task's historical FULL_REFIT hash
+        // has been reproduced exactly. A failure earlier in the loop leaves no grades.
+        assertEquals(8,pendingGrades.size)
+        val grades=output.resolve("EXAMINER-AFTER-ALL-FREEZE.jsonl")
+        for (job in pendingGrades) {
+            for (r in job.runs) grade(r,job.truth,job.challenge,job.heldout,
+                job.library,job.token,grades)
         }
         assertEquals(8,tasks.size)
     }
