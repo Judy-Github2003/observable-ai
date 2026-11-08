@@ -86,6 +86,75 @@ def test_counts(sandbox):
   except (ET.ParseError,OSError,ValueError): continue
  return total
 
+
+# E2.3R mixed-EOL archival recovery: the 2026-11-06 MRXR historical freeze
+# recorded CRLF bytes for exactly two files, while the Git blobs are LF.
+# This allowlist is not a general-purpose EOL conversion policy.
+ARCHIVAL_CRLF_ALLOWLIST = frozenset({
+    'src/main/kotlin/logic/e3/pack02/MRXRSpace.kt',
+    'src/main/kotlin/logic/e3/pack02/MRXRStudent.kt',
+})
+MRXR_FREEZE_MANIFEST = 'experiments/representation-evolution-e3/reports/mrx-01r-freeze.json'
+
+
+def restore_mixed_eol(sandbox: Path, before: dict) -> tuple[dict, list[dict]]:
+    """Fail closed; restore only two archived CRLF byte representations.
+
+    A mismatch is eligible only if a CRLF-only transformation of the actual
+    LF Git checkout exactly matches the *original* manifest SHA-256. We never
+    adjust a manifest or alter a matching source. Caller must abort on error.
+    """
+    if before.get('sourceCount') != 11 or before.get('manifestCount') != 3:
+        raise ValueError('FROZEN_MANIFEST_STRUCTURE_INVALID')
+    bad = [x for x in before['sources'] if not x['matched']]
+    if not bad:
+        if before['status'] != 'PASS':
+            raise ValueError('FROZEN_SOURCE_PREFLIGHT_FAILED_WITHOUT_MISMATCHES')
+        return before, []
+    if before.get('status') != 'FAIL':
+        raise ValueError('FROZEN_SOURCE_AUDIT_INCONSISTENT')
+    for row in bad:
+        if (row['path'] not in ARCHIVAL_CRLF_ALLOWLIST or
+                row['manifest'] != MRXR_FREEZE_MANIFEST):
+            raise ValueError('UNAUTHORIZED_FROZEN_SOURCE_MISMATCH: ' + row['path'])
+    if len(bad) > 2:
+        raise ValueError('UNEXPECTED_FROZEN_SOURCE_MISMATCH_COUNT')
+
+    # Validate ALL candidates BEFORE modifying either file in the sandbox.
+    prepared: list[tuple[Path, bytes, dict, str, str]] = []
+    for row in bad:
+        rel = row['path']
+        target = (sandbox / rel).resolve()
+        try:
+            target.relative_to(sandbox.resolve())
+        except ValueError as exc:
+            raise ValueError('ARCHIVE_SOURCE_OUTSIDE_WORKTREE') from exc
+        raw = target.read_bytes()
+        initial_sha = hashlib.sha256(raw).hexdigest()
+        if initial_sha != row['actualSha256']:
+            raise ValueError('SOURCE_CHANGED_DURING_PREFLIGHT: ' + rel)
+        if b'\r' in raw or b'\n' not in raw:
+            raise ValueError('NOT_LF_ONLY_SOURCE: ' + rel)
+        crlf = raw.replace(b'\n', b'\r\n')
+        new_sha = hashlib.sha256(crlf).hexdigest()
+        if new_sha != row['expectedSha256']:
+            raise ValueError('CRLF_NOT_EQUAL_TO_FROZEN_BYTES: ' + rel)
+        prepared.append((target, crlf, row, initial_sha, new_sha))
+
+    changes = []
+    for target, crlf, row, initial_sha, new_sha in prepared:
+        # Isolated worktree ONLY. The user's original repository is untouched.
+        target.write_bytes(crlf)
+        changes.append({'path': row['path'], 'fromSha256': initial_sha,
+                        'toSha256': new_sha, 'method': 'LF_TO_CRLF_IN_SANDBOX_ONLY'})
+
+    after = audit_freezes(sandbox)
+    if after['status'] != 'PASS' or after['matchedSources'] != 11:
+        raise ValueError('POST_RESTORATION_FREEZE_AUDIT_FAILED')
+    if set(x['path'] for x in changes) - ARCHIVAL_CRLF_ALLOWLIST:
+        raise ValueError('CHANGED_PATH_NOT_ALLOWLISTED')
+    return after, changes
+
 def main():
  ap=argparse.ArgumentParser(description=__doc__)
  ap.add_argument('--repo',type=Path,default=Path('.'))
@@ -125,9 +194,17 @@ def main():
   cp=git_worktree_checkout_lf(repo,'worktree','add','--detach',str(sandbox),head,check=False)
   if cp.returncode!=0: raise RuntimeError('git worktree add failed: '+cp.stderr[-2000:])
   added=True
-  freeze=audit_freezes(sandbox)
+  freeze_before=audit_freezes(sandbox)
+  report['freezeSourcePreflightBeforeRestoration']=freeze_before
+  try:
+   freeze, restorable = restore_mixed_eol(sandbox, freeze_before)
+   report['restoredArchivalCRLF']=restorable
+  except (ValueError, OSError, KeyError) as exc:
+   freeze=freeze_before
+   report['restoredArchivalCRLF']=[]
+   report['restorationError']=str(exc)
   report['freezeSourcePreflight']=freeze
-  if freeze['status'] != 'PASS':
+  if freeze['status'] != 'PASS' or report.get('restorationError'):
    report.update({'status':'FROZEN_SOURCE_MISMATCH','exitCode':None,
                   'sandbox':str(sandbox),'gradleStarted':False})
   elif ns.freeze_only:
