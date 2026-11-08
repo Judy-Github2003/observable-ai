@@ -1065,14 +1065,18 @@
         "build/sd03-e23-*",
         "build/e222-isolated-regression/"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-08T01:54:48.972510+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-08T02:08:05.625987+00:00",
       "audit_event_ids": [
-        "ev-1794102888972-f01a59"
+        "ev-1794102888972-f01a59",
+        "ev-1794103685626-20dd97"
       ],
-      "content_hash": "08c524480d2f5153269594082e6cb6890f74f1f5b145f1a75f7c3352bc7931c5"
+      "content_hash": "08c524480d2f5153269594082e6cb6890f74f1f5b145f1a75f7c3352bc7931c5",
+      "consumed_commit": "632a0b37f134727010b4a78d54b73729f3b23f2f",
+      "consumed_test": "GATE A FULL 507 tests 5 failures 0 skipped 669.024s FAIL; history digest unchanged; GATE B REPLAY_FIDELITY_FAILED token mismatch; four arms NOT_RUN",
+      "consumed_report": "docs/research/sd03-e222-e23-2026-11-08/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-08T01:54:48.978610+00:00"
+  "updated_at": "2026-11-08T02:08:05.633781+00:00"
 }
