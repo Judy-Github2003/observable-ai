@@ -1097,14 +1097,18 @@
         "docs/research/sd03-e23r-recovery-2026-11-08/",
         "build/e222-isolated-regression/"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-08T02:50:25.282862+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-08T02:50:30.386175+00:00",
       "audit_event_ids": [
-        "ev-1794106225283-9b5f11"
+        "ev-1794106225283-9b5f11",
+        "ev-1794106230386-68a318"
       ],
-      "content_hash": "d3dc95ee6887bcf93ffe54ffbf5f2f673aefd48ed4e8e111e977be7514bc3437"
+      "content_hash": "d3dc95ee6887bcf93ffe54ffbf5f2f673aefd48ed4e8e111e977be7514bc3437",
+      "consumed_commit": "7296542deb3fa476dbfdd1e528e41a8052c59669",
+      "consumed_test": "E2.3R 7/7 Python; E23 contract PASS; plan 8/11 verified; E23 full replay PASS; FULL 507 tests/3 failures/665.268s FAIL (CRLF formal); freezes 11 sources 0 mismatch; arms NOT_RUN",
+      "consumed_report": "docs/research/sd03-e23r-recovery-2026-11-08/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-08T02:50:25.439722+00:00"
+  "updated_at": "2026-11-08T02:50:30.396999+00:00"
 }
