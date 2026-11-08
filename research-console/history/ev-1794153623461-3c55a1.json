@@ -1,0 +1,20 @@
+{
+  "event_id": "ev-1794153623461-3c55a1",
+  "at": "2026-11-08T16:00:23.461642+00:00",
+  "kind": "attribution_correction",
+  "actor": "execution",
+  "note": "GNJV-01 is an independent G+N+J+V research line; PACK-02 parentage in the Phase-A grant was a registration error",
+  "before": null,
+  "after": {
+    "corrects_repair_id": "GNJV-01-PHASE-A-FREEZE-2026-11-08",
+    "corrects_event_id": "ev-1794151822937-1ef4d9",
+    "issue": "parent_pack_id=PACK-02 and parent_task_ids=[C4,C8,RES-H01] mis-attribute GNJV-01",
+    "correction": "GNJV-01 belongs to no existing pack task; Phase-B grant records parent_pack_id='' and parent_task_ids=[]",
+    "applies_to": [
+      "GNJV-01-PHASE-A-FREEZE-2026-11-08",
+      "GNJV-01-PHASE-B-SEALED-EXAM-2026-11-08"
+    ],
+    "historical_record_rewritten": false,
+    "requested_by": "research_owner 2026-11-08 (Phase-B execution instruction)"
+  }
+}

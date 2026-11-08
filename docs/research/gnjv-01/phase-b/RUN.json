@@ -1,0 +1,53 @@
+{
+  "researchPackage": "GNJV-01",
+  "phase": "B",
+  "status": "GNJV01_RAW_AUDIT_PASS",
+  "runCount": 1,
+  "startHead": "48a82777a2855def7d633e3a2e82a81aff32eb03",
+  "studentFreezeCommit": "6d62905c908be443378af98b79af927f2e5e13dc",
+  "examinerZipSha256": "aa6838728aac4c3c4c3cfd35170b6961ce6b4809abc0bd69f13f39789761c57c",
+  "examinerSourceSha256": "75d7c1b6153c5429fd4fa40b41ea664d070666d13ae8044f90900cb754a02cfd",
+  "studentSourceSha256": "0380f3300f503ecc42c171a2a4be45821864e9b07a17d2e6815d3d8c756af3d3",
+  "freezeVerified": true,
+  "outputDirectory": "build/gnjv01-phaseb-20261108T155821Z",
+  "compiledJarSha256": "171d26d0e3c1e4345158bf0a16f31cbd3feb859a687c6e6effc777acb60082d8",
+  "compileTool": "kotlin-compiler-embeddable 2.2.21 via K2JVMCompiler (standalone, no Gradle test task)",
+  "jvm": "JBR 21.0.11",
+  "compileMillis": 6090,
+  "runWallMillis": 180,
+  "files": {
+    "STUDENTS-FROZEN.jsonl": "7b7158b0338f0d3d00a08e9234602b951276bb28f4c4cbf63dc2feb587054069",
+    "STUDENTS-FROZEN.sha256": "6b25ec965bc28c4812984dd664ea8746e01374654a6e5a0ff9ecfef03e6d37f7",
+    "EXAMINER-AFTER-FREEZE.jsonl": "b08362c429952ec5a55a3f923d073330c7c8f8a3d4c19918cecb22360205fb3d"
+  },
+  "tasks": 12,
+  "studentRows": 48,
+  "gradeRows": 48,
+  "arms": {
+    "OBS_ONLY": {"identified": 0, "correct": 24, "covered": 24, "total": 48, "queries": 0, "errors": 0, "falseCertainty": 0},
+    "RANDOM": {"identified": 7, "correct": 43, "covered": 43, "total": 48, "queries": 22, "errors": 0, "falseCertainty": 0},
+    "FIXED": {"identified": 12, "correct": 48, "covered": 48, "total": 48, "queries": 20, "errors": 0, "falseCertainty": 0},
+    "GNJV_ACTIVE": {"identified": 12, "correct": 48, "covered": 48, "total": 48, "queries": 20, "errors": 0, "falseCertainty": 0}
+  },
+  "pairedIdentificationVsActive": {
+    "OBS_ONLY": {"win": 12, "loss": 0, "tie": 0},
+    "RANDOM": {"win": 5, "loss": 0, "tie": 7},
+    "FIXED": {"win": 0, "loss": 0, "tie": 12}
+  },
+  "verdict": "NO_ACTIVE_ADVANTAGE",
+  "mechanismEvidence": "do-interventions executed and candidate elimination observed",
+  "independentVerification": {
+    "oracleActionChecks": 62,
+    "oracleMismatches": 0,
+    "identificationClaimMismatches": 0,
+    "activeEqualsFixedTasks": "12/12"
+  },
+  "independentClosedBook": "NOT_RUN",
+  "historicalFullRegression": "NOT_RUN",
+  "notes": [
+    "HELDOUT only changes exogenous initial state, not structure.",
+    "falseCertainty is structurally unreachable with a faithful oracle.",
+    "OBS_ONLY 24/48 correct are the two no-effect inputs where all candidates agree.",
+    "Phase-A console record mis-attributed GNJV-01 to PACK-02; corrected by append-only event, history unchanged."
+  ]
+}
