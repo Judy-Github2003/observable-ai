@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3SearchBudgetDiagnoserTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:49.291Z" hostname="ADMIN" time="0.093">
+  <properties/>
+  <testcase name="search limited remains budget sensitive with multiple classes at high budget" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.005"/>
+  <testcase name="two truncated searches are not classified as no consistent candidate" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.005"/>
+  <testcase name="behavior classes use the run eval budget and candidate layers are preserved" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.022"/>
+  <testcase name="latent collision is not searched at either budget" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.001"/>
+  <testcase name="empty query domain is training-only not independent identification" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.021"/>
+  <testcase name="high budget failure is not reported as representation insufficiency" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.004"/>
+  <testcase name="ambiguous remains multiple candidates at both budgets" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.004"/>
+  <testcase name="truncated search is distinguished from zero survivors" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.004"/>
+  <testcase name="collision is not run and is not classified as zero consistent" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.0"/>
+  <testcase name="solvable shows budget sensitive new candidate without truth claim" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.021"/>
+  <testcase name="no consistent candidate verdict is reachable" classname="logic.e3.E3SearchBudgetDiagnoserTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXDevTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:01:15.691Z" hostname="ADMIN" time="9.126">
+  <properties/>
+  <testcase name="missing knowledge is repaired by restoring active capability" classname="logic.e3.pack02.MRXDevTest" time="2.314"/>
+  <testcase name="W4 diagnoses structure and repairs beyond frozen baseline" classname="logic.e3.pack02.MRXDevTest" time="3.516"/>
+  <testcase name="ambiguous world does not trigger unnecessary structural upgrade" classname="logic.e3.pack02.MRXDevTest" time="1.685"/>
+  <testcase name="noise is not misattributed to structural insufficiency" classname="logic.e3.pack02.MRXDevTest" time="1.61"/>
+  <system-out><![CDATA[MISS seed=2020 base=IDENTIFIED chosen=KNOWLEDGE status=REPAIRED held=27/27 trials=[KNOWLEDGE]
+W4 seed=1449 base=IDENTIFIED mismatch=1 chosen=DNF status=REPAIRED held=27/27 trials=[DNF:IDENTIFIED:0]
+  H1 score=0.6 action=IF :: 基础学习 status=IDENTIFIED, consistent=6, composeReason=depth_limit, classes=3
+  H2 score=0.6 action=DNF :: 基础搜索在 depth=3 结束，失败码=null
+  H4 score=0.5 action=CHALLENGE :: 基础候选在 CHALLENGE 上出现反例
+  H5 score=0.5 action=IF :: 基础候选在 QUERY 上已唯一，但 CHALLENGE 有反例
+AMBIG seed=1857 base=IDENTIFIED mismatch=0 chosen=NONE status=IDENTIFIED held=26/27
+NOISE seed=2227 base=NO_CANDIDATE chosen=NO_ACTION status=NO_ACTION diagnosis=[H6, H1, H2]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

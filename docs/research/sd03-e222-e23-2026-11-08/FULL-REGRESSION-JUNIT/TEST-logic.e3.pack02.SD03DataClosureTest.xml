@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03DataClosureTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:05:49.266Z" hostname="ADMIN" time="4.19">
+  <properties/>
+  <testcase name="invalid old B is audited and new closed macro candidates are checked" classname="logic.e3.pack02.SD03DataClosureTest" time="4.19"/>
+  <system-out><![CDATA[pools A=0 B=4; train=40 challenge=20 heldout=21
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

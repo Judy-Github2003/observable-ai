@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD01DiscoveryContractTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:03:59.586Z" hostname="ADMIN" time="6.072">
+  <properties/>
+  <testcase name="closed program instance is not passed off as reusable macro" classname="logic.e3.pack02.SD01DiscoveryContractTest" time="2.059"/>
+  <testcase name="real W4 candidate is discovered and challenge-validated" classname="logic.e3.pack02.SD01DiscoveryContractTest" time="2.08"/>
+  <testcase name="independent XOR is an honest negative or limited result" classname="logic.e3.pack02.SD01DiscoveryContractTest" time="1.933"/>
+  <system-out><![CDATA[W4 generated=28523 retained=335 candidates=335 structure=PROGRAM_INSTANCE checks=present
+XOR generated=28523 retained=112 candidates=112 structure=null
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

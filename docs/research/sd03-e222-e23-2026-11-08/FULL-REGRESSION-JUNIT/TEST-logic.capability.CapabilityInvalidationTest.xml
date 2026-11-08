@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityInvalidationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:44.184Z" hostname="ADMIN" time="0.867">
+  <properties/>
+  <testcase name="R06 invalidation is stable across restart" classname="logic.capability.CapabilityInvalidationTest" time="0.151"/>
+  <testcase name="R02 new version of inner capability does not restore old callers" classname="logic.capability.CapabilityInvalidationTest" time="0.148"/>
+  <testcase name="R04 corrupted middle capability reports dependency_invalid at the right node" classname="logic.capability.CapabilityInvalidationTest" time="0.111"/>
+  <testcase name="R01 revoking inner capability blocks all callers with dependency path" classname="logic.capability.CapabilityInvalidationTest" time="0.121"/>
+  <testcase name="R03 new chain pinned to new version works independently" classname="logic.capability.CapabilityInvalidationTest" time="0.205"/>
+  <testcase name="R05 activation refuses a caller whose dependency is revoked" classname="logic.capability.CapabilityInvalidationTest" time="0.131"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXREvidenceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:03:58.839Z" hostname="ADMIN" time="0.001">
+  <properties/>
+  <testcase name="partial is not pass and all labels become pass" classname="logic.e3.pack02.MRXREvidenceTest" time="0.0"/>
+  <testcase name="counterexample is distinct from pass" classname="logic.e3.pack02.MRXREvidenceTest" time="0.001"/>
+  <testcase name="zero checks is unverified not pass" classname="logic.e3.pack02.MRXREvidenceTest" time="0.0"/>
+  <testcase name="budget exhaustion is a distinct state" classname="logic.e3.pack02.MRXREvidenceTest" time="0.0"/>
+  <testcase name="labels are reused without paying twice" classname="logic.e3.pack02.MRXREvidenceTest" time="0.0"/>
+  <testcase name="filter uses existing labels and does not include heldout" classname="logic.e3.pack02.MRXREvidenceTest" time="0.0"/>
+  <testcase name="duplicate controller exception is error not pass" classname="logic.e3.pack02.MRXREvidenceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

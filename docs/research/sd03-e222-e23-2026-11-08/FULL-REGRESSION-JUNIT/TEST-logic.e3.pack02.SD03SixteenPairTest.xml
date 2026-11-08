@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03SixteenPairTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:06:46.418Z" hostname="ADMIN" time="16.011">
+  <properties/>
+  <testcase name="all sixteen real pairs actually invoke generalize" classname="logic.e3.pack02.SD03SixteenPairTest" time="16.011"/>
+  <system-out><![CDATA[pairs=16 valid=0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,51 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.6/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :processResources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :compileKotlin
+> Task :compileJava NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+
+> Task :compileTestKotlin
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-85gi_1k9/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:142:87 Unchecked cast of 'Any' to 'List<Observation>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-85gi_1k9/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:142:145 Unchecked cast of 'Any' to 'List<Map<String, String>>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-85gi_1k9/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:143:93 Unchecked cast of 'Any' to 'List<Observation>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-85gi_1k9/src/test/kotlin/logic/e3/E3A9BaselineTest.kt:143:151 Unchecked cast of 'Any' to 'List<Map<String, String>>'.
+w: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-85gi_1k9/src/test/kotlin/logic/e3/pack02/SD03StudentLoopTest.kt:54:19 Check for instance is always 'true'.
+
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test
+
+C8FormalExamTest > formal six-world exam matches frozen student and exam FAILED
+    org.junit.ComparisonFailure at C8FormalExamTest.kt:24
+
+MRXFormalTest > frozen four-condition formal exam FAILED
+    org.junit.ComparisonFailure at MRXFormalTest.kt:22
+
+MRXRFormalTest > frozen six-condition MRX-01R exam FAILED
+    org.junit.ComparisonFailure at MRXRFormalTest.kt:22
+
+SD03E1DevelopmentIntegrationTest > actual evidence composition vs bounded enumeration same TRAIN cases FAILED
+    java.nio.file.FileAlreadyExistsException at SD03E1DevelopmentIntegrationTest.kt:36
+
+SD03E23DevelopmentIntegrationTest > E23 matched update policies replay frozen E22 queries FAILED
+    org.junit.ComparisonFailure at SD03E23DevelopmentIntegrationTest.kt:149
+
+507 tests completed, 5 failed
+
+> Task :test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///C:/Users/j1437/AppData/Local/Temp/observable-e222-85gi_1k9/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 11m 8s
+4 actionable tasks: 4 executed

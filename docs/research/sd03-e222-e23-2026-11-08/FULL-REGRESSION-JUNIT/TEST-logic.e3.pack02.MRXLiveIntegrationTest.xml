@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXLiveIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:01:42.663Z" hostname="ADMIN" time="8.212">
+  <properties/>
+  <testcase name="real live snapshots precede observations and update before next action" classname="logic.e3.pack02.MRXLiveIntegrationTest" time="8.212"/>
+  <system-out><![CDATA[session-a status=REPAIRED actions=VALIDATE_BASE>IF live=1
+  step=1 before=v1 after=v2 decision=IF hyp=H_STRUCTURAL_COVERAGE:UNKNOWN,H_COUNTEREXAMPLE_PRESSURE:SUPPORTED,H_BUDGET_LIMIT:UNKNOWN,H_UNKNOWN_EXECUTION:UNKNOWN
+session-b status=INSUFFICIENT_EVIDENCE actions=VALIDATE_BASE>IF>DNF>CNF live=3
+  step=1 before=v1 after=v2 decision=IF hyp=H_STRUCTURAL_COVERAGE:UNKNOWN,H_COUNTEREXAMPLE_PRESSURE:SUPPORTED,H_BUDGET_LIMIT:UNKNOWN,H_UNKNOWN_EXECUTION:UNKNOWN
+  step=2 before=v2 after=v3 decision=DNF hyp=H_STRUCTURAL_COVERAGE:UNKNOWN,H_COUNTEREXAMPLE_PRESSURE:SUPPORTED,H_BUDGET_LIMIT:UNKNOWN,H_UNKNOWN_EXECUTION:UNKNOWN
+  step=3 before=v3 after=v4 decision=CNF hyp=H_STRUCTURAL_COVERAGE:UNKNOWN,H_COUNTEREXAMPLE_PRESSURE:SUPPORTED,H_BUDGET_LIMIT:UNKNOWN,H_UNKNOWN_EXECUTION:UNKNOWN
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

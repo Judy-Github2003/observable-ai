@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD02AntiUnificationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:04:09.708Z" hostname="ADMIN" time="0.004">
+  <properties/>
+  <testcase name="two distinct programs yield typed non-degenerate pattern" classname="logic.e3.pack02.SD02AntiUnificationTest" time="0.003"/>
+  <testcase name="identical source copies are rejected as degenerate" classname="logic.e3.pack02.SD02AntiUnificationTest" time="0.0"/>
+  <testcase name="typed macro body passes typecheck and real Expr Call executes" classname="logic.e3.pack02.SD02AntiUnificationTest" time="0.001"/>
+  <system-out><![CDATA[pattern=And(left=Eq(left=Arg(name=h0, type=Str), right=Arg(name=h1, type=Str)), right=Not(value=Eq(left=Arg(name=h2, type=Str), right=Arg(name=h3, type=Str)))) holes=[SD02TypedHole(id=h0, expectedType=Str, bindingClass=VALUE_ARGUMENT), SD02TypedHole(id=h1, expectedType=Str, bindingClass=VALUE_ARGUMENT), SD02TypedHole(id=h2, expectedType=Str, bindingClass=VALUE_ARGUMENT), SD02TypedHole(id=h3, expectedType=Str, bindingClass=VALUE_ARGUMENT)] reason=null recon=true
+identical degenerate=true reason=DEGENERATE_IDENTICAL_SOURCES
+macro call result=Known(value=Bool(value=false))
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

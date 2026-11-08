@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.C8ExamTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:57:18.539Z" hostname="ADMIN" time="43.4">
+  <properties/>
+  <testcase name="all six worlds are expressible and produce an S candidate" classname="logic.e3.pack02.C8ExamTest" time="8.133"/>
+  <testcase name="development matrix runs strategies groups and T no-S control" classname="logic.e3.pack02.C8ExamTest" time="35.267"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

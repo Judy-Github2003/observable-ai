@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3ChallengeSessionTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:48.818Z" hostname="ADMIN" time="0.151">
+  <properties/>
+  <testcase name="undetermined result is rejected" classname="logic.e3.E3ChallengeSessionTest" time="0.0"/>
+  <testcase name="solvable bounded result enters pending challenge state" classname="logic.e3.E3ChallengeSessionTest" time="0.022"/>
+  <testcase name="query domain mismatch is rejected" classname="logic.e3.E3ChallengeSessionTest" time="0.021"/>
+  <testcase name="forged or inconsistent candidate canonical is rejected" classname="logic.e3.E3ChallengeSessionTest" time="0.02"/>
+  <testcase name="tampered snapshot candidate AST or inconsistent candidate set is rejected" classname="logic.e3.E3ChallengeSessionTest" time="0.022"/>
+  <testcase name="scope evidence and budget inconsistencies are rejected" classname="logic.e3.E3ChallengeSessionTest" time="0.021"/>
+  <testcase name="missing candidate or snapshot is rejected" classname="logic.e3.E3ChallengeSessionTest" time="0.023"/>
+  <testcase name="pending state does not query labels or modify knowledge" classname="logic.e3.E3ChallengeSessionTest" time="0.022"/>
+  <testcase name="collision result is rejected" classname="logic.e3.E3ChallengeSessionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

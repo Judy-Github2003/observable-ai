@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.LibraryCostTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:46.688Z" hostname="ADMIN" time="0.12">
+  <properties/>
+  <testcase name="L03 call cost includes base and every argument expression" classname="logic.capability.LibraryCostTest" time="0.0"/>
+  <testcase name="L05 cost is stable across restart" classname="logic.capability.LibraryCostTest" time="0.026"/>
+  <testcase name="L02 identical bodies are stored once and costed once" classname="logic.capability.LibraryCostTest" time="0.036"/>
+  <testcase name="L01 frozen weights produce stable exact costs" classname="logic.capability.LibraryCostTest" time="0.024"/>
+  <testcase name="L06 richer signature costs more" classname="logic.capability.LibraryCostTest" time="0.0"/>
+  <testcase name="L04 corrupted body makes the audit fail instead of returning partial cost" classname="logic.capability.LibraryCostTest" time="0.033"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

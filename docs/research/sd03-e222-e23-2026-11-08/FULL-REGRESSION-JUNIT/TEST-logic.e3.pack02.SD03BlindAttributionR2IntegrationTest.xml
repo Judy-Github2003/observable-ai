@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03BlindAttributionR2IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:04:56.784Z" hostname="ADMIN" time="52.481">
+  <properties/>
+  <testcase name="R2 decisions use genuine TRAIN preview and independent arm grading" classname="logic.e3.pack02.SD03BlindAttributionR2IntegrationTest" time="52.481"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

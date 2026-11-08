@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.BenchmarkTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:33.980Z" hostname="ADMIN" time="8.875">
+  <properties/>
+  <testcase name="G03 group counters add up and json is machine readable" classname="logic.capability.BenchmarkTest" time="2.445"/>
+  <testcase name="G01 generator produces fixed task counts and train development split" classname="logic.capability.BenchmarkTest" time="2.157"/>
+  <testcase name="G02 same seed yields same per task outcomes" classname="logic.capability.BenchmarkTest" time="4.273"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03R32IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:06:22.047Z" hostname="ADMIN" time="4.392">
+  <properties/>
+  <testcase name="same rank same quotas compare IF order and nested budget replacement" classname="logic.e3.pack02.SD03R32IntegrationTest" time="4.392"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2DG1G5Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:59:28.555Z" hostname="ADMIN" time="15.847">
+  <properties/>
+  <testcase name="W4 and XOR G1 to G5" classname="logic.e3.pack02.MRX2DG1G5Test" time="15.847"/>
+  <system-out><![CDATA[COST mrx-depth-w4 new=6 reuse=0 gen=0 calls=75600
+mrx-depth-w4 retained=335 status=SINGLE_BEHAVIOR_CLASS_PROVISIONAL classes=107->1 replay=0 new=6 held=27/27 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=true
+COST mrx2c-xor-a-d new=3 reuse=0 gen=0 calls=22680
+mrx2c-xor-a-d retained=112 status=SINGLE_BEHAVIOR_CLASS_PROVISIONAL classes=18->1 replay=0 new=3 held=12/27 g0=UNDETERMINED g1=false g2=false g3=NOT_APPLICABLE g4=false
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

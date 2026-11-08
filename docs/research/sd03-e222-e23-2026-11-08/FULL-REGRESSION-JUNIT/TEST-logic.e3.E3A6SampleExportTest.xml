@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3A6SampleExportTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:47.601Z" hostname="ADMIN" time="0.039">
+  <properties/>
+  <testcase name="export budget diagnosis for public worlds" classname="logic.e3.E3A6SampleExportTest" time="0.039"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

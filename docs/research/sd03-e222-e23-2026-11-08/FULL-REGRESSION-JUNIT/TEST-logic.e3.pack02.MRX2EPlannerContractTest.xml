@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2EPlannerContractTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:59:56.610Z" hostname="ADMIN" time="0.001">
+  <properties/>
+  <testcase name="same snapshot is deterministic without mutation" classname="logic.e3.pack02.MRX2EPlannerContractTest" time="0.001"/>
+  <testcase name="training conflict stops safely" classname="logic.e3.pack02.MRX2EPlannerContractTest" time="0.0"/>
+  <testcase name="zero oracle budget cannot choose oracle-required action" classname="logic.e3.pack02.MRX2EPlannerContractTest" time="0.0"/>
+  <testcase name="no legal action stops" classname="logic.e3.pack02.MRX2EPlannerContractTest" time="0.0"/>
+  <testcase name="STATIC frozen third action must not change across paired feedbacks" classname="logic.e3.pack02.MRX2EPlannerContractTest" time="0.0"/>
+  <testcase name="two real-shape failed feedbacks should change third DYNAMIC choice" classname="logic.e3.pack02.MRX2EPlannerContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

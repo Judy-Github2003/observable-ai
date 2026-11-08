@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.EvalC8Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:58:02.927Z" hostname="ADMIN" time="1.196">
+  <properties/>
+  <testcase name="development C8 reuse comparison runs" classname="logic.e3.pack02.EvalC8Test" time="1.196"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

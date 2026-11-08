@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityRegistryTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:45.069Z" hostname="ADMIN" time="0.534">
+  <properties/>
+  <testcase name="R08 oversized inputs are rejected without crashing" classname="logic.capability.CapabilityRegistryTest" time="0.014"/>
+  <testcase name="X04c corrupted existing body blocks new capability reusing it" classname="logic.capability.CapabilityRegistryTest" time="0.033"/>
+  <testcase name="R10 bad path and unknown schema version fail explicitly" classname="logic.capability.CapabilityRegistryTest" time="0.014"/>
+  <testcase name="R07 nested chain works and duplicate dependencies deduplicate" classname="logic.capability.CapabilityRegistryTest" time="0.048"/>
+  <testcase name="R02 immutable versions and idempotent same content" classname="logic.capability.CapabilityRegistryTest" time="0.025"/>
+  <testcase name="X01 corrupted signature json is a controlled failure" classname="logic.capability.CapabilityRegistryTest" time="0.064"/>
+  <testcase name="X05 successful propose must roundtrip even with record type edge cases" classname="logic.capability.CapabilityRegistryTest" time="0.016"/>
+  <testcase name="X02b idempotent propose keeps one event and one row" classname="logic.capability.CapabilityRegistryTest" time="0.027"/>
+  <testcase name="R01 persists and resolves after reopen" classname="logic.capability.CapabilityRegistryTest" time="0.025"/>
+  <testcase name="R03 dependency extraction and pinned call execution" classname="logic.capability.CapabilityRegistryTest" time="0.034"/>
+  <testcase name="R04 missing and mismatched dependencies leave no partial rows" classname="logic.capability.CapabilityRegistryTest" time="0.026"/>
+  <testcase name="X05b nested record signature roundtrips" classname="logic.capability.CapabilityRegistryTest" time="0.024"/>
+  <testcase name="R05 tampering with body or content hash is rejected" classname="logic.capability.CapabilityRegistryTest" time="0.066"/>
+  <testcase name="X04 oversized constants and provenance are rejected" classname="logic.capability.CapabilityRegistryTest" time="0.017"/>
+  <testcase name="X02 repeated propose checks existing integrity" classname="logic.capability.CapabilityRegistryTest" time="0.033"/>
+  <testcase name="X03 persisted semantics version is enforced" classname="logic.capability.CapabilityRegistryTest" time="0.034"/>
+  <testcase name="R06 transaction rollback leaves no rows" classname="logic.capability.CapabilityRegistryTest" time="0.033"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

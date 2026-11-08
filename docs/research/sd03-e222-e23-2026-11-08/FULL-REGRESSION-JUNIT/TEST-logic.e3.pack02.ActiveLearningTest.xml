@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.ActiveLearningTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:50.362Z" hostname="ADMIN" time="1.293">
+  <properties/>
+  <testcase name="view isolates family target and heldout" classname="logic.e3.pack02.ActiveLearningTest" time="0.087"/>
+  <testcase name="query controller enforces freeze pool duplicate and budget" classname="logic.e3.pack02.ActiveLearningTest" time="0.001"/>
+  <testcase name="active session identifies and evaluator activates" classname="logic.e3.pack02.ActiveLearningTest" time="0.518"/>
+  <testcase name="baseline and negative worlds do not fake activation" classname="logic.e3.pack02.ActiveLearningTest" time="0.687"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

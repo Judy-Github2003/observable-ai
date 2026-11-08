@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.evaluator.E3WorldGeneratorTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:50.296Z" hostname="ADMIN" time="0.021">
+  <properties/>
+  <testcase name="public observations are valid and public query held-out vectors are disjoint" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.001"/>
+  <testcase name="ambiguous evidence fits two different shallow hypotheses" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.0"/>
+  <testcase name="same seed reproduces every world family" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.003"/>
+  <testcase name="matched pair shares schema domains and source format" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.001"/>
+  <testcase name="different seeds change world content without relying on ids" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.004"/>
+  <testcase name="feature key still distinguishes unknown from literal question mark" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.0"/>
+  <testcase name="noisy labels expose reliable-source contradiction" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.0"/>
+  <testcase name="search limited has no shallow literal combination consistent" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.001"/>
+  <testcase name="public query oracle only accepts query pool ids" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.001"/>
+  <testcase name="oracle labels every declared domain point consistently" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.001"/>
+  <testcase name="search limited truth is deeper and no simple field rule fits" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.001"/>
+  <testcase name="latent world contains same-visible different-label evidence" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.0"/>
+  <testcase name="A3 families share the same public sample count" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.0"/>
+  <testcase name="search limited low budget composer control is recorded" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.005"/>
+  <testcase name="public world never exposes hidden feature names" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.003"/>
+  <testcase name="public world id is opaque and does not expose seed or index" classname="logic.e3.evaluator.E3WorldGeneratorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack01.Pack01SessionTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:50.328Z" hostname="ADMIN" time="0.033">
+  <properties/>
+  <testcase name="N02 chooses query from candidate prediction differences without labels" classname="logic.e3.pack01.Pack01SessionTest" time="0.003"/>
+  <testcase name="current state evolves across two legal observations" classname="logic.e3.pack01.Pack01SessionTest" time="0.005"/>
+  <testcase name="end-to-end update changes knowledge and predicts a held-out input" classname="logic.e3.pack01.Pack01SessionTest" time="0.004"/>
+  <testcase name="A-R1 eliminates contradicted candidates and keeps before-after history" classname="logic.e3.pack01.Pack01SessionTest" time="0.003"/>
+  <testcase name="label cannot be requested before a query is frozen" classname="logic.e3.pack01.Pack01SessionTest" time="0.002"/>
+  <testcase name="D2 keeps multiple hypotheses and exposes ambiguity" classname="logic.e3.pack01.Pack01SessionTest" time="0.001"/>
+  <testcase name="all candidates can become undetermined after conflicting evidence" classname="logic.e3.pack01.Pack01SessionTest" time="0.003"/>
+  <testcase name="export PACK-01 actual run record" classname="logic.e3.pack01.Pack01SessionTest" time="0.005"/>
+  <testcase name="no legal distinguishing query is reported explicitly" classname="logic.e3.pack01.Pack01SessionTest" time="0.001"/>
+  <testcase name="forged frozen predictions and changed inputs are rejected" classname="logic.e3.pack01.Pack01SessionTest" time="0.005"/>
+  <system-out><![CDATA[PACK01 before=36 after=13 eliminated=23 state=AMBIGUOUS query=q10 heldout=true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

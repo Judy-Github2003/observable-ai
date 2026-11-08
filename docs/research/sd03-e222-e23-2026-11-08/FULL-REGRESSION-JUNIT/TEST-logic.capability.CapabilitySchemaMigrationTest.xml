@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilitySchemaMigrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:45.973Z" hostname="ADMIN" time="0.388">
+  <properties/>
+  <testcase name="M06 v2 database gains revocations without touching verification history" classname="logic.capability.CapabilitySchemaMigrationTest" time="0.06"/>
+  <testcase name="M02 empty database initializes directly to v3" classname="logic.capability.CapabilitySchemaMigrationTest" time="0.017"/>
+  <testcase name="M05 unknown schema versions are rejected without migration" classname="logic.capability.CapabilitySchemaMigrationTest" time="0.016"/>
+  <testcase name="M03 repeated reopen stays on v3 and keeps data" classname="logic.capability.CapabilitySchemaMigrationTest" time="0.027"/>
+  <testcase name="M04 failed migration rolls back tables and version" classname="logic.capability.CapabilitySchemaMigrationTest" time="0.144"/>
+  <testcase name="M01 v1 fixture migrates to v3 without touching old rows" classname="logic.capability.CapabilitySchemaMigrationTest" time="0.124"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

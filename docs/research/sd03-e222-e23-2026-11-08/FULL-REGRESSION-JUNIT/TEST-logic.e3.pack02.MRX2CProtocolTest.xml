@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2CProtocolTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:59:23.100Z" hostname="ADMIN" time="5.448">
+  <properties/>
+  <testcase name="independent xor protocol split active identification" classname="logic.e3.pack02.MRX2CProtocolTest" time="2.112"/>
+  <testcase name="W4 protocol split active identification" classname="logic.e3.pack02.MRX2CProtocolTest" time="3.336"/>
+  <system-out><![CDATA[mrx2c-xor-a-d retained=112 status=IDENTIFIED_ON_OBSERVABLE_POOL classes=18->1 q=3 held=12/27 deps=[]
+mrx-depth-w4 retained=335 status=IDENTIFIED_ON_OBSERVABLE_POOL classes=107->1 q=6 held=27/27 deps=[pack02r.active.r]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

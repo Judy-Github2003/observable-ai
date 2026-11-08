@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2BSearchTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:58:49.846Z" hostname="ADMIN" time="29.455">
+  <properties/>
+  <testcase name="pairwise preserves XOR atoms and audit reports coverage" classname="logic.e3.pack02.MRX2BSearchTest" time="10.748"/>
+  <testcase name="no witness returns undetermined not not representable" classname="logic.e3.pack02.MRX2BSearchTest" time="18.707"/>
+  <system-out><![CDATA[BASELINE atoms=10 gen=28523 consistent=244 retained=244 pairs=0 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=true
+DIVERSITY atoms=10 gen=28523 consistent=139 retained=139 pairs=0 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=true
+PAIRWISE atoms=10 gen=28523 consistent=244 retained=244 pairs=420 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

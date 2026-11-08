@@ -47,6 +47,7 @@
 | SD-03 E2.1 2026-11-07 | 反例机会审计 + 单标签局部修复 | **QUERY 池 1 反例 q-2；E2 4 查询 0 命中；LOCAL_ONLY 真替换 TF 但三臂仍 Challenge 失败** |
 | SD-03 E2.2 2026-11-07 | 一致猜想查询矩阵与命中 | **8 task-seeds×5 arms；5 反例中 E22 命中 q-2/q-11；5/8 pass，HELDOUT 103/105；有负作用** |
 | SD-03 E2.2.1 2026-11-07 | 历史勘误 + 回归预检 | **原始 JSONL 10 文件 0 改动；q-2/q-11、q-2/q-1 口径修正；compile 6.227s、targeted 6.751s PASS；full BLOCKED_NOT_RUN** |
+| SD-03 E2.2.2/E2.3 2026-11-08 | 隔离全量回归 + 更新策略 | **FULL 507 tests/5 fail/669s；E1 清理遗漏 .json；E2.3 token 错位 REPLAY_FIDELITY_FAILED；四组 NOT_RUN** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -333,6 +334,13 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - HELDOUT 分母改为仅 Challenge-pass：STATIC 119/126，E22 103/105；共同通过的 5 个任务配对均为 103/105。
 - 回归：compile 6.227s PASS；targeted 6.751s PASS；full `BLOCKED_NOT_RUN`（历史一次性输出门禁，未删除/移动证据）。
 - 记录：[ERRATA](./docs/research/sd03-e22-development-2026-11-07/E22.1-ERRATA.md)、[修正报告](./docs/research/sd03-e22-development-2026-11-07/RESULT.md)、[审计](./docs/research/sd03-e22-development-2026-11-07/E221/CORRECTION-AUDIT.txt)。
+
+### SD-03 E2.2.2/E2.3 2026-11-08：全量回归失败，更新策略阻断
+
+- 隔离 worktree 运行无筛选 `test`：507 tests、5 failures、0 skipped、669.024s；历史 tracked digest 前后一致。
+- 失败：3 个正式考试冻结 hash 过期；E1 sandbox 清理遗漏 `.json`；E2.3 replay token 错位。
+- E2.3 冻结计划中 3 个 taskToken 与 `sha256(world|seed)` 不一致，`REPLAY_FIDELITY_FAILED`；四组对照 NOT_RUN，不能写 NO_BENEFIT。
+- 记录：[回归报告](./docs/research/sd03-e222-e23-2026-11-08/REGRESSION.md)、[E2.3 阻断](./docs/research/sd03-e222-e23-2026-11-08/E23-BLOCKED.md)、[结果](./docs/research/sd03-e222-e23-2026-11-08/RESULT.md)。
 
 ### Research Console（本地）
 

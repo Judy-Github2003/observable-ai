@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2PairTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:59:56.614Z" hostname="ADMIN" time="8.875">
+  <properties/>
+  <testcase name="second pair missing knowledge feedback selects knowledge or stop" classname="logic.e3.pack02.MRX2PairTest" time="2.764"/>
+  <testcase name="same first action different feedback produces different second action" classname="logic.e3.pack02.MRX2PairTest" time="6.111"/>
+  <system-out><![CDATA[MISS A first=COUNTEREXAMPLE second=DNF
+MISS B first=PASS_ON_CHALLENGE second=STOP
+A first=VALIDATE_BASE feedback=COUNTEREXAMPLE second=DNF status=REPAIRED
+B first=VALIDATE_BASE feedback=PASS_ON_CHALLENGE second=STOP status=IDENTIFIED
+COST A new=16 reuse=16 gen=42601 calls=48 wall=3354
+COST B new=16 reuse=0 gen=13206 calls=16 wall=1374
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

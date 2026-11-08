@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2BLifecycleTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:58:49.201Z" hostname="ADMIN" time="0.644">
+  <properties/>
+  <testcase name="no witness is undetermined not not representable" classname="logic.e3.pack02.MRX2BLifecycleTest" time="0.001"/>
+  <testcase name="lifecycle records generation retention and cap prune" classname="logic.e3.pack02.MRX2BLifecycleTest" time="0.643"/>
+  <system-out><![CDATA[gen=8000 consistent=2 retained=1 prunes=7999 reasons=[train_mismatch, consistent_cap_1]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

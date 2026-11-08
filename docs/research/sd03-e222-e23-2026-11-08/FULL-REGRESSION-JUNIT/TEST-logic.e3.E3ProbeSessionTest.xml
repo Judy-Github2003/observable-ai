@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3ProbeSessionTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:49.174Z" hostname="ADMIN" time="0.114">
+  <properties/>
+  <testcase name="ambiguous evidence requests a legal distinguishing public instance" classname="logic.e3.E3ProbeSessionTest" time="0.013"/>
+  <testcase name="costs and attribution are recorded" classname="logic.e3.E3ProbeSessionTest" time="0.01"/>
+  <testcase name="duplicate query is not counted as new independent evidence" classname="logic.e3.E3ProbeSessionTest" time="0.014"/>
+  <testcase name="solvable identified chooses no action" classname="logic.e3.E3ProbeSessionTest" time="0.021"/>
+  <testcase name="no legal query or exhausted budget chooses no action" classname="logic.e3.E3ProbeSessionTest" time="0.004"/>
+  <testcase name="noisy labels repeats measurement but does not declare noise" classname="logic.e3.E3ProbeSessionTest" time="0.001"/>
+  <testcase name="no action after identification is bounded to current policy" classname="logic.e3.E3ProbeSessionTest" time="0.042"/>
+  <testcase name="repeat measurement kind and new record are distinguished from independence" classname="logic.e3.E3ProbeSessionTest" time="0.0"/>
+  <testcase name="invalid gateway response is not added to evidence" classname="logic.e3.E3ProbeSessionTest" time="0.008"/>
+  <testcase name="forged stale and over-budget decisions are rejected" classname="logic.e3.E3ProbeSessionTest" time="0.001"/>
+  <testcase name="latent collision repeats measurement without noise claim" classname="logic.e3.E3ProbeSessionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

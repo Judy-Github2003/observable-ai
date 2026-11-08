@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03StudentLoopTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:07:02.430Z" hostname="ADMIN" time="15.667">
+  <properties/>
+  <testcase name="two real student sources feed typed macro mechanism" classname="logic.e3.pack02.SD03StudentLoopTest" time="15.667"/>
+  <system-out><![CDATA[sources a={"op":"and","left":{"op":"call","id":"c8v3.p","version":1,"body_hash":"2d08c61ca2cfabfcd5dd207d6199d b={"op":"and","left":{"op":"call","id":"c8v3.p","version":1,"body_hash":"2d08c61ca2cfabfcd5dd207d6199d
+pattern=Const(value=Bool(value=false)) holes=[] macro=null call=null note=DEGENERATE_PATTERN:IRRELEVANT_SOURCE_DIFFERENCE
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

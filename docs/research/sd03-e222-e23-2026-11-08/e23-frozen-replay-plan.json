@@ -1,0 +1,78 @@
+{
+  "source": "E22_CONJECTURE pre-frozen query IDs from 2026-11-07; all 8 development task-seeds, no label supplied",
+  "repositoryCommit": "19960fe7bd619ec9241ac4fcd5cf64a7510f8902",
+  "tasks": [
+    {
+      "world": "mrx-base-or-r-d1",
+      "seed": 20261111,
+      "taskToken": "e0734e453d890dbd",
+      "queryIds": [
+        "q-9"
+      ],
+      "expectedE22FullRefitHash": "65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683"
+    },
+    {
+      "world": "mrx-depth-w4",
+      "seed": 20261110,
+      "taskToken": "83a0a07d602718a9",
+      "queryIds": [
+        "q-3"
+      ],
+      "expectedE22FullRefitHash": "d17dc94877c12d769348c89da4b6b844b91955a5ea65e829937106a63ae33380"
+    },
+    {
+      "world": "mrx-depth-r-xor-b2",
+      "seed": 20261112,
+      "taskToken": "4254cfe428af73ca",
+      "queryIds": [
+        "q-0"
+      ],
+      "expectedE22FullRefitHash": "c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426"
+    },
+    {
+      "world": "mrx-if-nested-3",
+      "seed": 20261109,
+      "taskToken": "0d3daf2627021276",
+      "queryIds": [
+        "q-4",
+        "q-1",
+        "q-2",
+        "q-3"
+      ],
+      "expectedE22FullRefitHash": "7de442deecc0e234f133bc5015a7099576b5e27b3a768520ffca6820eda733f9"
+    },
+    {
+      "world": "mrx-base-or-r-d1",
+      "seed": 20261121,
+      "taskToken": "6894c295a0615971",
+      "queryIds": [],
+      "expectedE22FullRefitHash": "c91ac8364fc53c771cd2d971a6da15efff1db5ad34059cc71c9f7171a2617426"
+    },
+    {
+      "world": "mrx-depth-w4",
+      "seed": 20261122,
+      "taskToken": "426249206c4fbdf8",
+      "queryIds": [],
+      "expectedE22FullRefitHash": "bf6236f85c9aadabf97c270e48a0c311c5ae8da945feef3ad002a36204f106b0"
+    },
+    {
+      "world": "mrx-depth-r-xor-b2",
+      "seed": 20261123,
+      "taskToken": "bea6135b21ee6c49",
+      "queryIds": [],
+      "expectedE22FullRefitHash": "65303bbdbcbc137a73dfb0285caf037b1dfeb9cc7d87e097fb83c4c7a036f683"
+    },
+    {
+      "world": "mrx-if-nested-3",
+      "seed": 20261124,
+      "taskToken": "4b1f104a970d9e8f",
+      "queryIds": [
+        "q-4",
+        "q-2",
+        "q-11",
+        "q-1"
+      ],
+      "expectedE22FullRefitHash": "38fc410d539957c69b51e7c383dfceabf41816ca022e8bd3a1b26d0525113a2f"
+    }
+  ]
+}

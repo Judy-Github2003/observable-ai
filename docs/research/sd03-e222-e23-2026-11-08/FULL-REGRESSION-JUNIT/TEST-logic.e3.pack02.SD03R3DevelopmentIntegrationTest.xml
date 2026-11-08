@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03R3DevelopmentIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:06:26.441Z" hostname="ADMIN" time="9.859">
+  <properties/>
+  <testcase name="R3 sequential rerun and truthful diagnostics on development worlds" classname="logic.e3.pack02.SD03R3DevelopmentIntegrationTest" time="9.859"/>
+  <system-out><![CDATA[R3 dev=edb6ed412bc99785 first=PROBE_PAIRWISE_12 next=AUDIT_GENERATION_CAP (NOT independent closed book)
+R3 dev=068096ee3c6a5a49 first=ABSTAIN next=null (NOT independent closed book)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

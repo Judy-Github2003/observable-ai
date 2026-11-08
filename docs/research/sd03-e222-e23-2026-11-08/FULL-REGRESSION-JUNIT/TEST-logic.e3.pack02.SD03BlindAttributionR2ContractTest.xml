@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03BlindAttributionR2ContractTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:04:56.778Z" hostname="ADMIN" time="0.005">
+  <properties/>
+  <testcase name="attribute present yet signature indistinguishable is detected" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.004"/>
+  <testcase name="no allowed action means abstain" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.0"/>
+  <testcase name="no train failure no repair trigger" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.001"/>
+  <testcase name="candidate generation cap blocks attribution upgrade" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.0"/>
+  <testcase name="incomplete observation coverage rejected before decision" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.0"/>
+  <testcase name="same trace with new public evidence changes decision" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.0"/>
+  <testcase name="unknown predictions cause abstention rather than false substitute" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.0"/>
+  <testcase name="no distinguishing discarded atom cannot authorize repair" classname="logic.e3.pack02.SD03BlindAttributionR2ContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

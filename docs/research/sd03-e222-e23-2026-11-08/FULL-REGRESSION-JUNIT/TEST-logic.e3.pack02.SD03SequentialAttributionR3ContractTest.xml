@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:06:46.414Z" hostname="ADMIN" time="0.003">
+  <properties/>
+  <testcase name="same prefix but different second feedback yields different third decision" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.001"/>
+  <testcase name="changed public train label invalidates sequential comparison" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.0"/>
+  <testcase name="first decision is based only on baseline evidence" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.0"/>
+  <testcase name="old decision cannot be reused for another baseline" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.001"/>
+  <testcase name="recovered train consistency stops before examiner verification" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.0"/>
+  <testcase name="cannot confuse candidate cap with proven causal problem" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.0"/>
+  <testcase name="unchanged signature obstruction must not be called repair" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.0"/>
+  <testcase name="no followup after abstain" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.0"/>
+  <testcase name="stale snapshot rejected" classname="logic.e3.pack02.SD03SequentialAttributionR3ContractTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

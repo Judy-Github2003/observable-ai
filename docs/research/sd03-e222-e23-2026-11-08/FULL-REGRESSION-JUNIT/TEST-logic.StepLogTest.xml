@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.StepLogTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:32.904Z" hostname="ADMIN" time="0.074">
+  <properties/>
+  <testcase name="step log records key functions while JSONL stays parseable" classname="logic.StepLogTest" time="0.074"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[提示：中文步骤日志写入失败，JSONL 记录仍已保留，请检查日志路径或权限。
+]]></system-err>
+</testsuite>

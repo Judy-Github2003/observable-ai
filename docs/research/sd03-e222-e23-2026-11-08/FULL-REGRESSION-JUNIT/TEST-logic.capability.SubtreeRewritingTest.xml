@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.SubtreeRewritingTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:47.139Z" hostname="ADMIN" time="0.167">
+  <properties/>
+  <testcase name="U03 unknown and error behavior are compared exactly" classname="logic.capability.SubtreeRewritingTest" time="0.001"/>
+  <testcase name="U05 published rewrite follows activation gate and revocation" classname="logic.capability.SubtreeRewritingTest" time="0.164"/>
+  <testcase name="U01 profitable rewrite is accepted with net cost reduction" classname="logic.capability.SubtreeRewritingTest" time="0.001"/>
+  <testcase name="U02 unprofitable rewrite is rejected instead of auto promoted" classname="logic.capability.SubtreeRewritingTest" time="0.001"/>
+  <testcase name="U04 tasks without shared structure produce no candidate" classname="logic.capability.SubtreeRewritingTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

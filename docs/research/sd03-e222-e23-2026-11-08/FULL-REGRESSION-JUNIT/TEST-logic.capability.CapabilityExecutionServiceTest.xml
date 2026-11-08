@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityExecutionServiceTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:43.520Z" hostname="ADMIN" time="0.662">
+  <properties/>
+  <testcase name="Y03 body change after activation blocks execution" classname="logic.capability.CapabilityExecutionServiceTest" time="0.051"/>
+  <testcase name="Y09 unsupported semantics version is rejected" classname="logic.capability.CapabilityExecutionServiceTest" time="0.051"/>
+  <testcase name="Y07 tampered activation record is rejected" classname="logic.capability.CapabilityExecutionServiceTest" time="0.05"/>
+  <testcase name="Y06 activation survives restart and still enforces the gate" classname="logic.capability.CapabilityExecutionServiceTest" time="0.053"/>
+  <testcase name="Y11 three level chain survives restart and blocks on inner corruption" classname="logic.capability.CapabilityExecutionServiceTest" time="0.12"/>
+  <testcase name="Y04 dependency activation is checked at execution time" classname="logic.capability.CapabilityExecutionServiceTest" time="0.074"/>
+  <testcase name="Y10 unknown and error are reported as results not successes" classname="logic.capability.CapabilityExecutionServiceTest" time="0.044"/>
+  <testcase name="Y01 candidate or verified only is rejected by the formal entry" classname="logic.capability.CapabilityExecutionServiceTest" time="0.034"/>
+  <testcase name="Y02 activated capability executes with known results" classname="logic.capability.CapabilityExecutionServiceTest" time="0.045"/>
+  <testcase name="Y08 tampered verification verdict blocks execution" classname="logic.capability.CapabilityExecutionServiceTest" time="0.053"/>
+  <testcase name="Y05 transitive dependency corruption blocks the caller" classname="logic.capability.CapabilityExecutionServiceTest" time="0.086"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

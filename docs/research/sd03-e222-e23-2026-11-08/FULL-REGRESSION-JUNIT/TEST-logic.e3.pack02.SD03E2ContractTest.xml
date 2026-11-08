@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03E2ContractTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:06:01.025Z" hostname="ADMIN" time="0.001">
+  <properties/>
+  <testcase name="labels agreeing with tree do not force repair" classname="logic.e3.pack02.SD03E2ContractTest" time="0.0"/>
+  <testcase name="already incorrect on old evidence prevents local certification" classname="logic.e3.pack02.SD03E2ContractTest" time="0.0"/>
+  <testcase name="a root-only tree cannot be misreported as local" classname="logic.e3.pack02.SD03E2ContractTest" time="0.0"/>
+  <testcase name="counterexample repairs only a non-root subtree" classname="logic.e3.pack02.SD03E2ContractTest" time="0.001"/>
+  <testcase name="missing atom preview is rejected" classname="logic.e3.pack02.SD03E2ContractTest" time="0.0"/>
+  <testcase name="Unknown query prediction never becomes false" classname="logic.e3.pack02.SD03E2ContractTest" time="0.0"/>
+  <testcase name="no disagreement abstains rather than fabricating information gain" classname="logic.e3.pack02.SD03E2ContractTest" time="0.0"/>
+  <testcase name="predictive disagreement queries are selected without label" classname="logic.e3.pack02.SD03E2ContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03E21ContractTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:05:57.548Z" hostname="ADMIN" time="0.007">
+  <properties/>
+  <testcase name="actual E2 local repair must produce new evidence consistent proposal" classname="logic.e3.pack02.SD03E21ContractTest" time="0.003"/>
+  <testcase name="unfiltered disagreement may include refuted models" classname="logic.e3.pack02.SD03E21ContractTest" time="0.003"/>
+  <testcase name="missing preview and duplicate public IDs fail closed" classname="logic.e3.pack02.SD03E21ContractTest" time="0.0"/>
+  <testcase name="unknown TRAIN prediction is not a negative label" classname="logic.e3.pack02.SD03E21ContractTest" time="0.001"/>
+  <testcase name="changing a sibling or ancestor is not local" classname="logic.e3.pack02.SD03E21ContractTest" time="0.0"/>
+  <testcase name="version space excludes a TRAIN refuted alternative" classname="logic.e3.pack02.SD03E21ContractTest" time="0.0"/>
+  <testcase name="a non-root changed subtree retains the untouched sibling" classname="logic.e3.pack02.SD03E21ContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

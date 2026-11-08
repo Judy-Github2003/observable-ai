@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.V1Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:33.838Z" hostname="ADMIN" time="0.14">
+  <properties/>
+  <testcase name="memory persists with provenance and a new question cannot return the old answer" classname="logic.V1Test" time="0.14"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

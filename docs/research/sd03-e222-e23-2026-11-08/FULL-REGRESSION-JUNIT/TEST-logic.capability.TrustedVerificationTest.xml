@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.TrustedVerificationTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:56:47.308Z" hostname="ADMIN" time="0.003">
+  <properties/>
+  <testcase name="V14 empty suite is rejected" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V10 suite hash ignores map insertion order" classname="logic.capability.TrustedVerificationTest" time="0.001"/>
+  <testcase name="V09 repeated identical inputs do not inflate coverage" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V03 fewer than four definite cases are inadequate" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V16 missing dependency and invalid expectation fail without executing" classname="logic.capability.TrustedVerificationTest" time="0.001"/>
+  <testcase name="V12 source comes from host registration and unknown suite is rejected" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V08 duplicate case ids are rejected" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V13 non Bool3 output is unsupported" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V06 actual Error always fails and budget is enforced" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V05 expected Unknown matches but never counts toward coverage" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V11 suite hash changes with case order or expected value" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V01 four independent definite cases pass" classname="logic.capability.TrustedVerificationTest" time="0.001"/>
+  <testcase name="V15 same suite id and version cannot change content" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V02 all true cases are inadequate even when all pass" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V04 missing field is Unknown and never counts as false" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <testcase name="V07 wrong expected value fails the run" classname="logic.capability.TrustedVerificationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

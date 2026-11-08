@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2CActiveTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-08T01:59:19.302Z" hostname="ADMIN" time="3.794">
+  <properties/>
+  <testcase name="W4 retained candidates can be actively identified" classname="logic.e3.pack02.MRX2CActiveTest" time="1.84"/>
+  <testcase name="independent XOR is not reducible to one attribute" classname="logic.e3.pack02.MRX2CActiveTest" time="1.954"/>
+  <system-out><![CDATA[PAIRWISE retained=10 status=IDENTIFIED_ON_OBSERVABLE_POOL classes=6->1 q=3 selected={"op":"or","left":{"op":"and","left":{"op":"eq","left":{"op":"arg","name":"d","t
+  selectedFullDomain=81/81 witnessG4=true
+PAIRWISE retained=16 status=IDENTIFIED_ON_OBSERVABLE_POOL classes=1->1 q=0 selected={"op":"if","condition":{"op":"eq","left":{"op":"arg","name":"a","type":"String"}
+  selectedFullDomain=81/81 witnessG4=true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
