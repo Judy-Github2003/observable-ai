@@ -1108,7 +1108,33 @@
       "consumed_commit": "7296542deb3fa476dbfdd1e528e41a8052c59669",
       "consumed_test": "E2.3R 7/7 Python; E23 contract PASS; plan 8/11 verified; E23 full replay PASS; FULL 507 tests/3 failures/665.268s FAIL (CRLF formal); freezes 11 sources 0 mismatch; arms NOT_RUN",
       "consumed_report": "docs/research/sd03-e23r-recovery-2026-11-08/RESULT.md"
+    },
+    {
+      "repair_id": "SD-03-E23R-CRLF-FIX-2026-11-08",
+      "parent_pack_id": "PACK-02",
+      "parent_task_ids": [
+        "C4",
+        "C8",
+        "RES-H01"
+      ],
+      "approved_scope": "SD-03 E2.3R CRLF-only regression fix: install tool patch, 11-source freeze preflight, optional full test. No science arms, no SD-04.",
+      "approval_reference": "Research-owner request 2026-11-08",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "SD-03-E23R-CRLF-FIX-2026-11-08",
+      "allowed_files_or_modules": [
+        "tools/e222/isolated_full_regression.py",
+        "tools/e222/frozen_hash_preflight.py",
+        "docs/research/sd03-e23r-crlf-fix-2026-11-08/",
+        "build/e222-isolated-regression/"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-08T12:29:44.031948+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794140984032-92adc3"
+      ],
+      "content_hash": "82d453bae43692fbf1baf2eb4a2ab82e14b5b64cdde8ce87b817f037603865bd"
     }
   ],
-  "updated_at": "2026-11-08T02:50:30.396999+00:00"
+  "updated_at": "2026-11-08T12:29:44.037960+00:00"
 }
