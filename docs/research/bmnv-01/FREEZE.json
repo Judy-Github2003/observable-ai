@@ -1,0 +1,13 @@
+{
+  "protocol": "BMNV01-SINGLE-PACK-v1",
+  "createdUtc": "2026-11-08T16:50:58.092642+00:00",
+  "gitHeadAtFreeze": "3f6496295f2bff830616814450d488fc899293cf",
+  "sources": {
+    "src/main/kotlin/logic/e3/bmnv/BMNV01Kernel.kt": "031cfb64d9c3b8f166a263c0e500da09de1958ebd95970d1ddd0432bbe45a129",
+    "src/test/kotlin/logic/e3/bmnv/BMNV01PublicContract.kt": "239179fa5acd5584d8ea753ee6a17e53960573b8c7e75ff8ce552c2d1c959c92",
+    "src/test/kotlin/logic/e3/bmnv/BMNV01Examiner.kt": "651afc8dfeed8ec90981cdd2303232840edba86a99dacab830b8346d1286d198"
+  },
+  "independentClosedBook": "NOT_CLAIMED",
+  "exam": "NOT_RUN",
+  "note": "Examiner code is visible from single package; no independent blind examination."
+}

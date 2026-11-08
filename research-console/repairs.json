@@ -1285,7 +1285,45 @@
       "consumed_commit": "ea579573f7f783f611333128caec48de71902394",
       "consumed_test": "sealed examiner run once: 12 tasks x 4 arms = 48 frozen; ACTIVE 12/12 FIXED 12/12 RANDOM 7/12 OBS 0/12; audit PASS; NO_ACTIVE_ADVANTAGE; independent recheck 0 mismatches",
       "consumed_report": "docs/research/gnjv-01/phase-b/RESULT.md"
+    },
+    {
+      "repair_id": "BMNV-01-SINGLE-2026-11-09",
+      "parent_pack_id": "",
+      "parent_task_ids": [
+        "B2",
+        "B7",
+        "B8",
+        "RES-M01",
+        "RES-M05",
+        "RES-M06",
+        "RES-N01",
+        "RES-N02",
+        "RES-N03",
+        "RES-V01",
+        "RES-V02",
+        "RES-V03",
+        "RES-V05"
+      ],
+      "approved_scope": "BMNV-01（B+M+N+V 独立组合，不隶属 PACK-02）：整合 ChatGPT 参考学习器与可见考官，公开合同 11 项，学生+考官一次冻结，正式考试只运行一次（48 场景 × 4 臂 = 192 条），Python 审计与独立复核，结果包与提交。不含历史全量回归、不含 BMNV-02、不修改 GNJV-01/SD-03/PACK-02 历史冻结文件。",
+      "approval_reference": "Research-owner delivery of Observable-AI-BMNV-01-SINGLE-2026-11-09.zip (sha256 d95152aa46cf3ab262c8a1b004e67b04bf15543d938575d0d7c16753326980a8)",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "BMNV-01-SINGLE-2026-11-09",
+      "allowed_files_or_modules": [
+        "src/main/kotlin/logic/e3/bmnv/",
+        "src/test/kotlin/logic/e3/bmnv/",
+        "tools/bmnv/",
+        "docs/research/bmnv-01/",
+        "build/bmnv-01-*",
+        "tools/research-console/register_bmnv_01.py"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-08T16:48:22.369360+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794156502370-a081a9"
+      ],
+      "content_hash": "3d03838a7ae3775a4d91bdf9ea4b022df045c066becff71d99913c3be81698b3"
     }
   ],
-  "updated_at": "2026-11-08T16:00:38.734390+00:00"
+  "updated_at": "2026-11-08T16:48:22.384242+00:00"
 }
