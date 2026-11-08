@@ -1127,14 +1127,18 @@
         "docs/research/sd03-e23r-crlf-fix-2026-11-08/",
         "build/e222-isolated-regression/"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-08T12:29:44.031948+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-08T12:30:20.088249+00:00",
       "audit_event_ids": [
-        "ev-1794140984032-92adc3"
+        "ev-1794140984032-92adc3",
+        "ev-1794141020088-60e40a"
       ],
-      "content_hash": "82d453bae43692fbf1baf2eb4a2ab82e14b5b64cdde8ce87b817f037603865bd"
+      "content_hash": "82d453bae43692fbf1baf2eb4a2ab82e14b5b64cdde8ce87b817f037603865bd",
+      "consumed_commit": "0785ae196c1255920d015a82d12d4fe9ec069d2b",
+      "consumed_test": "CRLF fix installed; 4/5 synthetic (one Windows fake-gradlew test); freeze-only 9/11 FROZEN_SOURCE_MISMATCH (MRXRSpace/MRXRStudent expected CRLF); full NOT_RUN",
+      "consumed_report": "docs/research/sd03-e23r-crlf-fix-2026-11-08/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-08T12:29:44.037960+00:00"
+  "updated_at": "2026-11-08T12:30:20.095013+00:00"
 }
