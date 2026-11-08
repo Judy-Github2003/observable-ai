@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03R31EnumerationIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:47:48.392Z" hostname="ADMIN" time="4.25">
+  <properties/>
+  <testcase name="same PAIRWISE atoms and global budget isolate If starvation and visibility" classname="logic.e3.pack02.SD03R31EnumerationIntegrationTest" time="4.25"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

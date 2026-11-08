@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03RootCauseMatrixTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:48:06.866Z" hostname="ADMIN" time="10.245">
+  <properties/>
+  <testcase name="frozen worlds isolate atom truncation candidate coverage and oracle" classname="logic.e3.pack02.SD03RootCauseMatrixTest" time="10.245"/>
+  <system-out><![CDATA[SD03 root-cause report: build\reports\sd03-root-cause\ROOT-CAUSE-MATRIX.jsonl; events=93
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

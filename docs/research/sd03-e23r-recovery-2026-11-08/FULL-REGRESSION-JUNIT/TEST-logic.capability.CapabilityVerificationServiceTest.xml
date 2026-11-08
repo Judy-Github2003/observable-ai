@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityVerificationServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:17.200Z" hostname="ADMIN" time="0.34">
+  <properties/>
+  <testcase name="W02 failing run is kept with per case evidence" classname="logic.capability.CapabilityVerificationServiceTest" time="0.033"/>
+  <testcase name="W05 tampered body cannot produce a pass record" classname="logic.capability.CapabilityVerificationServiceTest" time="0.033"/>
+  <testcase name="W03 suite inadequate is persisted as fail not pass" classname="logic.capability.CapabilityVerificationServiceTest" time="0.041"/>
+  <testcase name="W04 event failure rolls back the run row" classname="logic.capability.CapabilityVerificationServiceTest" time="0.035"/>
+  <testcase name="W08 broken dependency blocks new verification record" classname="logic.capability.CapabilityVerificationServiceTest" time="0.052"/>
+  <testcase name="W01 passing run and event are persisted together" classname="logic.capability.CapabilityVerificationServiceTest" time="0.046"/>
+  <testcase name="W06 each run gets a fresh id and history is append only" classname="logic.capability.CapabilityVerificationServiceTest" time="0.046"/>
+  <testcase name="W09 source is copied from host registration" classname="logic.capability.CapabilityVerificationServiceTest" time="0.032"/>
+  <testcase name="W07 unregistered suite leaves no row" classname="logic.capability.CapabilityVerificationServiceTest" time="0.021"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

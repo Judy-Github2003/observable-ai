@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.evaluator.A9IndependentScorerTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:20.579Z" hostname="ADMIN" time="0.526">
+  <properties/>
+  <testcase name="one candidate matching oracle is not bounded identification if other classes remain" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.011"/>
+  <testcase name="tampered frozen record or event is rejected" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.025"/>
+  <testcase name="structural overclaim does not rely on single claimedGlobal" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.043"/>
+  <testcase name="candidate hash mismatch is not evaluated" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.044"/>
+  <testcase name="latent truth conflict is preserved instead of overwritten" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.044"/>
+  <testcase name="missing candidate or heldout returns not evaluated without zero fill" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.043"/>
+  <testcase name="independent scorer evaluates frozen candidate and hidden error" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.043"/>
+  <testcase name="valid bounded claim with hidden error is not overclaim" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.043"/>
+  <testcase name="end-to-end probe event rebuilds evidence and scores frozen candidate" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.023"/>
+  <testcase name="export independent scoring examples" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.187"/>
+  <testcase name="candidate evaluation cannot use default steps beyond frozen budget" classname="logic.e3.evaluator.A9IndependentScorerTest" time="0.02"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

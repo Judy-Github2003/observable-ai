@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03E23DevelopmentIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:47:30.940Z" hostname="ADMIN" time="0.892">
+  <properties/>
+  <testcase name="E23 matched update policies replay frozen E22 queries" classname="logic.e3.pack02.SD03E23DevelopmentIntegrationTest" time="0.892"/>
+  <system-out><![CDATA[E23_OUTPUT_DIR=C:\Users\j1437\AppData\Local\Temp\observable-e222-64ww9ki5\build\sd03-e23-5840883585304128341
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

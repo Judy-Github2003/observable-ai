@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.LessonTwoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:03.768Z" hostname="ADMIN" time="0.184">
+  <properties/>
+  <testcase name="attributes stay unknown until taught and color groups do not merge identities" classname="logic.LessonTwoTest" time="0.184"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

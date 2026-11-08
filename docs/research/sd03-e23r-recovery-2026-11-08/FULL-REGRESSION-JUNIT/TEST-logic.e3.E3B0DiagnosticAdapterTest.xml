@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3B0DiagnosticAdapterTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:19.105Z" hostname="ADMIN" time="0.055">
+  <properties/>
+  <testcase name="all unknown yields explicit no complete observations status" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.001"/>
+  <testcase name="latent collision is preserved and search is not pretended to resolve it" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.0"/>
+  <testcase name="ambiguous world records ambiguity rather than forcing an answer" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.003"/>
+  <testcase name="filter domainSize is actual evaluated size and candidate budget is visible" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.02"/>
+  <testcase name="constants must come from public schema domain and have a source" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.001"/>
+  <testcase name="invalid query points are rejected with machine readable errors" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.002"/>
+  <testcase name="partial unknown observations are excluded not stringified" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.002"/>
+  <testcase name="invalid observations return machine readable errors" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.001"/>
+  <testcase name="solvable world produces bounded composer and filter traces" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.02"/>
+  <testcase name="search limited records depth limit without claiming rule absence" classname="logic.e3.E3B0DiagnosticAdapterTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

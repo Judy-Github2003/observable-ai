@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityActivationServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:13.797Z" hostname="ADMIN" time="0.541">
+  <properties/>
+  <testcase name="X02 direct activation without verification is rejected" classname="logic.capability.CapabilityActivationServiceTest" time="0.044"/>
+  <testcase name="X07 repeated activation is idempotent and writes nothing new" classname="logic.capability.CapabilityActivationServiceTest" time="0.052"/>
+  <testcase name="X03 failed verification cannot activate" classname="logic.capability.CapabilityActivationServiceTest" time="0.037"/>
+  <testcase name="X05 dependency must be activated before the caller" classname="logic.capability.CapabilityActivationServiceTest" time="0.076"/>
+  <testcase name="X06 event failure rolls back activation" classname="logic.capability.CapabilityActivationServiceTest" time="0.042"/>
+  <testcase name="X09 forged source or unregistered suite is rejected" classname="logic.capability.CapabilityActivationServiceTest" time="0.078"/>
+  <testcase name="X08 three level chain activates innermost first" classname="logic.capability.CapabilityActivationServiceTest" time="0.107"/>
+  <testcase name="X01 pass verification activates by appending a record only" classname="logic.capability.CapabilityActivationServiceTest" time="0.046"/>
+  <testcase name="X04 run id must bind to the same capability version and hash" classname="logic.capability.CapabilityActivationServiceTest" time="0.057"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03R32EnumerationContractTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:47:52.643Z" hostname="ADMIN" time="0.008">
+  <properties/>
+  <testcase name="experiment code does not receive examiner labels" classname="logic.e3.pack02.SD03R32EnumerationContractTest" time="0.0"/>
+  <testcase name="legacy R31 enumeration preserved exactly" classname="logic.e3.pack02.SD03R32EnumerationContractTest" time="0.001"/>
+  <testcase name="nested sampler has unique descriptors and covers seven roles" classname="logic.e3.pack02.SD03R32EnumerationContractTest" time="0.002"/>
+  <testcase name="with 5720 slots rotating covers all literals in all direct roles" classname="logic.e3.pack02.SD03R32EnumerationContractTest" time="0.002"/>
+  <testcase name="rotating covers every distinct triple once" classname="logic.e3.pack02.SD03R32EnumerationContractTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

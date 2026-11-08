@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.C8ActiveTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:22.429Z" hostname="ADMIN" time="26.038">
+  <properties/>
+  <testcase name="verification failure never activates a capability" classname="logic.e3.pack02.C8ActiveTest" time="0.526"/>
+  <testcase name="unidentifiable target or empty query pool stops without activation" classname="logic.e3.pack02.C8ActiveTest" time="2.656"/>
+  <testcase name="fixed and random controls never fake activation" classname="logic.e3.pack02.C8ActiveTest" time="10.467"/>
+  <testcase name="frozen split is disjoint complete and coverage checked" classname="logic.e3.pack02.C8ActiveTest" time="0.001"/>
+  <testcase name="activated S can be executed and is an actual T dependency" classname="logic.e3.pack02.C8ActiveTest" time="4.441"/>
+  <testcase name="S active learning identifies activates and T uses S dependency" classname="logic.e3.pack02.C8ActiveTest" time="6.503"/>
+  <testcase name="query controller refuses heldout duplicate out-of-pool and over-budget queries" classname="logic.e3.pack02.C8ActiveTest" time="1.444"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

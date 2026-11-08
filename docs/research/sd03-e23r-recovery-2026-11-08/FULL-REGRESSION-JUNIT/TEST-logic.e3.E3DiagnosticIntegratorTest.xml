@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3DiagnosticIntegratorTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:19.812Z" hostname="ADMIN" time="0.188">
+  <properties/>
+  <testcase name="forged or duplicate probe evidence is rejected" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.026"/>
+  <testcase name="encoded report has no world family truth or target ast" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.008"/>
+  <testcase name="no action after identification is bounded and does not deny future queries" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.084"/>
+  <testcase name="probe execution is integrated with recorded observation id" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.019"/>
+  <testcase name="collision report has multiple findings and never names hidden cause" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.0"/>
+  <testcase name="insufficient evidence yields undetermined" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.0"/>
+  <testcase name="bounded identification is reported with explicit scope" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.043"/>
+  <testcase name="budget and multiple hypotheses findings coexist without representation claim" classname="logic.e3.E3DiagnosticIntegratorTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

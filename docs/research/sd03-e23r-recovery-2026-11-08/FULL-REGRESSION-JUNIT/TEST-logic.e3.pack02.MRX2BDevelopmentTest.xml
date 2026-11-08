@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2BDevelopmentTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:39:56.587Z" hostname="ADMIN" time="20.539">
+  <properties/>
+  <testcase name="A B C strategies and G0 G4 audit" classname="logic.e3.pack02.MRX2BDevelopmentTest" time="20.539"/>
+  <system-out><![CDATA[xor-d1-d2 BASELINE gen=28523 cons=244 ret=244 pairs=0 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=true
+xor-d1-d2 DIVERSITY gen=28523 cons=139 ret=139 pairs=0 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=true
+xor-d1-d2 PAIRWISE gen=28523 cons=244 ret=244 pairs=420 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=true
+w4-if BASELINE gen=28523 cons=5 ret=5 pairs=0 g0=UNDETERMINED g1=false g2=false g3=NOT_APPLICABLE g4=false
+w4-if DIVERSITY gen=28523 cons=5 ret=5 pairs=0 g0=UNDETERMINED g1=false g2=false g3=NOT_APPLICABLE g4=false
+w4-if PAIRWISE gen=28523 cons=10 ret=10 pairs=420 g0=WITNESS_FOUND g1=true g2=true g3=WRONG_CANDIDATES_SEPARABLE g4=false
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

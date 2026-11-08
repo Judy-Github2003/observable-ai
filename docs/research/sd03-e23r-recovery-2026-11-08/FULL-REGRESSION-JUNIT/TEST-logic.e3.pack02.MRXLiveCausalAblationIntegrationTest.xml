@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXLiveCausalAblationIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:42:58.123Z" hostname="ADMIN" time="8.021">
+  <properties/>
+  <testcase name="real live trace plus frozen and no-hyp decision replay" classname="logic.e3.pack02.MRXLiveCausalAblationIntegrationTest" time="8.021"/>
+  <system-out><![CDATA[causal-session-a step=1 live=IF frozen=IF noHyp=DNF feedback=PASS_ON_CHALLENGE
+causal-session-a liveSteps=1 liveVsFrozenDifferences=0 status=REPAIRED
+causal-session-b step=1 live=IF frozen=IF noHyp=DNF feedback=COUNTEREXAMPLE
+causal-session-b step=2 live=DNF frozen=DNF noHyp=DNF feedback=COUNTEREXAMPLE
+causal-session-b step=3 live=CNF frozen=CNF noHyp=CNF feedback=COUNTEREXAMPLE
+causal-session-b liveSteps=3 liveVsFrozenDifferences=0 status=INSUFFICIENT_EVIDENCE
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

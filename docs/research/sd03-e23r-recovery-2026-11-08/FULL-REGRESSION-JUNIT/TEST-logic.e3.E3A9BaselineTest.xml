@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3A9BaselineTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:18.711Z" hostname="ADMIN" time="0.391">
+  <properties/>
+  <testcase name="B0 active query preserves already identified solvable result without query" classname="logic.e3.E3A9BaselineTest" time="0.046"/>
+  <testcase name="same single budget can have different cumulative composer work" classname="logic.e3.E3A9BaselineTest" time="0.026"/>
+  <testcase name="probe requests and costs match action records" classname="logic.e3.E3A9BaselineTest" time="0.02"/>
+  <testcase name="all baselines run on public worlds and never claim global truth" classname="logic.e3.E3A9BaselineTest" time="0.162"/>
+  <testcase name="collision and undetermined have independent scoring validity" classname="logic.e3.E3A9BaselineTest" time="0.0"/>
+  <testcase name="repeat is not recorded as public request" classname="logic.e3.E3A9BaselineTest" time="0.001"/>
+  <testcase name="B0 active query uses one authorized public query without E3 diagnosis" classname="logic.e3.E3A9BaselineTest" time="0.007"/>
+  <testcase name="query domain work counts all consistent ASTs not just representatives" classname="logic.e3.E3A9BaselineTest" time="0.127"/>
+  <testcase name="repeat action does not increase diagnostic coverage" classname="logic.e3.E3A9BaselineTest" time="0.002"/>
+  <testcase name="bounded claim remains valid even when heldout prediction is wrong" classname="logic.e3.E3A9BaselineTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

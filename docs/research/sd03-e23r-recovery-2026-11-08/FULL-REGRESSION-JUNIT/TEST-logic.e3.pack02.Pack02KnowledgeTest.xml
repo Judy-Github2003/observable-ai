@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.Pack02KnowledgeTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:45:20.467Z" hostname="ADMIN" time="0.878">
+  <properties/>
+  <testcase name="C4 original bounded search remains ambiguous and does not activate" classname="logic.e3.pack02.Pack02KnowledgeTest" time="0.184"/>
+  <testcase name="C8 uses only active registry references and no-composite excludes R" classname="logic.e3.pack02.Pack02KnowledgeTest" time="0.363"/>
+  <testcase name="execution fact rejects inactive R and non-true results" classname="logic.e3.pack02.Pack02KnowledgeTest" time="0.331"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

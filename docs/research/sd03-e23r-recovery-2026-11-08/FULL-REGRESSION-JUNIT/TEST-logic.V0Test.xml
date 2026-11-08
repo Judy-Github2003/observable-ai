@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.V0Test" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:04.027Z" hostname="ADMIN" time="0.872">
+  <properties/>
+  <testcase name="offline CLI exchanges Unicode over stdin and records tool metadata" classname="logic.V0Test" time="0.181"/>
+  <testcase name="repeated questions call the teacher twice and preserve trace and answer" classname="logic.V0Test" time="0.021"/>
+  <testcase name="stalled CLI is terminated by the deadline" classname="logic.V0Test" time="0.52"/>
+  <testcase name="nonzero CLI exit is a failure even if it emitted a final answer" classname="logic.V0Test" time="0.149"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityRevocationServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:16.466Z" hostname="ADMIN" time="0.348">
+  <properties/>
+  <testcase name="Z03 missing reason or evidence is rejected" classname="logic.capability.CapabilityRevocationServiceTest" time="0.025"/>
+  <testcase name="Z04 repeated revocation is idempotent and keeps one record" classname="logic.capability.CapabilityRevocationServiceTest" time="0.035"/>
+  <testcase name="Z07 new version can be verified activated and executed while old one stays revoked" classname="logic.capability.CapabilityRevocationServiceTest" time="0.074"/>
+  <testcase name="Z05 event failure rolls back the revocation" classname="logic.capability.CapabilityRevocationServiceTest" time="0.035"/>
+  <testcase name="Z01 revocation is appended and survives restart" classname="logic.capability.CapabilityRevocationServiceTest" time="0.059"/>
+  <testcase name="Z02 revoking missing capability leaves no row" classname="logic.capability.CapabilityRevocationServiceTest" time="0.014"/>
+  <testcase name="Z08 revocation leaves ast hashes and prior evidence untouched" classname="logic.capability.CapabilityRevocationServiceTest" time="0.056"/>
+  <testcase name="Z06 revoked capability cannot be activated or executed but stays auditable" classname="logic.capability.CapabilityRevocationServiceTest" time="0.05"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

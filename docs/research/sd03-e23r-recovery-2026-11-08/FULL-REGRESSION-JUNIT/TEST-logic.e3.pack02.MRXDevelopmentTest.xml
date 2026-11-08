@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXDevelopmentTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:42:48.766Z" hostname="ADMIN" time="9.351">
+  <properties/>
+  <testcase name="W4 and negative development worlds" classname="logic.e3.pack02.MRXDevelopmentTest" time="9.351"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

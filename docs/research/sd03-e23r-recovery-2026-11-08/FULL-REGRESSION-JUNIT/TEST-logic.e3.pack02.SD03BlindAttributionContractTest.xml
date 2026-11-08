@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03BlindAttributionContractTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:45:31.177Z" hostname="ADMIN" time="0.003">
+  <properties/>
+  <testcase name="unresolved call dependency prevents unsupported attribution" classname="logic.e3.pack02.SD03BlindAttributionContractTest" time="0.003"/>
+  <testcase name="represented feature does not force a repair" classname="logic.e3.pack02.SD03BlindAttributionContractTest" time="0.0"/>
+  <testcase name="action not in preregistered permitted set is not executed" classname="logic.e3.pack02.SD03BlindAttributionContractTest" time="0.0"/>
+  <testcase name="missing distinguishing feature proposes bounded diagnostic repair" classname="logic.e3.pack02.SD03BlindAttributionContractTest" time="0.0"/>
+  <testcase name="nonzero train survivors stop the specific atom repair heuristic" classname="logic.e3.pack02.SD03BlindAttributionContractTest" time="0.0"/>
+  <testcase name="no distinguishing pairs means insufficient evidence" classname="logic.e3.pack02.SD03BlindAttributionContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

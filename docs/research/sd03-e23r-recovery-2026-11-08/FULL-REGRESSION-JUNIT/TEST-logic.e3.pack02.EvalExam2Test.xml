@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.EvalExam2Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:39:33.514Z" hostname="ADMIN" time="13.939">
+  <properties/>
+  <testcase name="run supplementary frozen exam with coverage gates" classname="logic.e3.pack02.EvalExam2Test" time="13.939"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

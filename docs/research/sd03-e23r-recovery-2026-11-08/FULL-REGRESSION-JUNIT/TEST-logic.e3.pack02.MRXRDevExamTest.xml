@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXRDevExamTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:43:45.638Z" hostname="ADMIN" time="84.165">
+  <properties/>
+  <testcase name="six conditions run on dev worlds" classname="logic.e3.pack02.MRXRDevExamTest" time="84.165"/>
+  <system-out><![CDATA[mrx-depth-w4 C8-03 action=NONE held=25/27 act=false q=1 ev=0/0 diag=[]
+mrx-depth-w4 MRX-01 action=DNF held=27/27 act=true q=15 ev=0/0 diag=[H1, H2, H4, H5]
+mrx-depth-w4 FIXED action=DNF held=27/27 act=true q=41 ev=16/40 diag=[H1, H5, H2, H4]
+mrx-depth-w4 EVIDENCE action=DNF held=27/27 act=true q=39 ev=16/24 diag=[H1, H2, H5, H4]
+mrx-depth-w4 VALUE action=DNF held=27/27 act=true q=39 ev=16/24 diag=[H1, H2, H5, H4]
+mrx-depth-w4 ORACLE-OPERATOR action=DNF held=27/27 act=true q=39 ev=16/24 diag=[H1, H2, H5, H4]
+mrx-ambig-1 C8-03 action=NONE held=26/27 act=false q=1 ev=0/0 diag=[]
+mrx-ambig-1 MRX-01 action=NONE held=26/27 act=false q=17 ev=0/0 diag=[]
+mrx-ambig-1 FIXED action=NONE held=26/27 act=false q=17 ev=16/16 diag=[]
+mrx-ambig-1 EVIDENCE action=NONE held=26/27 act=false q=17 ev=16/16 diag=[]
+mrx-ambig-1 VALUE action=NONE held=26/27 act=false q=17 ev=16/16 diag=[]
+mrx-ambig-1 ORACLE-OPERATOR action=NONE held=26/27 act=false q=1 ev=0/0 diag=[]
+mrx-miss-or-r-d1 C8-03 action=NONE held=23/27 act=false q=0 ev=0/0 diag=[]
+mrx-miss-or-r-d1 MRX-01 action=KNOWLEDGE held=27/27 act=true q=3 ev=0/0 diag=[H1, H2, H4, H5, H3]
+mrx-miss-or-r-d1 FIXED action=KNOWLEDGE held=27/27 act=true q=17 ev=16/18 diag=[H3, H2, H4, H1, H5]
+mrx-miss-or-r-d1 EVIDENCE action=DNF held=27/27 act=true q=36 ev=16/18 diag=[H3, H1, H2, H5, H4]
+mrx-miss-or-r-d1 VALUE action=DNF held=27/27 act=true q=36 ev=16/18 diag=[H3, H1, H2, H5, H4]
+mrx-miss-or-r-d1 ORACLE-OPERATOR action=KNOWLEDGE held=27/27 act=true q=17 ev=16/18 diag=[H3, H2, H4, H1, H5]
+mrx-noise-or-r-d1 C8-03 action=NONE held=0/27 act=false q=0 ev=0/0 diag=[]
+mrx-noise-or-r-d1 MRX-01 action=NO_ACTION held=0/27 act=false q=0 ev=0/0 diag=[H6, H1, H2]
+mrx-noise-or-r-d1 FIXED action=NO_ACTION held=0/27 act=false q=0 ev=0/0 diag=[H6, H1, H2]
+mrx-noise-or-r-d1 EVIDENCE action=NO_ACTION held=0/27 act=false q=0 ev=0/0 diag=[H6, H2, H1]
+mrx-noise-or-r-d1 VALUE action=NO_ACTION held=0/27 act=false q=0 ev=0/0 diag=[H6, H2, H1]
+mrx-noise-or-r-d1 ORACLE-OPERATOR action=NONE held=0/27 act=false q=0 ev=0/0 diag=[]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

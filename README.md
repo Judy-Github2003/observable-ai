@@ -48,6 +48,7 @@
 | SD-03 E2.2 2026-11-07 | 一致猜想查询矩阵与命中 | **8 task-seeds×5 arms；5 反例中 E22 命中 q-2/q-11；5/8 pass，HELDOUT 103/105；有负作用** |
 | SD-03 E2.2.1 2026-11-07 | 历史勘误 + 回归预检 | **原始 JSONL 10 文件 0 改动；q-2/q-11、q-2/q-1 口径修正；compile 6.227s、targeted 6.751s PASS；full BLOCKED_NOT_RUN** |
 | SD-03 E2.2.2/E2.3 2026-11-08 | 隔离全量回归 + 更新策略 | **FULL 507 tests/5 fail/669s；E1 清理遗漏 .json；E2.3 token 错位 REPLAY_FIDELITY_FAILED；四组 NOT_RUN** |
+| SD-03 E2.3R 2026-11-08 | 冻结重放恢复 | **计划 8/11 重建；E23 重放 PASS；FULL 507/3 fail/665s（3 个 CRLF formal 冲突）；四组 NOT_RUN** |
 
 **最近一次全量回归：387/387，0 failed（B0 173 + E3 214，EH-001 时点）。**
 EH-003、MRX-02E、MRX Next 之后只做了专项/快速测试，**未重跑全量**；`fullRegression=NOT_RUN`。
@@ -341,6 +342,14 @@ E3-A 研究：当现有规则不能可靠解释观察时，学生能否区分**�
 - 失败：3 个正式考试冻结 hash 过期；E1 sandbox 清理遗漏 `.json`；E2.3 replay token 错位。
 - E2.3 冻结计划中 3 个 taskToken 与 `sha256(world|seed)` 不一致，`REPLAY_FIDELITY_FAILED`；四组对照 NOT_RUN，不能写 NO_BENEFIT。
 - 记录：[回归报告](./docs/research/sd03-e222-e23-2026-11-08/REGRESSION.md)、[E2.3 阻断](./docs/research/sd03-e222-e23-2026-11-08/E23-BLOCKED.md)、[结果](./docs/research/sd03-e222-e23-2026-11-08/RESULT.md)。
+
+### SD-03 E2.3R 2026-11-08：冻结重放恢复
+
+- 从 E22 原始事件重建 8 task-seed、11 QUERY；`E23_REPLAY_PLAN_VERIFIED a47dceb... 8 11`。
+- E23 集成在隔离全量回归中 PASS：8 个 FULL_REFIT 最终哈希全部匹配。
+- 全量回归 507 tests / 3 failures / 665.268s，仍为 `FULL_REGRESSION_FAIL`；3 个失败是 CRLF checkout 导致的历史 formal hash 差异，独立审计 11 源 0 mismatch。
+- 四组 E2.3 科学对照 NOT_RUN；未改学习策略、旧清单或 E22 证据。
+- 记录：[恢复报告](./docs/research/sd03-e23r-recovery-2026-11-08/REPLAY-RECOVERY.md)、[回归](./docs/research/sd03-e23r-recovery-2026-11-08/REGRESSION.md)、[结果](./docs/research/sd03-e23r-recovery-2026-11-08/RESULT.md)。
 
 ### Research Console（本地）
 

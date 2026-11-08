@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2DEvidenceReplayTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:40:55.450Z" hostname="ADMIN" time="0.002">
+  <properties/>
+  <testcase name="unknown blocks split and is not false" classname="logic.e3.pack02.MRX2DEvidenceReplayTest" time="0.0"/>
+  <testcase name="paid labels are replayed before new queries" classname="logic.e3.pack02.MRX2DEvidenceReplayTest" time="0.002"/>
+  <testcase name="same behavior never becomes pass" classname="logic.e3.pack02.MRX2DEvidenceReplayTest" time="0.0"/>
+  <testcase name="controller error is not budget exhaustion" classname="logic.e3.pack02.MRX2DEvidenceReplayTest" time="0.0"/>
+  <system-out><![CDATA[replay status=ONE_SURVIVOR_WITH_EVIDENCE replayElim=1 new=0
+error status=ERROR note=controller_error
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

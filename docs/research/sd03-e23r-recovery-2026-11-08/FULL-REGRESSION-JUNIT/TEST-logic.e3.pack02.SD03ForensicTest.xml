@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03ForensicTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:47:32.674Z" hostname="ADMIN" time="15.714">
+  <properties/>
+  <testcase name="forensic AST mismatch for real source pairs" classname="logic.e3.pack02.SD03ForensicTest" time="15.714"/>
+  <system-out><![CDATA[poolA=4 poolB=4
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$.right types=Eq/Not
+pair forensic-a/forensic-b category=ARG_MISMATCH path=$.right.left types=d/a
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$.right types=Eq/Not
+pair forensic-a/forensic-b category=ARG_MISMATCH path=$.right.left types=d/a
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$.left types=Eq/Call
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$.left types=Eq/Call
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$.left types=Eq/Call
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$.left types=Eq/Call
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+pair forensic-a/forensic-b category=ROOT_MISMATCH path=$ types=Or/And
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

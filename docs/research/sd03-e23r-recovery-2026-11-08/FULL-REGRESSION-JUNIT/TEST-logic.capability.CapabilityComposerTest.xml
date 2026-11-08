@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityComposerTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:14.340Z" hostname="ADMIN" time="0.064">
+  <properties/>
+  <testcase name="N08 different versions are pinned independently" classname="logic.capability.CapabilityComposerTest" time="0.002"/>
+  <testcase name="N04 candidates are unique by canonical hash" classname="logic.capability.CapabilityComposerTest" time="0.001"/>
+  <testcase name="N02 same request yields same order and hashes" classname="logic.capability.CapabilityComposerTest" time="0.004"/>
+  <testcase name="N07 activated capability becomes a pinned call candidate" classname="logic.capability.CapabilityComposerTest" time="0.001"/>
+  <testcase name="N03 every candidate is type correct and within node budget" classname="logic.capability.CapabilityComposerTest" time="0.002"/>
+  <testcase name="N09 revoked capability is excluded from the active library" classname="logic.capability.CapabilityComposerTest" time="0.052"/>
+  <testcase name="N01 builds field equality and boolean combinations from public values" classname="logic.capability.CapabilityComposerTest" time="0.002"/>
+  <testcase name="N05 candidate limit is reported" classname="logic.capability.CapabilityComposerTest" time="0.0"/>
+  <testcase name="N06 node limit discards oversized combinations without failing" classname="logic.capability.CapabilityComposerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

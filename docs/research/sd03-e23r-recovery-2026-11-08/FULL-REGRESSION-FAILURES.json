@@ -1,0 +1,17 @@
+[
+  {
+    "class": "logic.e3.pack02.C8FormalExamTest",
+    "test": "formal six-world exam matches frozen student and exam",
+    "message": "org.junit.ComparisonFailure: student code changed after freeze expected:<[f37d234298263cbc56e40724ed6e840b30135a0d7b340b031f8b7e1bb14ee0e5]> but was:<[cdaace80fab7f43b868e7c8d26b8559cbe488e3a215cb1d9721e1803566ca972]>"
+  },
+  {
+    "class": "logic.e3.pack02.MRXFormalTest",
+    "test": "frozen four-condition formal exam",
+    "message": "org.junit.ComparisonFailure: src\\main\\kotlin\\logic\\e3\\pack02\\MRXSpace.kt expected:<[b1a24f4a2d9e35c99b87fdfff56d9ef655f9662985af95c65d4ac34152c86e8a]> but was:<[1e5c22cb695aa0e9b8547906cb6c9caf36a2abc30ce821e0ba5edebd95c7c88d]>"
+  },
+  {
+    "class": "logic.e3.pack02.MRXRFormalTest",
+    "test": "frozen six-condition MRX-01R exam",
+    "message": "org.junit.ComparisonFailure: src\\main\\kotlin\\logic\\e3\\pack02\\MRXREvidence.kt expected:<[597780d6f9afc1a16eb5764e6d51998ab366b47d7465e09b254e81e590441e28]> but was:<[352ace06ae3627abea7ec2b244c5ffaa06a4a968d8a3a1634f0345846bc1f927]>"
+  }
+]

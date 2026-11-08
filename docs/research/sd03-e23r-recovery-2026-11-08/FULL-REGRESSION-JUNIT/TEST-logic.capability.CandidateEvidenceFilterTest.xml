@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CandidateEvidenceFilterTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:13.747Z" hostname="ADMIN" time="0.046">
+  <properties/>
+  <testcase name="P02 negative examples converge to the conjunction" classname="logic.capability.CandidateEvidenceFilterTest" time="0.012"/>
+  <testcase name="P05 unknown attribute id is rejected" classname="logic.capability.CandidateEvidenceFilterTest" time="0.006"/>
+  <testcase name="P07 truncated search is reported as budget exhaustion" classname="logic.capability.CandidateEvidenceFilterTest" time="0.0"/>
+  <testcase name="P03 unknown is not counted as false" classname="logic.capability.CandidateEvidenceFilterTest" time="0.0"/>
+  <testcase name="P01 one positive example leaves multiple distinguishable candidates" classname="logic.capability.CandidateEvidenceFilterTest" time="0.008"/>
+  <testcase name="P06 rule beyond hypothesis space is refused not guessed" classname="logic.capability.CandidateEvidenceFilterTest" time="0.012"/>
+  <testcase name="P08 equivalent syntax is one class and filtering is deterministic" classname="logic.capability.CandidateEvidenceFilterTest" time="0.001"/>
+  <testcase name="P04 conflicting labels are rejected before execution" classname="logic.capability.CandidateEvidenceFilterTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

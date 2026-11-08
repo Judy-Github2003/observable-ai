@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.capability.CapabilityM1ChecklistTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:15.908Z" hostname="ADMIN" time="0.012">
+  <properties/>
+  <testcase name="M1-T14 call budget is resource limit not unknown" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="invalid callee is rejected without throwing" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="M1-T11 unbound ref and duplicate binding are rejected" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="M1-T13 missing dependency and depth limits are explicit" classname="logic.capability.CapabilityM1ChecklistTest" time="0.001"/>
+  <testcase name="M1-T07 boolean operator rejects non bool operand" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="M1-T10 operand order is preserved in hash" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="record input allows missing fields but rejects wrong or extra fields" classname="logic.capability.CapabilityM1ChecklistTest" time="0.001"/>
+  <testcase name="M1-T08 int64 rejects number json non canonical and out of range" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="M1-T15 type check rejects before execution" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="M1-T03 missing field stays unknown and never false" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="input limits reject oversized json record and node count" classname="logic.capability.CapabilityM1ChecklistTest" time="0.007"/>
+  <testcase name="M1-T09 call args key order and whitespace do not change canonical" classname="logic.capability.CapabilityM1ChecklistTest" time="0.001"/>
+  <testcase name="example json files roundtrip to canonical form" classname="logic.capability.CapabilityM1ChecklistTest" time="0.0"/>
+  <testcase name="M1-T05 T06 not unknown and if unknown do not evaluate branches" classname="logic.capability.CapabilityM1ChecklistTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

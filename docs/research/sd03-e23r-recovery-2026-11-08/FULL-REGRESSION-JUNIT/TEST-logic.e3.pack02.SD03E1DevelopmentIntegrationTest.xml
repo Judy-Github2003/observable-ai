@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.SD03E1DevelopmentIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:47:12.972Z" hostname="ADMIN" time="14.713">
+  <properties/>
+  <testcase name="actual evidence composition vs bounded enumeration same TRAIN cases" classname="logic.e3.pack02.SD03E1DevelopmentIntegrationTest" time="14.713"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

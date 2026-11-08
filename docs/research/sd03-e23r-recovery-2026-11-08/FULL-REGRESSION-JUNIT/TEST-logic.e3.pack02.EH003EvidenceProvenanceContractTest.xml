@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.EH003EvidenceProvenanceContractTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:39:32.062Z" hostname="ADMIN" time="0.002">
+  <properties/>
+  <testcase name="pruning case stays valid and new oracle usage remains zero" classname="logic.e3.pack02.EH003EvidenceProvenanceContractTest" time="0.001"/>
+  <testcase name="evidence for later refuted candidate must not transfer to unknown survivor" classname="logic.e3.pack02.EH003EvidenceProvenanceContractTest" time="0.0"/>
+  <testcase name="two channels preserve distinct provenance even with same input key" classname="logic.e3.pack02.EH003EvidenceProvenanceContractTest" time="0.0"/>
+  <testcase name="confirming evidence of multiple equivalent candidates is recorded not proof of uniqueness" classname="logic.e3.pack02.EH003EvidenceProvenanceContractTest" time="0.0"/>
+  <testcase name="singleton without any label is provisional" classname="logic.e3.pack02.EH003EvidenceProvenanceContractTest" time="0.001"/>
+  <testcase name="prepaid confirming label with zero prune must be recorded and recognize own evidence" classname="logic.e3.pack02.EH003EvidenceProvenanceContractTest" time="0.0"/>
+  <testcase name="unknown on prepaid label is replayed but does not confirm candidate" classname="logic.e3.pack02.EH003EvidenceProvenanceContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

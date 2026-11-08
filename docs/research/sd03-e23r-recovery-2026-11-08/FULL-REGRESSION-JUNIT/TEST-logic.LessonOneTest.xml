@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.LessonOneTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:03.050Z" hostname="ADMIN" time="0.717">
+  <properties/>
+  <testcase name="object memory refuses foreign partial and incompatible databases" classname="logic.LessonOneTest" time="0.511"/>
+  <testcase name="imported names persist and explicit teaching adds a previously unknown object" classname="logic.LessonOneTest" time="0.122"/>
+  <testcase name="general ids keep bad imports atomic and unknown comparison stays unknown" classname="logic.LessonOneTest" time="0.084"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

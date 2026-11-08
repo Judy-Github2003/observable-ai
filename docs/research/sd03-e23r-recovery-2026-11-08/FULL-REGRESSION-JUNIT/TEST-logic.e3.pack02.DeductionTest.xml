@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.DeductionTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:39:32.050Z" hostname="ADMIN" time="0.006">
+  <properties/>
+  <testcase name="three step proof is derived and independently checked" classname="logic.e3.pack02.DeductionTest" time="0.005"/>
+  <testcase name="unknown or revoked facts cannot be used" classname="logic.e3.pack02.DeductionTest" time="0.0"/>
+  <testcase name="unverified or caller-declared rule cannot pass checker" classname="logic.e3.pack02.DeductionTest" time="0.0"/>
+  <testcase name="missing premise and disconnected rules fail" classname="logic.e3.pack02.DeductionTest" time="0.0"/>
+  <testcase name="tampered evidence digest is rejected" classname="logic.e3.pack02.DeductionTest" time="0.0"/>
+  <testcase name="wrong intermediate conclusion fails independent checker" classname="logic.e3.pack02.DeductionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2DExactCoverPropertyTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:40:55.453Z" hostname="ADMIN" time="0.001">
+  <properties/>
+  <testcase name="exact cover matches brute force on small instances" classname="logic.e3.pack02.MRX2DExactCoverPropertyTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

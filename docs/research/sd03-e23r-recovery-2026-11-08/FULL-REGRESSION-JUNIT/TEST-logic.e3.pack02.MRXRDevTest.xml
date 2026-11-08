@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXRDevTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:45:09.806Z" hostname="ADMIN" time="10.644">
+  <properties/>
+  <testcase name="three strategies run on missing knowledge and can differ" classname="logic.e3.pack02.MRXRDevTest" time="5.588"/>
+  <testcase name="ambiguous world has verified pass and no unnecessary action" classname="logic.e3.pack02.MRXRDevTest" time="1.633"/>
+  <testcase name="ledger driven W4 repair and evidence reuse" classname="logic.e3.pack02.MRXRDevTest" time="3.423"/>
+  <system-out><![CDATA[MISS base=IDENTIFIED val=COUNTEREXAMPLE checks=2 diag=[H3, H2, H4, H1, H5] ident=MRXRIdentifiability(top=[H3], indistinguishable=false, distinguishingActions=[KNOWLEDGE, DNF], note=single leading hypothesis; no competing top hypothesis)
+EVID chosen=DNF held=27 trials=[DNF]
+VALUE chosen=DNF held=27 trials=[DNF]
+AMBIG PASS checks=16 chosen=NONE trials=0 held=26
+W4 IDENTIFIED val=COUNTEREXAMPLE checks=8 chosen=DNF status=REPAIRED held=27 trials=[DNF:PASS] reused=24
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

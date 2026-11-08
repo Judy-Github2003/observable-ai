@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXLiveHypothesisContractTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:43:06.145Z" hostname="ADMIN" time="0.0">
+  <properties/>
+  <testcase name="unknown is distinct from false and does not refute" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="initial hypotheses are builtin and unknown" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="historical counterexample survives later pass" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="all unknown actions request information instead of guessing" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="real counterexample observation updates only after it exists" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="live frozen and no-hyp ablations have different causal inputs" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="action not legal is never selected" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="evaluation reads hypothesis discrimination not feedback code" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="budget exhaustion updates its own hypothesis only" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <testcase name="changing only evidence id does not change content decision" classname="logic.e3.pack02.MRXLiveHypothesisContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

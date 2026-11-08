@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3CollisionDetectorTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:19.804Z" hostname="ADMIN" time="0.003">
+  <properties/>
+  <testcase name="same source different rounds conflict is reported with rounds" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <testcase name="same label or different features produce no collision" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <testcase name="same object repeated measurement is distinguishable from different object collision" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <testcase name="multiple feature groups are reported independently and stably" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <testcase name="report encoding contains no world or hidden explanation fields" classname="logic.e3.E3CollisionDetectorTest" time="0.001"/>
+  <testcase name="unknown values are excluded and do not create false collision" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <testcase name="invalid input returns machine readable errors rather than collision" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <testcase name="unlabeled observations are excluded" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <testcase name="multiple sources with same visible vector conflict" classname="logic.e3.E3CollisionDetectorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

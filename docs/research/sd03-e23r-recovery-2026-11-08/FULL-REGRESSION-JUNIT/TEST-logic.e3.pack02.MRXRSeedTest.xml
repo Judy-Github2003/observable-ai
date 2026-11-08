@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXRSeedTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:45:20.454Z" hostname="ADMIN" time="0.012">
+  <properties/>
+  <testcase name="formal worlds have coverage and frozen seed rule" classname="logic.e3.pack02.MRXRSeedTest" time="0.012"/>
+  <system-out><![CDATA[mrxr-base-p-b2 seed=8102 train=9 query=29 challenge=16 held=27
+mrxr-depth-p-xor-b2 seed=8251 train=9 query=29 challenge=16 held=27
+mrxr-depth-q-xor-d2 seed=8405 train=9 query=29 challenge=16 held=27
+mrxr-if-nested-4 seed=8553 train=9 query=29 challenge=16 held=27
+mrxr-ambig-5 seed=8723 train=9 query=29 challenge=16 held=27
+mrxr-miss-or-r-b2 seed=8855 train=9 query=29 challenge=16 held=27
+mrxr-search-q-xnor-d1 seed=9007 train=9 query=29 challenge=16 held=27
+mrxr-noise-p-or-d2 seed=9158 train=9 query=29 challenge=16 held=27
+mrxr-base-or-r-d1 seed=9310 train=9 query=29 challenge=16 held=27
+mrxr-base-or-q-a2 seed=9460 train=9 query=29 challenge=16 held=27
+mrxr-base-xnor-p-d2 seed=9610 train=9 query=29 challenge=16 held=27
+mrxr-depth-w4 seed=9761 train=9 query=29 challenge=16 held=27
+mrxr-depth-r-xor-b2 seed=9912 train=9 query=29 challenge=16 held=27
+mrxr-if-nested-2 seed=10064 train=9 query=29 challenge=16 held=27
+mrxr-ambig-2 seed=10228 train=9 query=29 challenge=16 held=27
+mrxr-ambig-4 seed=10388 train=9 query=29 challenge=16 held=27
+mrxr-miss-or-r-d1 seed=10519 train=9 query=29 challenge=16 held=27
+mrxr-miss-xnor-r-d1 seed=10668 train=9 query=29 challenge=16 held=27
+mrxr-search-or-r-d1 seed=10818 train=9 query=29 challenge=16 held=27
+mrxr-noise-q-a2 seed=10969 train=9 query=29 challenge=16 held=27
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

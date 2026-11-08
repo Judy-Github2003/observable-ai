@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRXFormalSeedTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:42:58.118Z" hostname="ADMIN" time="0.003">
+  <properties/>
+  <testcase name="formal worlds have frozen seeds and coverage" classname="logic.e3.pack02.MRXFormalSeedTest" time="0.003"/>
+  <system-out><![CDATA[mrx-f-expr seed=7101 digest=d9568bc2fc7bb9b753ef0f4434447793287692a94d0f6624ebdbd6637e21bea6 train=9 query=29 challenge=16 heldout=27
+mrx-f-depth seed=7238 digest=b01e7ebee8980d20cbb1acfca8bcf6f2b7212b403b47b73a0bcfa41a52cd965d train=9 query=29 challenge=16 heldout=27
+mrx-f-if seed=7378 digest=421adf55e803a6cf7f75ba57b3478525a981c9c3a6b070d6ed42b9998342ec37 train=9 query=29 challenge=16 heldout=27
+mrx-f-ambig seed=7514 digest=21f35bd1b1593c365153993916518bae19ec998d294490fe5e77479023f6971b train=9 query=29 challenge=16 heldout=27
+mrx-f-miss seed=7654 digest=4eb79eb6439cea0de35c7da697ab4cc706e9273a0c04358e3fd98bacbed78db6 train=9 query=29 challenge=16 heldout=27
+mrx-f-search seed=7785 digest=53642616469f68c46c30379a0d609bb62da644961ff5febba6824911c4b87ba2 train=9 query=29 challenge=16 heldout=27
+mrx-f-noise seed=7924 digest=1ab8da1a0cf71fb71bd25d156fcb0ee21ea9ead2dd6c7f787e0bc71ae97b60f5 train=9 query=29 challenge=16 heldout=27
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

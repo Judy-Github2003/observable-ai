@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.c1.C1PredicateExperimentTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:20.205Z" hostname="ADMIN" time="0.372">
+  <properties/>
+  <testcase name="filter refused is not cached or reused as success" classname="logic.e3.c1.C1PredicateExperimentTest" time="0.073"/>
+  <testcase name="never activated or wrong version-hash cannot enter formal reuse" classname="logic.e3.c1.C1PredicateExperimentTest" time="0.075"/>
+  <testcase name="wrong predicate dependency is rejected by B0 interpreter" classname="logic.e3.c1.C1PredicateExperimentTest" time="0.053"/>
+  <testcase name="failed heldout verification blocks activation" classname="logic.e3.c1.C1PredicateExperimentTest" time="0.039"/>
+  <testcase name="learned predicate is registered activated and reused in second task" classname="logic.e3.c1.C1PredicateExperimentTest" time="0.132"/>
+  <system-out><![CDATA[C1 first generated=381 status=IDENTIFIED reuseGenerated=536 reuseStatus=IDENTIFIED reuseHeld=3/3 noPGenerated=180 noPStatus=REFUSED noPHeld=0/3 noPFailure=filter_refused
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

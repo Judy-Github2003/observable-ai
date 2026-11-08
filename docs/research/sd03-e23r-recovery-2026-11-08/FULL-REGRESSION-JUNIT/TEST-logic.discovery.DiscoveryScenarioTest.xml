@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.discovery.DiscoveryScenarioTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:18.177Z" hostname="ADMIN" time="0.213">
+  <properties/>
+  <testcase name="rejects invalid schema and duplicate evidence" classname="logic.discovery.DiscoveryScenarioTest" time="0.011"/>
+  <testcase name="E3 conflicting labels block promotion and keep both evidences" classname="logic.discovery.DiscoveryScenarioTest" time="0.019"/>
+  <testcase name="E4 learns a different world and ignores an unrelated attribute" classname="logic.discovery.DiscoveryScenarioTest" time="0.044"/>
+  <testcase name="audit trail records generation query elimination promotion and execution" classname="logic.discovery.DiscoveryScenarioTest" time="0.024"/>
+  <testcase name="E2 refuses to promote when query pool cannot discriminate" classname="logic.discovery.DiscoveryScenarioTest" time="0.012"/>
+  <testcase name="state survives restart and predict abstains on missing attribute" classname="logic.discovery.DiscoveryScenarioTest" time="0.017"/>
+  <testcase name="E5 counterexample eliminates candidate with evidence reference" classname="logic.discovery.DiscoveryScenarioTest" time="0.015"/>
+  <testcase name="E1 keeps multiple candidates then induces rule and predicts new objects" classname="logic.discovery.DiscoveryScenarioTest" time="0.026"/>
+  <testcase name="promoted rule returns unknown when required attribute is missing" classname="logic.discovery.DiscoveryScenarioTest" time="0.02"/>
+  <testcase name="promoted rule survives restart and predicts offline" classname="logic.discovery.DiscoveryScenarioTest" time="0.025"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

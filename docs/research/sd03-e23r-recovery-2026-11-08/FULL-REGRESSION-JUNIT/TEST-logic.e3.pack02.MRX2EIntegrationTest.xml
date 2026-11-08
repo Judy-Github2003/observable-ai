@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.MRX2EIntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:41:10.902Z" hostname="ADMIN" time="12.025">
+  <properties/>
+  <testcase name="probe real two-failure trajectory" classname="logic.e3.pack02.MRX2EIntegrationTest" time="12.025"/>
+  <system-out><![CDATA[DYNAMIC status=INSUFFICIENT_EVIDENCE first=VALIDATE_BASE second=DNF steps=4
+  0 VALIDATE_BASE feedback=UNVERIFIED next=
+  1 DNF feedback=COUNTEREXAMPLE next=IF
+  2 IF feedback=COUNTEREXAMPLE next=CNF
+  3 CNF feedback=COUNTEREXAMPLE next=DNF
+STATIC status=INSUFFICIENT_EVIDENCE first=VALIDATE_BASE second=DNF steps=4
+  0 VALIDATE_BASE feedback=UNVERIFIED next=
+  1 DNF feedback=COUNTEREXAMPLE next=IF
+  2 IF feedback=COUNTEREXAMPLE next=CNF
+  3 CNF feedback=COUNTEREXAMPLE next=STOP
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

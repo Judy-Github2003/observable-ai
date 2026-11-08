@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.E3ChallengeRunTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:38:19.162Z" hostname="ADMIN" time="0.491">
+  <properties/>
+  <testcase name="wrong generalization is contradicted and original prediction is preserved" classname="logic.e3.E3ChallengeRunTest" time="0.175"/>
+  <testcase name="invalid field values are not authorized" classname="logic.e3.E3ChallengeRunTest" time="0.022"/>
+  <testcase name="shared ledger blocks cross-session repeat but not same-visible new sample" classname="logic.e3.E3ChallengeRunTest" time="0.021"/>
+  <testcase name="correct rule challenge is supported and keeps new evidence" classname="logic.e3.E3ChallengeRunTest" time="0.022"/>
+  <testcase name="duplicate sample is rejected but same visible different sample is not" classname="logic.e3.E3ChallengeRunTest" time="0.021"/>
+  <testcase name="export A1 challenge run records" classname="logic.e3.E3ChallengeRunTest" time="0.187"/>
+  <testcase name="unauthorized input and label before prediction are rejected" classname="logic.e3.E3ChallengeRunTest" time="0.02"/>
+  <testcase name="label input mismatch and candidate replacement are rejected" classname="logic.e3.E3ChallengeRunTest" time="0.022"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

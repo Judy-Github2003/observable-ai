@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="logic.e3.pack02.EH001ReplayReuseContractTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-08T02:39:32.057Z" hostname="ADMIN" time="0.004">
+  <properties/>
+  <testcase name="one confirming paid label is still one reused label" classname="logic.e3.pack02.EH001ReplayReuseContractTest" time="0.003"/>
+  <testcase name="one paid label can eliminate two candidates without counting two reuses" classname="logic.e3.pack02.EH001ReplayReuseContractTest" time="0.001"/>
+  <testcase name="two confirming paid labels count two reused labels not zero" classname="logic.e3.pack02.EH001ReplayReuseContractTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
