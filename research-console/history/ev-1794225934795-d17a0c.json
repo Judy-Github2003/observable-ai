@@ -1,0 +1,36 @@
+{
+  "event_id": "ev-1794225934795-d17a0c",
+  "at": "2026-11-09T12:05:34.795605+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "ABDMNV-01 M2-02r schema/query/budget/evidence round authorized",
+  "before": null,
+  "after": {
+    "repair_id": "ABDMNV-01-M2-02R-2026-11-09",
+    "parent_pack_id": "",
+    "parent_task_ids": [
+      "A-R1",
+      "B2",
+      "B7",
+      "RES-M01",
+      "RES-M05",
+      "RES-N01",
+      "RES-N02",
+      "RES-V03"
+    ],
+    "approved_scope": "ABDMNV-01 M2-02r：独立声明的 FiniteDomainSchema（不从训练推断）、查询池与封存测试组合严格隔离、候选/探针/查询/评分全量计费、查询证据入账（PUBLIC_QUERY 非签名）；定向测试 + 448×2 实验。不动 M1/历史冻结；不做隐藏考官/六臂/全量回归。",
+    "approval_reference": "Research-owner M2-02r instruction 2026-11-09, basis ABDMNV01-M2-02-Fix-2026-11-09.zip (sha256 8ae94ea4904b93408ac72b7c8cea9b5f8e329adace36c96af19dc58e1c4afc74)",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "ABDMNV-01-M2-02R-2026-11-09",
+    "allowed_files_or_modules": [
+      "docs/research/abdmnv-01/",
+      "build/abdmnv-m2-02r-*",
+      "tools/research-console/register_abdmnv_m2_02r.py"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-09T12:05:34.795270+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "fed755f03e7488a3816d7d81647f55c3524f53a3d8ecb0c9e6ce785610178c7a"
+  }
+}
