@@ -1449,14 +1449,18 @@
         "build/abdmnv-fix-*",
         "tools/research-console/register_abdmnv_m1_fix.py"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-09T08:48:58.468393+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-09T08:57:02.729217+00:00",
       "audit_event_ids": [
-        "ev-1794214138468-a463ba"
+        "ev-1794214138468-a463ba",
+        "ev-1794214622729-7a0be9"
       ],
-      "content_hash": "56f0b779f162f03bfc05337ca085cbd3f1ff429926837e9763f6386856a63a63"
+      "content_hash": "56f0b779f162f03bfc05337ca085cbd3f1ff429926837e9763f6386856a63a63",
+      "consumed_commit": "dc27b359d162293af132e21471169aab967e2d02",
+      "consumed_test": "reference 106/106; combined 30/30; audit regression 16/16; deepseek 58/58; E2E 2 match + 1 abstain; no historical regression",
+      "consumed_report": "docs/research/abdmnv-01/M1-FIX-RESULT.md"
     }
   ],
-  "updated_at": "2026-11-09T08:48:58.474154+00:00"
+  "updated_at": "2026-11-09T08:57:02.735701+00:00"
 }
