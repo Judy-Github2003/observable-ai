@@ -1424,7 +1424,39 @@
       "consumed_commit": "cd5c91d6266b166d79690646f5644ca6944838e3",
       "consumed_test": "M1 targeted contract 58/58 PASS (161ms); canonical G1-G4 byte+sha OK; no historical regression run",
       "consumed_report": "docs/research/abdmnv-01/M1-RESULT.md"
+    },
+    {
+      "repair_id": "ABDMNV-01-M1-FIX-2026-11-09",
+      "parent_pack_id": "",
+      "parent_task_ids": [
+        "A-R1",
+        "B2",
+        "B7",
+        "B8",
+        "RES-M01",
+        "RES-M05",
+        "RES-M06",
+        "RES-V01",
+        "RES-V02",
+        "RES-V03"
+      ],
+      "approved_scope": "ABDMNV-01 M1 修复轮：修复聚合包的版本哈希绑定、依赖 pinned hash、循环/缺失依赖、证据 world 隔离、学生固定 ID、黄金样例自包含，并把学生/账本/版本/槽位/评分接成端到端公开链路。只跑定向测试；不重建系统、不做隐藏考官、不跑历史全量回归；不改 B0 与历史冻结产物。",
+      "approval_reference": "Research-owner M1 fix instruction 2026-11-09 with audit package (sha256 d3e350656462205614398e6ab934d5dc26445965a39f78503af79b03d5e3e70c)",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "ABDMNV-01-M1-FIX-2026-11-09",
+      "allowed_files_or_modules": [
+        "docs/research/abdmnv-01/",
+        "build/abdmnv-fix-*",
+        "tools/research-console/register_abdmnv_m1_fix.py"
+      ],
+      "authorization_status": "ACTIVE",
+      "created_at": "2026-11-09T08:48:58.468393+00:00",
+      "consumed_at": null,
+      "audit_event_ids": [
+        "ev-1794214138468-a463ba"
+      ],
+      "content_hash": "56f0b779f162f03bfc05337ca085cbd3f1ff429926837e9763f6386856a63a63"
     }
   ],
-  "updated_at": "2026-11-09T08:01:17.042075+00:00"
+  "updated_at": "2026-11-09T08:48:58.474154+00:00"
 }
