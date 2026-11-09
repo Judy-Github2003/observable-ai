@@ -1482,14 +1482,18 @@
         "build/abdmnv-gates-*",
         "tools/research-console/register_abdmnv_m1_gates.py"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-09T09:08:38.465368+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-09T09:50:23.378534+00:00",
       "audit_event_ids": [
-        "ev-1794215318465-f0d5bb"
+        "ev-1794215318465-f0d5bb",
+        "ev-1794217823378-aafe7e"
       ],
-      "content_hash": "58c8fa89a60de9261b6e242278f2348ec6cbdf902a270f91a917b02a63fe6312"
+      "content_hash": "58c8fa89a60de9261b6e242278f2348ec6cbdf902a270f91a917b02a63fe6312",
+      "consumed_commit": "9950c2c41b1a3ba8efe21902dcbec88d6424026e",
+      "consumed_test": "157/157: reference 106, combined 30, audit regression 16, gates 5; held-out demo 2 match + 1 failure + 1 abstain; no historical regression",
+      "consumed_report": "docs/research/abdmnv-01/M1-GATES-RESULT.md"
     }
   ],
-  "updated_at": "2026-11-09T09:08:38.470389+00:00"
+  "updated_at": "2026-11-09T09:50:23.392232+00:00"
 }
