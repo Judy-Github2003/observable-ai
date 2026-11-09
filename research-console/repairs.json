@@ -1360,14 +1360,18 @@
         "build/dmrv-01-*",
         "tools/research-console/register_dmrv_01.py"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-09T02:30:07.339120+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-09T02:35:14.161764+00:00",
       "audit_event_ids": [
-        "ev-1794191407339-7e4602"
+        "ev-1794191407339-7e4602",
+        "ev-1794191714161-6f78ad"
       ],
-      "content_hash": "b767753e4e3d907b072f6e4c6a0d814cb5812bb0710a7274ef3000c7f3c4f11b"
+      "content_hash": "b767753e4e3d907b072f6e4c6a0d814cb5812bb0710a7274ef3000c7f3c4f11b",
+      "consumed_commit": "efbb5f3bb821ba7431e8ba8ad2d3debcfe818e23",
+      "consumed_test": "public contract 14/14; official once: 192 meta-train tasks, 128 test tasks x 6 arms = 768 frozen rows; META 80 vs GLOBAL 64 paired 18/2/108; audit PASS_STRUCTURAL",
+      "consumed_report": "docs/research/dmrv-01/RESULT.md"
     }
   ],
-  "updated_at": "2026-11-09T02:30:07.345102+00:00"
+  "updated_at": "2026-11-09T02:35:14.169365+00:00"
 }
