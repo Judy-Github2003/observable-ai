@@ -1,0 +1,15 @@
+﻿PASS 1 enum representation count
+PASS 2 bounded grammar sizes
+PASS 3 all expressions encode/decode
+PASS 4 unary target can be learned without representation extension
+PASS 5 XOR target requires an extension
+PASS 6 three-input parity target requires its extension
+PASS 7 conditional target requires its extension
+PASS 8 underidentified behavior must abstain
+PASS 9 task id not a feature of diagnostic
+PASS 10 contextual policy learns from scalar reward
+PASS 11 global-only control uses same rewards without context
+PASS 12 policy frozen snapshot reload
+PASS 13 reject duplicate/illegal public observations
+PASS 14 representation decision has no hidden family field
+DMRV01_PUBLIC_PASS tests=14

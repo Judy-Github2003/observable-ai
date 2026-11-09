@@ -1,0 +1,15 @@
+{
+  "mode": "official",
+  "exitCode": 0,
+  "salt": 168227999440644966,
+  "freezeSha256": "73ca9f61aaff95d8408ac2eecc75e92b2d981721a4bc9325a73316a48527bac1",
+  "examinerJarSha256": "ad01f1880f28b00c72d5e75b30e80672dd03b7a1e91f8603a6872365c29f4108",
+  "studentSha256": "0b7c45ee874d1307ffae1e4253c5b360699e3a4f57dd74287d7468b8054dd455",
+  "sourceSha256After": {
+    "src/main/kotlin/logic/e3/dmrv/DMRV01Kernel.kt": "fef43671c9580bd828320333cc4b53067052b07275fbcbe473039df77dec1b51",
+    "src/test/kotlin/logic/e3/dmrv/DMRV01PublicContract.kt": "96229f6a7ef4af0c55d12ddab39c89a301a27ff1f689d6003da20be7ae6b92b7",
+    "src/test/kotlin/logic/e3/dmrv/DMRV01Examiner.kt": "39b3dc29871239c36b1b187ff86dcc049275c002bc43413dba13ddcab6a78f46"
+  },
+  "utcFinished": "2026-11-09T02:32:15.027458+00:00",
+  "compiler": "kotlin-compiler-embeddable 2.2.21 (host has no kotlinc)"
+}

@@ -1,0 +1,218 @@
+{
+  "status": "DMRV01_AUDIT_PASS_STRUCTURAL",
+  "examinerVisibility": "VISIBLE",
+  "metaTrainTasks": 192,
+  "testTasks": 128,
+  "studentRows": 768,
+  "gradeRows": 768,
+  "studentSha256": "0b7c45ee874d1307ffae1e4253c5b360699e3a4f57dd74287d7468b8054dd455",
+  "byArm": {
+    "META_CONTEXT": {
+      "correct": 664,
+      "covered": 688,
+      "errors": 24,
+      "candidates": 2784,
+      "reward": 77.93818181818173,
+      "all_correct": 80
+    },
+    "GLOBAL_FEEDBACK": {
+      "correct": 532,
+      "covered": 552,
+      "errors": 20,
+      "candidates": 2048,
+      "reward": 62.776363636363584,
+      "all_correct": 64
+    },
+    "STATIC_BINARY": {
+      "correct": 420,
+      "covered": 448,
+      "errors": 28,
+      "candidates": 5632,
+      "reward": 42.260000000000176,
+      "all_correct": 49
+    },
+    "RANDOM": {
+      "correct": 432,
+      "covered": 464,
+      "errors": 32,
+      "candidates": 3416,
+      "reward": 47.78909090909098,
+      "all_correct": 50
+    },
+    "SHUFFLED_CONTEXT": {
+      "correct": 572,
+      "covered": 592,
+      "errors": 20,
+      "candidates": 2384,
+      "reward": 67.16545454545444,
+      "all_correct": 69
+    },
+    "COLD_START": {
+      "correct": 276,
+      "covered": 296,
+      "errors": 20,
+      "candidates": 1024,
+      "reward": 32.638181818181714,
+      "all_correct": 32
+    }
+  },
+  "byFamily": {
+    "UNARY": {
+      "META_CONTEXT": {
+        "correct": 256,
+        "covered": 256,
+        "all_correct": 32
+      },
+      "GLOBAL_FEEDBACK": {
+        "correct": 256,
+        "covered": 256,
+        "all_correct": 32
+      },
+      "STATIC_BINARY": {
+        "correct": 200,
+        "covered": 200,
+        "all_correct": 25
+      },
+      "RANDOM": {
+        "correct": 224,
+        "covered": 224,
+        "all_correct": 28
+      },
+      "SHUFFLED_CONTEXT": {
+        "correct": 240,
+        "covered": 240,
+        "all_correct": 30
+      },
+      "COLD_START": {
+        "correct": 256,
+        "covered": 256,
+        "all_correct": 32
+      }
+    },
+    "BINARY": {
+      "META_CONTEXT": {
+        "correct": 72,
+        "covered": 88,
+        "all_correct": 7
+      },
+      "GLOBAL_FEEDBACK": {
+        "correct": 12,
+        "covered": 24,
+        "all_correct": 0
+      },
+      "STATIC_BINARY": {
+        "correct": 192,
+        "covered": 192,
+        "all_correct": 24
+      },
+      "RANDOM": {
+        "correct": 92,
+        "covered": 112,
+        "all_correct": 9
+      },
+      "SHUFFLED_CONTEXT": {
+        "correct": 64,
+        "covered": 72,
+        "all_correct": 7
+      },
+      "COLD_START": {
+        "correct": 12,
+        "covered": 24,
+        "all_correct": 0
+      }
+    },
+    "PARITY3": {
+      "META_CONTEXT": {
+        "correct": 240,
+        "covered": 240,
+        "all_correct": 30
+      },
+      "GLOBAL_FEEDBACK": {
+        "correct": 256,
+        "covered": 256,
+        "all_correct": 32
+      },
+      "STATIC_BINARY": {
+        "correct": 0,
+        "covered": 0,
+        "all_correct": 0
+      },
+      "RANDOM": {
+        "correct": 56,
+        "covered": 56,
+        "all_correct": 7
+      },
+      "SHUFFLED_CONTEXT": {
+        "correct": 256,
+        "covered": 256,
+        "all_correct": 32
+      },
+      "COLD_START": {
+        "correct": 0,
+        "covered": 0,
+        "all_correct": 0
+      }
+    },
+    "MUX": {
+      "META_CONTEXT": {
+        "correct": 96,
+        "covered": 104,
+        "all_correct": 11
+      },
+      "GLOBAL_FEEDBACK": {
+        "correct": 8,
+        "covered": 16,
+        "all_correct": 0
+      },
+      "STATIC_BINARY": {
+        "correct": 28,
+        "covered": 56,
+        "all_correct": 0
+      },
+      "RANDOM": {
+        "correct": 60,
+        "covered": 72,
+        "all_correct": 6
+      },
+      "SHUFFLED_CONTEXT": {
+        "correct": 12,
+        "covered": 24,
+        "all_correct": 0
+      },
+      "COLD_START": {
+        "correct": 8,
+        "covered": 16,
+        "all_correct": 0
+      }
+    }
+  },
+  "pairedVsMeta": {
+    "GLOBAL_FEEDBACK": {
+      "wins": 18,
+      "losses": 2,
+      "ties": 108
+    },
+    "STATIC_BINARY": {
+      "wins": 48,
+      "losses": 17,
+      "ties": 63
+    },
+    "RANDOM": {
+      "wins": 39,
+      "losses": 9,
+      "ties": 80
+    },
+    "SHUFFLED_CONTEXT": {
+      "wins": 17,
+      "losses": 6,
+      "ties": 105
+    },
+    "COLD_START": {
+      "wins": 48,
+      "losses": 0,
+      "ties": 80
+    }
+  },
+  "independentClosedBook": "NOT_RUN",
+  "strategyImprovement": "CHECK_PAIRED_METRICS_NOT_AUTOMATIC"
+}

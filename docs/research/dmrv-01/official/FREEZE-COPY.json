@@ -1,0 +1,29 @@
+{
+  "schema": "DMRV01-FREEZE-v1",
+  "researchPack": "DMRV-01",
+  "authoredAlgorithms": "ChatGPT reference; DeepSeek integration only",
+  "createdUtc": "2026-11-09T02:30:39.366071+00:00",
+  "gitHeadBeforeFreeze": "f8fdd609ca7e7d651a08eb1b20801e6a088bcbf0",
+  "statusBeforeFreeze": [
+    "M research-console/events.jsonl",
+    " M research-console/repairs.json",
+    "?? \"Observable_AI_B0_\\345\\247\\224\\346\\211\\230\\347\\233\\221\\350\\200\\203\\351\\227\\255\\345\\215\\267\\350\\257\\225\\345\\215\\267_v1.md\"",
+    "?? \"Observable_AI_E3_\\345\\210\\206\\351\\230\\266\\346\\256\\265\\345\\256\\236\\346\\226\\275\\344\\273\\273\\345\\212\\241\\344\\271\\246_v1.md\"",
+    "?? PACK-02R-DIAG-01.md",
+    "?? PACK-02R-PRE-01.md",
+    "?? docs/research/dmrv-01/",
+    "?? research-console/history/ev-1794191407339-7e4602.json",
+    "?? src/main/kotlin/logic/e3/dmrv/",
+    "?? src/test/kotlin/logic/e3/dmrv/",
+    "?? tools/dmrv/",
+    "?? tools/research-console/register_dmrv_01.py"
+  ],
+  "sources": {
+    "src/main/kotlin/logic/e3/dmrv/DMRV01Kernel.kt": "fef43671c9580bd828320333cc4b53067052b07275fbcbe473039df77dec1b51",
+    "src/test/kotlin/logic/e3/dmrv/DMRV01PublicContract.kt": "96229f6a7ef4af0c55d12ddab39c89a301a27ff1f689d6003da20be7ae6b92b7",
+    "src/test/kotlin/logic/e3/dmrv/DMRV01Examiner.kt": "39b3dc29871239c36b1b187ff86dcc049275c002bc43413dba13ddcab6a78f46"
+  },
+  "officialRun": "NOT_RUN",
+  "independentClosedBook": "NOT_RUN",
+  "historicalRegression": "NOT_CLAIMED"
+}

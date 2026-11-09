@@ -1,0 +1,11 @@
+﻿DMRV-01 / OFFICIAL / VISIBLE EXAMINER (not independent closed-book)
+metaTrainTasks=192; metaTestTasks=128; studentRows=768
+studentSHA256=0b7c45ee874d1307ffae1e4253c5b360699e3a4f57dd74287d7468b8054dd455
+META_CONTEXT correct=664/1024 covered=688/1024
+GLOBAL_FEEDBACK correct=532/1024 covered=552/1024
+STATIC_BINARY correct=420/1024 covered=448/1024
+RANDOM correct=432/1024 covered=464/1024
+SHUFFLED_CONTEXT correct=572/1024 covered=592/1024
+COLD_START correct=276/1024 covered=296/1024
+Do not infer advantage without paired calculation, reward/cost parity, and leakage audit.
+DMRV01_RUN_FINISHED C:\自研逻辑模型\build\dmrv-01-official-once

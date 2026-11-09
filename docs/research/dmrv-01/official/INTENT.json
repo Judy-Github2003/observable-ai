@@ -1,0 +1,8 @@
+{
+  "mode": "official",
+  "atUtc": "2026-11-09T02:32:13.744080+00:00",
+  "output": "C:\\\u81ea\u7814\u903b\u8f91\u6a21\u578b\\build\\dmrv-01-official-once",
+  "freezeSha256": "73ca9f61aaff95d8408ac2eecc75e92b2d981721a4bc9325a73316a48527bac1",
+  "jarSha256": "ad01f1880f28b00c72d5e75b30e80672dd03b7a1e91f8603a6872365c29f4108",
+  "compiler": "kotlin-compiler-embeddable 2.2.21 (host has no kotlinc)"
+}
