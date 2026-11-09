@@ -1515,14 +1515,18 @@
         "build/abdmnv-m2-*",
         "tools/research-console/register_abdmnv_m2_02.py"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-09T11:23:37.125907+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-09T11:31:15.449834+00:00",
       "audit_event_ids": [
-        "ev-1794223417126-6d155e"
+        "ev-1794223417126-6d155e",
+        "ev-1794223875450-6c5d55"
       ],
-      "content_hash": "70943065da40769dd5f206907a6552cb05a7837e422dce8b4f4d406a04d594f9"
+      "content_hash": "70943065da40769dd5f206907a6552cb05a7837e422dce8b4f4d406a04d594f9",
+      "consumed_commit": "2aef3cbb88f87a9156a47d94eaca30387130e054",
+      "consumed_test": "M2-02 200/200: ident 6, M2 37, M1 157; partial 448: contradictions 146->0; query arm 418/448 match; negative world abstains",
+      "consumed_report": "docs/research/abdmnv-01/M2-02-RESULT.md"
     }
   ],
-  "updated_at": "2026-11-09T11:23:37.132146+00:00"
+  "updated_at": "2026-11-09T11:31:15.455335+00:00"
 }

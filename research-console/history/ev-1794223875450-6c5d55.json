@@ -1,0 +1,68 @@
+{
+  "event_id": "ev-1794223875450-6c5d55",
+  "at": "2026-11-09T11:31:15.450016+00:00",
+  "kind": "repair_consumed",
+  "actor": "execution",
+  "note": "ABDMNV-01-M2-02-2026-11-09 consumed",
+  "before": {
+    "repair_id": "ABDMNV-01-M2-02-2026-11-09",
+    "parent_pack_id": "",
+    "parent_task_ids": [
+      "A-R1",
+      "B2",
+      "B7",
+      "RES-M01",
+      "RES-M05",
+      "RES-N01",
+      "RES-N02"
+    ],
+    "approved_scope": "ABDMNV-01 M2-02：候选可辨识性（按预注册探针的行为指纹分语义等价类）、受控公开查询（按候选分歧选实例）、不可辨识时 UNDETERMINED/ABSTAIN；新增 5-of-8 部分覆盖实验与超语法负世界。只跑定向测试；不动 M1 与历史冻结。",
+    "approval_reference": "Research-owner M2-02 instruction 2026-11-09 with partial-coverage audit (sha256 301eb23a213275b6fe1c359e191f47de60d0cb4b3e39289a5eb4dd62d6fd4658)",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "ABDMNV-01-M2-02-2026-11-09",
+    "allowed_files_or_modules": [
+      "docs/research/abdmnv-01/",
+      "build/abdmnv-m2-*",
+      "tools/research-console/register_abdmnv_m2_02.py"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-09T11:23:37.125907+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [
+      "ev-1794223417126-6d155e"
+    ],
+    "content_hash": "70943065da40769dd5f206907a6552cb05a7837e422dce8b4f4d406a04d594f9"
+  },
+  "after": {
+    "repair_id": "ABDMNV-01-M2-02-2026-11-09",
+    "parent_pack_id": "",
+    "parent_task_ids": [
+      "A-R1",
+      "B2",
+      "B7",
+      "RES-M01",
+      "RES-M05",
+      "RES-N01",
+      "RES-N02"
+    ],
+    "approved_scope": "ABDMNV-01 M2-02：候选可辨识性（按预注册探针的行为指纹分语义等价类）、受控公开查询（按候选分歧选实例）、不可辨识时 UNDETERMINED/ABSTAIN；新增 5-of-8 部分覆盖实验与超语法负世界。只跑定向测试；不动 M1 与历史冻结。",
+    "approval_reference": "Research-owner M2-02 instruction 2026-11-09 with partial-coverage audit (sha256 301eb23a213275b6fe1c359e191f47de60d0cb4b3e39289a5eb4dd62d6fd4658)",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "ABDMNV-01-M2-02-2026-11-09",
+    "allowed_files_or_modules": [
+      "docs/research/abdmnv-01/",
+      "build/abdmnv-m2-*",
+      "tools/research-console/register_abdmnv_m2_02.py"
+    ],
+    "authorization_status": "CONSUMED",
+    "created_at": "2026-11-09T11:23:37.125907+00:00",
+    "consumed_at": "2026-11-09T11:31:15.449834+00:00",
+    "audit_event_ids": [
+      "ev-1794223417126-6d155e"
+    ],
+    "content_hash": "70943065da40769dd5f206907a6552cb05a7837e422dce8b4f4d406a04d594f9",
+    "consumed_commit": "2aef3cbb88f87a9156a47d94eaca30387130e054",
+    "consumed_test": "M2-02 200/200: ident 6, M2 37, M1 157; partial 448: contradictions 146->0; query arm 418/448 match; negative world abstains",
+    "consumed_report": "docs/research/abdmnv-01/M2-02-RESULT.md"
+  }
+}
