@@ -1549,14 +1549,18 @@
         "build/abdmnv-m2-02r-*",
         "tools/research-console/register_abdmnv_m2_02r.py"
       ],
-      "authorization_status": "ACTIVE",
+      "authorization_status": "CONSUMED",
       "created_at": "2026-11-09T12:05:34.795270+00:00",
-      "consumed_at": null,
+      "consumed_at": "2026-11-09T12:05:50.696435+00:00",
       "audit_event_ids": [
-        "ev-1794225934795-d17a0c"
+        "ev-1794225934795-d17a0c",
+        "ev-1794225950696-c0f630"
       ],
-      "content_hash": "fed755f03e7488a3816d7d81647f55c3524f53a3d8ecb0c9e6ce785610178c7a"
+      "content_hash": "fed755f03e7488a3816d7d81647f55c3524f53a3d8ecb0c9e6ce785610178c7a",
+      "consumed_commit": "fa2b5f192c31d09d56d00ca6f7a4b3bf738484c5",
+      "consumed_test": "M2-02r 202/202: ident 8, M2 37, M1 157; completion 418/448 match 0 contra; unseen combos 620/896 agreement; budget/query evidence asserted",
+      "consumed_report": "docs/research/abdmnv-01/M2-02R-RESULT.md"
     }
   ],
-  "updated_at": "2026-11-09T12:05:34.802159+00:00"
+  "updated_at": "2026-11-09T12:05:50.703275+00:00"
 }
