@@ -1594,7 +1594,41 @@
       "consumed_commit": "2cbf0bd48cb38941fe6d6fe5b33a992af5d72222",
       "consumed_test": "FMPS-02.1 closure: official-as-shipped 20 compile errors -> patched 0 errors; FMPS021FairComparisonTests PASS (object 128/128, combination 0/22/10); FMPS02Tests PASS (64/64); FMPS01Tests PASS (40 heldout); benchmark 14/14 cost-consistent, deterministic",
       "consumed_report": "docs/research/fmps-021/RESULT.md"
+    },
+    {
+      "repair_id": "FMPS021-AUDIT-SUPPLEMENT-2026-11-11",
+      "parent_pack_id": "",
+      "parent_task_ids": [
+        "A-R1",
+        "B2",
+        "B7",
+        "RES-M01",
+        "RES-M05",
+        "RES-N01",
+        "RES-N02",
+        "RES-V03"
+      ],
+      "approved_scope": "FMPS-02.1 补充审计（A-D）：A 复核外部补充包与本地交付（41 旧文件逐字节对照、旧测试保真、历史快照摘要）；B 无提示盲基线 16 seeds×2 modes×3 算法复跑，与 oracle-hint 旧表分列，确定性复现；C 文档勘误（新增文件，不静默覆盖旧报告）；D X-01 只读 adapter 审计（真实 B0 签名映射、冻结边界、NEXT-AUTHORIZATION）。不改 B0/M1，不入生产路径，不跑历史全量回归，不启动 X-01 八臂实验，不改写旧成绩。",
+      "approval_reference": "Research-owner instruction 2026-11-11 (DeepSeek session: approved A+B+C+D), supplement package sha256 c1c86176b5547392b5c534a729c5f850478ffc2ef8c5399831ecd7fbd08602f3, previous closure zip sha256 3cf1eac2769c0d623e76796205a7c980989bc0fba87f3d33e0ce323fb0229770",
+      "authorized_by": "research_owner",
+      "allowed_task_id": "FMPS021-AUDIT-SUPPLEMENT-2026-11-11",
+      "allowed_files_or_modules": [
+        "docs/research/fmps-021/",
+        "build/fmps021-supplement-*",
+        "tools/research-console/register_fmps021_supplement.py"
+      ],
+      "authorization_status": "CONSUMED",
+      "created_at": "2026-11-11T08:22:59.032228+00:00",
+      "consumed_at": "2026-11-11T08:24:52.537344+00:00",
+      "audit_event_ids": [
+        "ev-1794385379032-9a6711",
+        "ev-1794385492537-111864"
+      ],
+      "content_hash": "fb35363cc7cd813547bd5724cdce77c0230e8166d80ff6ba5acdb2719bb1cd4e",
+      "consumed_commit": "255a77faa2c401e4ed5fd6835cb0c8a4517434cb",
+      "consumed_test": "supplement: 46 kt compile 0 errors (Kotlin 2.2.21); 41 old files byte-identical; FMPS021FairComparisonTests 128/128 + 0/22/10; FMPS02 64/64; FMPS01 40 heldout; historical snapshot digests match; blind protocol 96 cases PASS; blind baselines deterministic and byte-identical to package CSV; X01 read-only contract PASS (not end-to-end)",
+      "consumed_report": "docs/research/fmps-021/SUPPLEMENT-2026-11-11.md"
     }
   ],
-  "updated_at": "2026-11-11T07:59:34.733625+00:00"
+  "updated_at": "2026-11-11T08:24:52.543890+00:00"
 }
