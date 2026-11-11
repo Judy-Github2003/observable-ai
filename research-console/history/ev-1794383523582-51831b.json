@@ -1,0 +1,36 @@
+{
+  "event_id": "ev-1794383523582-51831b",
+  "at": "2026-11-11T07:52:03.582012+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "FMPS-02.1 closure round (fix + fair baselines + read-only ports) authorized",
+  "before": null,
+  "after": {
+    "repair_id": "FMPS021-CLOSURE-2026-11-11",
+    "parent_pack_id": "",
+    "parent_task_ids": [
+      "A-R1",
+      "B2",
+      "B7",
+      "RES-M01",
+      "RES-M05",
+      "RES-N01",
+      "RES-N02",
+      "RES-V03"
+    ],
+    "approved_scope": "FMPS-02.1 收尾（阶段 B+C）：官方源码 3 处最小语义修复并复编复跑；镜像与实跑差异定位；等预算 LOOKUP/TREE_DEPTH2/BERNOULLI_NB 对照（object 与 combination 留出分列，记录 train/query/candidate/predict/total ops 与 wall_ms）；只读集成端口映射。不改 M1/B0，不入主仓代码，不跑历史全量回归，不做隐藏考官/六臂/X-01，不改写历史阴性结论。",
+    "approval_reference": "Research-owner instruction 2026-11-11 (DeepSeek session: approved B+C full scope), kit sha256 d94a5d28f639fa0a569b182fe63b188cca2e1dd43e6f8e00e80c5d5245400756, official reference sha256 392ba13b8024fb11229600fbc87c86fb2519d7cf9832b401d55be68795e7884c",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "FMPS021-CLOSURE-2026-11-11",
+    "allowed_files_or_modules": [
+      "docs/research/fmps-021/",
+      "build/fmps021-closure-*",
+      "tools/research-console/register_fmps021_closure.py"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-11T07:52:03.581604+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "a618d46c43b90adfa76814820dc10e651699c54ec0cf8dbe342e35c313609630"
+  }
+}
