@@ -1,0 +1,39 @@
+{
+  "event_id": "ev-1794386638748-14671f",
+  "at": "2026-11-11T08:43:58.748634+00:00",
+  "kind": "repair_authorized",
+  "actor": "research_owner",
+  "note": "X01 slice-1 (M1->B0 bridge + real SQLite smoke) authorized",
+  "before": null,
+  "after": {
+    "repair_id": "X01-SLICE1-2026-11-11",
+    "parent_pack_id": "",
+    "parent_task_ids": [
+      "A-R1",
+      "B2",
+      "B7",
+      "RES-M01",
+      "RES-M05",
+      "RES-N01",
+      "RES-N02",
+      "RES-V03"
+    ],
+    "approved_scope": "X01-SLICE1：vendor 13 份 M1 参考源（原样只读副本）；新增 logic/x01 桥接（Category/Bool/单参数，Term->B0 Expr 受限编译，不支持即拒绝）；契约测试 + 真实 B0 临时 SQLite smoke（propose→verify→activate→executeActive→revoke 拒绝）；不改 B0/M1 冻结源，不写生产库，不跑全量回归，不启动八臂/独立闭卷。",
+    "approval_reference": "Research-owner instruction 2026-11-11 (DeepSeek session: approved X01-SLICE1 full scope), slice-1 package sha256 77ffc4ed083a3238994e64a24d07f614ecf428365bb8b50aa0d30f4fb902df2d, supplement package basis c1c86176b5547392b5c534a729c5f850478ffc2ef8c5399831ecd7fbd08602f3",
+    "authorized_by": "research_owner",
+    "allowed_task_id": "X01-SLICE1-2026-11-11",
+    "allowed_files_or_modules": [
+      "src/main/kotlin/logic/x01/",
+      "src/main/kotlin/observable/ai/abdmnv/m1/",
+      "src/test/kotlin/logic/x01/",
+      "docs/research/x01/",
+      "build/x01-slice1-*",
+      "tools/research-console/register_x01_slice1.py"
+    ],
+    "authorization_status": "ACTIVE",
+    "created_at": "2026-11-11T08:43:58.748276+00:00",
+    "consumed_at": null,
+    "audit_event_ids": [],
+    "content_hash": "14cf2eadee0fe7c18acfeec849553f83da764dfb82f42abde17236d314a3c22a"
+  }
+}
