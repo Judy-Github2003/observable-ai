@@ -5,7 +5,7 @@
 
 ## 1. 恢复包
 
-- 包文件：`C:\Users\j1437\Downloads\ObservableAI_Recovery_Kit_2026-11-16.zip`（163,236 字节）。
+- 包文件：`%USERPROFILE%\Downloads\ObservableAI_Recovery_Kit_2026-11-16.zip`（163,236 字节）。
 - 解压目录：`C:\dsh-lab\recovery-kit\ObservableAI_Recovery_Kit_2026-11-16\`。
 - 完整性：对包内 `SHA256SUMS.txt` 的 35 个文件逐一核对，`missing=0`、`bad=0`。
 - 已完整阅读：`00_START_HERE/README_FIRST.md`、`01_PROJECT_RECORD/*`、`02_GIT_POLICY/*`、`03_RECOVERY/*`、`04_TEMPLATES/*`、`05_SOURCE_EVIDENCE/*`。
@@ -61,7 +61,7 @@
 | 服务日志 | `%LOCALAPPDATA%\Ollama\server.log`：21:05:58 启动、`total blobs: 6`；模型 21:15/22:08 加载；2052 次 `POST /api/chat`，最后一次 22:18:28 |
 | 当前模型 | `ollama list` 空、`/api/tags` 为 `{"models":[]}`、`~/.ollama/models/blobs` 为空 |
 | 模型移除 | 时间在 22:18:28 之后、23:11:21（`models`/`manifests` 目录重建）之前；未发现 `ollama rm` 或删除日志；原因 `UNKNOWN` |
-| G1.2r 证据 | `C:\Users\j1437\Downloads\ARLS_G1_2r_DEV_2026-11-16\g12r\results\traces\g12r_trace.jsonl`：首条 22:13:25，记录 `model_id=openbmb/minicpm5-2b:latest`、digest `71a44e98…`；run 目录 mtime 22:16–22:19 |
+| G1.2r 证据 | `%USERPROFILE%\Downloads\ARLS_G1_2r_DEV_2026-11-16\g12r\results\traces\g12r_trace.jsonl`：首条 22:13:25，记录 `model_id=openbmb/minicpm5-2b:latest`、digest `71a44e98…`；run 目录 mtime 22:16–22:19 |
 
 ## 7. 证据边界
 
@@ -70,3 +70,7 @@
 - 卷影是崩溃一致快照：可恢复已提交前缀，不保证快照之后的写入；`session-a837aee7` 的尾部因此仍缺。
 - 所有“自测通过”只是开发者执行记录，不构成独立闭卷；G1.2r 的阴性结论保持。
 - 本记录与恢复报告未经 Codex 或 ChatGPT 复核，不写“已验收”。
+
+## 8. 路径占位符（OA-NEXT-01 规范化，2026-11-17）
+
+`ARTIFACT_INDEX.csv` 与本文件中的 `%USERPROFILE%`、`%LOCALAPPDATA%` 是占位符，不会被 CSV 或 Git 自动展开，也不应当作可直接传入文件 API 的字面路径。`tools/git/Test-ArtifactIndex.ps1` 只显式展开这两个变量后做本机存在性、大小和 SHA-256 核验；展开逻辑不写回索引。

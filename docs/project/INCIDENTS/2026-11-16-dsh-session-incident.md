@@ -21,8 +21,8 @@
 | 22:40 前后 | ARLS ACT-01 编排开始：创建 `Downloads\ARLS_ACT_01_DEV_2026-11-16`、独立 `dsh_home`、`act01` profile、Edge/CDP 脚本 |
 | 22:44:17 | 编排会话执行 pwsh：`Start-Process msedge --headless --remote-debugging-port=9222 --user-data-dir=...\edge_profile`，随后 curl 探测；该调用自此不再返回 |
 | 22:44:31 | 被测实例（3081）创建空会话 `session-4574c260`（只有 header，无 prompt） |
-| 22:47:00 | `C:\Users\j1437\profiles\act01\cordis.patch.yml` 被写入（home 解析错误的旁证） |
-| 22:53:03 | 出现 `C:\Users\j1437\profiles`（DSH_HOME/HOME 被指到用户根目录的旁证） |
+| 22:47:00 | `%USERPROFILE%\profiles\act01\cordis.patch.yml` 被写入（home 解析错误的旁证） |
+| 22:53:03 | 出现 `%USERPROFILE%\profiles`（DSH_HOME/HOME 被指到用户根目录的旁证） |
 | 23:00:49 | `~/.dsh/sessions`、`~/.dsh/storages` 被删除后重建；出现空会话 `session-ef3ef676` |
 | 23:00:53 | 当前会话 `session-87bd50bd` 开始，`workspace.json` 由 host 内存重写（仍保留旧会话 id） |
 | 23:07 左右 | 发现 PID 7600（工具运行器）仍存活，但 PowerShell 子进程已退出；headless Edge 24848 仍在监听 9222 |
@@ -71,7 +71,7 @@
 `Start-Process` 启动的 Edge 继承了父 PowerShell 的 stdout/stderr 句柄。PowerShell 退出后 Edge 仍持有写端，`dsh-subprocess-local` 的 runner 读不到 EOF，`await` 永不结束；前台调用又未触发超时/转后台，表现为“永远执行中”。这与“环境变量清空”无关，是进程/管道生命周期问题。
 
 ### 3.2 transcript 消失（高置信，执行者无法进一步归因）
-`sessions`/`storages` 在 23:00:49 被整体删除重建，同一时间线里 `~/.dsh/profiles` 被清空、`C:\Users\j1437\profiles` 被误建。最符合证据的解释是：编排会话在做“隔离/重置”时，把 DSH shell 里的 `$env:DSH_HOME` 当成测试实例的 home（实际 `dsh-shell-env` 每次调用都注入**真实** home），清理命令打到了真实 home；会话自己的 transcript 也在被删之列。不能排除人工删除，但没有发现人为操作记录。
+`sessions`/`storages` 在 23:00:49 被整体删除重建，同一时间线里 `~/.dsh/profiles` 被清空、`%USERPROFILE%\profiles` 被误建。最符合证据的解释是：编排会话在做“隔离/重置”时，把 DSH shell 里的 `$env:DSH_HOME` 当成测试实例的 home（实际 `dsh-shell-env` 每次调用都注入**真实** home），清理命令打到了真实 home；会话自己的 transcript 也在被删之列。不能排除人工删除，但没有发现人为操作记录。
 
 同一误用也可解释“环境变量被清空”：为模拟干净实例而执行的 `Remove-Item Env:*` / `$env:PATH=''` 只影响该次子进程，后续命令因 PATH 缺失报错，但注册表未变。
 
@@ -84,7 +84,7 @@
 - 新增 `tools/isolated-lab/`：独立 home/profile/端口/workspace/一次性浏览器 profile，分离启动避免管道继承，显式重建 PATH，`Test-LabIsolation.ps1` 自检。已复验（2026-11-16 23:57，无浏览器）：11 PASS + 1 WARN，停止后端口释放，真实 home session 文件数不变。
 - 管理员权限下枚举并复制删除前卷影，恢复 93 条会话文件；91 条写回活 home（跳过 2 条活动会话），保留 `C:\dsh-lab\recovered\` 副本、清单和渲染文本。
 - 新增 `Repair-SessionIndex.ps1`（默认预演，`-Apply` 前要求关闭应用并自动备份）。当前 38/38 已齐，无需执行 `-Apply`。
-- 未删除任何用户数据；误建的 `C:\Users\j1437\profiles` 已移到 `C:\dsh-lab\act01\evidence\stray-profiles-20261116` 备查；`edge_profile` 535 MB 副本与 `cookies.txt` 保持原样，待用户决定。
+- 未删除任何用户数据；误建的 `%USERPROFILE%\profiles` 已移到 `C:\dsh-lab\act01\evidence\stray-profiles-20261116` 备查；`edge_profile` 535 MB 副本与 `cookies.txt` 保持原样，待用户决定。
 - 模型移除：未重新安装、未启动 ACT-01；`ollama list` 空的状态如实记录，移除原因待查。
 
 ## 5. 未解决与风险

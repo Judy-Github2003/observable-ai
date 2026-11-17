@@ -106,3 +106,11 @@ git diff --cached --stat
 - 仓库存在 6 个位于 `%TEMP%` 的 `prunable` detached worktree；本轮未 prune、未删除。
 - 恢复包 `Preflight-GitRecovery.ps1` 因 `git bundle verify` 的 stderr 输出在 `$ErrorActionPreference='Stop'` 下被当成终止错误而退出码 1；bundle 已生成，手动 `git bundle verify` 通过（`The bundle records a complete history`）。未修改原脚本。
 - 本恢复提交只包含 `docs/project/` 与经审查的最小 `.gitignore` 变更；未提交 `datasets/`、`docs/research/`、`tools/isolated-lab/`、`experiments/reports/` 等未跟踪内容。
+
+## 9. 预检脚本修复（OA-NEXT-01，2026-11-17）
+
+- 原恢复包 `Preflight-GitRecovery.ps1` 的 `git bundle verify` 成功信息写到 stderr，在 `$ErrorActionPreference='Stop'` 下被误判为失败；已报告，未修改原包。
+- 仓库跟踪的修复版：`tools/git/Preflight-GitRecovery.ps1`。它把 native git 的 stdout/stderr 作为数据重定向到文件，只用退出码判定成功；不写入仓库、不删除/覆盖既有 bundle，备份目录在仓库外且带时间戳。
+- 自检：`tools/git/Test-PreflightGitRecovery.ps1`。健康 bundle → exit 0；截断/损坏 bundle → 非 0；缺失 bundle → 非 0。自检只在 `%TEMP%` 下创建临时仓库，不触碰真实 bundle。
+- 本索引核验：`tools/git/Test-ArtifactIndex.ps1`，显式展开 `%USERPROFILE%`/`%LOCALAPPDATA%` 后检查存在性、大小和 SHA-256。
+- 原恢复包中的备份：`C:\dsh-lab\recovery-backups\observable-ai-pre-recovery-20261116-235547\observable-ai-all-refs.bundle` 保持原样；本轮只新增修复脚本与提交，不覆盖任何旧 bundle。
