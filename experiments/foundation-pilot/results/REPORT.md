@@ -3,7 +3,7 @@
 - 任务：OA-NEXT-01；执行者：DeepSeek Harness；日期：2026-11-17。
 - 代码基线：`research/OA-NEXT-01`，从恢复分支 `recovery/2026-11-16-project-records` 的 `a8b8e71` 创建。
 - 阶段代码提交：`d2de90e`（`feat(foundation): add OA-NEXT-01 four-domain pilot loop`）。
-- 结果提交：本目录随 `docs(foundation): record OA-NEXT-01 pilot results` 提交（SHA 见 `GIT.md`/最终答复）。
+- 结果提交：`6e07d8b`（`docs(foundation): record OA-NEXT-01 pilot results`）。
 
 ## A. RECOVERY-01 收尾 — PASSED（本地）/ push BLOCKED
 
