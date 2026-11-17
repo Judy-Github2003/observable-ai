@@ -1,0 +1,36 @@
+{
+  "schema": "oa-next01-foundation-pilot-freeze-v1",
+  "frozen_at_local": "2026-11-17T14:00:52.808953+08:00",
+  "code_commit": "d2de90e",
+  "model": "openbmb/minicpm5-2b:latest",
+  "model_digest": "71a44e98400fbd490d66332a0ebba31143479a714987c13f45c82e94025cbfa7",
+  "dev_seed": 24117,
+  "holdout_seed": 99173,
+  "worlds_per_domain": 2,
+  "dev_manifest_sha256": "dc97e278b85b5ea9d57febfb6cc305b7fe8eb9ed873b44170e7ebd9dce205c4b",
+  "file_hashes": {
+    "generator": "1166d70bd6d6ae57b4c2f1a049ba59cba1dd8e7e976e675b5ef5022bef66d067",
+    "scorer": "bab40a7e11eba416248115f4e3a18bd5d03201e2ce380f29d11a6c9f24be02ae",
+    "examiner_selftest": "c946e509264ff37a291a8e877e2800b467f868303df00f8a2873aa934750d370",
+    "prompts": "8dab0b80c25b0e6e506578753875748544c9f18e2173ed7ef0424a80434d9ce1",
+    "model_runner": "0e0fc2dfd2cae52a8e9f226c5c7ca345536d7acf88a0942fc7fedba9053f494c",
+    "kotlin_learner": "fa9d5f00e6178a341d0a1842897fedeeb1a2101d70db314071dfe88e118bbc40",
+    "kotlin_gradle": "47e5f1fa32877e2e15f05fde80e5ca987122b0d3f3463053116d02d59344fc96"
+  },
+  "dev_arm_prompts": {
+    "A": {
+      "num_questions": 54,
+      "prompt_hashes_sha256": "e33fa3533a6e9afb32829d1b1e55ba2b468abda99ee070a9cc1c8c888f682a96"
+    },
+    "B": {
+      "num_questions": 54,
+      "prompt_hashes_sha256": "f180dde0d09a8a6a9855d6202c78339331458eaf0943ceca43552c9117c15844"
+    }
+  },
+  "dev_c_state": {
+    "question_file_sha256": "cae33eaf6ce06ece8cf900edf2ec57f98c56634322b9d8f1bcb4392e50acb8e2",
+    "accepted": 8,
+    "rejected": 0
+  },
+  "freeze_note": "Protocol frozen before the heldout seed is generated/run. Heldout is DEVELOPER_HELDOUT, not independent closed-book."
+}

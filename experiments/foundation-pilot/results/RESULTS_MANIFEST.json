@@ -1,0 +1,27 @@
+{
+  "schema": "oa-next01-foundation-results-v1",
+  "generated_by": "experiments/foundation-pilot/collect_results.py",
+  "dev_seed": 24117,
+  "heldout_seed": 99173,
+  "worlds_per_domain": 2,
+  "domains": [
+    "semantics",
+    "logic",
+    "mathematics",
+    "code_behavior"
+  ],
+  "arms": {
+    "A": "ZERO_HISTORY",
+    "B": "RAW_RETRIEVAL",
+    "C": "OBSERVABLE_LEARNING"
+  },
+  "model": "openbmb/minicpm5-2b:latest",
+  "model_digest": "71a44e98400fbd490d66332a0ebba31143479a714987c13f45c82e94025cbfa7",
+  "inputs": {
+    "dev_manifest": "d449b4b77a2bb8f1dc6bc412bd2c982d215379ba1960fd3bdc0c31d208245f20",
+    "heldout_manifest": "e947022745ea58492ff5ed7b03325da603d74dbae3151496d80ed31a62bcbda5",
+    "kotlin_predictions_dev": "550e6d3e130a39f80a5a41e6cea0732fb799712b79f1abaa95830e082f578b8e",
+    "kotlin_predictions_heldout": "fc402b5f56c871298fd920771da7e1313ea880d06ca960c2251cc60deb899d90"
+  },
+  "note": "Heldout is DEVELOPER_HELDOUT (developer-chosen seed), not independent closed-book. C is symbolic inversion of a narrow generator family."
+}
