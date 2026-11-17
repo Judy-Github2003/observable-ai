@@ -14,7 +14,7 @@
 | Git bundle verify stderr 修复 | PASSED：`tools/git/Preflight-GitRecovery.ps1`；健康 bundle exit 0、非法内容/缺失 bundle 非 0；自检 PASS |
 | 原 bundle 保留 | PASSED：未覆盖 `observable-ai-pre-recovery-20261116-235547` |
 | 恢复分支 commit | `a8b8e71`（`fix(recovery): finalize Git audit and artifact index`） |
-| push | **BLOCKED**：GitHub 凭据失效（`gh` token invalid，GCM 无账号）；`git push` 返回 128，未 force push、未改历史、未合并 main |
+| push | PASSED：GitHub 设备授权恢复后，`recovery` `53c8f02..a8b8e71`、`research/OA-NEXT-01` 新分支均推送成功；PR #1（research）/ #2（recovery）已创建。 |
 
 ## B. MiniCPM5-2B Q4 恢复 — MODEL_READY / API_TOOL_READY
 

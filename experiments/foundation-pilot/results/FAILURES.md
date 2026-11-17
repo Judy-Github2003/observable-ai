@@ -1,10 +1,13 @@
 # OA-NEXT-01 失败、限制与协议偏离
 
-## 1. GitHub push 阻塞
+## 1. GitHub push 一度阻塞（已解决）
 
-- `git push` 失败：`fatal: could not read Username for 'https://github.com': No such file or directory`（exit 128）。
+- 初次 `git push` 失败：`fatal: could not read Username for 'https://github.com': No such file or directory`（exit 128）。
 - `gh auth status` 报 token invalid；Git Credential Manager 无 GitHub 账号；无 SSH key。
-- 影响：恢复分支收尾 commit `a8b8e71` 与研究分支 `d2de90e`/结果提交只在本地；远端 recovery 分支仍是 `53c8f02`，PR 未更新。
+- 解决：通过 GitHub 设备授权重新登录（`gh auth login --web`），token 恢复后推送成功：
+  - `recovery/2026-11-16-project-records`：`53c8f02..a8b8e71`；
+  - `research/OA-NEXT-01`：新分支，远端 `0f90e96`；
+  - PR #1（research）、PR #2（recovery）。
 - 未尝试 force push、未改历史。
 
 ## 2. Ollama runner 缺失

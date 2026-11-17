@@ -8,9 +8,9 @@
 - 本 Git 记录提交：`docs(foundation): finalize OA-NEXT-01 Git record`；SHA 见本分支 `git log -1`。
 - 工作区原有 2 个已跟踪修改（`research-console/events.jsonl`、`repairs.json`）与 13 组未跟踪文件保持未提交；未删除、未覆盖。
 - 未执行 `git reset --hard`、`git clean`、`git restore .`、force push、删除 `.git` 或合并 main。
-- **push 状态：BLOCKED**。`git push` 返回 128：
-  `fatal: could not read Username for 'https://github.com': No such file or directory`；
-  `gh auth status` 显示 token invalid；GCM 无 GitHub 账号。因此远端 recovery 分支仍为 `53c8f02`，research 分支未推送；PR 未更新。
-- 待用户重新授权 GitHub 后执行：
-  `git push -u origin recovery/2026-11-16-project-records` 和
-  `git push -u origin research/OA-NEXT-01`。
+- **push 状态：PASSED**（2026-11-17，GitHub 设备授权恢复后）：
+  - `recovery/2026-11-16-project-records`：`53c8f02..a8b8e71` push 成功；
+  - `research/OA-NEXT-01`：新分支 push 成功，远端 `0f90e96`（后续本记录 commit 会再更新）；
+  - PR：research `https://github.com/Judy-Github2003/observable-ai/pull/1`；
+  - PR：recovery `https://github.com/Judy-Github2003/observable-ai/pull/2`。
+- 未 force push、未改历史、未合并 main。

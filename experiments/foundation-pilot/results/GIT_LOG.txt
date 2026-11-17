@@ -68,3 +68,9 @@ d2de90e feat(foundation): add OA-NEXT-01 four-domain pilot loop
  .../foundation-pilot/results/RESULTS_MANIFEST.json |  27 +++++
  .../foundation-pilot/results/SHA256SUMS.txt        |  12 ++
  16 files changed, 846 insertions(+)
+
+== push / PR (2026-11-17) ==
+recovery/2026-11-16-project-records: 53c8f02..a8b8e71 pushed
+research/OA-NEXT-01: new branch, remote 0f90e96
+PR research: https://github.com/Judy-Github2003/observable-ai/pull/1
+PR recovery: https://github.com/Judy-Github2003/observable-ai/pull/2
