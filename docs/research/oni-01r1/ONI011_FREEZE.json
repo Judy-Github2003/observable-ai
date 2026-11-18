@@ -1,0 +1,61 @@
+{
+  "task_id": "ONI-01R1",
+  "at_utc": "2026-11-18T03:31:44.363960+00:00",
+  "git_commit": "9b25d58f915866d45bc23f77431794d248bfc120",
+  "sha256": {
+    "src/oni01/baseline.py": "46d77d7c1893b06216be86d071f516e1d2057441d3d4bd3286d9eda4a6973b65",
+    "src/oni01/capsule.py": "ce2b08582c9c15dd7251f0617c40aac0dd32ded4f5234a65d4b4d88d15622fd1",
+    "src/oni01/experiment.py": "fa7ad552b9a9c92138df41e10c2c685eefa3d2174e024b77da87a98374647791",
+    "src/oni01/injection.py": "155f62d8106163909216c2778f7e132a00fe330638e8f01b75bdd17e716136c2",
+    "src/oni01/runtime.py": "dce8e640dd42a92b7a7d23a1576f5569ce8dd2be21f6571e2c9c03cee22ba5aa",
+    "src/oni011/codec.py": "5bb48b331f3a5e4b3ecdfd7dbb41c1f52c62685cec680897847ac1d5f1df2727",
+    "src/oni011/data.py": "219c4c920b0d96853323cb028dd691d8d78d947591186b49ae44bf07ecf0dc21",
+    "src/oni011/experiment.py": "e333bfd369b540387d2c7f7e6b0314846a2a48607b73f5b00b097de0b44b3306",
+    "src/oni011/injector.py": "a822a39b384d3c66a07db43bee09c75dc4ec1a2c556e65eae0d256874d0a20ec",
+    "src/oni011/public_structure_dev.jsonl": "68dcee35b3aabeab1d1372774496b75b6c1096e1b5d9f58f3d0d1d5a4d2ab839",
+    "tests/oni011/examiner/generate.py": "fb775908d5b2daeb3933b284cd1fa705f2e98295a3e4d78b7fbd1176717f1b09",
+    "tests/oni011/examiner/score.py": "d16d42672bb2849dcca967e855c1b29fd3c5b1ecbf3f0b2499c0da1c64e62cd8",
+    "docs/research/oni-01r1/ONI011_EXPERIMENT_PROTOCOL.json": "5b327b3a1b459e8d09539d9f4b793b41b26e3cde3deac20b0594cbeefffb5d9a",
+    "tests/oni011/freeze.py": "799586c8f5f308e2f250d4b8f5ca0bbf6649a2b00befff958ad596d22aae439b",
+    "tests/oni011/field_probe.py": "1d488cbd6d02cdb6e7029095f28af2e8d622d3df402f3c3727be64b2a95f2c5a",
+    "tests/oni011/test_injector.py": "d6f807d9b46ffe15f84410a33bc17b7734ffcbf9728101383e4048e83f8d98b6",
+    "tests/oni011/gate_report.py": "5113531eaf42d812cc5480b9ef2ebd44ea2de30db956d805abf19bd723a34209",
+    "build/oni-01r1/development/config.json": "413176855e280ca337a841f266178c23d1cb826c2efa7fc65bfa43ced75c9e84",
+    "build/oni-01r1/development/gate.safetensors": "f427bcfd60f1cc5dc0155de045e8d6dfef4d2b772c8d5bf6e660b79cbfcb8cc1",
+    "build/oni-01r1/development/grid.json": "88a513cda2b736646f75053727ee5eb55413334cb1397235c1fc12666ff411a8"
+  },
+  "model_revision": "42433e90dad95123ab87729fd7011e7110629556",
+  "weight_sha256": "14fb8e7f0a18d53d1f239773758bf581cee7e456a4523a54622c3a245b64402c",
+  "model_files_sha256": {
+    "tokenizer.json": "3e065a558a034185fe299917b398685c1facd0169a9eea1e629eb30c171fed81",
+    "tokenizer_config.json": "e9b1064649e771d7a8e15637c68b2d2749724877ba3648bd74a4ece31c26303b",
+    "special_tokens_map.json": "82d96d7a9e6ced037f12394b7ea6a5b02e6ca87e0d11edaa8d60d9be857ce7db",
+    "chat_template.jinja": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd",
+    "config.json": "59613157e5357d62bcb121e04cb90f2170b43d789b142380c12c3d4277d95180",
+    "generation_config.json": "9ac4f32e5f32358697a9f438a3ea89ef80e6ba786c72c49e932f9f21c122fdb1",
+    "model.safetensors.index.json": "6d839cd76e8395de548a0e6cc310386f66d1ecbb2c75d198a8dfd3d70892b756"
+  },
+  "config": {
+    "layer": 0,
+    "alpha": 0.65,
+    "site": "memory",
+    "budget": 32,
+    "gate_threshold": 0.0889594592154026
+  },
+  "codec_version": "oni011-ordered-embedding-memory-v1",
+  "system": "Answer using only the input. For a property query, reply with the single property value; if absent use UNKNOWN, and for conflicting evidence use AMBIGUOUS. For other requests reply briefly. No reasoning or explanation.",
+  "system_sha256": "9a23f133357e3c3bed07e2ea7f5a16217a29a0a79cd8e1d3edc4c0d45b681497",
+  "common_memory_suffix": "\nAn optional verified memory record follows. When the value field is populated, copy only its contents as the answer. Ignore blank padding and underscores. If the record is empty, answer the question normally.\nRecord roles: _ _ _ _ _ _ _\nSource field: _ _ _ _ _ _ _ _\nDepth field: _ _ _\nValue field: _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\nEnd of record.",
+  "memory_suffix_sha256": "ff72b954eb56e93c000e3dccc0b1c2b8c9882fef900575ba5e9c063a1fefbead",
+  "development_data_sha256": "485b62f1103bb8f25cd000107929646bbe26712add59fc587e6bcb95a1e46b36",
+  "validation_data_sha256": "3e005751b58b6ee32f42ad51298acc8b0bed900c8ed93b49da10868a79d70e16",
+  "data_hash_method": "SHA-256 of UTF-8 canonical JSON list, sorted keys, compact separators",
+  "prompt": "Model-local chat template; add_generation_prompt=true, enable_thinking=false, thinking=false.",
+  "codec_locus": "Ordered slots located by common prefix offsets, decoder block output.",
+  "decode": {
+    "seed": 17001,
+    "use_cache": false,
+    "do_sample": false,
+    "max_new_tokens": 32
+  }
+}
