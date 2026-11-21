@@ -24,3 +24,20 @@ credentials/
 # 操作系统杂项
 .DS_Store
 Thumbs.db
+
+# 敏感资料与本地 Agent/浏览器状态（RECOVERY-01，2026-11-16 最小合并）
+cookies.txt
+dsh-auth-*
+.dsh/
+edge_profile/
+**/edge_profile/
+**/user-data-dir/
+*.local
+*.secret
+*.key
+*.pem
+*.gguf
+*.safetensors
+pytorch_model*.bin
+node_modules/
+.cache/
