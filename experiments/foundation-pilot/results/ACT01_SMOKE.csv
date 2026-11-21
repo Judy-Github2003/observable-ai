@@ -1,0 +1,7 @@
+task_id,status,route_ok,tool_call_ok,task_ok,reason,evidence
+T01,BLOCKED,CONFIG_VERIFIED,NOT_RUN,NOT_RUN,"Isolated DSH_HOME/profile, local Ollama route and agent-preset-registry default=minimal verified; request-level tool schema and human per-command approval could not be verified without an interactive browser session. No Edge/CDP was started, per safety rule.","docs/ENV.md; C:\dsh-lab\oa-next01\act01-config.txt; C:\dsh-lab\oa-next01\lab-selftest-2026-11-17.log"
+T03,BLOCKED,CONFIG_VERIFIED,NOT_RUN,NOT_RUN,"Same ACT-01 gate as T01: no verified human approval channel and no request-header tool-schema capture; T05/T06/T07 not attempted.","docs/ENV.md; C:\dsh-lab\oa-next01\act01-config.txt"
+T04,BLOCKED,CONFIG_VERIFIED,NOT_RUN,NOT_RUN,"Same ACT-01 gate as T01. The reference package hash matches 6936e4d89da3fd9d9c2943c7784f1ce7bc0488f50bc634984cf11e606fddd1e2.","docs/ENV.md; references/ACT01_Original_Task_Package.zip"
+T05,BLOCKED,NOT_APPLICABLE,NOT_RUN,NOT_RUN,"Requires OS-level sandbox; Windows Sandbox / WSL / Docker unavailable.","docs/06_SAFETY.md; docs/03_ACT01_SMOKE.md"
+T06,NOT_RUN,NOT_APPLICABLE,NOT_RUN,NOT_RUN,"Out of scope for OA-NEXT-01 (only T01/T03/T04 were authorized).","docs/03_ACT01_SMOKE.md"
+T07,NOT_RUN,NOT_APPLICABLE,NOT_RUN,NOT_RUN,"Out of scope for OA-NEXT-01 (only T01/T03/T04 were authorized).","docs/03_ACT01_SMOKE.md"

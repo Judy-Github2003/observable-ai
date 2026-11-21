@@ -1,0 +1,76 @@
+﻿== git log ==
+6e07d8b (HEAD -> research/OA-NEXT-01) docs(foundation): record OA-NEXT-01 pilot results
+d2de90e feat(foundation): add OA-NEXT-01 four-domain pilot loop
+a8b8e71 (recovery/2026-11-16-project-records) fix(recovery): finalize Git audit and artifact index
+53c8f02 (origin/recovery/2026-11-16-project-records) docs(recovery): record RECOVERY-01 report
+b649c9b docs(recovery): restore Observable AI project records
+c5f36c4 (origin/main, main) chore(console): consume X01-SLICE1 authorization
+
+== git status --short --branch ==
+## research/OA-NEXT-01
+ M experiments/foundation-pilot/results/GIT.md
+ M experiments/foundation-pilot/results/REPORT.md
+ M research-console/events.jsonl
+ M research-console/repairs.json
+?? "Observable_AI_B0_\345\247\224\346\211\230\347\233\221\350\200\203\351\227\255\345\215\267\350\257\225\345\215\267_v1.md"
+?? "Observable_AI_E3_\345\210\206\351\230\266\346\256\265\345\256\236\346\226\275\344\273\273\345\212\241\344\271\246_v1.md"
+?? PACK-02R-DIAG-01.md
+?? PACK-02R-PRE-01.md
+?? datasets/
+?? docs/research/dict/
+?? docs/research/handoff-v2-review-2026-11-14/
+?? experiments/foundation-pilot/results/GIT_LOG.txt
+?? experiments/reports/2026-11-16-salvage-inventory.md
+?? experiments/reports/2026-11-16-session-env-incident.md
+?? research-console/history/ev-1794477149428-0f1420.json
+?? research-console/history/ev-1794501231245-708522.json
+?? research-console/history/ev-1794540537099-4c72e7.json
+?? research-console/history/ev-1794580039754-808756.json
+?? tools/isolated-lab/
+
+== show --stat a8b8e71 ==
+a8b8e71 fix(recovery): finalize Git audit and artifact index
+ docs/project/ARTIFACT_INDEX.csv                    | 150 ++++++++++-----------
+ docs/project/GIT_POLICY.md                         |   8 ++
+ .../INCIDENTS/2026-11-16-dsh-session-incident.md   |   8 +-
+ docs/project/RECOVERY_SOURCES.md                   |   8 +-
+ tools/git/Preflight-GitRecovery.ps1                | 120 +++++++++++++++++
+ tools/git/README.md                                |   3 +
+ tools/git/Test-ArtifactIndex.ps1                   |  55 ++++++++
+ tools/git/Test-PreflightGitRecovery.ps1            |  81 +++++++++++
+ 8 files changed, 352 insertions(+), 81 deletions(-)
+
+== show --stat d2de90e ==
+d2de90e feat(foundation): add OA-NEXT-01 four-domain pilot loop
+ build.gradle.kts                                   |  16 +
+ experiments/foundation-pilot/README.md             |  67 +++
+ experiments/foundation-pilot/prompts.py            |  78 ++++
+ experiments/foundation-pilot/run_model_arm.py      | 165 +++++++
+ .../observable/ai/foundation/FoundationPilot.kt    | 508 +++++++++++++++++++++
+ 5 files changed, 834 insertions(+)
+
+== show --stat 6e07d8b ==
+6e07d8b docs(foundation): record OA-NEXT-01 pilot results
+ experiments/foundation-pilot/FREEZE.json           |  36 ++++++
+ experiments/foundation-pilot/collect_results.py    | 132 +++++++++++++++++++++
+ experiments/foundation-pilot/freeze_protocol.py    |  86 ++++++++++++++
+ .../foundation-pilot/results/ACT01_SMOKE.csv       |   7 ++
+ experiments/foundation-pilot/results/ENV.md        |  46 +++++++
+ experiments/foundation-pilot/results/FAILURES.md   |  40 +++++++
+ .../results/FOUNDATION_RESULTS.csv                 |  79 ++++++++++++
+ experiments/foundation-pilot/results/FREEZE.json   |  36 ++++++
+ experiments/foundation-pilot/results/GIT.md        |  15 +++
+ .../foundation-pilot/results/LEARNING_STATE.jsonl  |  16 +++
+ .../results/MODEL_TRACES_dev.jsonl                 | 108 +++++++++++++++++
+ .../results/MODEL_TRACES_heldout.jsonl             | 108 +++++++++++++++++
+ .../results/NEXT_RECOMMENDATION.md                 |  29 +++++
+ experiments/foundation-pilot/results/REPORT.md     |  69 +++++++++++
+ .../foundation-pilot/results/RESULTS_MANIFEST.json |  27 +++++
+ .../foundation-pilot/results/SHA256SUMS.txt        |  12 ++
+ 16 files changed, 846 insertions(+)
+
+== push / PR (2026-11-17) ==
+recovery/2026-11-16-project-records: 53c8f02..a8b8e71 pushed
+research/OA-NEXT-01: new branch, remote 0f90e96
+PR research: https://github.com/Judy-Github2003/observable-ai/pull/1
+PR recovery: https://github.com/Judy-Github2003/observable-ai/pull/2

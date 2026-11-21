@@ -1,3 +1,5 @@
+// 2026-11-17 修改者：DeepSeek Harness；原因：OA-NEXT-01 增加 foundationPilot JavaExec 任务，
+// 运行四领域 FoundationPilot 的 Kotlin 学习/验证环路；不改变 test/run/installDist 的任务图。
 // 本文件原始构建配置：Codex，2026-11-04。
 // 本次中文注释：DeepSeek Harness 补充，2026-11-04。
 // 局部注释审计：Codex，2026-11-04；明确 JavaExec 配置只作用于相应 Gradle 任务。
@@ -76,4 +78,18 @@ tasks.register<JavaExec>("benchmark") {
     mainClass.set("logic.capability.BenchmarkCliKt")
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf("--output", "experiments/capability-foundation-b0/benchmarks/results")
+}
+
+// OA-NEXT-01：四领域 FoundationPilot 的 Kotlin 学习/验证入口。
+// 参数通过 -PpilotArgs="--study;<path>;--questions;<path>;--out;<dir>" 传入，避免改动
+// 现有 application mainClass 或默认 run 任务。该任务只读 public JSONL、写实验室输出目录。
+tasks.register<JavaExec>("foundationPilot") {
+    group = "research"
+    description = "Run OA-NEXT-01 FoundationPilot Kotlin learning/verification loop"
+    mainClass.set("observable.ai.foundation.FoundationPilotKt")
+    classpath = sourceSets["main"].runtimeClasspath
+    doFirst {
+        val raw = (project.findProperty("pilotArgs") as String?) ?: ""
+        args = raw.split(';').filter { it.isNotEmpty() }
+    }
 }

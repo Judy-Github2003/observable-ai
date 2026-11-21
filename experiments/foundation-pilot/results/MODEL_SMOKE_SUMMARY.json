@@ -1,0 +1,40 @@
+{
+  "model": "openbmb/minicpm5-2b:latest",
+  "digest": "71a44e98400fbd490d66332a0ebba31143479a714987c13f45c82e94025cbfa7",
+  "details": {
+    "parent_model": "",
+    "format": "gguf",
+    "family": "llama",
+    "families": [
+      "llama"
+    ],
+    "parameter_size": "2.5B",
+    "quantization_level": "Q4_K_M",
+    "context_length": 131072,
+    "embedding_length": 2048,
+    "runner": "ggml"
+  },
+  "text_smoke": {
+    "latency_ms": 1495,
+    "content": "本地模型接入测试结果已确认成功。",
+    "done_reason": "stop",
+    "eval_count": 159
+  },
+  "tool_schema_smoke": {
+    "latency_ms": 517,
+    "tool_calls": [
+      {
+        "id": "4omFFCX0QLEDx4SVbCkb1OMebRgjoN3a",
+        "function": {
+          "index": 0,
+          "name": "record_observation",
+          "arguments": {
+            "text": "测试样本 A 的颜色是红色。"
+          }
+        }
+      }
+    ],
+    "done_reason": "stop"
+  },
+  "note": "Tool call recorded only; nothing executed."
+}
